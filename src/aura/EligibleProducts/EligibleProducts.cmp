@@ -1,0 +1,22 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="values" type="String[]" default=""/>
+    <aura:attribute name="record" type="Opportunity" />
+
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      fields="EligibleProducts_RE__c"
+                      targetFields="{!v.record}"
+                      recordUpdated="{!c.doInit}"
+    />
+    <lightning:card title="Product Eligibility">
+        <div>
+            <ul class="slds-has-dividers_bottom-space slds-p-left_medium">
+                <aura:iteration items="{!v.values}" var="prod">
+                    <li class="slds-item">
+                        <div style="font-size: .9rem;">{!prod}</div>
+                    </li>
+                </aura:iteration>
+            </ul>
+        </div>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,10 @@
+.THIS .spinneralert {
+	top: 50% !important;
+	left: 50% !important;
+}
+
+
+.THIS .spinnerposition {
+	position: absolute !important; 
+	/* top: 90px !important; */
+}

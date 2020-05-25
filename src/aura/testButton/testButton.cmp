@@ -1,0 +1,24 @@
+<!--
+ - Created by andrei on 14.04.20.
+ -->
+
+<aura:component description="testButton" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="testButtonController">
+    <aura:attribute name="templates" type="List" default="[
+    {'label': 'Chambers UK Booking form', 'value': 'option1'},
+    {'label': 'Chambers non-UK Booking form', 'value': 'option2'},
+    {'label': 'Account Brief Template', 'value': 'option3'},
+    {'label': 'Chambers non-UK Bundled Booking form', 'value': 'option4'},
+    {'label': 'Chambers UK Bundled Booking form', 'value': 'option5'}
+    ]"/>
+    <aura:attribute name="value" type="String" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <lightning:radioGroup name="radioGroupRequired"
+                          label="List Templates"
+                          options="{! v.templates }"
+                          value="{! v.value }"
+                          type="radio"
+                          required="true"/>
+    <lightning:button variant="brand" label="Send Quote" onclick="{!c.save}" />
+</aura:component>

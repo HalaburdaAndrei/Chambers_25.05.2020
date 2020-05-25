@@ -1,0 +1,417 @@
+<aura:component controller="ReportsInfo" implements="force:appHostable">
+
+	<!-- attributes -->
+	<aura:attribute name="dataLWIP" type="Object" />
+	<aura:attribute name="columnsLWIP" type="List" default="[
+		{ label: 'Name', fieldName: 'Name', type: 'text' },
+		{ label: 'Email', fieldName: 'Email', type: 'Email' }
+	]" />
+	<aura:attribute name="campaignIdLWIP" type="Id" />
+	<aura:attribute name="publicationLWIP" type="Id" />
+	<aura:attribute name="selectedRowsLWIP" type="List" />
+	<aura:attribute name="showLWIP" type="Boolean" />
+
+	<aura:attribute name="dataLWOIP" type="Object" />
+	<aura:attribute name="columnsLWOIP" type="List" default="[
+		{ label: 'Name', fieldName: 'Name', type: 'text' },
+		{ label: 'Email', fieldName: 'Email', type: 'Email' }
+	]" />
+	<aura:attribute name="campaignIdLWOIP" type="Id" />
+	<aura:attribute name="publicationLWOIP" type="Id" />
+	<aura:attribute name="selectedRowsLWOIP" type="List" />
+	<aura:attribute name="showLWOIP" type="Boolean" />
+
+	<aura:attribute name="dataLWFP" type="Object" />
+	<aura:attribute name="columnsLWFP" type="List" default="[
+		{ label: 'Name', fieldName: 'Name', type: 'text' },
+		{ label: 'Email', fieldName: 'Email', type: 'Email' }
+	]" />
+	<aura:attribute name="campaignIdLWFP" type="Id" />
+	<aura:attribute name="publicationLWFP" type="Id" />
+	<aura:attribute name="selectedRowsLWFP" type="List" />
+	<aura:attribute name="contactTypeLWFP" type="String" />
+	<aura:attribute name="showLWFP" type="Boolean" />
+
+	<aura:attribute name="dataLWOFP" type="Object" />
+	<aura:attribute name="columnsLWOFP" type="List" default="[
+		{ label: 'Name', fieldName: 'Name', type: 'text' },
+		{ label: 'Email', fieldName: 'Email', type: 'Email' }
+	]" />
+	<aura:attribute name="campaignIdLWOFP" type="Id" />
+	<aura:attribute name="publicationLWOFP" type="Id" />
+	<aura:attribute name="selectedRowsLWOFP" type="List" />
+	<aura:attribute name="contactTypeLWOFP" type="String" />
+	<aura:attribute name="showLWOFP" type="Boolean" />
+
+	<aura:attribute name="dataRP" type="Object" />
+	<aura:attribute name="columnsRP" type="List" default="[
+		{ label: 'Name', fieldName: 'Name', type: 'text' },
+		{ label: 'Email', fieldName: 'Email', type: 'Email' }
+	]" />
+	<aura:attribute name="campaignIdRP" type="Id" />
+	<aura:attribute name="publicationRP" type="Id" />
+	<aura:attribute name="locationIdRP" type="Id" />
+	<aura:attribute name="selectedRowsRP" type="List" />
+	<aura:attribute name="practiceAreaRP" type="String" />
+	<aura:attribute name="showRP" type="Boolean" />
+	<aura:attribute name="bandRP" type="List" default="[]" />
+
+	<aura:attribute name="win" type="Integer" />
+	<aura:attribute name="jobs" type="Boolean" />
+	<aura:attribute name="LWIPBatch" type="Boolean" />
+	<aura:attribute name="LWOIPBatch" type="Boolean" />
+	<aura:attribute name="LWFPBatch" type="Boolean" />
+	<aura:attribute name="LWOFPBatch" type="Boolean" />
+	<aura:attribute name="RPBatch" type="Boolean" />
+
+	<aura:attribute name="showSpinner" type="Boolean" default="true" />
+	<aura:attribute name="activeSections" type="List" default="['A','B','C','D','E']" />
+	<aura:attribute name="publications" type="List" default="[]" />
+	<aura:attribute name="campaigns" type="List" default="[]" />
+	<aura:attribute name="locations" type="List" default="[]" />
+	<aura:attribute name="bands" type="List" default="[{ label: '1' , value: '1' },
+		{ label: '2' , value: '2' },
+		{ label: '3' , value: '3' },
+		{ label: '4' , value: '4' },
+		{ label: '5' , value: '5' },
+		{ label: '6' , value: '6' },
+		{ label: '7' , value: '7' },
+		{ label: 'Recognised Practitioner' , value: '8' },
+		{ label: 'Senior Statespeople' , value: '9' },
+		{ label: 'Eminent Practitioners' , value: '10' },
+		{ label: 'Star Individuals' , value: '11' },
+		{ label: 'Up and Coming' , value: '12' },
+		{ label: 'Star Associates' , value: '13' },
+		{ label: 'Associates to watch' , value: '14' },
+		{ label: 'New Silks' , value: '15' },
+		{ label: 'Spotlight Table' , value: '16' }]" />
+
+	<aura:handler name="init" value="{! this }" action="{! c.init }" />
+	<aura:handler event="aura:locationChange" action="{!c.clearInterval}" />
+
+	<aura:attribute name="dataLWIPsize" type="String" />
+	<aura:attribute name="dataLWOIPsize" type="String" />
+	<aura:attribute name="dataLWFPsize" type="String" />
+	<aura:attribute name="dataLWOFPsize" type="String" />
+	<aura:attribute name="dataRPsize" type="String" />
+
+	<div class="slds-box slds-color__background_gray-1">
+		<aura:if isTrue="{! v.showSpinner }">
+			<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+				<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert" role="alert">
+					<span class="slds-assistive-text">Waiting...</span>
+					<div class="slds-spinner__dot-a"></div>
+					<div class="slds-spinner__dot-b"></div>
+				</div>
+			</div>
+		</aura:if>
+
+		<lightning:accordion allowMultipleSectionsOpen="false" activeSectionName="{! v.activeSections }">
+			<lightning:accordionSection name="A" label="Lawyers With Profile">
+				<div class="slds-grid slds-grid_vertical">
+					<div class="slds-is-relative">
+						<aura:if isTrue="{! v.LWIPBatch }">
+							<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+								<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert"
+									role="alert">
+									<span class="slds-assistive-text">Waiting...</span>
+									<div class="slds-spinner__dot-a"></div>
+									<div class="slds-spinner__dot-b"></div>
+								</div>
+							</div>
+						</aura:if>
+						<lightning:layout>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Publication"
+									placeholder="Select a Publication" options="{! v.publications }"
+									value="{! v.publicationLWIP }" />
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<div class="custom-box"></div>
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Campaign" placeholder="Select a Campaign"
+									options="{! v.campaigns }" value="{! v.campaignIdLWIP }" />
+							</lightning:layoutItem>
+						</lightning:layout>
+						<div style="text-align:center; margin-bottom:10px">
+							<aura:if isTrue="{! v.LWIPBatch }">
+								<ui:message title="Information" severity="warning" closable="false">
+									You need to wait. The Batch is currently running.
+								</ui:message>
+							</aura:if>
+							<lightning:button label="Run Batch" onclick="{! c.runLWIPBatch }" name="1" />
+							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveLWIP }" name="LWIP" />
+						</div>
+						<div>
+							Count:   {! v.dataLWIPsize }
+						</div>
+						<aura:if isTrue="{!v.showLWIP}">
+							<div style="height: 300px">
+								<lightning:datatable columns="{! v.columnsLWIP }" data="{! v.dataLWIP }" keyField="id"
+									hideCheckboxColumn="false" aura:id="tableLWIP"
+									selectedRows="{! v.selectedRowsLWIP }" />
+							</div>
+							<div style="text-align:center; margin-top:10px">
+								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
+									onclick="{! c.handleClickLWIP }" name="LWIP" />
+								<lightning:button label="Remove Contacts" title="Remove Contacts from list"
+									onclick="{! c.handleClickRemoveLWIP }" name="LWIP" />
+							</div>
+						</aura:if>
+					</div>
+				</div>
+			</lightning:accordionSection>
+
+			<lightning:accordionSection name="B" label="Lawyers Without Profile">
+				<div class="slds-grid slds-grid_vertical">
+					<div class="slds-is-relative">
+						<aura:if isTrue="{! v.LWOIPBatch }">
+							<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+								<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert"
+									role="alert">
+									<span class="slds-assistive-text">Waiting...</span>
+									<div class="slds-spinner__dot-a"></div>
+									<div class="slds-spinner__dot-b"></div>
+								</div>
+							</div>
+						</aura:if>
+						<lightning:layout>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Publication"
+									placeholder="Select a Publication" options="{! v.publications }"
+									value="{! v.publicationLWOIP }" />
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<div class="custom-box"></div>
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Campaign" placeholder="Select a Campaign"
+									options="{! v.campaigns }" value="{! v.campaignIdLWOIP }" />
+							</lightning:layoutItem>
+						</lightning:layout>
+						<div style="text-align:center; margin-bottom:10px">
+							<aura:if isTrue="{! v.LWOIPBatch }">
+								<ui:message title="Information" severity="warning" closable="false">
+									You need to wait. The Batch is currently running.
+								</ui:message>
+							</aura:if>
+							<lightning:button label="Run Batch" onclick="{! c.runLWOIPBatch }" name="2" />
+							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveLWOIP }"
+								name="LWOIP" />
+						</div>
+						<div>
+							Count:   {! v.dataLWOIPsize }
+						</div>
+						<aura:if isTrue="{!v.showLWOIP}">
+							<div style="height: 300px">
+								<lightning:datatable columns="{! v.columnsLWOIP }" data="{! v.dataLWOIP }" keyField="id"
+									hideCheckboxColumn="false" aura:id="tableLWOIP"
+									selectedRows="{! v.selectedRowsLWOIP }" />
+							</div>
+							<div style="text-align:center; margin-top:10px">
+								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
+									onclick="{! c.handleClickLWOIP }" name="LWOIP" />
+								<lightning:button label="Remove Contacts" title="Remove Contacts from list"
+									onclick="{! c.handleClickRemoveLWOIP }" name="LWOIP" />
+							</div>
+						</aura:if>
+					</div>
+				</div>
+			</lightning:accordionSection>
+
+			<lightning:accordionSection name="C" label="Law Firms With Profiles">
+				<div class="slds-grid slds-grid_vertical">
+					<div class="slds-is-relative">
+						<aura:if isTrue="{! v.LWFPBatch }">
+							<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+								<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert"
+									role="alert">
+									<span class="slds-assistive-text">Waiting...</span>
+									<div class="slds-spinner__dot-a"></div>
+									<div class="slds-spinner__dot-b"></div>
+								</div>
+							</div>
+						</aura:if>
+						<lightning:layout>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Publication"
+									placeholder="Select a Publication" options="{! v.publications }"
+									value="{! v.publicationLWFP }" />
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<div class="custom-box">
+									<lightning:input name="inputLWFP" value="{! v.contactTypeLWFP }"
+										label="Contact Type" />
+								</div>
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Campaign" placeholder="Select a Campaign"
+									options="{! v.campaigns }" value="{! v.campaignIdLWFP }" />
+							</lightning:layoutItem>
+						</lightning:layout>
+
+						<div style="text-align:center; margin-bottom:10px">
+							<aura:if isTrue="{! v.LWFPBatch }">
+								<ui:message title="Information" severity="warning" closable="false">
+									You need to wait. The Batch is currently running.
+								</ui:message>
+							</aura:if>
+							<lightning:button label="Run Batch" onclick="{! c.runLWFPBatch }" name="3" />
+							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveLWFP }" name="LWFP" />
+						</div>
+						<div>
+							Count:   {! v.dataLWFPsize }
+						</div>					
+						<aura:if isTrue="{!v.showLWFP}">
+							<div style="height: 300px">
+								<lightning:datatable columns="{! v.columnsLWFP }" data="{! v.dataLWFP }" keyField="id"
+									hideCheckboxColumn="false" aura:id="tableLWFP"
+									selectedRows="{! v.selectedRowsLWFP }" />
+							</div>
+							<div style="text-align:center; margin-top:10px">
+								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
+									onclick="{! c.handleClickLWFP }" name="LWFP" />
+								<lightning:button label="Remove Contacts" title="Remove Contacts from list"
+									onclick="{! c.handleClickRemoveLWFP }" name="LWFP" />
+							</div>
+						</aura:if>
+					</div>
+				</div>
+			</lightning:accordionSection>
+
+			<lightning:accordionSection name="D" label="Law Firms Without Profiles">
+				<div class="slds-grid slds-grid_vertical">
+					<div class="slds-is-relative">
+						<aura:if isTrue="{! v.LWOFPBatch }">
+							<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+								<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert"
+									role="alert">
+									<span class="slds-assistive-text">Waiting...</span>
+									<div class="slds-spinner__dot-a"></div>
+									<div class="slds-spinner__dot-b"></div>
+								</div>
+							</div>
+						</aura:if>
+						<lightning:layout>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Publication"
+									placeholder="Select a Publication" options="{! v.publications }"
+									value="{! v.publicationLWOFP }" />
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<div class="custom-box">
+									<lightning:input name="inputLWOFP" value="{! v.contactTypeLWOFP }"
+										label="Contact Type" />
+								</div>
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Campaign" placeholder="Select a Campaign"
+									options="{! v.campaigns }" value="{! v.campaignIdLWOFP }" />
+							</lightning:layoutItem>
+						</lightning:layout>
+
+						<div style="text-align:center; margin-bottom:10px">
+							<aura:if isTrue="{! v.LWOFPBatch }">
+								<ui:message title="Information" severity="warning" closable="false">
+									You need to wait. The Batch is currently running.
+								</ui:message>
+							</aura:if>
+							<lightning:button label="Run Batch" onclick="{! c.runLWOFPBatch }" name="4" />
+							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveLWOFP }"
+								name="LWOFP" />
+						</div>
+						<div>
+							Count:   {! v.dataLWOFPsize }
+						</div>					
+						<aura:if isTrue="{!v.showLWOFP}">
+							<div style="height: 300px">
+								<lightning:datatable columns="{! v.columnsLWOFP }" data="{! v.dataLWOFP }" keyField="id"
+									hideCheckboxColumn="false" aura:id="tableLWOFP"
+									selectedRows="{! v.selectedRowsLWOFP }" />
+							</div>
+							<div style="text-align:center; margin-top:10px">
+								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
+									onclick="{! c.handleClickLWOFP }" name="LWOFP" />
+								<lightning:button label="Remove Contacts" title="Remove Contacts from list"
+									onclick="{! c.handleClickRemoveLWOFP }" name="LWOFP" />
+							</div>
+						</aura:if>
+					</div>
+				</div>
+			</lightning:accordionSection>
+
+			<lightning:accordionSection name="E" label="Ranked People">
+				<div class="slds-grid slds-grid_vertical">
+					<div class="slds-is-relative">
+						<aura:if isTrue="{! v.RPBatch }">
+							<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+								<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert"
+									role="alert">
+									<span class="slds-assistive-text">Waiting...</span>
+									<div class="slds-spinner__dot-a"></div>
+									<div class="slds-spinner__dot-b"></div>
+								</div>
+							</div>
+						</aura:if>
+						<lightning:layout>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Publication"
+									placeholder="Select a Publication" options="{! v.publications }"
+									value="{! v.publicationRP }" />
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:dualListbox name="bands" label="Bands" options="{!v.bands}"
+									value="{! v.bandRP }" disableReordering="true" />
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Campaign" placeholder="Select a Campaign"
+									options="{! v.campaigns }" value="{! v.campaignIdRP }" />
+							</lightning:layoutItem>
+						</lightning:layout>
+						<lightning:layout>
+							<lightning:layoutItem size="4" padding="around-small">
+								<div class="custom-box">
+									<lightning:input name="inputRP1" value="{! v.practiceAreaRP }"
+										label="Practice Area" />
+								</div>
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+							</lightning:layoutItem>
+							<lightning:layoutItem size="4" padding="around-small">
+								<lightning:combobox name="general" label="Location" placeholder="Select a Location"
+									options="{! v.locations }" value="{! v.locationIdRP }" />
+							</lightning:layoutItem>
+						</lightning:layout>
+
+						<div style="text-align:center; margin-bottom:10px">
+							<aura:if isTrue="{! v.RPBatch }">
+								<ui:message title="Information" severity="warning" closable="false">
+									You need to wait. The Batch is currently running.
+								</ui:message>
+							</aura:if>
+							<lightning:button label="Run Batch" onclick="{! c.runRPBatch }" name="5" />
+							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveRP }" name="RP" />
+						</div>
+						<div>
+							Count:   {! v.dataRPsize }
+						</div>					
+						<aura:if isTrue="{!v.showRP}">
+							<div style="height: 300px">
+								<lightning:datatable columns="{! v.columnsRP }" data="{! v.dataRP }" keyField="id"
+									hideCheckboxColumn="false" aura:id="tableRP" selectedRows="{! v.selectedRowsRP }" />
+							</div>
+							<div style="text-align:center; margin-top:10px">
+								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
+									onclick="{! c.handleClickRP }" name="RP" />
+								<lightning:button label="Remove Contacts" title="Remove Contacts from list"
+									onclick="{! c.handleClickRemoveRP }" name="RP" />
+							</div>
+						</aura:if>
+					</div>
+				</div>
+			</lightning:accordionSection>
+		</lightning:accordion>
+	</div>
+
+</aura:component>

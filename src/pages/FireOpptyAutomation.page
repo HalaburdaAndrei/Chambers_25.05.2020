@@ -1,0 +1,6 @@
+<apex:page controller="FireOpptyAutomationCtrlr" action="{!runBatchJob}">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Running Opportunity Automation</h1>
+Check "Apex Jobs" in Setup for the Status of this running job.
+<!-- End Default Content REMOVE THIS -->
+</apex:page>
