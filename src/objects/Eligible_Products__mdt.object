@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Guide_Category__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Guide Category</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ranking</fullName>
+                    <default>true</default>
+                    <label>Ranking</label>
+                </value>
+                <value>
+                    <fullName>Practice</fullName>
+                    <default>false</default>
+                    <label>Practice</label>
+                </value>
+                <value>
+                    <fullName>Career</fullName>
+                    <default>false</default>
+                    <label>Career</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Eligible Products</label>
+    <pluralLabel>Eligible Products</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

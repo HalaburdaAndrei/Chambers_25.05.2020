@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Publication_Layout</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ActiveF_RE__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(SalesStartDate_RE__c&lt;=TODAY(),Sales_Expiration_Date__c&gt;=TODAY()),TRUE,FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CC_Date_Create__c</fullName>
+        <description>Date/Time that the publication record was created in CC.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date/Time that the publication record was created in CC.</inlineHelpText>
+        <label>CC Date Create</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CC_Final_Date_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Final Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CC_PublicationTypeCategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Publication Type Category</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Publication_ID_RE__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Integration ID from CC</description>
+        <externalId>true</externalId>
+        <label>CC Publication ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>PreviousEdition__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Previous Edition</label>
+        <referenceTo>Publication__c</referenceTo>
+        <relationshipLabel>Publications</relationshipLabel>
+        <relationshipName>PreviousEditions</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Publication_Record_SF_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Id</formula>
+        <label>Publication Record SF ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Publication_Type_ID_RE__c</fullName>
+        <externalId>true</externalId>
+        <label>Publication Type ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Publication_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Publication Type</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Publish_On_Website_RE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Publish On Website</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Publish_on_Profiles_Live_Website__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Publish on Profiles Live Website</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Publish_on_Profiles_Test_Website__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Publish on Profiles Test Website</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Publish_on_Research_Schedule__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Publish on Research Schedule</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Publish_on_Test_Website__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Publish on Test Website</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SalesStartDate_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Expiration_Date__c</fullName>
+        <description>Date the Publication should no longer be available to sell.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the Publication should no longer be available to sell.</inlineHelpText>
+        <label>Sales Expiration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Year_Issue_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Year (Issue)</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Publication</label>
+    <listViews>
+        <fullName>Active_Publications</fullName>
+        <columns>NAME</columns>
+        <columns>Publication_Type__c</columns>
+        <columns>Year_Issue_RE__c</columns>
+        <columns>ActiveF_RE__c</columns>
+        <columns>PreviousEdition__c</columns>
+        <columns>CC_Date_Create__c</columns>
+        <columns>CC_Final_Date_RE__c</columns>
+        <columns>SalesStartDate_RE__c</columns>
+        <columns>Sales_Expiration_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ActiveF_RE__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Active Publications</label>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>CC_Publication_ID_RE__c</columns>
+        <columns>NAME</columns>
+        <columns>Publication_Type__c</columns>
+        <columns>Year_Issue_RE__c</columns>
+        <columns>Publish_On_Website_RE__c</columns>
+        <columns>CC_Date_Create__c</columns>
+        <columns>ActiveF_RE__c</columns>
+        <columns>SalesStartDate_RE__c</columns>
+        <columns>Sales_Expiration_Date__c</columns>
+        <columns>Publication_Type_ID_RE__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>X2018_Publications</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Year_Issue_RE__c</field>
+            <operation>equals</operation>
+            <value>2018</value>
+        </filters>
+        <label>2018 Publications</label>
+    </listViews>
+    <listViews>
+        <fullName>X2019_Publications</fullName>
+        <columns>NAME</columns>
+        <columns>ActiveF_RE__c</columns>
+        <columns>SalesStartDate_RE__c</columns>
+        <columns>Sales_Expiration_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Year_Issue_RE__c</field>
+            <operation>equals</operation>
+            <value>2019</value>
+        </filters>
+        <label>2019 Publications</label>
+    </listViews>
+    <nameField>
+        <label>Publication Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Publications</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Publication_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CC_PublicationTypeCategory__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Year_Issue_RE__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>SalesStartDate_RE__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Sales_Expiration_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ActiveF_RE__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Publication_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CC_PublicationTypeCategory__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OBJECT_ID</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Year_Issue_RE__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Sales_Expiration_Date__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Sales_Expiration_not_set_before_Today</fullName>
+        <active>true</active>
+        <description>The Sales Expiration Date cannot be set to be a date prior to today&apos;s date.</description>
+        <errorConditionFormula>AND(ISCHANGED(Sales_Expiration_Date__c),
+Sales_Expiration_Date__c  &lt;=  TODAY(),
+$Profile.Name!=&quot;System Administrator&quot;)</errorConditionFormula>
+        <errorDisplayField>Sales_Expiration_Date__c</errorDisplayField>
+        <errorMessage>The Sales Expiration Date cannot be set to be a date prior to today&apos;s date.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

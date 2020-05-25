@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddProduct</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChoosePricebook</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EditAllProduct</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Author1__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies the 1st author related to this Practice Guide entry.</inlineHelpText>
+        <label>Author1</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunity Product (Author1)</relationshipLabel>
+        <relationshipName>Opportunity_Product_author1</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Author2__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies the 2nd author related to this Practice Guide entry.</inlineHelpText>
+        <label>Author2</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunity Product (Author2)</relationshipLabel>
+        <relationshipName>Opportunity_Product_author2</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Author3__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies the 3rd author related to this Practice Guide entry.</inlineHelpText>
+        <label>Author3</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunity Product (Author3)</relationshipLabel>
+        <relationshipName>Opportunity_Product_author3</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Author4__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Identifies the 4th author related to this Practice Guide entry.</inlineHelpText>
+        <label>Author4</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunity Product (Author4)</relationshipLabel>
+        <relationshipName>Opportunity_Product_author4</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Chapter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Related Chapter to this Opportunity Line Item</inlineHelpText>
+        <label>Chapter</label>
+        <referenceTo>Chapter__c</referenceTo>
+        <relationshipLabel>Opportunity Product</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Complete_Product_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>PricebookEntry.Product2.Public_Product_Name__c  &amp;&quot; for &quot;&amp;  Publication__r.Name</formula>
+        <inlineHelpText>Complete Product Name from the Product details.</inlineHelpText>
+        <label>Complete Product Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Related_Individual__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Id</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Related_Individual__r.FirstName + &apos; &apos; +  Related_Individual__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contact Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Custom_Product_Details_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Custom Product Details</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+    </fields>
+    <fields>
+        <fullName>Discount</fullName>
+    </fields>
+    <fields>
+        <fullName>ListPrice</fullName>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <referenceTo>Location__c</referenceTo>
+        <relationshipLabel>Opportunity Product as Location</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Location_text__c</fullName>
+        <description>Text entry Location for the Firm Profile purchased</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text entry Location for the Firm Profile purchased</inlineHelpText>
+        <label>Location_text</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OpportunityId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Practice_Area_Text__c</fullName>
+        <description>Practice Area text for the Firm Profile purchased</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Practice Area text for the Firm Profile purchased</inlineHelpText>
+        <label>Practice Area Text</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Practice_Area__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Practice Area for the Firm Profile purchased</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Practice Area for the Firm Profile purchased</inlineHelpText>
+        <label>Practice Area</label>
+        <referenceTo>Practice_Area__c</referenceTo>
+        <relationshipLabel>Opportunity Product as Practice Area</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product2Id</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProductCode</fullName>
+    </fields>
+    <fields>
+        <fullName>Product_Family__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(PricebookEntry.Product2.Family)</formula>
+        <label>Product Family</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Public_Product_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>PricebookEntry.Product2.Public_Product_Name__c</formula>
+        <label>Public Product Name</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Publication__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>lookup to the Publication being sold for this line item</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lookup to the Publication being sold for this line item</inlineHelpText>
+        <label>Publication</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <filterItems>
+                <field>Publication__c.ActiveF_RE__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <filterItems>
+                <field>$Profile.Name</field>
+                <operation>equals</operation>
+                <value>System Administrator</value>
+            </filterItems>
+            <infoMessage>User must select an Active Publication.</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Publication__c</referenceTo>
+        <relationshipLabel>Opportunity Product</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Quantity</fullName>
+    </fields>
+    <fields>
+        <fullName>Ranking_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>Related_Individual__r.Ranking_Status_RE__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ranking Status</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Individual__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Person(Individual) related to Opportunity Line Item</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Person(Individual) related to Opportunity Line Item</inlineHelpText>
+        <label>Related Individual</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunity Product as Individual</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Related_Organization__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Firm(organization) related to Opportunity Line Item</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Firm(organization) related to Opportunity Line Item</inlineHelpText>
+        <label>Related Organization</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Opportunity Lines as Related Org</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ServiceDate</fullName>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Opportunity.StageName)</formula>
+        <label>Stage</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submissions__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of Submissions related to this Opportunity Product Line item</inlineHelpText>
+        <label>Submissions</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subtotal</fullName>
+    </fields>
+    <fields>
+        <fullName>TotalPrice</fullName>
+    </fields>
+    <fields>
+        <fullName>UnitPrice</fullName>
+    </fields>
+    <validationRules>
+        <fullName>Publication_cannot_be_blank</fullName>
+        <active>true</active>
+        <description>Publication cannot be left blank</description>
+        <errorConditionFormula>AND(ISBLANK(Publication__c),ISBLANK(  Opportunity.Publication_RE__c  ))</errorConditionFormula>
+        <errorMessage>Publication must be linked to each Product Line item when the Opportunity Publication field is left blank.  You can set a default Opportunity Publication by looking up the Publication on the Opportunity record instead of setting it at the line item.</errorMessage>
+    </validationRules>
+</CustomObject>

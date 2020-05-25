@@ -1,0 +1,1851 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddInfluence</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Opportunity_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <businessProcesses>
+        <fullName>Booking</fullName>
+        <description>Booking Sales Process</description>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed Lost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed Won</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pitched</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qualified</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <compactLayoutAssignment>New_Awesome_Companct_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>New_Awesome_Companct_Layout</fullName>
+        <fields>Name</fields>
+        <fields>AccountId</fields>
+        <fields>CloseDate</fields>
+        <fields>Amount</fields>
+        <fields>OwnerId</fields>
+        <label>New Awesome Compact Layout</label>
+    </compactLayouts>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <fields>
+        <fullName>AccountId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_City__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account.BillingCity</formula>
+        <inlineHelpText>Displays the related Account&apos;s Billing City</inlineHelpText>
+        <label>Account City</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account.BillingCountry</formula>
+        <inlineHelpText>Displays the related Account&apos;s Billing Country</inlineHelpText>
+        <label>Account Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Location__c</fullName>
+        <description>Shipping Country of the linked Account to this Opportunity</description>
+        <externalId>false</externalId>
+        <formula>Account.ShippingCountry</formula>
+        <inlineHelpText>Shipping Country of the linked Account to this Opportunity</inlineHelpText>
+        <label>Account Location</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Street__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account.BillingStreet</formula>
+        <inlineHelpText>Displays the related Account&apos;s Billing Street Address</inlineHelpText>
+        <label>Account Street</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Book_Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>(TEXT(TODAY()+28) &amp; &quot;T&quot; &amp; TEXT(TIMEVALUE(NOW()+0.04167)) &amp; &quot;Z&quot;)</formula>
+        <label>Booking Expiration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Booking_Form_Reminder__c</fullName>
+        <externalId>false</externalId>
+        <formula>(TEXT(TODAY()+14) &amp; &quot;T&quot; &amp; TEXT(TIMEVALUE(NOW()+0.04167)) &amp; &quot;Z&quot;)</formula>
+        <label>Booking Form Reminder</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Budget_Confirmed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Budget Confirmed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CC_Legacy_Import_Number__c</fullName>
+        <description>Unique ID used for import purposes for any updates needed</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Unique ID used for import purposes for any updates needed</inlineHelpText>
+        <label>CC Legacy Import Number</label>
+        <length>6</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Legacy_Owner__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Legacy Sales Owner of CC Sales History record.</inlineHelpText>
+        <label>CC Legacy Owner</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Organization_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Organization ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Organization_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Organization Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Organization_Profile_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Organization Profile ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Person_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Person ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Person_Organization_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Person Organization ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Person_Profile_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Person Profile First Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Person_Profile_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Person Profile ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Person_Profile_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Person Profile Last Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Proof_Status_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Proof Status ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Publication_ID_RE__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Publication ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Publication_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Publication Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_User_Name_Sales__c</fullName>
+        <description>CC User Name associated with this Opportunity</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CC User Name associated with this Opportunity</inlineHelpText>
+        <label>CC User Name Sales</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CloseDate</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Confirmed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Confirmed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Conga_Formula_Test__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;/apex/APXTConga4__Conga_Composer?SolMgr=1&amp;serverUrl=&quot;&amp;$Api.Partner_Server_URL_370&amp;&quot;&amp;Id=&quot;&amp;Id&amp;&quot;&amp;QueryId=[BookingFormQuery]0A5E0000056gf9&amp;TemplateID=a0I5E000002kuQvUAI&amp;LRTF=1&amp;DefaultPDF=1&amp;AC0=1&amp;AC1=Follow+up+&quot;&amp;Name&amp;&quot;&amp;AC3=3&amp;LiveEditVisible=0&amp;LiveEditEnable=0&amp;csvisible=1&amp;CSRecipient1=&quot;&amp;Signer__c&amp;&quot;&amp;CSEmailSubject=Chambers+&quot;&amp;Publication_RE__c&amp;&quot;+Booking+Form+for+signature&amp;csEmailMessage=Hello &quot;&amp;Signer__r.FirstName&amp;&quot;, in reference to our conversation a short while ago, please find attached the booking form as detailed. You can you now confirm your inclusion by clicking the Begin Signing button. If you require anything further just let me know and I look forward to hearing back from you.&amp;csExpiration=&quot;&amp;Book_Expiration_Date__c&amp;&quot;&amp;csExpirationReminder=&quot;&amp;Booking_Form_Reminder__c</formula>
+        <label>Conga Formula Test</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContractId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DB_Competitor__c</fullName>
+        <description>This is a field that is installed by and used with the Adoption Dashboard AppExchange package. If your org already has a similar field, you can change the reports that are part of the Adoption Dashboard package to use your custom field and can delete this field.</description>
+        <externalId>false</externalId>
+        <label>DB Competitor</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Competitor A</fullName>
+                    <default>false</default>
+                    <label>Competitor A</label>
+                </value>
+                <value>
+                    <fullName>Competitor B</fullName>
+                    <default>false</default>
+                    <label>Competitor B</label>
+                </value>
+                <value>
+                    <fullName>Competitor C</fullName>
+                    <default>false</default>
+                    <label>Competitor C</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Discovery_Completed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Discovery Completed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EligibleProducts_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Eligible Products</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Entry_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Entry Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ExpectedRevenue</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Historical_ID__c</fullName>
+        <description>Historical ID for Sales History loading from CC</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Historical ID for Sales History loading from CC</inlineHelpText>
+        <label>Historical_ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IqScore</fullName>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>IsPrivate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Is_Firm_Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>CONTAINS(EligibleProducts_RE__c, &apos;Firm Profiles&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Firm Profile</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Individual_Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>CONTAINS(EligibleProducts_RE__c, &apos;Individual Profiles&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Individual Profile</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Automated_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Automated Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LeadSource</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Legacy_Opportunity_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy Opportunity Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loss_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Loss Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>StageName</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Lost to Competitor</fullName>
+                    <default>false</default>
+                    <label>Lost to Competitor</label>
+                </value>
+                <value>
+                    <fullName>No Budget / Lost Funding</fullName>
+                    <default>false</default>
+                    <label>No Budget / Lost Funding</label>
+                </value>
+                <value>
+                    <fullName>No Decision / Non-Responsive</fullName>
+                    <default>false</default>
+                    <label>No Decision / Non-Responsive</label>
+                </value>
+                <value>
+                    <fullName>Price</fullName>
+                    <default>false</default>
+                    <label>Price</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Closed Lost</controllingFieldValue>
+                <valueName>Lost to Competitor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed Lost</controllingFieldValue>
+                <valueName>No Budget / Lost Funding</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed Lost</controllingFieldValue>
+                <valueName>No Decision / Non-Responsive</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed Lost</controllingFieldValue>
+                <valueName>Price</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Closed Lost</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>NextStep</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Num_of_Submissions__c</fullName>
+        <externalId>false</externalId>
+        <label># of Submissions</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Products_RE__c</fullName>
+        <description>Count of Related Products on this Opportunity</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Count of Related Products on this Opportunity</inlineHelpText>
+        <label>Number of Products</label>
+        <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Pricebook2Id</fullName>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Probability</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Profile_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Profile Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Organization</fullName>
+                    <default>false</default>
+                    <label>Organization</label>
+                </value>
+                <value>
+                    <fullName>Person</fullName>
+                    <default>false</default>
+                    <label>Person</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Proof_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Proof Status</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Publication_RE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup to the related Publication</description>
+        <externalId>false</externalId>
+        <label>Publication</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Publication__c.ActiveF_RE__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <infoMessage>User must select an Active Publication.</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Publication__c</referenceTo>
+        <relationshipLabel>Opportunities</relationshipLabel>
+        <relationshipName>Opportunities</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Publication__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication_RE__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Publication</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ROI_Analysis_Completed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ROI Analysis Completed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Ranked__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ranked</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Signer_Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Signer__r.Email</formula>
+        <inlineHelpText>Email of the Signer related to this Opportunity</inlineHelpText>
+        <label>Signer Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Signer_Title__c</fullName>
+        <externalId>false</externalId>
+        <formula>Signer__r.Title</formula>
+        <inlineHelpText>Title of the Signer related to this Opportunity</inlineHelpText>
+        <label>Signer Title</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Signer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Signer</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Contact.AccountId</field>
+                <operation>equals</operation>
+                <valueField>$Source.AccountId</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunities as Signer</relationshipLabel>
+        <relationshipName>Opportunities_as_Signer</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Signer_text__c</fullName>
+        <description>Displays the First and Last name of the Signer lookup value for Validation Rule Purporses</description>
+        <externalId>false</externalId>
+        <formula>Signer__r.FirstName &amp;&quot; &quot;&amp;  Signer__r.LastName</formula>
+        <label>Signer (text)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StageName</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SyncedQuoteId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>System_Generated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>System Generated</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Today__c</fullName>
+        <description>Sets today&apos;s date for Booking form field.</description>
+        <externalId>false</externalId>
+        <formula>TODAY ()</formula>
+        <inlineHelpText>Sets today&apos;s date for Booking form field.</inlineHelpText>
+        <label>Today</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>TotalOpportunityQuantity</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <listViews>
+        <fullName>AllOpportunities</fullName>
+        <columns>OPPORTUNITY.TYPE</columns>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>OPPORTUNITY.PROBABILITY</columns>
+        <columns>OPPORTUNITY.LEAD_SOURCE</columns>
+        <columns>CORE.USERS.FULL_NAME</columns>
+        <columns>Signer__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATEDBY_USER.ALIAS</field>
+            <operation>equals</operation>
+            <value>bfeko</value>
+        </filters>
+        <label>All Opportunities</label>
+    </listViews>
+    <listViews>
+        <fullName>Asia_2020_Opportunities</fullName>
+        <columns>OPPORTUNITY.TYPE</columns>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>Signer__c</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>CORE.USERS.FULL_NAME</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Publication_RE__c</field>
+            <operation>equals</operation>
+            <value>Asia-Pacific 2020</value>
+        </filters>
+        <label>Asia 2020 Opportunities</label>
+    </listViews>
+    <listViews>
+        <fullName>Canada_2020_Opportunities</fullName>
+        <columns>OPPORTUNITY.TYPE</columns>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>Signer__c</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>CORE.USERS.FULL_NAME</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Publication_RE__c</field>
+            <operation>equals</operation>
+            <value>Chambers Canada 2020</value>
+        </filters>
+        <label>Canada 2020 Opportunities</label>
+    </listViews>
+    <listViews>
+        <fullName>ClosingNextMonth</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OPPORTUNITY.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>OPPORTUNITY.CLOSE_DATE</field>
+            <operation>equals</operation>
+            <value>NEXT_MONTH</value>
+        </filters>
+        <label>Closing Next Month</label>
+    </listViews>
+    <listViews>
+        <fullName>ClosingThisMonth</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OPPORTUNITY.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>OPPORTUNITY.CLOSE_DATE</field>
+            <operation>equals</operation>
+            <value>THIS_MONTH</value>
+        </filters>
+        <label>Closing This Month</label>
+    </listViews>
+    <listViews>
+        <fullName>Default_Opportunity_Pipeline</fullName>
+        <booleanFilter>(1 OR 2)</booleanFilter>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>OPPORTUNITY.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>OPPORTUNITY.CLOSE_DATE</field>
+            <operation>greaterOrEqual</operation>
+            <value>LAST_N_DAYS:30</value>
+        </filters>
+        <label>Opportunity Pipeline</label>
+    </listViews>
+    <listViews>
+        <fullName>MyOpportunities</fullName>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Opportunities</label>
+    </listViews>
+    <listViews>
+        <fullName>NewThisWeek</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OPPORTUNITY.CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>THIS_WEEK</value>
+        </filters>
+        <label>New This Week</label>
+    </listViews>
+    <listViews>
+        <fullName>Org_Profile_History_w_Account_Links</fullName>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>Profile_Type__c</columns>
+        <columns>Signer__c</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Account_Location__c</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Profile_Type__c</field>
+            <operation>equals</operation>
+            <value>Organization</value>
+        </filters>
+        <filters>
+            <field>ACCOUNT.NAME</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Org Profile History w/Account Links</label>
+    </listViews>
+    <listViews>
+        <fullName>Person_Profile_History</fullName>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>Profile_Type__c</columns>
+        <columns>Signer__c</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Profile_Type__c</field>
+            <operation>equals</operation>
+            <value>Person</value>
+        </filters>
+        <filters>
+            <field>Signer__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Person Profile History w/Person Links</label>
+    </listViews>
+    <listViews>
+        <fullName>UK_Bar_2020_Opportunities</fullName>
+        <columns>OPPORTUNITY.TYPE</columns>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>Signer__c</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>CORE.USERS.FULL_NAME</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Publication_RE__c</field>
+            <operation>contains</operation>
+            <value>UK Bar</value>
+        </filters>
+        <filters>
+            <field>Publication_RE__c</field>
+            <operation>contains</operation>
+            <value>2020</value>
+        </filters>
+        <label>UK Bar 2020 Opportunities</label>
+    </listViews>
+    <listViews>
+        <fullName>UK_Guide_2020_Opportunities</fullName>
+        <columns>OPPORTUNITY.TYPE</columns>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>Signer__c</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>Publication_RE__c</columns>
+        <columns>CORE.USERS.FULL_NAME</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Publication_RE__c</field>
+            <operation>contains</operation>
+            <value>UK Guide</value>
+        </filters>
+        <filters>
+            <field>Publication_RE__c</field>
+            <operation>contains</operation>
+            <value>2020</value>
+        </filters>
+        <label>UK Guide 2020 Opportunities</label>
+    </listViews>
+    <listViews>
+        <fullName>Won</fullName>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OPPORTUNITY.WON</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>OPPORTUNITY.CLOSED</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Won</label>
+    </listViews>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>Closed_Won</fullName>
+        <active>true</active>
+        <businessProcess>Booking</businessProcess>
+        <description>Closed Won Record Type</description>
+        <label>Closed Won</label>
+        <picklistValues>
+            <picklist>DB_Competitor__c</picklist>
+            <values>
+                <fullName>Competitor A</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Competitor B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Competitor C</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ForecastCategoryName</picklist>
+            <values>
+                <fullName>Best Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Commit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Omitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pipeline</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource</picklist>
+            <values>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google AdWords</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Previous Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Loss_Reason__c</picklist>
+            <values>
+                <fullName>Lost to Competitor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Budget %2F Lost Funding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Decision %2F Non-Responsive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Profile_Type__c</picklist>
+            <values>
+                <fullName>Organization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Person</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Add-On</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repeat</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New</fullName>
+        <active>true</active>
+        <businessProcess>Booking</businessProcess>
+        <description>New Record Type - Without Booking form Button</description>
+        <label>New</label>
+        <picklistValues>
+            <picklist>DB_Competitor__c</picklist>
+            <values>
+                <fullName>Competitor A</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Competitor B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Competitor C</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ForecastCategoryName</picklist>
+            <values>
+                <fullName>Best Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Commit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Omitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pipeline</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource</picklist>
+            <values>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google AdWords</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Previous Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Loss_Reason__c</picklist>
+            <values>
+                <fullName>Lost to Competitor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Budget %2F Lost Funding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Decision %2F Non-Responsive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Profile_Type__c</picklist>
+            <values>
+                <fullName>Organization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Person</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Add-On</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repeat</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Open_Pitched</fullName>
+        <active>true</active>
+        <businessProcess>Booking</businessProcess>
+        <description>Open and Pitched Stages Record Type</description>
+        <label>Open-Pitched</label>
+        <picklistValues>
+            <picklist>DB_Competitor__c</picklist>
+            <values>
+                <fullName>Competitor A</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Competitor B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Competitor C</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ForecastCategoryName</picklist>
+            <values>
+                <fullName>Best Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Commit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Omitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pipeline</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource</picklist>
+            <values>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google AdWords</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Previous Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Loss_Reason__c</picklist>
+            <values>
+                <fullName>Lost to Competitor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Budget %2F Lost Funding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Decision %2F Non-Responsive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Price</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Profile_Type__c</picklist>
+            <values>
+                <fullName>Organization</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Person</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Add-On</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eligible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Repeat</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>OPPORTUNITY.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OPPORTUNITY.CLOSE_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>OPPORTUNITY.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>OPPORTUNITY.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Legacy_Opportunity_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <massQuickActions>Update_Account</massQuickActions>
+        <searchFilterFields>OPPORTUNITY.NAME</searchFilterFields>
+        <searchFilterFields>Legacy_Opportunity_Name__c</searchFilterFields>
+        <searchFilterFields>ACCOUNT.NAME</searchFilterFields>
+        <searchFilterFields>OPPORTUNITY.STAGE_NAME</searchFilterFields>
+        <searchFilterFields>CORE.USERS.FULL_NAME</searchFilterFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Legacy_Opportunity_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Signer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.STAGE_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.CLOSE_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Number_of_Products_RE__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.FULL_NAME</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Account_Address_to_Open_Stage</fullName>
+        <active>true</active>
+        <description>Opportunity must have related Account&apos;s Address complete before the Stage can be moved from Qualified to Open</description>
+        <errorConditionFormula>AND( BLANKVALUE( Account_Street__c, &apos;XXX&apos; ) = &apos;XXX&apos;,
+BLANKVALUE( Account_City__c, &apos;XXX&apos; ) = &apos;XXX&apos;,
+BLANKVALUE( Account_Country__c, &apos;XXX&apos; ) = &apos;XXX&apos;,
+NOT (ISPICKVAL (StageName, &quot;Qualified&quot;)  ))</errorConditionFormula>
+        <errorMessage>Related Account Address fields must be complete before the Stage can be updated from Eligible to Open.  Address fields can be edited directly on the Related Account Tab on this Opportunity.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Only_Admin_can_edit_Closed_Opptys</fullName>
+        <active>true</active>
+        <description>Once an Oppty is set to Closed, only admin can edit the record.</description>
+        <errorConditionFormula>AND(
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+IsClosed  = TRUE
+)</errorConditionFormula>
+        <errorMessage>Only a System Administrator can edit Closed Opportunity records.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Opportunity_needs_Closed_Lost_Reason</fullName>
+        <active>true</active>
+        <description>This validation rule enforces the need for a Closed Lost Reason to be specified to save an opportunity with a status of Closed Lost</description>
+        <errorConditionFormula>AND(
+ISPICKVAL(StageName, &quot;Closed Lost&quot;),
+ISBLANK(TEXT(Loss_Reason__c))
+)</errorConditionFormula>
+        <errorDisplayField>Loss_Reason__c</errorDisplayField>
+        <errorMessage>Please pick a reason for why the opportunity was lost in the Loss Reason field</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Related_Products_to_Open_Stage</fullName>
+        <active>false</active>
+        <description>Opportunity must have related Products before the Stage can be moved from Eligible to Open</description>
+        <errorConditionFormula>AND(Number_of_Products_RE__c &lt; 1, NOT (ISPICKVAL( StageName , &quot;Qualified&quot;)))</errorConditionFormula>
+        <errorMessage>Product Line Items must be added to the Opportunity before the Stage can be updated from Eligible to Open</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Signer_and_Signer_Email_to_Open_Stage</fullName>
+        <active>false</active>
+        <description>Opportunity must have related Signer and Signer must have an email address complete before the Stage can be moved from Qualified to Open</description>
+        <errorConditionFormula>AND( OR(ISBLANK(  Signer__r.LastName ),
+ISBLANK(  Signer__r.Email )),
+NOT (ISPICKVAL( StageName , &quot;Qualified&quot;)))</errorConditionFormula>
+        <errorMessage>Related Signer and Signer Emails fields must be complete before the Stage can be updated from Qualified to Open.  Signer email field can be edited by clicking on the Signer&apos;s name link and editing that contact record.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Composer_OAuth</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT *** 
+
+OAuth buttons require additional setup. Please see the Composer Installation Guide for more details.
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Composer Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer (OAuth)</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Opportunity.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Mail_Merge</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT *** 
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Conga Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Opportunity.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>CongaSign_sendForSignature</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Send with Conga Sign</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXT_CongaSign__apxt_sendForSignature?id={!Opportunity.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Composer_Booking_Form</fullName>
+        <availability>online</availability>
+        <description>Created by Conga Solution Manager. Record link: https://chambers--apxtconga4.eu16.visual.force.com/a0I1t00000GBWbVEAX.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Booking Form</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer?SolMgr=1
+&amp;serverUrl={!API.Partner_Server_URL_370}
+&amp;Id={!Opportunity.Id}
+
+&amp;QueryId=[BookingFormQuery]a0C1t000005jkh1
+
+&amp;TemplateId=a0K1t000005SDbF
+
+&amp;LRTF=1 
+
+&amp;DefaultPDF=1
+&amp;AC0=1
+&amp;AC1=Follow+up+{!Opportunity.Name}
+&amp;AC3=3
+
+&amp;LiveEditVisible=0 
+
+&amp;LiveEditEnable=0 
+
+&amp;csvisible=1
+
+&amp;CSRecipient1={!Opportunity.SignerId__c}
+
+&amp;CSEmailSubject=Chambers+{!Opportunity.Publication_RE__c}+Booking+Form+for+signature
+
+&amp;csEmailMessage=Hello, {!Opportunity.Signer__c}, in reference to our conversation a short while ago, please find attached the booking form as detailed. You can you now confirm your inclusion by clicking the Begin Signing button. If you require anything further just let me know and I look forward to hearing back from you.
+
+&amp;csExpiration={!Opportunity.Book_Expiration_Date__c}
+&amp;csExpirationReminder={!Opportunity.Booking_Form_Reminder__c}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Composer_Booking_Form2</fullName>
+        <availability>online</availability>
+        <description>Originally created by Conga Solution Manager. Date of last use of Update Button from Conga Solution record: https://apxtconga4.cs84.visual.force.com/a0G5E000004pgwxUAA
+12-Apr-2019 01:35:40 PM</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Booking Form2</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer?SolMgr=1
+&amp;serverUrl={!API.Partner_Server_URL_370}
+&amp;Id={!Opportunity.Id}
+
+&amp;QueryId=[BookingFormQuery]a0A5E0000056gf9
+
+&amp;TemplateID=a0I5E000002kuQvUAI
+
+&amp;LRTF=1
+
+&amp;DefaultPDF=1
+
+&amp;AC0=1
+&amp;AC1=Follow+up+{!Opportunity.Name}
+&amp;AC3=3
+
+&amp;LiveEditVisible=0
+
+&amp;LiveEditEnable=0
+
+&amp;csvisible=1
+
+&amp;CSRecipient1={!Opportunity.SignerId__c}
+
+&amp;CSEmailSubject=Chambers+{!Opportunity.Publication_RE__c}+Booking+Form+for+signature
+
+&amp;csEmailMessage=Hello {!Opportunity.Signer__c}, in reference to our conversation a short while ago, please find attached the booking form as detailed. You can you now confirm your inclusion by clicking the Begin Signing button. If you require anything further just let me know and I look forward to hearing back from you.
+
+&amp;csExpiration={!Opportunity.Book_Expiration_Date__c}
+&amp;csExpirationReminder={!Opportunity.Booking_Form_Reminder__c}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Composer_Composer_SP_Proposal_22Mar2020_09_47_29_PM</fullName>
+        <availability>online</availability>
+        <description>Created by Conga Solution Manager. Record link: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1l000001mAO9EAM.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Composer SP Proposal 22Mar2020 09 47 29 PM</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer?SolMgr=1
+&amp;serverUrl={!API.Partner_Server_URL_370}
+&amp;Id={!Opportunity.Id}
+
+&amp;CongaEmailTemplateId=a0B1l0000084OAB
+
+&amp;TemplateGroup=Proposal
+&amp;DefaultPDF=1
+&amp;OFN=Conga+Proposal+-+{!Opportunity.Name}+-+{!Today}
+&amp;SC0=1
+&amp;SC1=Chatter</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Composer_Send_a_Quote</fullName>
+        <availability>online</availability>
+        <description>Originally created by Conga Solution Manager. Date of last use of Update Button from Conga Solution record: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1l000001nowuEAA
+21-May-2020 02:10:46 PM</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Send a Quote</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer?SolMgr=1
+&amp;serverUrl={!API.Partner_Server_URL_370}
+&amp;Id={!Opportunity.Id}
+
+&amp;QueryId=[BookingFormQuery]a0C1t000005jkh1
+
+&amp;TemplateId=a0K1t000005SDcr
+
+&amp;CongaEmailTemplateId=a0B1l00000864ld
+
+&amp;EmailSubject=Test+Send+Quote
+&amp;DefaultPDF=1
+&amp;EmailRelatedToId={!Opportunity.Id}
+&amp;EmailToId=0031l00000ZzG2eAAF
+&amp;EmailCC={!Opportunity.Signer_Email__c}</url>
+        <width>900</width>
+    </webLinks>
+</CustomObject>

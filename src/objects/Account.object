@@ -1,0 +1,2056 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EnableCustomerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ListClean</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SmsHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewCustomerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>WebsiteHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>Account_Compact_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Account_Compact_Layout</fullName>
+        <fields>Name</fields>
+        <fields>Phone</fields>
+        <fields>BillingAddress</fields>
+        <fields>Website</fields>
+        <fields>OwnerId</fields>
+        <label>Account Compact Layout</label>
+    </compactLayouts>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <fieldSets>
+        <fullName>MC4SF__Account_Filter_Fields</fullName>
+        <description>used on the MailChimp query builder</description>
+        <displayedFields>
+            <field>Fax</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>AccountNumber</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Phone</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Rating</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Site</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>AccountSource</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Type</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>AnnualRevenue</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>BillingCity</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>BillingCountry</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>BillingState</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>BillingStreet</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>BillingPostalCode</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>CreatedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>NumberOfEmployees</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Industry</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>LastActivityDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>LastModifiedDate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ShippingCity</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ShippingCountry</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ShippingState</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ShippingStreet</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ShippingPostalCode</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Website</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Account Filter Fields</label>
+    </fieldSets>
+    <fields>
+        <fullName>AccountNumber</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>AccountSource</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Alternative_Fax_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Alternative Fax</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>AnnualRevenue</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>AssocOffice_RE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>AssocOffice</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BillingAddress</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>CC_Account_ID_RE__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>CC Organization ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Account_Name_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Organization Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Account_Phone__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>CC data from the Organization Phone field</inlineHelpText>
+        <label>CC Account Phone</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Account_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>CC unfiltered data for Postal Code</inlineHelpText>
+        <label>CC Account Postal Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Description_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Description</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CC_Industry_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Industry</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_New_Account_ID__c</fullName>
+        <description>CC organization ID for new organization/account who is taking over from a drop organization</description>
+        <externalId>false</externalId>
+        <label>CC New Account ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Notes_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Notes</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CC_Parent_Account_ID_RE__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Parent Account ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Parent_Account_Name_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Parent Account Name</label>
+        <length>150</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_To_Be_Deleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Delete flag used by Jitterbit</description>
+        <externalId>false</externalId>
+        <label>CC To Be Deleted</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CC_Verified_By_RE__c</fullName>
+        <description>Raw CC value for the Verified By field so text can be imported.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Raw CC value for the Verified By field so text can be imported.</inlineHelpText>
+        <label>CC Verified By</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CPOrganisationTypeId_RE__c</fullName>
+        <externalId>true</externalId>
+        <label>CC Organisation Type Id</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Count_of_Child_Accounts__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Count of related Child Accounts set by Roll up helper.</inlineHelpText>
+        <label>Count of Child Accounts</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Created_Date__c</fullName>
+        <description>Created Date</description>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <inlineHelpText>Created Date</inlineHelpText>
+        <label>Created Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Fax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>ForeignOfficesandAssociationsSummary_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>ForeignOfficesandAssociationsSummary</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Inactive_RE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Inactive</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Industry</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Industry_Sector_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Industry Sector</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsParent__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(ParentId),TRUE,FALSE)</formula>
+        <label>Is Parent</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active_RE__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Jigsaw</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Lawyers_is_Estimate_RE__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lawyers is Estimate</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Notes_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>NumberOfEmployees</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Number_of_Assistants_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Assistants</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Branches_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Branches</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Lawyers_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Lawyers</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Partners_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Partners</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Organization_Type_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>CC Organization Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Owner_ID__c</fullName>
+        <description>Displays the Account Owner&apos;s User ID</description>
+        <externalId>false</externalId>
+        <formula>Owner.Id</formula>
+        <inlineHelpText>Displays the Account Owner&apos;s User ID</inlineHelpText>
+        <label>Owner ID</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ownership</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Hierarchy</type>
+    </fields>
+    <fields>
+        <fullName>Phone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Power_of_1__c</fullName>
+        <description>Counts this record for roll up and reporting purposes.</description>
+        <externalId>false</externalId>
+        <formula>1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Counts this record for roll up and reporting purposes.</inlineHelpText>
+        <label>Power of 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rating</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Real_Type_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Real Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_HO_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/&apos; + 
+IF(NOT(ISBLANK(Parent.Parent.Parent.Parent.Parent.Name)), Parent.Parent.Parent.Parent.Parent.Id, 
+IF(NOT(ISBLANK(Parent.Parent.Parent.Parent.Name)), Parent.Parent.Parent.Parent.Id, 
+IF(NOT(ISBLANK(Parent.Parent.Parent.Name)), Parent.Parent.Parent.Id, 
+IF(NOT(ISBLANK(Parent.Parent.Name)), Parent.Parent.Id, 
+IF(NOT(ISBLANK(Parent.Name)),Parent.Id, 
+Id))))), 
+IF(NOT(ISBLANK(Parent.Parent.Parent.Parent.Parent.Name)), Parent.Parent.Parent.Parent.Parent.Name, 
+IF(NOT(ISBLANK(Parent.Parent.Parent.Parent.Name)), Parent.Parent.Parent.Parent.Name, 
+IF(NOT(ISBLANK(Parent.Parent.Parent.Name)), Parent.Parent.Parent.Name, 
+IF(NOT(ISBLANK(Parent.Parent.Name)), Parent.Parent.Name, 
+IF(NOT(ISBLANK(Parent.Name)),Parent.Name, 
+Name))))))</formula>
+        <label>Related HO Account</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sage_Account_Code_RE__c</fullName>
+        <externalId>true</externalId>
+        <label>Sage Account Code</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Team_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Team Notes</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ShippingAddress</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Shipping_Region_RE__c</fullName>
+        <description>Shipping Address Region from CC</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Shipping Address Region from CC</inlineHelpText>
+        <label>Shipping Region</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sic</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>SicDesc</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Site</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>TickerSymbol</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Time_Zone__c</fullName>
+        <externalId>false</externalId>
+        <label>Time Zone</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>GMT-Greenwich Mean Time-GMT</fullName>
+                    <default>false</default>
+                    <label>GMT-Greenwich Mean Time-GMT</label>
+                </value>
+                <value>
+                    <fullName>UTC-Universal Coordinated Time-GMT</fullName>
+                    <default>false</default>
+                    <label>UTC-Universal Coordinated Time-GMT</label>
+                </value>
+                <value>
+                    <fullName>ECT-European Central Time-GMT+1:00</fullName>
+                    <default>false</default>
+                    <label>ECT-European Central Time-GMT+1:00</label>
+                </value>
+                <value>
+                    <fullName>EET-Eastern European Time-GMT+2:00</fullName>
+                    <default>false</default>
+                    <label>EET-Eastern European Time-GMT+2:00</label>
+                </value>
+                <value>
+                    <fullName>ART-(Arabic) Egypt Standard Time-GMT+2:00</fullName>
+                    <default>false</default>
+                    <label>ART-(Arabic) Egypt Standard Time-GMT+2:00</label>
+                </value>
+                <value>
+                    <fullName>EAT-Eastern African Time-GMT+3:00</fullName>
+                    <default>false</default>
+                    <label>EAT-Eastern African Time-GMT+3:00</label>
+                </value>
+                <value>
+                    <fullName>MET-Middle East Time-GMT+3:30</fullName>
+                    <default>false</default>
+                    <label>MET-Middle East Time-GMT+3:30</label>
+                </value>
+                <value>
+                    <fullName>NET-Near East Time-GMT+4:00</fullName>
+                    <default>false</default>
+                    <label>NET-Near East Time-GMT+4:00</label>
+                </value>
+                <value>
+                    <fullName>PLT-Pakistan Lahore Time-GMT+5:00</fullName>
+                    <default>false</default>
+                    <label>PLT-Pakistan Lahore Time-GMT+5:00</label>
+                </value>
+                <value>
+                    <fullName>IST-India Standard Time-GMT+5:30</fullName>
+                    <default>false</default>
+                    <label>IST-India Standard Time-GMT+5:30</label>
+                </value>
+                <value>
+                    <fullName>BST-Bangladesh Standard Time-GMT+6:00</fullName>
+                    <default>false</default>
+                    <label>BST-Bangladesh Standard Time-GMT+6:00</label>
+                </value>
+                <value>
+                    <fullName>VST-Vietnam Standard Time-GMT+7:00</fullName>
+                    <default>false</default>
+                    <label>VST-Vietnam Standard Time-GMT+7:00</label>
+                </value>
+                <value>
+                    <fullName>CTT-China Taiwan Time-GMT+8:00</fullName>
+                    <default>false</default>
+                    <label>CTT-China Taiwan Time-GMT+8:00</label>
+                </value>
+                <value>
+                    <fullName>JST-Japan Standard Time-GMT+9:00</fullName>
+                    <default>false</default>
+                    <label>JST-Japan Standard Time-GMT+9:00</label>
+                </value>
+                <value>
+                    <fullName>ACT-Australia Central Time-GMT+9:30</fullName>
+                    <default>false</default>
+                    <label>ACT-Australia Central Time-GMT+9:30</label>
+                </value>
+                <value>
+                    <fullName>AET-Australia Eastern Time-GMT+10:00</fullName>
+                    <default>false</default>
+                    <label>AET-Australia Eastern Time-GMT+10:00</label>
+                </value>
+                <value>
+                    <fullName>SST-Solomon Standard Time-GMT+11:00</fullName>
+                    <default>false</default>
+                    <label>SST-Solomon Standard Time-GMT+11:00</label>
+                </value>
+                <value>
+                    <fullName>NST-New Zealand Standard Time-GMT+12:00</fullName>
+                    <default>false</default>
+                    <label>NST-New Zealand Standard Time-GMT+12:00</label>
+                </value>
+                <value>
+                    <fullName>MIT-Midway Islands Time-GMT‌-11:00</fullName>
+                    <default>false</default>
+                    <label>MIT-Midway Islands Time-GMT‌-11:00</label>
+                </value>
+                <value>
+                    <fullName>HST-Hawaii Standard Time-GMT‌-10:00</fullName>
+                    <default>false</default>
+                    <label>HST-Hawaii Standard Time-GMT‌-10:00</label>
+                </value>
+                <value>
+                    <fullName>AST-Alaska Standard Time-GMT‌-9:00</fullName>
+                    <default>false</default>
+                    <label>AST-Alaska Standard Time-GMT‌-9:00</label>
+                </value>
+                <value>
+                    <fullName>PST-Pacific Standard Time-GMT‌-8:00</fullName>
+                    <default>false</default>
+                    <label>PST-Pacific Standard Time-GMT‌-8:00</label>
+                </value>
+                <value>
+                    <fullName>PNT-Phoenix Standard Time-GMT‌-7:00</fullName>
+                    <default>false</default>
+                    <label>PNT-Phoenix Standard Time-GMT‌-7:00</label>
+                </value>
+                <value>
+                    <fullName>MST-Mountain Standard Time-GMT‌-7:00</fullName>
+                    <default>false</default>
+                    <label>MST-Mountain Standard Time-GMT‌-7:00</label>
+                </value>
+                <value>
+                    <fullName>CST-Central Standard Time-GMT‌-6:00</fullName>
+                    <default>false</default>
+                    <label>CST-Central Standard Time-GMT‌-6:00</label>
+                </value>
+                <value>
+                    <fullName>EST-Eastern Standard Time-GMT‌-5:00</fullName>
+                    <default>false</default>
+                    <label>EST-Eastern Standard Time-GMT‌-5:00</label>
+                </value>
+                <value>
+                    <fullName>IET-Indiana Eastern Standard Time-GMT‌-5:00</fullName>
+                    <default>false</default>
+                    <label>IET-Indiana Eastern Standard Time-GMT‌-5:00</label>
+                </value>
+                <value>
+                    <fullName>PRT-Puerto Rico and US Virgin Islands Time-GMT‌-4:00</fullName>
+                    <default>false</default>
+                    <label>PRT-Puerto Rico and US Virgin Islands Time-GMT‌-4:00</label>
+                </value>
+                <value>
+                    <fullName>CNT-Canada Newfoundland Time-GMT‌-3:30</fullName>
+                    <default>false</default>
+                    <label>CNT-Canada Newfoundland Time-GMT‌-3:30</label>
+                </value>
+                <value>
+                    <fullName>AGT-Argentina Standard Time-GMT‌-3:00</fullName>
+                    <default>false</default>
+                    <label>AGT-Argentina Standard Time-GMT‌-3:00</label>
+                </value>
+                <value>
+                    <fullName>BET-Brazil Eastern Time-GMT‌-3:00</fullName>
+                    <default>false</default>
+                    <label>BET-Brazil Eastern Time-GMT‌-3:00</label>
+                </value>
+                <value>
+                    <fullName>CAT-Central African Time-GMT‌-1:00</fullName>
+                    <default>false</default>
+                    <label>CAT-Central African Time-GMT‌-1:00</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Verification_Date_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Verification Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Verified_By_RE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Verified By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipLabel>Accounts Verified</relationshipLabel>
+        <relationshipName>Accounts_Verified</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Website</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <listViews>
+        <fullName>AllAccounts</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>ACCOUNT.ADDRESS1_STATE</columns>
+        <columns>ACCOUNT.PHONE1</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.FIRST_NAME</columns>
+        <columns>CORE.USERS.LAST_NAME</columns>
+        <columns>Number_of_Branches_RE__c</columns>
+        <columns>Created_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Accounts</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Allen_and_Overy</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>PARENT_NAME</columns>
+        <columns>ACCOUNT.ADDRESS2_CITY</columns>
+        <columns>ACCOUNT.ADDRESS2_COUNTRY</columns>
+        <columns>ACCOUNT.PHONE1</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ACCOUNT.NAME</field>
+            <operation>contains</operation>
+            <value>Allen &amp; Overy</value>
+        </filters>
+        <label>Allen and Overy</label>
+    </listViews>
+    <listViews>
+        <fullName>Chambers_Account_List_View</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>PARENT_NAME</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>Industry_Sector_RE__c</columns>
+        <columns>CC_Industry_RE__c</columns>
+        <columns>Organization_Type_RE__c</columns>
+        <columns>CPOrganisationTypeId_RE__c</columns>
+        <columns>ACCOUNT.ADDRESS2_CITY</columns>
+        <columns>ACCOUNT.ADDRESS2_COUNTRY</columns>
+        <columns>Shipping_Region_RE__c</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <label>Chambers Account List View</label>
+    </listViews>
+    <listViews>
+        <fullName>Chambers_UK_Account_List_View</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>PARENT_NAME</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>Industry_Sector_RE__c</columns>
+        <columns>CC_Industry_RE__c</columns>
+        <columns>Organization_Type_RE__c</columns>
+        <columns>CPOrganisationTypeId_RE__c</columns>
+        <columns>ACCOUNT.ADDRESS2_CITY</columns>
+        <columns>ACCOUNT.ADDRESS2_COUNTRY</columns>
+        <columns>Shipping_Region_RE__c</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ACCOUNT.ADDRESS2_COUNTRY</field>
+            <operation>equals</operation>
+            <value>UK</value>
+        </filters>
+        <label>Chambers UK Account List View</label>
+    </listViews>
+    <listViews>
+        <fullName>Copy_of_Chambers_US_Account_List_View</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>PARENT_NAME</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>Industry_Sector_RE__c</columns>
+        <columns>CC_Industry_RE__c</columns>
+        <columns>Organization_Type_RE__c</columns>
+        <columns>CPOrganisationTypeId_RE__c</columns>
+        <columns>ACCOUNT.ADDRESS2_CITY</columns>
+        <columns>ACCOUNT.ADDRESS2_COUNTRY</columns>
+        <columns>Shipping_Region_RE__c</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ACCOUNT.ADDRESS2_COUNTRY</field>
+            <operation>equals</operation>
+            <value>USA</value>
+        </filters>
+        <label>Chambers US Account List View</label>
+    </listViews>
+    <listViews>
+        <fullName>HO_Accounts</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>ACCOUNT.ADDRESS1_CITY</columns>
+        <columns>ACCOUNT.ADDRESS1_COUNTRY</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ACCOUNT.NAME</field>
+            <operation>contains</operation>
+            <value>- HO</value>
+        </filters>
+        <label>HO Accounts</label>
+    </listViews>
+    <listViews>
+        <fullName>MyAccounts</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>ACCOUNT.ADDRESS1_STATE</columns>
+        <columns>ACCOUNT.PHONE1</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>ACCOUNT.LAST_UPDATE</field>
+            <operation>lessOrEqual</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>My Accounts</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Accounts</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>PARENT_NAME</columns>
+        <columns>ACCOUNT.ADDRESS2_CITY</columns>
+        <columns>ACCOUNT.ADDRESS2_COUNTRY</columns>
+        <columns>ACCOUNT.PHONE1</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Accounts</label>
+    </listViews>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>Branch</fullName>
+        <active>true</active>
+        <description>A location of a law firm</description>
+        <label>Branch</label>
+        <picklistValues>
+            <picklist>AccountSource</picklist>
+            <values>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google AdWords</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Previous Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Industry</picklist>
+            <values>
+                <fullName>Agriculture</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Apparel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Banking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biotechnology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chemicals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Communications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Construction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electronics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Entertainment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Environmental</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Finance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Food %26 Beverage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Government</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Machinery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not For Profit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recreation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telecommunications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Ownership</picklist>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Subsidiary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rating</picklist>
+            <values>
+                <fullName>Cold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hot</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warm</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Time_Zone__c</picklist>
+            <values>
+                <fullName>ACT-Australia Central Time-GMT%2B9%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AET-Australia Eastern Time-GMT%2B10%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AGT-Argentina Standard Time-GMT%E2%80%8C-3%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ART-%28Arabic%29 Egypt Standard Time-GMT%2B2%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AST-Alaska Standard Time-GMT%E2%80%8C-9%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BET-Brazil Eastern Time-GMT%E2%80%8C-3%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BST-Bangladesh Standard Time-GMT%2B6%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CAT-Central African Time-GMT%E2%80%8C-1%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CNT-Canada Newfoundland Time-GMT%E2%80%8C-3%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CST-Central Standard Time-GMT%E2%80%8C-6%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CTT-China Taiwan Time-GMT%2B8%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EAT-Eastern African Time-GMT%2B3%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ECT-European Central Time-GMT%2B1%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EET-Eastern European Time-GMT%2B2%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EST-Eastern Standard Time-GMT%E2%80%8C-5%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GMT-Greenwich Mean Time-GMT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HST-Hawaii Standard Time-GMT%E2%80%8C-10%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IET-Indiana Eastern Standard Time-GMT%E2%80%8C-5%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IST-India Standard Time-GMT%2B5%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JST-Japan Standard Time-GMT%2B9%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MET-Middle East Time-GMT%2B3%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MIT-Midway Islands Time-GMT%E2%80%8C-11%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MST-Mountain Standard Time-GMT%E2%80%8C-7%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NET-Near East Time-GMT%2B4%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NST-New Zealand Standard Time-GMT%2B12%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PLT-Pakistan Lahore Time-GMT%2B5%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PNT-Phoenix Standard Time-GMT%E2%80%8C-7%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PRT-Puerto Rico and US Virgin Islands Time-GMT%E2%80%8C-4%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PST-Pacific Standard Time-GMT%E2%80%8C-8%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SST-Solomon Standard Time-GMT%2B11%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UTC-Universal Coordinated Time-GMT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VST-Vietnam Standard Time-GMT%2B7%3A00</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Academic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advisor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Firm</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verein</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Firm</fullName>
+        <active>true</active>
+        <description>A law firm or a collection of law firm branches</description>
+        <label>Firm</label>
+        <picklistValues>
+            <picklist>AccountSource</picklist>
+            <values>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google AdWords</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Firm Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Ind%2E Ranking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Past Profile</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Previous Purchase</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Industry</picklist>
+            <values>
+                <fullName>Agriculture</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Apparel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Banking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biotechnology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chemicals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Communications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Construction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electronics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Entertainment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Environmental</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Finance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Food %26 Beverage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Government</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Machinery</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not For Profit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recreation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Technology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telecommunications</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Ownership</picklist>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Private</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Public</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Subsidiary</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rating</picklist>
+            <values>
+                <fullName>Cold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hot</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warm</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Time_Zone__c</picklist>
+            <values>
+                <fullName>ACT-Australia Central Time-GMT%2B9%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AET-Australia Eastern Time-GMT%2B10%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AGT-Argentina Standard Time-GMT%E2%80%8C-3%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ART-%28Arabic%29 Egypt Standard Time-GMT%2B2%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>AST-Alaska Standard Time-GMT%E2%80%8C-9%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BET-Brazil Eastern Time-GMT%E2%80%8C-3%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BST-Bangladesh Standard Time-GMT%2B6%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CAT-Central African Time-GMT%E2%80%8C-1%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CNT-Canada Newfoundland Time-GMT%E2%80%8C-3%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CST-Central Standard Time-GMT%E2%80%8C-6%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CTT-China Taiwan Time-GMT%2B8%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EAT-Eastern African Time-GMT%2B3%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ECT-European Central Time-GMT%2B1%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EET-Eastern European Time-GMT%2B2%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EST-Eastern Standard Time-GMT%E2%80%8C-5%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GMT-Greenwich Mean Time-GMT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HST-Hawaii Standard Time-GMT%E2%80%8C-10%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IET-Indiana Eastern Standard Time-GMT%E2%80%8C-5%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IST-India Standard Time-GMT%2B5%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JST-Japan Standard Time-GMT%2B9%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MET-Middle East Time-GMT%2B3%3A30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MIT-Midway Islands Time-GMT%E2%80%8C-11%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MST-Mountain Standard Time-GMT%E2%80%8C-7%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NET-Near East Time-GMT%2B4%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NST-New Zealand Standard Time-GMT%2B12%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PLT-Pakistan Lahore Time-GMT%2B5%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PNT-Phoenix Standard Time-GMT%E2%80%8C-7%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PRT-Puerto Rico and US Virgin Islands Time-GMT%E2%80%8C-4%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PST-Pacific Standard Time-GMT%E2%80%8C-8%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SST-Solomon Standard Time-GMT%2B11%3A00</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>UTC-Universal Coordinated Time-GMT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VST-Vietnam Standard Time-GMT%2B7%3A00</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Academic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advisor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Firm</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judicial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LPO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Network</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Set</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Verein</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.ADDRESS1_CITY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.PHONE1</customTabListAdditionalFields>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>DiscoveryGetAccountsAction</excludedStandardButtons>
+        <excludedStandardButtons>DataDotComGetAccountsMultiAddAction</excludedStandardButtons>
+        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CC_Account_ID_RE__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>PARENT_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CC_Parent_Account_ID_RE__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CORE.USERS.ALIAS</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.TYPE</lookupDialogsAdditionalFields>
+        <lookupFilterFields>CC_Account_ID_RE__c</lookupFilterFields>
+        <lookupFilterFields>CC_Parent_Account_ID_RE__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.ALIAS</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.TYPE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.PHONE1</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>CC_Account_ID_RE__c</searchFilterFields>
+        <searchFilterFields>CC_Parent_Account_ID_RE__c</searchFilterFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CC_Account_ID_RE__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PARENT_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CC_Parent_Account_ID_RE__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.ACCOUNT_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.ADDRESS2_CITY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.ADDRESS2_COUNTRY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Number_of_Branches_RE__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.PHONE1</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.LAST_NAME</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Prevent_Account_Name_Field_Edits</fullName>
+        <active>true</active>
+        <description>This validation rule prevents all profiles except System Administrator from changing the account name field</description>
+        <errorConditionFormula>AND(
+ISCHANGED(Name),
+OR($Profile.Name = &quot;Sales Rep&quot;, $Profile.Name = &quot;Sales Management&quot;))</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>This field is updated by synchronisation with CC. Please contact your System Administrator for help.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Parent_Account_Field_Edits</fullName>
+        <active>true</active>
+        <description>This validation rule prevents all profiles except System Administrator from changing the account name field</description>
+        <errorConditionFormula>AND(
+ISCHANGED(ParentId),
+OR($Profile.Name = &quot;Sales Rep&quot;, $Profile.Name = &quot;Sales Management&quot;))</errorConditionFormula>
+        <errorDisplayField>ParentId</errorDisplayField>
+        <errorMessage>This field is updated by synchronisation with CC. Please contact your System Administrator for help.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Composer_OAuth</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT ***
+
+OAuth buttons require additional setup. Please see the Composer Installation Guide for more details.
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Composer Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer (OAuth)</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Account.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Conga_Mail_Merge</fullName>
+        <availability>online</availability>
+        <description>*** DO NOT USE THIS BUTTON ON A PAGE LAYOUT ***
+
+COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. Then add optional parameters to finely tune the button&apos;s behavior. See the Conga Configuration Guide for details.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?serverUrl={!API.Partner_Server_URL_370}
+&amp;id={!Account.Id}</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Composer_Composer_SP_Account_Brief</fullName>
+        <availability>online</availability>
+        <description>Created by Conga Solution Manager. Record link: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1l000001mAO4EAM.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>false</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>660</height>
+        <isResizable>false</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Composer SP Account Brief</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__Conga_Composer?SolMgr=1
+&amp;serverUrl={!API.Partner_Server_URL_370}
+&amp;Id={!Account.Id}
+
+&amp;QueryId=[Opptys]a0C1l00000brJuN,
+[Contacts]a0C1l00000brJuO,
+[Cases]a0C1l00000brJuP,
+[Activities]a0C1l00000brJuQ
+
+&amp;OFN=Account+Brief+-+{!Account.Name}+-+{!Today}
+&amp;AC0=1
+&amp;AC1=Account+Brief+Created+By+{!User.Name}
+&amp;SC0=1
+&amp;SC1=Attachments
+&amp;DefaultPDF=1
+&amp;TemplateGroup=Account</url>
+        <width>900</width>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleMaps</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Maps</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://maps.google.com/maps?f=q&amp;hl=en&amp;q={!Account_BillingStreet}+{!Account_BillingCity}+{!Account_BillingState}&amp;om=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleNews</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google News</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/news?&amp;q={!Account_Name}&amp;btnG=Search+News</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleSearch</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Search</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/search?q={!Account_Name}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>MC4SF__MailChimp_Subscriptions</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>MailChimp Subscriptions</masterLabel>
+        <openType>noSidebar</openType>
+        <page>MC4SF__ForwardPersonAcctToSubscriptionContact</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>
