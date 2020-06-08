@@ -4,9 +4,9 @@
     <option name="connections">
       <list>
         <IlluminatedCloudConnection>
-          <option name="connectionName" value="Internal Chambers(15.05.2020)" />
+          <option name="connectionName" value="Chambers(25.05.2020)" />
           <option name="defaultModuleName" value="Chambers(25.05.2020)" />
-          <option name="offlineSymbolTablePath" value="$PROJECT_DIR$/IlluminatedCloud/Internal_Chambers_15_05_2020_/OfflineSymbolTable.zip" />
+          <option name="offlineSymbolTablePath" value="$PROJECT_DIR$/IlluminatedCloud/Chambers_25_05_2020_/OfflineSymbolTable.zip" />
         </IlluminatedCloudConnection>
       </list>
     </option>

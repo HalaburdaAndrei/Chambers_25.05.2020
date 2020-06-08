@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="IlluminatedCloud" name="Illuminated Cloud">
       <configuration>
-        <option name="connectionName" value="Internal Chambers(15.05.2020)" />
+        <option name="connectionName" value="Chambers(25.05.2020)" />
         <option name="defaultSourceRootUrl" value="file://$MODULE_DIR$/src" />
         <option name="moduleContents">
           <ModuleContents>
@@ -215,6 +215,18 @@
                             <option name="name" value="testButtonController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="BatchCallOut" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SendaQuoteController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="reUsableMultiSelectLookupCtrl" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -239,6 +251,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="FireOpptyAutomation" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="GetSessionIdVF" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
@@ -365,6 +381,22 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="testButton" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="SendaQuote" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="selectedsObjectRecordsEvent" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="reUsableMultiSelectLookupResult" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="reUsableMultiSelectLookup" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
@@ -9985,7 +10017,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="IlluminatedCloud (Chambers(25.05.2020)/Internal Chambers(15.05.2020))" jdkType="IlluminatedCloud" />
+    <orderEntry type="jdk" jdkName="IlluminatedCloud (Chambers(25.05.2020)/Chambers(25.05.2020))" jdkType="IlluminatedCloud" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

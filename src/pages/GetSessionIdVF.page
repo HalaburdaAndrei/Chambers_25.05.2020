@@ -1,0 +1,7 @@
+<!--
+ - Created by novab on 01.06.2020.
+ -->
+
+<apex:page id="GetSessionIdVF">
+    Start_Of_Session_Id{!$Api.Session_ID}End_Of_Session_Id
+</apex:page>

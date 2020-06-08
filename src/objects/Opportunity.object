@@ -1816,7 +1816,7 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
         <fullName>Conga_Composer_Send_a_Quote</fullName>
         <availability>online</availability>
         <description>Originally created by Conga Solution Manager. Date of last use of Update Button from Conga Solution record: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1l000001nowuEAA
-21-May-2020 02:10:46 PM</description>
+29-May-2020 01:15:18 PM</description>
         <displayType>button</displayType>
         <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
@@ -1839,13 +1839,9 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
 
 &amp;TemplateId=a0K1t000005SDcr
 
-&amp;CongaEmailTemplateId=a0B1l00000864ld
-
-&amp;EmailSubject=Test+Send+Quote
 &amp;DefaultPDF=1
-&amp;EmailRelatedToId={!Opportunity.Id}
-&amp;EmailToId=0031l00000ZzG2eAAF
-&amp;EmailCC={!Opportunity.Signer_Email__c}</url>
+&amp;SC0=1
+&amp;SC1=SalesforceFile</url>
         <width>900</width>
     </webLinks>
 </CustomObject>

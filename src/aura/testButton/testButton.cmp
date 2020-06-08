@@ -2,7 +2,7 @@
  - Created by andrei on 14.04.20.
  -->
 
-<aura:component description="testButton" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="testButtonController">
+<aura:component description="testButton" implements="force:lightningQuickActionWithoutHeader,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="testButtonController" access="global">
     <aura:attribute name="templates" type="List" default="[
     {'label': 'Chambers UK Booking form', 'value': 'option1'},
     {'label': 'Chambers non-UK Booking form', 'value': 'option2'},
@@ -13,7 +13,8 @@
     <aura:attribute name="value" type="String" default=""/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
-
+    <aura:handler event="lightning:openFiles" action="{! c.handleOpenFiles }" />
+    <lightning:button label="Open a single file" onclick="{! c.openSingleFile }"/>
     <lightning:radioGroup name="radioGroupRequired"
                           label="List Templates"
                           options="{! v.templates }"
