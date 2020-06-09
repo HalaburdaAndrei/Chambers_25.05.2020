@@ -13,8 +13,10 @@ public with sharing class reUsableMultiSelectLookupCtrl {
         List < sObject > returnList = new List < sObject > ();
 
         List<string> lstExcludeitems = new List<string>();
-        for(sObject item : ExcludeitemsList ){
-            lstExcludeitems.add(item.id);
+        if(ExcludeitemsList != null) {
+            for (sObject item : ExcludeitemsList) {
+                lstExcludeitems.add(item.id);
+            }
         }
 
         // Create a Dynamic SOQL Query For Fetch Record List with LIMIT 5 and exclude already selected records

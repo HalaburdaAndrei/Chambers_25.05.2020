@@ -2,39 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5659212c-ef46-4353-8f6e-d243b3fb313b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuoteController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.cmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.cmp-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookupController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookupHelper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResult.cmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResult.cmp-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResultController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/selectedsObjectRecordsEvent/selectedsObjectRecordsEvent.evt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/selectedsObjectRecordsEvent/selectedsObjectRecordsEvent.evt-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/SendaQuoteController.cls" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/SendaQuoteController.cls-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls-meta.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/illuminatedCloud.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/illuminatedCloud.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookup/customLookup.cmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookup/customLookup.cmp-meta.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookup/customLookup.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookup/customLookupController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookup/customLookupHelper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookupResult/customLookupResult.cmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookupResult/customLookupResult.cmp-meta.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/customLookupResult/customLookupResultController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chambers(25.05.2020).iml" beforeDir="false" afterPath="$PROJECT_DIR$/Chambers(25.05.2020).iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IlluminatedCloud/Chambers_25_05_2020_/OfflineSymbolTable.zip" beforeDir="false" afterPath="$PROJECT_DIR$/IlluminatedCloud/Chambers_25_05_2020_/OfflineSymbolTable.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/testButton/testButton.cmp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/testButton/testButton.cmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/testButton/testButtonController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/testButton/testButtonController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/testButtonController.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/testButtonController.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Asset.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Asset.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/AuthorizationFormConsent.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/AuthorizationFormConsent.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/CommSubscriptionTiming.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/CommSubscriptionTiming.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/ContactPointConsent.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/ContactPointConsent.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/ContactPointTypeConsent.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/ContactPointTypeConsent.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/DataUsePurpose.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/DataUsePurpose.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Opportunity.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Opportunity.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Order.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Order.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/QuickText.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/QuickText.object" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuoteController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuoteController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/SendaQuoteController.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/SendaQuoteController.cls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,25 +25,52 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/SendaQuoteController.cls">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="104" column="33" lean-forward="true" selection-start-line="104" selection-start-column="33" selection-end-line="104" selection-end-column="33" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp">
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp">
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+        <entry file="file://$PROJECT_DIR$/src/aura/customLookupResult/customLookupResult.cmp">
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aura/customLookup/customLookup.cmp">
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.cmp">
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls">
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -78,11 +86,11 @@
       <list>
         <option value="Apex Class" />
         <option value="Lightning Component Event" />
+        <option value="Lightning Helper" />
+        <option value="Lightning Style" />
         <option value="Lightning Component" />
         <option value="Apex Metadata" />
         <option value="Lightning Controller" />
-        <option value="Lightning Helper" />
-        <option value="Lightning Style" />
       </list>
     </option>
   </component>
@@ -90,6 +98,13 @@
     <findStrings>
       <find>/apex/APXTConga4__Conga_Composer</find>
       <find>https://composer.congamerge.com/composer8/index.html?sessionId=SESSION_ID_REMOVED&amp;serverUrl=https%3A%2F%2Fchambers--partial.my.salesforce.com%2Fservices%2FSoap%2Fu%2F29.0%2F00D1l0000000aWlEAI&amp;id=0061l00000JmP6gAAF&amp;TemplateId=a0K1t000005SDcr&amp;SC0=1&amp;SC1=SalesforceFile&amp;FP0=1&amp;DS7=1&amp;DefaultPDF=1&amp;APIMode=1</find>
+      <find>spinner</find>
+      <find>mySpinner</find>
+      <find>keyPressController</find>
+      <find>selectedRecord</find>
+      <find>singleRec</find>
+      <find>account</find>
+      <find>fieldAPIName</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,12 +124,18 @@
         <option value="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResultController.js" />
         <option value="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookupController.js" />
         <option value="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.css" />
-        <option value="$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls" />
         <option value="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookupHelper.js" />
         <option value="$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.cmp" />
-        <option value="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp" />
-        <option value="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuoteController.js" />
         <option value="$PROJECT_DIR$/src/classes/SendaQuoteController.cls" />
+        <option value="$PROJECT_DIR$/src/aura/customLookup/customLookupController.js" />
+        <option value="$PROJECT_DIR$/src/aura/customLookup/customLookup.css" />
+        <option value="$PROJECT_DIR$/src/aura/customLookupResult/customLookupResult.cmp" />
+        <option value="$PROJECT_DIR$/src/aura/customLookupResult/customLookupResultController.js" />
+        <option value="$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls" />
+        <option value="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuoteController.js" />
+        <option value="$PROJECT_DIR$/src/aura/customLookup/customLookupHelper.js" />
+        <option value="$PROJECT_DIR$/src/aura/customLookup/customLookup.cmp" />
+        <option value="$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp" />
       </list>
     </option>
   </component>
@@ -124,7 +145,7 @@
         <entry key="Chambers(25.05.2020)">
           <value>
             <ModuleWorkspaceSettings>
-              <option name="moduleContentsLastModified" value="1591623523141" />
+              <option name="moduleContentsLastModified" value="1591708570752" />
               <option name="serverMetadataLastPopulated" value="1590399349824" />
             </ModuleWorkspaceSettings>
           </value>
@@ -140,13 +161,15 @@
                 <ConnectionWorkspaceSettings>
                   <option name="buildSuccessDatesBySourceRootRelativePath">
                     <map>
+                      <entry key="AURA/CUSTOMLOOKUP" value="1591714658000" />
+                      <entry key="AURA/CUSTOMLOOKUPRESULT" value="1591712360000" />
                       <entry key="AURA/REUSABLEMULTISELECTLOOKUP" value="1591623839000" />
                       <entry key="AURA/REUSABLEMULTISELECTLOOKUPRESULT" value="1591613659000" />
                       <entry key="AURA/SELECTEDSOBJECTRECORDSEVENT" value="1591613659000" />
-                      <entry key="AURA/SENDAQUOTE" value="1591627895000" />
+                      <entry key="AURA/SENDAQUOTE" value="1591714606000" />
                       <entry key="AURA/TESTBUTTON" value="1591602051000" />
-                      <entry key="CLASSES/REUSABLEMULTISELECTLOOKUPCTRL.CLS" value="1591623033000" />
-                      <entry key="CLASSES/SENDAQUOTECONTROLLER.CLS" value="1591627894000" />
+                      <entry key="CLASSES/REUSABLEMULTISELECTLOOKUPCTRL.CLS" value="1591713660000" />
+                      <entry key="CLASSES/SENDAQUOTECONTROLLER.CLS" value="1591705014000" />
                       <entry key="CLASSES/TESTBUTTONCONTROLLER.CLS" value="1590999249452" />
                     </map>
                   </option>
@@ -3227,8 +3250,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -3245,13 +3266,19 @@
               <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
               <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reUsableMultiSelectLookup" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+              <item name="customLookup" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
             </path>
             <path>
               <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
               <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reUsableMultiSelectLookupResult" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+              <item name="customLookupResult" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="reUsableMultiSelectLookup" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
             </path>
             <path>
               <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
@@ -3275,6 +3302,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3324,17 +3353,19 @@
       <workItem from="1591084158594" duration="599000" />
       <workItem from="1591174925242" duration="599000" />
       <workItem from="1591344550881" duration="2900000" />
-      <workItem from="1591597109233" duration="23530000" />
+      <workItem from="1591597109233" duration="23914000" />
+      <workItem from="1591683867381" duration="17172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45257000" />
+    <option name="totallyTimeSpent" value="62813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27670172" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20420587" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -3349,7 +3380,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Log Viewer" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32963374" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32963374" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" />
@@ -3357,7 +3388,7 @@
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32963374" />
       <window_info anchor="bottom" id="SOQL Query" order="15" />
-      <window_info anchor="bottom" id="Illuminated Cloud" order="16" weight="0.32963374" />
+      <window_info active="true" anchor="bottom" id="Illuminated Cloud" order="16" visible="true" weight="0.32963374" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -3392,89 +3423,122 @@
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/SendaQuote/SendaQuoteController.js">
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/TargetSalesPerson/TargetSalesPerson.cmp">
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookupController.js">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResultController.js">
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookupHelper.js">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.css">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/testButton/testButtonController.js">
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aura/selectedsObjectRecordsEvent/selectedsObjectRecordsEvent.evt">
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResult.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="93" selection-start-line="20" selection-start-column="93" selection-end-line="20" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/test.cls">
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/test.cls" />
     <entry file="file://$PROJECT_DIR$/src/classes/testButtonController.cls">
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookupResult/reUsableMultiSelectLookupResult.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SendaQuoteController.cls">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1264">
           <caret line="104" column="33" lean-forward="true" selection-start-line="104" selection-start-column="33" selection-end-line="104" selection-end-column="33" />
         </state>
       </provider>
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/customLookup/customLookupController.js">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/customLookup/customLookupHelper.js">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/customLookup/customLookup.css">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/customLookupResult/customLookupResultController.js">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/selectedsObjectRecordsEvent/selectedsObjectRecordsEvent.evt">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/reUsableMultiSelectLookupCtrl.cls">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="20" column="93" selection-start-line="20" selection-start-column="93" selection-end-line="20" selection-end-column="93" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/reUsableMultiSelectLookup/reUsableMultiSelectLookup.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/customLookupResult/customLookupResult.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/customLookup/customLookup.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
   </component>
   <component name="masterDetails">

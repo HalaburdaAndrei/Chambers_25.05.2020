@@ -11,7 +11,7 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
             console.log(state);
             if (state === "SUCCESS") {
                 console.log(JSON.stringify(response.getReturnValue()));
-                component.set("v.selectedLookUpRecords", response.getReturnValue());
+                component.set("v.selectedLookUpContact", response.getReturnValue());
             }
         });
         $A.enqueueAction(contact);
@@ -45,6 +45,9 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
     generated : function (component, event, helper) {
         console.log(component.get("v.selectedTemplate"));
 
+        component.set('v.loaded', !component.get('v.loaded'));
+
+
         var action = component.get("c.generateQuote");
         action.setParams({templateId: component.get("v.selectedTemplate")});
         action.setCallback(this, function(response){
@@ -55,6 +58,9 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
 // Parse the respose
                 var responseData = JSON.parse(responseValue);
                 component.set("v.generatedPDF", responseData);
+
+                component.set('v.loaded', !component.get('v.loaded'));
+
                 alert(responseData);
 //alert(responseData.totalSize);
                 console.log(responseData);
@@ -115,16 +121,6 @@ console.log('123');
            }
         });
         $A.enqueueAction(email);
-    }
-
-    // // this function automatic call by aura:waiting event
-    // showSpinner: function (component, event, helper) {
-    //     component.set("v.Spinner", true);
-    // },
-    //
-    // // this function automatic call by aura:doneWaiting event
-    // hideSpinner: function (component, event, helper) {
-    //     component.set("v.Spinner", false);
-    // },
+    },
 
 })

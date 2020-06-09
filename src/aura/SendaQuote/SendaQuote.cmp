@@ -6,23 +6,34 @@
 
     <aura:attribute name="listTemplates" type="List" />
     <aura:attribute name="selectedTemplate" type="String" />
-    <aura:attribute name="generatedPDF" type="String" default="0681l000000tlwHAAQ" />
-    <aura:attribute name="filePDFOpen" type="String"  default="0691l000000tUrPAAU"/>
+    <aura:attribute name="generatedPDF" type="String"  />
+    <aura:attribute name="filePDFOpen" type="String"  />
 
     <aura:attribute name="subject" type="String" default="test Subject"/>
     <aura:attribute name="body" type="String" default="test Body"/>
 
     <!-- Create attribute to store lookup value as a sObject-->
-<!--    <aura:attribute name="selectedLookUpRecords" type="sObject[]" default="[]"/>-->
     <aura:attribute name="selectedLookUpRecords" type="sObject[]" />
+    <aura:attribute name="selectedLookUpContact" type="sObject"/>
 
-<!--    <aura:attribute name="Spinner" type="boolean" default="false"/>-->
-<!--    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>-->
-<!--    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>-->
+
+    <aura:attribute name="loaded" type="Boolean" default="true" />
+
+    <aura:attribute name="progress" type="Integer" default="0"/>
+    <aura:attribute name="isProgressing" type="Boolean" default="false"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler event="lightning:openFiles" action="{! c.handleOpenFiles }" />
 
+
+    <div class="exampleHolder">
+        <aura:if isTrue="{! v.loaded }">
+<!--            Put loaded content here-->
+            <aura:set attribute="else">
+                <lightning:spinner alternativeText="Loading" />
+            </aura:set>
+        </aura:if>
+    </div>
 
     <lightning:select name="TemplateId" label="Select a Template" value="{!v.selectedTemplate}" onchange="{!c.onchangeSelectedTemplate}">
         <aura:iteration items="{!v.listTemplates}" var="option">
@@ -30,16 +41,22 @@
         </aura:iteration>
     </lightning:select>
     <lightning:button variant="brand" label="Generated Quote" onclick="{!c.generated}" />
-    <lightning:button label="Open a single file" onclick="{! c.openSingleFile }"/>
+    <lightning:button label="open PDF file" onclick="{! c.openSingleFile }"/>
 
     <h1>Send Email</h1>
 <!--    <div class="slds-modal__content slds-p-around&#45;&#45;x-large slds-is-relative" aura:id="modalbody" id="modalbody">-->
         <form class="slds-form--stacked">
 
+            <c:customLookup fieldAPIName="Name" objectAPIName="contact"
+                            IconName="standard:contact" label="Email to"
+                            selectedRecord="{!v.selectedLookUpContact}"
+                            aura:id="account"
+                            recordId = "{!v.recordId}"/>
+
             <c:reUsableMultiSelectLookup objectAPIName="contact"
                                          IconName="standard:contact"
                                          lstSelectedRecords="{!v.selectedLookUpRecords}"
-                                         label="Email to"
+                                         label="Email CC"
                                             recordId = "{!v.recordId}"/>
 
             <lightning:input label="Email subject"
@@ -49,29 +66,15 @@
 
             <lightning:textarea label="Body"
                                 name="Body"
-                                value="{!v.body}"/>
+                                value="{!'Hello ' + v.body}"/>
 
         </form>
 
     <lightning:button variant="brand" label="Send Email" onclick="{! c.sendEmail }" />
 
 
-    <!--    </div>-->
-
-
-
-<!--    &lt;!&ndash;loading spinner start... style=Brand Medium (blue dots)&ndash;&gt;-->
-<!--    <aura:if isTrue="{!v.Spinner}">-->
-<!--        <div aura:id="spinnerId" class="slds-spinner_container">-->
-<!--            <div class="slds-spinner&#45;&#45;brand  slds-spinner slds-spinner&#45;&#45;large slds-is-relative"-->
-<!--                 role="alert">-->
-<!--                <span class="slds-assistive-text">Loading</span>-->
-<!--                <div class="slds-spinner__dot-a"></div>-->
-<!--                <div class="slds-spinner__dot-b"></div>-->
-<!--            </div>-->
 <!--        </div>-->
-<!--    </aura:if>-->
-<!--    &lt;!&ndash; Loading spinner end&ndash;&gt;-->
+
 
 
 </aura:component>
