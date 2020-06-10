@@ -20,7 +20,7 @@ public with sharing class reUsableMultiSelectLookupCtrl {
         }
 
         // Create a Dynamic SOQL Query For Fetch Record List with LIMIT 5 and exclude already selected records
-        String sQuery =  'select id, Name from ' +ObjectName + ' where AccountId =: accId AND Name LIKE: searchKey AND Id NOT IN : lstExcludeitems order by createdDate DESC limit 5';
+        String sQuery =  'select id, Name, Email from ' +ObjectName + ' where AccountId =: accId AND Name LIKE: searchKey AND Id NOT IN : lstExcludeitems order by createdDate DESC limit 5';
         List < sObject > lstOfRecords = Database.query(sQuery);
 
         for (sObject obj: lstOfRecords) {

@@ -60,6 +60,7 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
                 component.set("v.generatedPDF", responseData);
 
                 component.set('v.loaded', !component.get('v.loaded'));
+                component.set('v.showSendEmail', !component.get('v.showSendEmail'));
 
                 alert(responseData);
 //alert(responseData.totalSize);
@@ -106,12 +107,14 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
 
     sendEmail: function(component, event, helper){
 console.log('123');
+console.log(component.get("v.selectedLookUpRecords"));
         var email = component.get("c.sendEmailwithPDF");
         email.setParams({
             DocId : component.get("v.generatedPDF"),
             body : component.get("v.body"),
             subject : component.get("v.subject"),
-            contactsList : component.get("v.selectedLookUpRecords")
+            contactEmailTo : component.get("v.selectedLookUpContact"),
+            contactEmailCC : component.get("v.selectedLookUpRecords")
         });
         email.setCallback(this, function (response) {
            var state = response.getState();

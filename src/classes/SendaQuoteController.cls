@@ -76,12 +76,19 @@ public with sharing class SendaQuoteController {
     }
 
     @AuraEnabled
-    public static String sendEmailwithPDF( String DocId, String subject, String body, List<Contact> contactsList){
+    public static String sendEmailwithPDF( String DocId, String subject, String body, Contact contactEmailTo, List<Contact> contactEmailCC){
 String a = 'by';
+        System.debug('contact >> ' + contactEmailTo);
         String[] toAddresses = new String[]{};
-        for(Contact con : contactsList){
-            toAddresses.add(con.Email);
+        toAddresses.add(contactEmailTo.Email);
+
+        String[] ccAddresses = new String[]{};
+        if(contactEmailCC != null) {
+            for (Contact con : contactEmailCC) {
+                ccAddresses.add(con.Email);
+            }
         }
+
                 List<Messaging.EmailFileAttachment> attachments = new List<Messaging.EmailFileAttachment>{};
         List<ContentVersion> documents                  = [
                 SELECT Id, Title, FileType, VersionData, isLatest, ContentDocumentId
@@ -102,8 +109,11 @@ String a = 'by';
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
 //        String[] toAddresses = new String[]{'andrey.goloburda@succraft.com'};
         mail.setToAddresses(toAddresses);
+        if(ccAddresses != null){
+            mail.setCcAddresses(ccAddresses);
+        }
         mail.setSubject(subject);
-        mail.setPlainTextBody(body);
+        mail.setPlainTextBody(body == null?'hello': body);
         mail.setFileAttachments(attachments);
         // Pass this email message to the built-in sendEmail method
         // of the Messaging class
@@ -120,6 +130,7 @@ String a = 'by';
 //    @AuraEnabled
 //    public static String createQuote(){
 //        Quote quote = new Quote();
+//        QuoteLineItem quoteLineItem = new QuoteLineItem();
 //    }
 
 }
