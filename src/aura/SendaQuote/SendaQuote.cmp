@@ -8,9 +8,10 @@
     <aura:attribute name="selectedTemplate" type="String" />
     <aura:attribute name="generatedPDF" type="String"  />
     <aura:attribute name="filePDFOpen" type="String"  />
+    <aura:attribute name="quoteId" type="String"/>
 
     <aura:attribute name="subject" type="String" default="test Subject"/>
-    <aura:attribute name="body" type="String" default="test Body"/>
+    <aura:attribute name="body" type="String" />
 
     <!-- Create attribute to store lookup value as a sObject-->
     <aura:attribute name="selectedLookUpRecords" type="sObject[]" />
@@ -45,10 +46,12 @@
         </aura:iteration>
     </lightning:select>
     <div class="slds-var-m-top_xx-small">
-    <lightning:button variant="brand" label="Generated Quote" onclick="{!c.generated}" />
+    <lightning:button variant="brand" label="Generate Quote" onclick="{!c.generated}" />
 <!--        <aura:if isTrue="{!v.showSendEmail == true}">-->
     <lightning:button label="Preview a PDF file" onclick="{! c.openSingleFile }"/>
 <!--        </aura:if>-->
+
+<!--        <lightning:button label="Quote" onclick="{! c.quote }"/>-->
     </div>
 
 <!--    <aura:if isTrue="{!v.showSendEmail == true}">-->
@@ -72,14 +75,13 @@
                              name="emailSubject"
                              value="{!v.subject}"/>
 
-            <lightning:input label="Body"
-                             name="Body"
-                             type="text"
-                                value="{!'Hello ' + v.body}"/>
+            <lightning:textarea label="Body"
+                                name="Body"
+                                value="{!v.body}"/>
 
         </form>
 
-    <div class="slds-text-align_right">
+    <div class="slds-text-align_right slds-var-m-top_xx-small">
         <lightning:button variant="brand" label="Cancel" onclick="{! c.cancel }" />
         <lightning:button variant="brand" label="Send Email" onclick="{! c.sendEmail }" />
     </div>

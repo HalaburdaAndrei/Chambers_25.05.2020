@@ -47,9 +47,19 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
 
         component.set('v.loaded', !component.get('v.loaded'));
 
+        var creQuote = component.get("c.createQuote");
+        creQuote.setParams({recordId : component.get("v.recordId")});
+        creQuote.setCallback(this, function (response) {
+            var state = response.getState();
+            console.log(state);
+            if(state === 'SUCCESS'){
+                console.log(response.getReturnValue());
+                component.set("v.quoteId", response.getReturnValue());
 
         var action = component.get("c.generateQuote");
-        action.setParams({templateId: component.get("v.selectedTemplate")});
+        action.setParams({templateId: component.get("v.selectedTemplate"),
+                            oppId: component.get("v.recordId"),
+                            quoteId: component.get("v.quoteId")});
         action.setCallback(this, function(response){
             var state = response.getState();
             if( (state === 'SUCCESS' || state ==='DRAFT') && component.isValid()){
@@ -63,7 +73,15 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
                 component.set('v.showSendEmail', !component.get('v.showSendEmail'));
 
                 alert(responseData);
-//alert(responseData.totalSize);
+
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    "title": "Success!",
+                    "message": "The quota was generated successfully!",
+                    "type": "success"
+                });
+                toastEvent.fire();
+
                 console.log(responseData);
                 var filePDF = component.get("c.openPDF");
                 filePDF.setParams({fileId : component.get("v.generatedPDF")});
@@ -88,6 +106,9 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
         });
 // send the action to the server which will call the apex and will return the response
         $A.enqueueAction(action);
+            }
+        });
+        $A.enqueueAction(creQuote);
 
     },
 
@@ -108,6 +129,8 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
     sendEmail: function(component, event, helper){
 console.log('123');
 console.log(component.get("v.selectedLookUpRecords"));
+        var toastEvent = $A.get("e.force:showToast");
+
         var email = component.get("c.sendEmailwithPDF");
         email.setParams({
             DocId : component.get("v.generatedPDF"),
@@ -121,9 +144,39 @@ console.log(component.get("v.selectedLookUpRecords"));
            console.log(state);
            if(state === "SUCCESS"){
                console.log(JSON.stringify(response.getReturnValue()));
+               // var toastEvent = $A.get("e.force:showToast");
+               toastEvent.setParams({
+                   "title": "Success!",
+                   "message": "The email was sent successfully!",
+                   "type": "success"
+               });
+               toastEvent.fire();
+           }else{
+               console.log(JSON.stringify(response.getError()));
+               // var toastEvent = $A.get("e.force:showToast");
+               toastEvent.setParams({
+                   "title": "Error!",
+                   "message": "The email was not sent!",
+                   "type": "error"
+               });
+               toastEvent.fire();
            }
         });
         $A.enqueueAction(email);
     },
+
+    // quote: function (component, event, helper) {
+    //
+    //     var creQuote = component.get("c.createQuote");
+    //     creQuote.setParams({recordId : component.get("v.recordId")});
+    //     creQuote.setCallback(this, function (response) {
+    //         var state = response.getState();
+    //         console.log(state);
+    //         if(state === 'SUCCESS'){
+    //             console.log(response.getReturnValue());
+    //         }
+    //     });
+    //     $A.enqueueAction(creQuote);
+    // }
 
 })
