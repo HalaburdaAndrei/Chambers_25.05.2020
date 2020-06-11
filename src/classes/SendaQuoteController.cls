@@ -20,11 +20,25 @@ public with sharing class SendaQuoteController {
 
     @AuraEnabled
     public static Contact conId (String recordId){
-        Opportunity opportunityId = [SELECT Signer__c FROM Opportunity WHERE Id =: recordId LIMIT 1];
-        Contact con = [SELECT Id, Name, Email
-        FROM Contact
-        WHERE Id =: opportunityId.Signer__c LIMIT 1];
-        return con;
+
+        try {
+            Contact con = [
+                    SELECT Id, Name, Email
+                    FROM Contact
+                    WHERE Id IN (SELECT Signer__c FROM Opportunity WHERE Id = :recordId)
+                    LIMIT 1
+            ];
+            return con;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @AuraEnabled
+    public static Template_Subject_and_Body__mdt getSubjectAndBody(){
+        Template_Subject_and_Body__mdt subjectAndBody = [SELECT Body__c, Subject__c FROM Template_Subject_and_Body__mdt WHERE Label = 'subject and body'];
+        return  subjectAndBody;
     }
 
     public static String fetchUserSessionId(){
@@ -58,7 +72,6 @@ public with sharing class SendaQuoteController {
         String endParams = '&SC0=1&SC1=SalesforceFile&FP0=1&DefaultPDF=1&APIMode=1';
 
         String finalURL = mainParams + templateCover + queryId + endParams;
-//        String finalURL = mainParams + templateCover + endParams;
 
         Http httpFinal = new Http();
         HttpRequest requestFinal = new HttpRequest();
@@ -69,25 +82,23 @@ public with sharing class SendaQuoteController {
         HttpResponse responseFinal = httpFinal.send(requestFinal);
 
         System.debug(responseFinal.getBody());
-        System.debug(responseFinal);
-        System.debug(finalURL);
-        System.debug(UserInfo.getSessionId());
 
         return JSON.serialize(responseFinal.getBody());
     }
 
     @AuraEnabled
     public static String sendEmailwithPDF( String DocId, String subject, String body, Contact contactEmailTo, List<Contact> contactEmailCC){
-String a = 'by';
-        System.debug('contact >> ' + contactEmailTo);
-        System.debug('body >> ' + body);
+String a = 'Ok, email send.';
+
         String[] toAddresses = new String[]{};
         toAddresses.add(contactEmailTo.Email);
 
         String[] ccAddresses = new String[]{};
         if(contactEmailCC != null) {
             for (Contact con : contactEmailCC) {
-                ccAddresses.add(con.Email);
+                if(con.Email != null) {
+                    ccAddresses.add(con.Email);
+                }
             }
         }
 
@@ -110,7 +121,6 @@ String a = 'by';
         // Create an email message object
 //        List<Messaging.SingleEmailMessage> allmsg = new List<Messaging.SingleEmailMessage>();
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-//        String[] toAddresses = new String[]{'andrey.goloburda@succraft.com'};
         mail.setToAddresses(toAddresses);
         if(ccAddresses != null){
             mail.setCcAddresses(ccAddresses);
@@ -118,8 +128,7 @@ String a = 'by';
         mail.setSubject(subject);
         mail.setPlainTextBody(body == null?'hello': body);
         mail.setFileAttachments(attachments);
-        // Pass this email message to the built-in sendEmail method
-        // of the Messaging class
+
         Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
 
 //        allmsg.add(mail);
@@ -169,6 +178,19 @@ String a = 'by';
         insert quoteLineItemsList;
 
         return quote.Id;
+    }
+
+    @AuraEnabled
+    public static void deleteQuote(String quoteId, String fileId){
+        if(fileId != null) {
+            ContentDocument filePDF = [SELECT Id FROM ContentDocument WHERE Id = :fileId];
+            delete filePDF;
+        }
+        if(quoteId != null) {
+            Quote quote = [SELECT Id FROM Quote WHERE Id = :quoteId];
+            delete quote;
+        }
+
     }
 
 }

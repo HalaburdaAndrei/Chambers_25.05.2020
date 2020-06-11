@@ -4,28 +4,9 @@
 ({
     doInit: function (component, event, helper) {
 console.log('recordIc >>> ' + component.get("v.recordId"));
-        var contact = component.get("c.conId");
-        contact.setParams({recordId : component.get("v.recordId")});
-        contact.setCallback(this, function (response) {
-            var state = response.getState();
-            console.log(state);
-            if (state === "SUCCESS") {
-                console.log(JSON.stringify(response.getReturnValue()));
-                component.set("v.selectedLookUpContact", response.getReturnValue());
-            }
-        });
-        $A.enqueueAction(contact);
-
-        var templates = component.get("c.templates");
-        templates.setCallback(this, function (response) {
-            var state = response.getState();
-            console.log(state);
-            if (state === "SUCCESS") {
-                console.log(JSON.stringify(response.getReturnValue()));
-                component.set("v.listTemplates", response.getReturnValue());
-            }
-        });
-        $A.enqueueAction(templates);
+        helper.selectContact(component,event,helper);
+        helper.templateList(component, event, helper);
+        helper.getSubjectAndBody(component,event,helper);
     },
 
     onchangeSelectedTemplate : function (component, event, helper) {
@@ -72,7 +53,7 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
                 component.set('v.loaded', !component.get('v.loaded'));
                 component.set('v.showSendEmail', !component.get('v.showSendEmail'));
 
-                alert(responseData);
+                // alert(responseData);
 
                 var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
@@ -127,43 +108,87 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
     },
 
     sendEmail: function(component, event, helper){
-console.log('123');
-console.log(component.get("v.selectedLookUpRecords"));
+
         var toastEvent = $A.get("e.force:showToast");
 
-        var email = component.get("c.sendEmailwithPDF");
-        email.setParams({
-            DocId : component.get("v.generatedPDF"),
-            body : component.get("v.body"),
-            subject : component.get("v.subject"),
-            contactEmailTo : component.get("v.selectedLookUpContact"),
-            contactEmailCC : component.get("v.selectedLookUpRecords")
-        });
-        email.setCallback(this, function (response) {
-           var state = response.getState();
-           console.log(state);
-           if(state === "SUCCESS"){
-               console.log(JSON.stringify(response.getReturnValue()));
-               // var toastEvent = $A.get("e.force:showToast");
-               toastEvent.setParams({
-                   "title": "Success!",
-                   "message": "The email was sent successfully!",
-                   "type": "success"
-               });
-               toastEvent.fire();
-           }else{
-               console.log(JSON.stringify(response.getError()));
-               // var toastEvent = $A.get("e.force:showToast");
-               toastEvent.setParams({
-                   "title": "Error!",
-                   "message": "The email was not sent!",
-                   "type": "error"
-               });
-               toastEvent.fire();
-           }
-        });
-        $A.enqueueAction(email);
+        if(component.get("v.selectedLookUpContact").Email != null) {
+        if(component.get("v.generatedPDF") != null) {
+            var email = component.get("c.sendEmailwithPDF");
+            email.setParams({
+                DocId: component.get("v.generatedPDF"),
+                body: component.get("v.body"),
+                subject: component.get("v.subject"),
+                contactEmailTo: component.get("v.selectedLookUpContact"),
+                contactEmailCC: component.get("v.selectedLookUpRecords")
+            });
+            email.setCallback(this, function (response) {
+                var state = response.getState();
+                console.log(state);
+                if (state === "SUCCESS") {
+                    console.log(JSON.stringify(response.getReturnValue()));
+                    // var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Success!",
+                        "message": "The email was sent successfully!",
+                        "type": "success"
+                    });
+                    toastEvent.fire();
+                } else {
+                    console.log(JSON.stringify(response.getError()));
+                    // var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Error!",
+                        "message": "The email was not sent!",
+                        "type": "error"
+                    });
+                    toastEvent.fire();
+                }
+            });
+            $A.enqueueAction(email);
+        }else{
+            toastEvent.setParams({
+                "title": "Warning!",
+                "message": "The PDF file is not attached to the email, generate a quota!",
+                "type": "warning"
+            });
+            toastEvent.fire();
+        }
+        }else{
+            toastEvent.setParams({
+                "title": "Warning!",
+                "message": "This contact( "+component.get("v.selectedLookUpContact").Name +" ) does not have an email address!",
+                "type": "warning"
+            });
+            toastEvent.fire();
+        }
     },
+
+    cancel: function (component, event, helper) {
+
+        if((component.get("v.quoteId") != null || component.get("v.filePDFOpen") != null)) {
+            var action = component.get("c.deleteQuote");
+            action.setParams({
+                quoteId: component.get("v.quoteId"),
+                fileId: component.get("v.filePDFOpen")
+            });
+            action.setCallback(this, function (response) {
+                var state = response.getState();
+                console.log(state);
+                if (state === "SUCCESS") {
+                    console.log('QUOTE DELETE!!!');
+                    var dismissActionPanel = $A.get("e.force:closeQuickAction");
+                    dismissActionPanel.fire();
+                }
+            });
+            $A.enqueueAction(action);
+        }else{
+            console.log('Quotas were not found, and the component is closed.');
+            var dismissActionPanel = $A.get("e.force:closeQuickAction");
+            dismissActionPanel.fire();
+        }
+
+
+    }
 
     // quote: function (component, event, helper) {
     //

@@ -15,7 +15,7 @@
 
     <!-- Create attribute to store lookup value as a sObject-->
     <aura:attribute name="selectedLookUpRecords" type="sObject[]" />
-    <aura:attribute name="selectedLookUpContact" type="sObject"/>
+    <aura:attribute name="selectedLookUpContact" type="sObject" />
 
 
     <aura:attribute name="loaded" type="Boolean" default="true" />
@@ -47,14 +47,14 @@
     </lightning:select>
     <div class="slds-var-m-top_xx-small">
     <lightning:button variant="brand" label="Generate Quote" onclick="{!c.generated}" />
-<!--        <aura:if isTrue="{!v.showSendEmail == true}">-->
+        <aura:if isTrue="{!v.showSendEmail == true}">
     <lightning:button label="Preview a PDF file" onclick="{! c.openSingleFile }"/>
-<!--        </aura:if>-->
+        </aura:if>
 
 <!--        <lightning:button label="Quote" onclick="{! c.quote }"/>-->
     </div>
 
-<!--    <aura:if isTrue="{!v.showSendEmail == true}">-->
+    <aura:if isTrue="{!v.showSendEmail == true}">
     <div class="slds-text-heading_medium slds-m-top_medium">Send Email</div>
         <form class="slds-form--stacked">
 
@@ -85,7 +85,7 @@
         <lightning:button variant="brand" label="Cancel" onclick="{! c.cancel }" />
         <lightning:button variant="brand" label="Send Email" onclick="{! c.sendEmail }" />
     </div>
-<!--    </aura:if>-->
+    </aura:if>
 
         </div>
 
