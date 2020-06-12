@@ -1,9 +1,8 @@
-/**
- * Created by andrei on 08.06.20.
- */
+
 ({
     doInit: function (component, event, helper) {
 console.log('recordIc >>> ' + component.get("v.recordId"));
+        console.log('doInit contact >>> ' + component.get("v.selectedLookUpContact"));
         helper.selectContact(component,event,helper);
         helper.templateList(component, event, helper);
         helper.getSubjectAndBody(component,event,helper);
@@ -97,9 +96,20 @@ console.log('recordIc >>> ' + component.get("v.recordId"));
         console.log('Contact >>> ' + JSON.stringify(component.get("v.selectedLookUpRecords")));
         var id = component.get("v.filePDFOpen");
 
-        $A.get('e.lightning:openFiles').fire({
-            recordIds: [id]
-        });
+        if(id != null) {
+            $A.get('e.lightning:openFiles').fire({
+                recordIds: [id]
+            });
+        }else{
+            var toastEvent = $A.get("e.force:showToast");
+            toastEvent.setParams({
+                "title": "Warning!",
+                "message": "The file is not generated!",
+                "type": "warning"
+            });
+            toastEvent.fire();
+
+        }
     },
 
     handleOpenFiles: function(component, event, helper) {

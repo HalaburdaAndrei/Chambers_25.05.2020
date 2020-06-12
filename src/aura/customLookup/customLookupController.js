@@ -1,8 +1,8 @@
-/**
- * Created by andrei on 09.06.20.
- */
+
 ({
     doInit : function(component, event,helper){
+        console.log('12345');
+console.log('>>>>> ' + JSON.stringify(component.get("v.selectedRecord")));
 
         if(JSON.stringify(component.get("v.selectedRecord"))  !== '{}') {
             var forclose = component.find("lookup-pill");

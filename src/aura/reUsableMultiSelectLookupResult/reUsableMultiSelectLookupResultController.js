@@ -1,6 +1,4 @@
-/**
- * Created by andrei on 08.06.20.
- */
+
 ({
     selectRecord : function(component, event, helper){
         // get the selected record from list

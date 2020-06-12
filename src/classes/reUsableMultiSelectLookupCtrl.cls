@@ -1,6 +1,4 @@
-/**
- * Created by andrei on 08.06.20.
- */
+
 
 public with sharing class reUsableMultiSelectLookupCtrl {
     @AuraEnabled

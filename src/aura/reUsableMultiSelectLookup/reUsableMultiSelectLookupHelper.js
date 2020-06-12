@@ -1,6 +1,4 @@
-/**
- * Created by andrei on 08.06.20.
- */
+
 ({
     searchHelper : function(component,event,getInputkeyWord) {
         // call the apex class method

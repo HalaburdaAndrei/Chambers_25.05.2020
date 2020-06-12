@@ -1,6 +1,4 @@
-<!--
- - Created by andrei on 09.06.20.
- -->
+
 
 <aura:component controller="reUsableMultiSelectLookupCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
                 access="global">

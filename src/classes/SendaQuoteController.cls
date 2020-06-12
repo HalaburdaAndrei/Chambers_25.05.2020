@@ -1,12 +1,9 @@
-/**
- * Created by andrei on 08.06.20.
- */
 
 public with sharing class SendaQuoteController {
 
     @AuraEnabled
     public static List<APXTConga4__Conga_Template__c> templates(){
-        List<APXTConga4__Conga_Template__c> listTemplates = [SELECT Id, APXTConga4__Name__c FROM APXTConga4__Conga_Template__c];
+        List<APXTConga4__Conga_Template__c> listTemplates = [SELECT Id, APXTConga4__Name__c FROM APXTConga4__Conga_Template__c WHERE APXTConga4__Template_Group__c = 'Send a Quote'];
         return listTemplates;
     }
 

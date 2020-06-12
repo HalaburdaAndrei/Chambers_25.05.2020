@@ -1,6 +1,4 @@
-/**
- * Created by andrei on 08.06.20.
- */
+
 ({
     onblur : function(component,event,helper){
         // on mouse leave clear the listOfSeachRecords & hide the search result component

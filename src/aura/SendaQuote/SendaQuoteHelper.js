@@ -1,6 +1,4 @@
-/**
- * Created by andrei on 11.06.20.
- */
+
 ({
     selectContact: function (component,event,helper) {
         var contact = component.get("c.conId");
@@ -12,8 +10,9 @@
                 console.log(JSON.stringify(response.getReturnValue()));
                 if(response.getReturnValue() != null) {
                     component.set("v.selectedLookUpContact", response.getReturnValue());
+                    // console.log('success >>> ' + JSON.stringify(component.get("v.selectedLookUpContact")));
                 }else{
-                    component.set("v.selectedLookUpContact", null);
+                    // component.set("v.selectedLookUpContact", {});
 
                 }
             }

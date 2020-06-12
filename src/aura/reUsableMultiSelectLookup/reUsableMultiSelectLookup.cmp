@@ -1,6 +1,3 @@
-<!--
- - Created by andrei on 08.06.20.
- -->
 
 <aura:component controller="reUsableMultiSelectLookupCtrl" >
 
