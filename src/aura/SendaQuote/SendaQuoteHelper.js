@@ -1,19 +1,15 @@
-
 ({
-    selectContact: function (component,event,helper) {
+
+    selectContact: function (component, event, helper) {
         var contact = component.get("c.conId");
-        contact.setParams({recordId : component.get("v.recordId")});
+        contact.setParams({recordId: component.get("v.recordId")});
         contact.setCallback(this, function (response) {
             var state = response.getState();
             console.log(state);
             if (state === "SUCCESS") {
                 console.log(JSON.stringify(response.getReturnValue()));
-                if(response.getReturnValue() != null) {
+                if (response.getReturnValue() != null) {
                     component.set("v.selectedLookUpContact", response.getReturnValue());
-                    // console.log('success >>> ' + JSON.stringify(component.get("v.selectedLookUpContact")));
-                }else{
-                    // component.set("v.selectedLookUpContact", {});
-
                 }
             }
         });
@@ -38,7 +34,7 @@
         var subjectAndBody = component.get("c.getSubjectAndBody");
         subjectAndBody.setCallback(this, function (response) {
             var state = response.getState();
-            if(state === "SUCCESS"){
+            if (state === "SUCCESS") {
                 component.set("v.subject", response.getReturnValue().Subject__c);
                 component.set("v.body", response.getReturnValue().Body__c);
             }

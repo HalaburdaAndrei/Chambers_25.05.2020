@@ -1,4 +1,3 @@
-
 ({
     searchHelper : function(component,event,getInputkeyWord) {
         // call the apex class method

@@ -1,4 +1,3 @@
-
 ({
     selectRecord : function (component,event,helper) {
         var getSelectedRecord = component.get("v.oRecord");

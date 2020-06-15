@@ -59,39 +59,68 @@ public class testButtonController {
         System.debug(finalURL);
         System.debug(UserInfo.getSessionId());
 
-//        List<Messaging.EmailFileAttachment> attachments = new List<Messaging.EmailFileAttachment>{};
-//        List<ContentVersion> documents                  = [
+        List<Messaging.EmailFileAttachment> attachments = new List<Messaging.EmailFileAttachment>{};
+        List<ContentVersion> documents                  = [
+                SELECT Id, Title, FileType, VersionData, isLatest, ContentDocumentId
+                FROM ContentVersion
+                WHERE isLatest = true AND Id =: responseFinal.getBody()
+        ];
+
+//        documents.addAll([
 //                SELECT Id, Title, FileType, VersionData, isLatest, ContentDocumentId
 //                FROM ContentVersion
-//                WHERE isLatest = true AND Id =: responseFinal.getBody()
-//        ];
+//                WHERE isLatest = true AND Id IN : responseFinal.getBody()
+//        ]);
+
+        for (ContentVersion document: documents) {
+            Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
+
+            attachment.setBody(document.VersionData);
+            attachment.setFileName(document.Title);
+//            attachment.setContentType(document.FileType);
+
+            attachments.add(attachment);
+        }
+
+        // Create an email message object
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[]{'eugene.pahuschi@succraft.com'};
+//        mail.setWhatId('0061l00000JmP6gAAF');
+        mail.setToAddresses(toAddresses);
+        mail.setSubject('test subject');
+        mail.setPlainTextBody('body');
+        mail.setFileAttachments(attachments);
+        // Pass this email message to the built-in sendEmail method
+        // of the Messaging class
+        Messaging.SendEmailResult[] results = Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
+//        Messaging.SendEmailResult[] results = Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
+//        system.debug(JSON.serialize(results));
+
+
+//        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+//        String[] toAddresses = new String[] {'andrey.goloburda@succraft.com'};
+//        mail.setToAddresses(toAddresses);
+//        mail.setReplyTo('andrey.goloburda@succraft.com');
+//        mail.setSenderDisplayName('Name');
+//        mail.setSubject('Testing email through apex');
+//        mail.setBccSender(false);
+//        mail.setUseSignature(true);
+//        mail.setPlainTextBody('test');
 //
+//
+//        List<Messaging.Emailfileattachment> fileAttachments = new List<Messaging.Emailfileattachment>();
 //        for (ContentVersion document: documents) {
 //            Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
 //
 //            attachment.setBody(document.VersionData);
 //            attachment.setFileName(document.Title);
+//        attachment.setContentType(document.FileType);
 //
-//            attachments.add(attachment);
+//            fileAttachments.add(attachment);
 //        }
-
-//        // Create an email message object
-//        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-//        String[] toAddresses = new String[]{'andrey.goloburda@succraft.com'};
-//        mail.setToAddresses(toAddresses);
-//        mail.setSubject('test subject');
-//        mail.setPlainTextBody('body');
-//        mail.setFileAttachments(attachments);
-//        // Pass this email message to the built-in sendEmail method
-//        // of the Messaging class
-//        Messaging.SendEmailResult[] results = Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
-
-
-
-//        Messaging.SendEmailResult[] results = Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
-//        system.debug(JSON.serialize(results));
-
-
+//        mail.setFileAttachments(fileAttachments);
+//
+//        Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
 
 
          return JSON.serialize(responseFinal.getBody());

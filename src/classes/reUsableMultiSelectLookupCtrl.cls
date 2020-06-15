@@ -1,5 +1,3 @@
-
-
 public with sharing class reUsableMultiSelectLookupCtrl {
     @AuraEnabled
     public static List < sObject > fetchLookUpValues(String searchKeyWord, String ObjectName, List<sObject> ExcludeitemsList, String recordId) {

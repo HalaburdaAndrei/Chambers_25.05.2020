@@ -1,4 +1,3 @@
-
 ({
     selectRecord : function(component, event, helper){
         // get the selected record from list

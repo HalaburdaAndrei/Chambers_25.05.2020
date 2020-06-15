@@ -363,6 +363,19 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Current_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(CloseDate &gt;  DATE(YEAR(TODAY()) ,5,31),
+IF( CloseDate &gt;  DATE(YEAR(TODAY()) ,5,31) , true, 
+IF( AND( CloseDate &lt;  DATE(YEAR(TODAY()) ,6,1), CloseDate &gt;  DATE(YEAR(TODAY())-1 ,5,31)), true, false)),
+false
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current FY</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>DB_Competitor__c</fullName>
         <description>This is a field that is installed by and used with the Adoption Dashboard AppExchange package. If your org already has a similar field, you can change the reports that are part of the Adoption Dashboard package to use your custom field and can delete this field.</description>
         <externalId>false</externalId>
@@ -793,6 +806,17 @@
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>VAT__c</fullName>
+        <externalId>false</externalId>
+        <label>VAT</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <listViews>
         <fullName>AllOpportunities</fullName>
@@ -1584,6 +1608,23 @@ IsClosed  = TRUE
         <errorMessage>Only a System Administrator can edit Closed Opportunity records.</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Only_Sales_admin_edit_Won_to_Lost</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF( ISPICKVAL(StageName, &apos;Closed Won&apos;) ,
+AND(
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+IsClosed = TRUE
+),
+AND(
+ OR(($Profile.Name = &apos;Sales Management&apos;),
+($Profile.Name = &apos;Sales Rep&apos;)),
+ ISCHANGED(StageName),
+ ISPICKVAL(PRIORVALUE(StageName),&quot;Closed Won&quot;)
+)
+)</errorConditionFormula>
+        <errorMessage>error</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Opportunity_needs_Closed_Lost_Reason</fullName>
         <active>true</active>
         <description>This validation rule enforces the need for a Closed Lost Reason to be specified to save an opportunity with a status of Closed Lost</description>
@@ -1813,10 +1854,10 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
         <width>900</width>
     </webLinks>
     <webLinks>
-        <fullName>Conga_Composer_Send_a_Quote</fullName>
+        <fullName>Conga_Composer_test10062020</fullName>
         <availability>online</availability>
-        <description>Originally created by Conga Solution Manager. Date of last use of Update Button from Conga Solution record: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1l000001nowuEAA
-29-May-2020 01:15:18 PM</description>
+        <description>Originally created by Conga Solution Manager. Date of last use of Update Button from Conga Solution record: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1l000001oQhgEAE
+10-Jun-2020 02:41:48 PM</description>
         <displayType>button</displayType>
         <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
@@ -1825,7 +1866,7 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
         <height>660</height>
         <isResizable>false</isResizable>
         <linkType>url</linkType>
-        <masterLabel>Send a Quote</masterLabel>
+        <masterLabel>test10062020</masterLabel>
         <openType>newWindow</openType>
         <position>none</position>
         <protected>false</protected>
@@ -1835,13 +1876,7 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
 &amp;serverUrl={!API.Partner_Server_URL_370}
 &amp;Id={!Opportunity.Id}
 
-&amp;QueryId=[BookingFormQuery]a0C1t000005jkh1
-
-&amp;TemplateId=a0K1t000005SDcr
-
-&amp;DefaultPDF=1
-&amp;SC0=1
-&amp;SC1=SalesforceFile</url>
+&amp;QueryId=[send]a0C1l00000bt6b8</url>
         <width>900</width>
     </webLinks>
 </CustomObject>
