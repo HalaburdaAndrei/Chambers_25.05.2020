@@ -1,4 +1,4 @@
-public with sharing class SendaQuoteController {
+public class SendaQuoteController {
 
     @AuraEnabled
     public static Opportunity checkStage(String recordId) {
@@ -8,7 +8,7 @@ public with sharing class SendaQuoteController {
 
     @AuraEnabled
     public static List<APXTConga4__Conga_Template__c> templates() {
-        List<APXTConga4__Conga_Template__c> listTemplates = [SELECT Id, APXTConga4__Name__c FROM APXTConga4__Conga_Template__c WHERE APXTConga4__Template_Group__c = 'Send a Quote'];
+        List<APXTConga4__Conga_Template__c> listTemplates = [SELECT Id, APXTConga4__Name__c FROM APXTConga4__Conga_Template__c WHERE APXTConga4__Template_Group__c = 'Quotation'];
         return listTemplates;
     }
 
@@ -75,13 +75,16 @@ public with sharing class SendaQuoteController {
 
     @AuraEnabled
     public static String generateQuote(String templateId, String oppId, String quoteId) {
+
+        APXTConga4__Conga_Merge_Query__c mergeQueryId = [SELECT Id FROM APXTConga4__Conga_Merge_Query__c WHERE APXTConga4__Name__c = 'Send a Quote' AND APXTConga4__Description__c = 'Send a Quote'];
+        String qId = mergeQueryId.Id;
         String sessionId;
         sessionId = fetchUserSessionId();
         System.debug('>>>> sessionId' + sessionId);
 //        }
         String serverURL = Url.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/u/46.0/' + UserInfo.getOrganizationId();
         String templateCover = '&TemplateId=' + templateId;
-        String queryId = '&QueryId=[send]a0C1l00000bt6b8?pv0=' + oppId + '~pv1=' + quoteId;
+        String queryId = '&QueryId=[send]'+ qId +'?pv0=' + oppId + '~pv1=' + quoteId;
         String mainParams = 'https://composer.congamerge.com/composer8/index.html' +
                 '?sessionId=' + sessionId +
                 '&serverUrl=' + EncodingUtil.urlEncode(serverURL, 'UTF-8') +
@@ -180,30 +183,21 @@ public with sharing class SendaQuoteController {
         List<QuoteLineItem> quoteLineItemsList = new List<QuoteLineItem>();
 
         Opportunity opportunity = [SELECT Id, Name, Pricebook2Id FROM Opportunity WHERE Id = :recordId];
-        List<OpportunityLineItem> oliList = [SELECT Id, Product2Id, PriceBookEntry.Product2Id, Quantity, Description, UnitPrice, PricebookEntryId, Discount FROM OpportunityLineItem WHERE OpportunityId = :opportunity.Id];
+        List<OpportunityLineItem> oliList = [SELECT Id, Product2Id, PriceBookEntry.Product2Id, Quantity, Description, Custom_Product_Details_RE__c, UnitPrice, PricebookEntryId, Discount FROM OpportunityLineItem WHERE OpportunityId = :opportunity.Id];
 
-//        List<Quote> quoteLst = [SELECT Id,Name, ExpirationDate,OpportunityId,Pricebook2Id FROM Quote WHERE OpportunityId =: recordId];
-//        List<Quote> upsertQuotes = new List<Quote>();
-
-//        if(quoteLst != null) {
-//            for (Quote quote : quoteLst) {
-//                if(quote.Name == opportunity.Name + '- Quote'){}
         Quote quote = new Quote();
         quote.Name = opportunity.Name + '- Quote';
         quote.ExpirationDate = Date.today().addMonths(1);
         quote.OpportunityId = opportunity.Id;
         quote.Pricebook2Id = opportunity.Pricebook2Id;
 
-//                upsertQuotes.add(quote);
-//            }
-//            upsert upsertQuotes;
-//        insert quote;
+        insert quote;
         if (oliList != null) {
             for (OpportunityLineItem oli : oliList) {
                 QuoteLineItem quoteLineItem = new QuoteLineItem();
-//                    quoteLineItem.QuoteId = upsertQuotes[0].Id;
                 quoteLineItem.QuoteId = quote.Id;
                 quoteLineItem.Description = oli.Description;
+                quoteLineItem.Custom_Product_Details_RE__c = oli.Custom_Product_Details_RE__c;
                 quoteLineItem.UnitPrice = oli.UnitPrice;
                 quoteLineItem.Product2Id = oli.PriceBookEntry.Product2Id;
                 quoteLineItem.Quantity = oli.Quantity;
@@ -213,7 +207,6 @@ public with sharing class SendaQuoteController {
             }
             insert quoteLineItemsList;
         }
-//        }
 
         return quote.Id;
     }

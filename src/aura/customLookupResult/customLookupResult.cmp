@@ -21,6 +21,7 @@
             <aura:if isTrue="{!v.oRecord.Name}">
               <span class="slds-media__body">
                   <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!v.oRecord.Name}</span>
+                  <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!v.oRecord.Account.Name}</span>
               </span>
             </aura:if>
         </span>

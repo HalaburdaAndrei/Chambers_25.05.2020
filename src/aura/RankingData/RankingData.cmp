@@ -1,0 +1,72 @@
+
+<aura:component description="RankingData" implements="force:hasRecordId,flexipage:availableForRecordHome" controller="RankingDataController" access="global">
+
+    <aura:attribute name="items" type="Object[]" default="[]" />
+    <aura:attribute name="idvalue" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <tr class="slds-line-height_reset">
+            <th >Detail</th>
+            <th >PracticeArea</th>
+            <th >Location</th>
+            <th >Type</th>
+            <th >Location of Expertise</th>
+            <th >Branch</th>
+            <th >Head Office</th>
+            <th >2020</th>
+            <th >2019</th>
+            <th >2018</th>
+        </tr>
+
+
+        <aura:iteration items="{!v.items}" var="item" indexVar="itemIndex">
+            <tr class="slds-line-height_reset slds-is-selected">
+                <td scope="row" >
+                    <div >
+                        <lightning:buttonIcon value="{!itemIndex}" onclick="{!c.toggle}" iconName="{!item.expanded?'utility:chevrondown':'utility:chevronright'}" />
+                    </div>
+                </td>
+                <td scope="row" >
+                    <div class="slds-cell-wrap" >{!item.Name}</div>
+                </td>
+                <td scope="row">
+                    <div class="slds-cell-wrap">{!item.Name}</div>
+                </td>
+                <td scope="row">
+                    <div class="slds-cell-wrap">{!item.Name}</div>
+                </td>
+                <td scope="row">
+<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
+                </td>
+                <td scope="row" >
+<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
+                </td>
+                <td scope="row" >
+<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
+                </td>
+                <td scope="row" >
+<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
+                </td>
+                <td scope="row" >
+<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
+                </td>
+                <td scope="row" >
+<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
+                </td>
+            </tr>
+
+            <aura:if isTrue="{!item.expanded}" >
+                <tr>
+                    <td>
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                        <p>4</p>
+                    </td>
+                </tr>
+            </aura:if>
+        </aura:iteration>
+    </table>
+
+</aura:component>

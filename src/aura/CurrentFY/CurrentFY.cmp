@@ -1,0 +1,105 @@
+<aura:component description="CurrentFY" implements="force:hasRecordId,flexipage:availableForRecordHome" controller="CurrentFYController">
+    <aura:attribute name="record" type="Opportunity" />
+
+    <aura:attribute name="res" type="List" default="[]" />
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+
+    <div class="slds-box slds-color__background_gray-1">
+        <aura:if isTrue="{! v.showSpinner }">
+            <div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
+                <div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert" role="alert">
+                    <span class="slds-assistive-text">Waiting...</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+        <b>This is recordID {!v.recordId} </b><br/>
+
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Ranking Guides</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Publication</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Opp id</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Product</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Qty</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Sales Price</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Sales Person</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Signer</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Close Date</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Related Org</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Chapter</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">PA</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">Loc</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Name">No of submissions</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <aura:iteration items="{!v.res}" var="totalRow" indexVar="rowIndex">
+                <tr class="slds-line-height_reset slds-is-selected">
+                    <td data-index="{!rowIndex}" onclick="{!c.toggle}">
+                        {!totalRow.publication}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{!totalRow.totalPrice}</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <aura:if isTrue="{!totalRow.expanded}">
+                    <aura:iteration items="{!totalRow.products}" var="product">
+                        <tr class="slds-line-height_reset">
+                            <td scope="col"></td>
+                            <td>{!totalRow.publication}</td>
+                            <td>{!product.oppId}</td>
+                            <td>{!product.product}</td>
+                            <td>{!product.quantity}</td>
+                            <td>{!product.totalPrice}</td>
+                            <td>Sales Person</td>
+                            <td>{!product.signer}</td>
+                            <td>{!product.closeDate}</td>
+                            <td>{!product.relatedOrganization}</td>
+                            <td>{!product.chapter}</td>
+                            <td>PA</td>
+                            <td>Loc</td>
+                            <td>No of submissions</td>
+                        </tr>
+                    </aura:iteration>
+                </aura:if>
+            </aura:iteration>
+            </tbody>
+        </table>
+        <b>This is table {!v.table} </b><br/>
+    </div>
+</aura:component>

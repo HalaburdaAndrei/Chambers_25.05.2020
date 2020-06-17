@@ -26,18 +26,27 @@
     <aura:handler event="lightning:openFiles" action="{! c.handleOpenFiles }"/>
 
 
-    <div class="exampleHolder">
-        <aura:if isTrue="{! v.loaded }">
-            <!--            Put loaded content here-->
-            <aura:set attribute="else">
-                <lightning:spinner alternativeText="Loading"/>
-            </aura:set>
-        </aura:if>
-    </div>
+<!--    <div class="exampleHolder">-->
+<!--        <aura:if isTrue="{! v.loaded }">-->
+<!--            &lt;!&ndash;            Put loaded content here&ndash;&gt;-->
+<!--            <aura:set attribute="else">-->
+<!--                <lightning:spinner alternativeText="Loading"/>-->
+<!--            </aura:set>-->
+<!--        </aura:if>-->
+<!--        -->
+<!--    </div>-->
 
     <div class="slds-text-heading_large slds-align--absolute-center">Send a Quote</div>
     <div class="slds-is-relative" aura:id="modalbody" id="modalbody">
+        <div class="exampleHolder">
+            <aura:if isTrue="{! v.loaded }">
+                <!--            Put loaded content here-->
+                <aura:set attribute="else">
+                    <lightning:spinner alternativeText="Loading"/>
+                </aura:set>
+            </aura:if>
 
+        </div>
 
         <lightning:select name="TemplateId" label="Select a Template" value="{!v.selectedTemplate}" required="true"
                           onchange="{!c.onchangeSelectedTemplate}">

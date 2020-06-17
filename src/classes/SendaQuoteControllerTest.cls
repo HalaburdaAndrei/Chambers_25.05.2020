@@ -1,5 +1,3 @@
-
-
 @IsTest
 private class SendaQuoteControllerTest {
 
@@ -147,6 +145,8 @@ private class SendaQuoteControllerTest {
 
     @isTest
     static void testGenerateQuoute() {
+        APXTConga4__Conga_Merge_Query__c query = new APXTConga4__Conga_Merge_Query__c(APXTConga4__Name__c = 'Send a Quote', APXTConga4__Description__c = 'Send a Quote');
+        insert query;
         Pagereference pageRef = Page.GetSessionIdVF;
         Test.setCurrentPage(pageRef);
         Quote quote = [SELECT Id FROM Quote];

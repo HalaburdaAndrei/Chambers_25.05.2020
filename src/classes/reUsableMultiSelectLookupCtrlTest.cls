@@ -1,4 +1,3 @@
-
 @isTest
 public with sharing class reUsableMultiSelectLookupCtrlTest {
 

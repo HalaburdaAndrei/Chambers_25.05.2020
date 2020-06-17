@@ -1599,7 +1599,7 @@ NOT (ISPICKVAL (StageName, &quot;Qualified&quot;)  ))</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Only_Admin_can_edit_Closed_Opptys</fullName>
-        <active>true</active>
+        <active>false</active>
         <description>Once an Oppty is set to Closed, only admin can edit the record.</description>
         <errorConditionFormula>AND(
 $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
@@ -1622,7 +1622,7 @@ AND(
  ISPICKVAL(PRIORVALUE(StageName),&quot;Closed Won&quot;)
 )
 )</errorConditionFormula>
-        <errorMessage>error</errorMessage>
+        <errorMessage>Only a System Administrator can edit Closed Won to Closed Lost Opportunity records.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Opportunity_needs_Closed_Lost_Reason</fullName>

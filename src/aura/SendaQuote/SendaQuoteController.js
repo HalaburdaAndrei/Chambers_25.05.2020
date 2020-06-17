@@ -1,7 +1,9 @@
 ({
     doInit: function (component, event, helper) {
         console.log('recordIc >>> ' + component.get("v.recordId"));
-        console.log('doInit contact >>> ' + component.get("v.selectedLookUpContact"));
+        // console.log('doInit contact >>> ' + component.get("v.selectedLookUpContact"));
+        // console.log('CLOSE WINDOW >>> ' + component.find("Close this window"));
+
         var action = component.get("c.checkStage");
         action.setParams({recordId: component.get("v.recordId")});
         action.setCallback(this, function (response) {
@@ -25,6 +27,8 @@
 
         });
         $A.enqueueAction(action);
+
+
     },
 
     onchangeSelectedTemplate: function (component, event, helper) {
@@ -63,7 +67,7 @@
                                 && responseData.slice(0, 3) === '068')) {
                             component.set("v.generatedPDF", responseData);
                             component.set('v.loaded', !component.get('v.loaded'));
-                            component.set('v.showSendEmail', !component.get('v.showSendEmail'));
+                            component.set('v.showSendEmail', true);
 
 
                             var toastEvent = $A.get("e.force:showToast");
@@ -84,6 +88,15 @@
                                     console.log(response.getReturnValue()[0].ContentDocumentId);
                                     console.log(JSON.stringify(response.getReturnValue()[0].ContentDocumentId));
                                     component.set("v.filePDFOpen", response.getReturnValue()[0].ContentDocumentId);
+                                }else {
+
+                                    var toastEvent = $A.get("e.force:showToast");
+                                    toastEvent.setParams({
+                                        "title": "Error!",
+                                        "message": "The File was not generated!",
+                                        "type": "error"
+                                    });
+                                    toastEvent.fire();
                                 }
                             });
                             $A.enqueueAction(filePDF);
@@ -111,6 +124,16 @@
                 });
 // send the action to the server which will call the apex and will return the response
                 $A.enqueueAction(action);
+            }else {
+                component.set('v.loaded', !component.get('v.loaded'));
+
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    "title": "Error!",
+                    "message": "The Quota was not generated!",
+                    "type": "error"
+                });
+                toastEvent.fire();
             }
         });
         $A.enqueueAction(creQuote);
@@ -159,6 +182,8 @@
                     console.log(state);
                     if (state === "SUCCESS") {
                         console.log(JSON.stringify(response.getReturnValue()));
+                        var dismissActionPanel = $A.get("e.force:closeQuickAction");
+                        dismissActionPanel.fire();
                         // var toastEvent = $A.get("e.force:showToast");
                         toastEvent.setParams({
                             "title": "Success!",

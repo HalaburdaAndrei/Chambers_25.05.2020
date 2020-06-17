@@ -31,6 +31,14 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
     <fields>
+        <fullName>Custom_Product_Details_RE__c</fullName>
+        <externalId>false</externalId>
+        <label>Custom Product Details</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
         <fullName>Description</fullName>
     </fields>
     <fields>
