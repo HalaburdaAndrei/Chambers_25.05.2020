@@ -171,6 +171,7 @@
             if (component.get("v.generatedPDF") != null) {
                 var email = component.get("c.sendEmailwithPDF");
                 email.setParams({
+                    filePdf: component.get("v.filePDFOpen"),
                     DocId: component.get("v.generatedPDF"),
                     body: component.get("v.body"),
                     subject: component.get("v.subject"),
@@ -223,30 +224,30 @@
 
     cancel: function (component, event, helper) {
 
-        if ((component.get("v.quoteId") != null || component.get("v.filePDFOpen") != null)) {
-            var action = component.get("c.deleteQuote");
-            action.setParams({
-                quoteId: component.get("v.quoteId"),
-                fileId: component.get("v.filePDFOpen")
-            });
-            action.setCallback(this, function (response) {
-                var state = response.getState();
-                console.log(state);
-                if (state === "SUCCESS") {
-                    console.log('QUOTE DELETE!!!');
-                    var dismissActionPanel = $A.get("e.force:closeQuickAction");
-                    dismissActionPanel.fire();
-                }
-            });
-            $A.enqueueAction(action);
-        } else {
-            console.log('Quotas were not found, and the component is closed.');
-            var dismissActionPanel = $A.get("e.force:closeQuickAction");
-            dismissActionPanel.fire();
-        }
+        // if ((component.get("v.quoteId") != null || component.get("v.filePDFOpen") != null)) {
+        //     var action = component.get("c.deleteQuote");
+        //     action.setParams({
+        //         quoteId: component.get("v.quoteId"),
+        //         fileId: component.get("v.filePDFOpen")
+        //     });
+        //     action.setCallback(this, function (response) {
+        //         var state = response.getState();
+        //         console.log(state);
+        //         if (state === "SUCCESS") {
+        //             console.log('QUOTE DELETE!!!');
+        //             var dismissActionPanel = $A.get("e.force:closeQuickAction");
+        //             dismissActionPanel.fire();
+        //         }
+        //     });
+        //     $A.enqueueAction(action);
+        // } else {
+        //     console.log('Quotas were not found, and the component is closed.');
+        //     var dismissActionPanel = $A.get("e.force:closeQuickAction");
+        //     dismissActionPanel.fire();
+        // }
 
-        // var dismissActionPanel = $A.get("e.force:closeQuickAction");
-        // dismissActionPanel.fire();
+        var dismissActionPanel = $A.get("e.force:closeQuickAction");
+        dismissActionPanel.fire();
     }
 
 })

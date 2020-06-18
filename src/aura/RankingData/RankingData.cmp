@@ -1,72 +1,112 @@
-
 <aura:component description="RankingData" implements="force:hasRecordId,flexipage:availableForRecordHome" controller="RankingDataController" access="global">
 
-    <aura:attribute name="items" type="Object[]" default="[]" />
-    <aura:attribute name="idvalue" type="String" />
+    <aura:attribute name="items" type="List" default="[]" />
+    <aura:attribute name="items1" type="List" default="[]" />
+
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
-    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
-        <tr class="slds-line-height_reset">
-            <th >Detail</th>
-            <th >PracticeArea</th>
-            <th >Location</th>
-            <th >Type</th>
-            <th >Location of Expertise</th>
-            <th >Branch</th>
-            <th >Head Office</th>
-            <th >2020</th>
-            <th >2019</th>
-            <th >2018</th>
-        </tr>
 
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
+            <thead>
+            <tr class="slds-line-height_reset">
 
-        <aura:iteration items="{!v.items}" var="item" indexVar="itemIndex">
-            <tr class="slds-line-height_reset slds-is-selected">
-                <td scope="row" >
-                    <div >
-                        <lightning:buttonIcon value="{!itemIndex}" onclick="{!c.toggle}" iconName="{!item.expanded?'utility:chevrondown':'utility:chevronright'}" />
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="PracticeArea">PracticeArea</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Location">Location</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Type">Type</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Location of Expertise">Location of Expertise</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Branch">Branch</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Head Office">Head Office</div>
+                </th>
+                <aura:iteration items="{!v.items1}" var="pub" indexVar="rowIndex">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="2020">{!pub}</div>
+                </th>
+                </aura:iteration>
+
+            </tr>
+            </thead>
+            <tbody>
+            <aura:iteration items="{!v.items}" var="publications" indexVar="rowIndex">
+                <tr class="slds-line-height_reset slds-is-selected">
+                    <td data-index="{!rowIndex}" onclick="{!c.toggle}" >
+                        <lightning:buttonIcon value="{!rowIndex}" iconName="{!publications.expanded?'utility:chevrondown':'utility:chevronright'}" />
+                        {!publications.publication}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <aura:if isTrue="{!publications.expanded}">
+
+                <aura:iteration items="{!publications.rankings}" var="ranking">
+            <tr class="slds-line-height_reset">
+                <th  scope="row">
+                    <div class="slds-truncate" title="Cloudhub">
+                        <a href="javascript:void(0);" tabindex="-1">{!ranking.practiceArea}</a>
+                    </div>
+                </th>
+                <td >
+                    <div class="slds-truncate" title="Cloudhub">{!ranking.location}</div>
+                </td>
+                <td >
+                    <div class="slds-truncate" title="4/14/2015">{!ranking.type}</div>
+                </td>
+                <td >
+                    <div class="slds-truncate" title="Prospecting">{!ranking.locationOfExpertise}</div>
+                </td>
+                <td >
+                    <div class="slds-truncate" title="20%">{!ranking.branch}</div>
+                </td>
+                <td >
+                    <div class="slds-truncate" title="$25k">{!rankingheadOffice}</div>
+                </td>
+                <td >
+                    <div class="slds-truncate" title="jrogers@cloudhub.com">
+                        {!ranking.rank}
                     </div>
                 </td>
-                <td scope="row" >
-                    <div class="slds-cell-wrap" >{!item.Name}</div>
+                <td >
+                    <div class="slds-truncate" title="jrogers@cloudhub.com">
+                        {!ranking.year}
+                    </div>
                 </td>
-                <td scope="row">
-                    <div class="slds-cell-wrap">{!item.Name}</div>
+                <td >
+                    <div class="slds-truncate" title="jrogers@cloudhub.com">
+                        {!ranking.recordType}
+                    </div>
                 </td>
-                <td scope="row">
-                    <div class="slds-cell-wrap">{!item.Name}</div>
+                <td >
+                    <div class="slds-truncate" title="jrogers@cloudhub.com">
+                        {!ranking.contactName}
+                    </div>
                 </td>
-                <td scope="row">
-<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
-                </td>
-                <td scope="row" >
-<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
-                </td>
-                <td scope="row" >
-<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
-                </td>
-                <td scope="row" >
-<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
-                </td>
-                <td scope="row" >
-<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
-                </td>
-                <td scope="row" >
-<!--                    <div class="slds-cell-wrap">{!item.Name}</div>-->
-                </td>
+                    <aura:iteration items="{!ranking.rankYears}" var="r">
+<!--                        <tr class="slds-line-height_reset">-->
+                            <td >
+                                <div class="slds-truncate" title="Cloudhub">{!r.rankingYear}</div>
+                            </td>
+<!--                        </tr>-->
+                    </aura:iteration>
             </tr>
 
-            <aura:if isTrue="{!item.expanded}" >
-                <tr>
-                    <td>
-                        <p>1</p>
-                        <p>2</p>
-                        <p>3</p>
-                        <p>4</p>
-                    </td>
-                </tr>
-            </aura:if>
-        </aura:iteration>
-    </table>
+                </aura:iteration>
+                </aura:if>
+            </aura:iteration>
+            </tbody>
+        </table>
 
 </aura:component>

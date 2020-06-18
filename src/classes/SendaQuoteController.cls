@@ -111,8 +111,17 @@ public class SendaQuoteController {
     }
 
     @AuraEnabled
-    public static String sendEmailwithPDF(String DocId, String subject, String body, Contact contactEmailTo, List<Contact> contactEmailCC) {
+    public static String sendEmailwithPDF(String DocId, String subject, String body, Contact contactEmailTo, List<Contact> contactEmailCC, String filePdf) {
         String a = 'Ok, email send.';
+
+//        ContentDocumentLink contentDocumentLink = new ContentDocumentLink(
+//                LinkedEntityId = '0Q01l000000YLHVCA4',
+//                ContentDocumentId = filePdf,
+//                shareType = 'V',
+//                Visibility = 'AllUsers'
+//        );
+//
+//        insert contentDocumentLink ;
 
         String[] toAddresses = new String[]{
         };
@@ -211,17 +220,17 @@ public class SendaQuoteController {
         return quote.Id;
     }
 
-    @AuraEnabled
-    public static void deleteQuote(String quoteId, String fileId) {
-        if (fileId != null) {
-            ContentDocument filePDF = [SELECT Id FROM ContentDocument WHERE Id = :fileId];
-            delete filePDF;
-        }
-        if (quoteId != null) {
-            Quote quote = [SELECT Id FROM Quote WHERE Id = :quoteId];
-            delete quote;
-        }
-
-    }
+//    @AuraEnabled
+//    public static void deleteQuote(String quoteId, String fileId) {
+//        if (fileId != null) {
+//            ContentDocument filePDF = [SELECT Id FROM ContentDocument WHERE Id = :fileId];
+//            delete filePDF;
+//        }
+//        if (quoteId != null) {
+//            Quote quote = [SELECT Id FROM Quote WHERE Id = :quoteId];
+//            delete quote;
+//        }
+//
+//    }
 
 }
