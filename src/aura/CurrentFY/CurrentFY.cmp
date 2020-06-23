@@ -2,6 +2,9 @@
     <aura:attribute name="record" type="Opportunity" />
 
     <aura:attribute name="res" type="List" default="[]" />
+    <aura:attribute name="sortByField" type="String" default="" description="Determines which field is sorted"/>
+    <aura:attribute name="sortDirection" type="Boolean" default="false" />
+
 
     <aura:handler name="init" value="{! this }" action="{! c.init }" />
 
@@ -15,91 +18,155 @@
                 </div>
             </div>
         </aura:if>
-        <b>This is recordID {!v.recordId} </b><br/>
+        <b>Current FY sales data for  HO</b><br/>
+        <div class="slds-scrollable">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" width="100%">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col" ></th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Publication</div>
+<!--                            <div class="slds-truncate" data-fieldname="Publication" onclick="{!c.sortBy}" >-->
+<!--                                <span class="slds-truncate" data-fieldname="Publication" title="Sort by Publication">Publication</span>-->
+<!--                                <aura:if isTrue="{!v.sortByField == 'Publication'}">-->
+<!--                                    <aura:if isTrue="{!v.sortDirection}">-->
+<!--                                        <span class="slds-icon_container slds-icon-utility-arrowdown">-->
+<!--                                            <lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>-->
+<!--                                        </span>-->
+<!--                                    </aura:if>-->
+<!--                                    <aura:if isTrue="{! !v.sortDirection}">-->
+<!--                                        <span class="slds-icon_container slds-icon-utility-arrowdown">-->
+<!--                                            <lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>-->
+<!--                                        </span>-->
+<!--                                    </aura:if>-->
+<!--                                </aura:if>-->
+<!--                            </div>-->
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" data-fieldname="oppId" onclick="{!c.sortBy}">
+                                <span class="slds-truncate" data-fieldname="oppId" title="Sort by Opp Id">Opp id</span>
+                                <aura:if isTrue="{!v.sortByField == 'oppId'}">
+                                    <aura:if isTrue="{!v.sortDirection}">
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                            <lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
+                                        </span>
+                                    </aura:if>
+                                    <aura:if isTrue="{! !v.sortDirection}">
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                            <lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
+                                        </span>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                        </th>
 
-        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
-            <thead>
-                <tr class="slds-line-height_reset">
-                    <th class="" scope="col">
-                        <div class="slds-truncate">Ranking Guides</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate">Publication</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate">Opp id</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Product</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Qty</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Sales Price</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Sales Person</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Signer</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Close Date</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Related Org</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Chapter</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">PA</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">Loc</div>
-                    </th>
-                    <th class="" scope="col">
-                        <div class="slds-truncate" title="Opportunity Name">No of submissions</div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            <aura:iteration items="{!v.res}" var="totalRow" indexVar="rowIndex">
-                <tr class="slds-line-height_reset slds-is-selected">
-                    <td data-index="{!rowIndex}" onclick="{!c.toggle}">
-                        {!totalRow.publication}
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{!totalRow.totalPrice}</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <aura:if isTrue="{!totalRow.expanded}">
-                    <aura:iteration items="{!totalRow.products}" var="product">
-                        <tr class="slds-line-height_reset">
-                            <td scope="col"></td>
-                            <td>{!totalRow.publication}</td>
-                            <td>{!product.oppId}</td>
-                            <td>{!product.product}</td>
-                            <td>{!product.quantity}</td>
-                            <td>{!product.totalPrice}</td>
-                            <td>Sales Person</td>
-                            <td>{!product.signer}</td>
-                            <td>{!product.closeDate}</td>
-                            <td>{!product.relatedOrganization}</td>
-                            <td>{!product.chapter}</td>
-                            <td>PA</td>
-                            <td>Loc</td>
-                            <td>No of submissions</td>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" data-fieldname="product" onclick="{!c.sortBy}">
+                                <span class="slds-truncate" data-fieldname="product" title="Sort By Product">Product</span>
+                                <aura:if isTrue="{!v.sortByField == 'product'}">
+                                    <aura:if isTrue="{!v.sortDirection}">
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                            <lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
+                                        </span>
+                                    </aura:if>
+                                    <aura:if isTrue="{! !v.sortDirection}">
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                            <lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
+                                        </span>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" data-fieldname="quantity" onclick="{!c.sortBy}">
+                                <span class="slds-truncate" data-fieldname="quantity" title="Sort By Qty">Qty</span>
+                                <aura:if isTrue="{!v.sortByField == 'quantity'}">
+                                    <aura:if isTrue="{!v.sortDirection}">
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                            <lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
+                                        </span>
+                                    </aura:if>
+                                    <aura:if isTrue="{! !v.sortDirection}">
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                            <lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
+                                        </span>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+<!--                            <div class="slds-truncate" title="Opportunity Name">Qty</div>-->
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Sales Price</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Sales Person</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Signer</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Close Date</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Related Org</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Chapter</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">PA</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">Loc</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Opportunity Name">No of submissions</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.res}" var="priceBook" indexVar="priceBookIndex">
+                        <tr>
+                            <td>
+                                <div class="slds-truncate" data-priceBookIndex="{!priceBookIndex}" onclick="{!c.togglePriceBook}">{!priceBook.PriceBokName}</div>
+                            </td>
+                            <td colspan="13"></td>
                         </tr>
+                        <aura:if isTrue="{!priceBook.expanded}">
+                            <aura:iteration items="{!priceBook.wrapperTotalRows}" var="totalRow" indexVar="rowIndex">
+                                <tr class="slds-line-height_reset slds-is-selected">
+                                    <td data-rowIndex="{!rowIndex}" data-priceBookIndex="{!priceBookIndex}" onclick="{!c.toggle}">
+                                        {!totalRow.publication}
+                                    </td>
+                                    <td colspan="4"></td>
+                                    <td>{!totalRow.totalPrice}</td>
+                                    <td colspan="7"></td>
+                                </tr>
+                                <aura:if isTrue="{!totalRow.expanded}">
+                                    <aura:iteration items="{!totalRow.products}" var="product">
+                                        <tr class="slds-line-height_reset">
+                                            <td  scope="col"></td>
+                                            <td>{!totalRow.publication}</td>
+                                            <td>{!product.oppId}</td>
+                                            <td>{!product.product}</td>
+                                            <td>{!product.quantity}</td>
+                                            <td>{!product.totalPrice}</td>
+                                            <td>Sales Person</td>
+                                            <td>{!product.signer}</td>
+                                            <td>{!product.closeDate}</td>
+                                            <td>{!product.relatedOrganization}</td>
+                                            <td>{!product.chapter}</td>
+                                            <td>PA</td>
+                                            <td>Loc</td>
+                                            <td>{!product.numberOfSubmissions}</td>
+                                        </tr>
+                                    </aura:iteration>
+                                </aura:if>
+                            </aura:iteration>
+                        </aura:if>
                     </aura:iteration>
-                </aura:if>
-            </aura:iteration>
-            </tbody>
-        </table>
-        <b>This is table {!v.table} </b><br/>
+                </tbody>
+            </table>
+        </div>
     </div>
 </aura:component>

@@ -36,6 +36,30 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Send_email__c</fullName>
+        <externalId>false</externalId>
+        <label>Send email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ok</fullName>
+                    <default>false</default>
+                    <label>Ok</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>SharingOption</fullName>
         <trackHistory>true</trackHistory>
     </fields>
