@@ -13,6 +13,28 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>rh2__Ignore_Query_Error__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this box to ignore query errors when calculating lookup skew</description>
+        <externalId>false</externalId>
+        <label>Ignore Query Error</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>rh2__Object_Full_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If the full object name does not fit in the &quot;name&quot; field, please put the full name of the object here (in all lower case)</inlineHelpText>
+        <label>Full Object Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>rh2__Override__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
@@ -22,11 +44,32 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>rh2__Query_Error_Encountered__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Query Error During Batch</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>rh2__Record_Scope__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Record Scope</label>
         <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rh2__Rollups_Per_Async__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Rollups Per Asynchronous Request</label>
+        <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
         <trackTrending>false</trackTrending>

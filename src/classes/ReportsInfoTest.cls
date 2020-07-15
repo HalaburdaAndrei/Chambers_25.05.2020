@@ -126,7 +126,7 @@ private class ReportsInfoTest {
         insert attachment;
 
         result = ReportsInfo.addToCampaign(camp.Id, new List<Id>{cont.Id});
-        System.assertEquals(result.size(), 2);
+        System.assertEquals(3, result.size());
         System.assertEquals(result.get('status'), 'success');
         
         List<Contact> contacts = (List<Contact>)result.get('contacts');
@@ -166,7 +166,7 @@ private class ReportsInfoTest {
 
     @isTest static void test_remove_contacts() {
         Map<String, Object> settings = ReportsInfo.removeContacts(null, new List<Id>());
-        System.assertEquals(settings.size(), 2);
+        System.assertEquals(2, settings.size());
         System.assertEquals(settings.get('status'), 'error');
         String message = (String)settings.get('message');
         System.assert(message.contains('List index out of bounds'));
@@ -184,7 +184,7 @@ private class ReportsInfoTest {
         insert attachment;
 
         settings = ReportsInfo.removeContacts(camp.Id, new List<Id>{cont.Id});
-        System.assertEquals(settings.size(), 2);
+        System.assertEquals(3, settings.size());
         System.assertEquals(settings.get('status'), 'success');
         List<Contact> contacts = (List<Contact>)settings.get('contacts');
         System.assertEquals(contacts.size(), 0);

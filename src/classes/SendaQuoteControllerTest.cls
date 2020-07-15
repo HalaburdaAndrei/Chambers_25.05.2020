@@ -41,7 +41,7 @@ private class SendaQuoteControllerTest {
                 Name = 'testOpp',
                 AccountId = acc.Id,
                 Signer__c = con.Id,
-                StageName = 'Open',
+                StageName = 'Qualified',
                 CloseDate = Date.today(),
                 Pricebook2Id = pricebookId
         );
@@ -124,10 +124,12 @@ private class SendaQuoteControllerTest {
         Blob b = Blob.valueOf('Unit Test Attachment Body');
         cv.versiondata = EncodingUtil.base64Decode('Unit Test Attachment Body');
         insert cv;
+        Quote quote = [SELECT Id FROM Quote LIMIT 1];
+
 
         List<Contact> con = [SELECT Id, Name, Email FROM Contact];
         test.startTest();
-        SendaQuoteController.sendEmailwithPDF(cv.Id, 'subject', 'body', con[0], con);
+        SendaQuoteController.sendEmailwithPDF(cv.Id, 'subject', 'body', con[0], con, quote.Id);
         test.stopTest();
     }
 

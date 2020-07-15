@@ -33,7 +33,7 @@ public with sharing class reUsableMultiSelectLookupCtrlTest {
                 Name = 'testOpp',
                 AccountId = acc.Id,
                 Signer__c = con.Id,
-                StageName = 'Open',
+                StageName = 'Qualified',
                 CloseDate = Date.today()
         );
         insert opp;

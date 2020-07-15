@@ -1,5 +1,6 @@
-/**
- * Created by vasil on 15.06.2020.
- */
-.THIS {
+.THIS .maintablecol {
+	min-width: 200px;
+}
+.THIS .cursorPointer{
+	cursor: pointer;
 }

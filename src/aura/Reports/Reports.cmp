@@ -95,6 +95,37 @@
 	<aura:attribute name="dataLWOFPsize" type="String" />
 	<aura:attribute name="dataRPsize" type="String" />
 
+	<aura:attribute name="enableInfiniteLoading" type="Boolean" default="true" />
+	<aura:attribute name="initialRows" type="Integer" default="50" />
+	<aura:attribute name="currentCount" type="Integer" default="50" />
+	<aura:attribute name="totalRows" type="Integer" default="0" />
+	<aura:attribute name="loadOffset" type="Integer" default="1" />
+
+	<aura:attribute name="initialLWIPRows" type="Integer" default="50" />
+	<aura:attribute name="currentLWIPCount" type="Integer" default="50" />
+	<aura:attribute name="totalLWIPRows" type="Integer" default="0" />
+	<aura:attribute name="loadOffsetLWIP" type="Integer" default="1" />
+
+	<aura:attribute name="initialLWOIPRows" type="Integer" default="50" />
+	<aura:attribute name="currentLWOIPCount" type="Integer" default="50" />
+	<aura:attribute name="totalLWOIPRows" type="Integer" default="0" />
+	<aura:attribute name="loadOffsetLWOIP" type="Integer" default="1" />
+
+	<aura:attribute name="initialLWFPRows" type="Integer" default="50" />
+	<aura:attribute name="currentLWFPCount" type="Integer" default="50" />
+	<aura:attribute name="totalLWFPRows" type="Integer" default="0" />
+	<aura:attribute name="loadOffsetLWFP" type="Integer" default="1" />
+
+	<aura:attribute name="initialLWOFPRows" type="Integer" default="50" />
+	<aura:attribute name="currentLWOFPCount" type="Integer" default="50" />
+	<aura:attribute name="totalLWOFPRows" type="Integer" default="0" />
+	<aura:attribute name="loadOffsetLWOFP" type="Integer" default="1" />
+
+	<aura:attribute name="initialRPRows" type="Integer" default="50" />
+	<aura:attribute name="currentRPCount" type="Integer" default="50" />
+	<aura:attribute name="totalRPRows" type="Integer" default="0" />
+	<aura:attribute name="loadOffsetRP" type="Integer" default="1" />
+
 	<div class="slds-box slds-color__background_gray-1">
 		<aura:if isTrue="{! v.showSpinner }">
 			<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
@@ -144,12 +175,17 @@
 							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveLWIP }" name="LWIP" />
 						</div>
 						<div>
-							Count:   {! v.dataLWIPsize }
+							Records displayed: {! v.currentLWIPCount }
+						</div>
+						<div>
+							Total number of entries: {! v.totalLWIPRows }
 						</div>
 						<aura:if isTrue="{!v.showLWIP}">
 							<div style="height: 300px">
 								<lightning:datatable columns="{! v.columnsLWIP }" data="{! v.dataLWIP }" keyField="id"
 									hideCheckboxColumn="false" aura:id="tableLWIP"
+									enableInfiniteLoading="{!v.enableInfiniteLoading}"
+									loadMoreOffset="{!v.loadOffsetLWIP}" onloadmore="{!c.handleLoadMoreLWIP}"
 									selectedRows="{! v.selectedRowsLWIP }" />
 							</div>
 							<div style="text-align:center; margin-top:10px">
@@ -201,13 +237,18 @@
 								name="LWOIP" />
 						</div>
 						<div>
-							Count:   {! v.dataLWOIPsize }
+							Records displayed: {! v.currentLWOIPCount }
+						</div>
+						<div>
+							Total number of entries: {! v.totalLWOIPRows }
 						</div>
 						<aura:if isTrue="{!v.showLWOIP}">
 							<div style="height: 300px">
 								<lightning:datatable columns="{! v.columnsLWOIP }" data="{! v.dataLWOIP }" keyField="id"
 									hideCheckboxColumn="false" aura:id="tableLWOIP"
-									selectedRows="{! v.selectedRowsLWOIP }" />
+									selectedRows="{! v.selectedRowsLWOIP }"
+									enableInfiniteLoading="{!v.enableInfiniteLoading}"
+									loadMoreOffset="{! v.loadOffsetLWOIP }" onloadmore="{!c.handleLoadMoreLWOIP}" />
 							</div>
 							<div style="text-align:center; margin-top:10px">
 								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
@@ -261,13 +302,18 @@
 							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveLWFP }" name="LWFP" />
 						</div>
 						<div>
-							Count:   {! v.dataLWFPsize }
-						</div>					
+							Records displayed: {! v.currentLWFPCount }
+						</div>
+						<div>
+							Total number of entries: {! v.totalLWFPRows }
+						</div>
 						<aura:if isTrue="{!v.showLWFP}">
 							<div style="height: 300px">
 								<lightning:datatable columns="{! v.columnsLWFP }" data="{! v.dataLWFP }" keyField="id"
 									hideCheckboxColumn="false" aura:id="tableLWFP"
-									selectedRows="{! v.selectedRowsLWFP }" />
+									selectedRows="{! v.selectedRowsLWFP }"
+									enableInfiniteLoading="{!v.enableInfiniteLoading}"
+									loadMoreOffset="{! v.loadOffsetLWFP }" onloadmore="{!c.handleLoadMoreLWFP}" />
 							</div>
 							<div style="text-align:center; margin-top:10px">
 								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
@@ -322,13 +368,18 @@
 								name="LWOFP" />
 						</div>
 						<div>
-							Count:   {! v.dataLWOFPsize }
-						</div>					
+							Records displayed: {! v.currentLWOFPCount }
+						</div>
+						<div>
+							Total number of entries: {! v.totalLWOFPRows }
+						</div>
 						<aura:if isTrue="{!v.showLWOFP}">
 							<div style="height: 300px">
 								<lightning:datatable columns="{! v.columnsLWOFP }" data="{! v.dataLWOFP }" keyField="id"
 									hideCheckboxColumn="false" aura:id="tableLWOFP"
-									selectedRows="{! v.selectedRowsLWOFP }" />
+									selectedRows="{! v.selectedRowsLWOFP }"
+									enableInfiniteLoading="{!v.enableInfiniteLoading}"
+									loadMoreOffset="{! v.loadOffsetLWOFP }" onloadmore="{!c.handleLoadMoreLWOFP}" />
 							</div>
 							<div style="text-align:center; margin-top:10px">
 								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"
@@ -394,12 +445,17 @@
 							<lightning:button label="Save Settings" onclick="{! c.handleClickSaveRP }" name="RP" />
 						</div>
 						<div>
-							Count:   {! v.dataRPsize }
-						</div>					
+							Records displayed: {! v.currentRPCount }
+						</div>
+						<div>
+							Total number of entries: {! v.totalRPRows }
+						</div>
 						<aura:if isTrue="{!v.showRP}">
 							<div style="height: 300px">
 								<lightning:datatable columns="{! v.columnsRP }" data="{! v.dataRP }" keyField="id"
-									hideCheckboxColumn="false" aura:id="tableRP" selectedRows="{! v.selectedRowsRP }" />
+									hideCheckboxColumn="false" aura:id="tableRP" selectedRows="{! v.selectedRowsRP }" 
+									enableInfiniteLoading="{!v.enableInfiniteLoading}"
+									loadMoreOffset="{! v.loadOffsetRP }" onloadmore="{!c.handleLoadMoreRP}" />
 							</div>
 							<div style="text-align:center; margin-top:10px">
 								<lightning:button label="Add Contacts" title="Add Contacts to Campaign"

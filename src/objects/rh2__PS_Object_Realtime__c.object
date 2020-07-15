@@ -3,12 +3,33 @@
     <customSettingsType>List</customSettingsType>
     <enableFeeds>false</enableFeeds>
     <fields>
+        <fullName>rh2__Allow_Child_Save_If_Parent_Save_Fails__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this box to allow child records to save even if the parent record hits an exception while saving.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box to allow child records to save even if the parent record hits an exception while saving.</inlineHelpText>
+        <label>Allow Child Save If Parent Save Fails</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>rh2__Asynchronous__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Forces rollups to run asynchronously on the specified object.</inlineHelpText>
         <label>Enable Asynchronous Processing</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>rh2__Disable_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Disables default Rollup Helper trigger on the specified object type when checked.</inlineHelpText>
+        <label>Disable Trigger</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -32,6 +53,16 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rh2__Prevent_DLDA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Disables data load dynamic asynchronous functionality on the specified object type when checked. Use of data load dynamic asynchronous processing is strongly recommended.</inlineHelpText>
+        <label>Disable Data Load Dynamic Async</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <label>Rollup Helper Object Realtime Processing</label>
     <visibility>Public</visibility>

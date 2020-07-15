@@ -66,9 +66,7 @@ public class SendaQuoteController {
 //        }
         // Get the Session Id
         sessionId = vfContent.substring(startP, endP);
-        System.debug('sessionId ' + sessionId);
-        System.debug('startP >>>> ' + startP);
-        System.debug('endP >>>> ' + endP);
+
         // Return Session Id
         return sessionId;
     }
@@ -80,8 +78,7 @@ public class SendaQuoteController {
         String qId = mergeQueryId.Id;
         String sessionId;
         sessionId = fetchUserSessionId();
-        System.debug('>>>> sessionId' + sessionId);
-//        }
+
         String serverURL = Url.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/u/46.0/' + UserInfo.getOrganizationId();
         String templateCover = '&TemplateId=' + templateId;
         String queryId = '&QueryId=[send]'+ qId +'?pv0=' + oppId + '~pv1=' + quoteId;
@@ -100,28 +97,12 @@ public class SendaQuoteController {
         requestFinal.setTimeout(120000);
 
         HttpResponse responseFinal = httpFinal.send(requestFinal);
-
-        System.debug(responseFinal.getBody());
-        System.debug('responseFinal >>>> ' + responseFinal);
-        System.debug('responseFinal >>>> ' + responseFinal.getStatus());
-        System.debug('responseFinal >>>> ' + responseFinal.getStatusCode());
-        System.debug('responseFinal >>>> ' + responseFinal.getHeaderKeys());
-
         return JSON.serialize(responseFinal.getBody());
     }
 
     @AuraEnabled
-    public static String sendEmailwithPDF(String DocId, String subject, String body, Contact contactEmailTo, List<Contact> contactEmailCC, String filePdf) {
+    public static String sendEmailwithPDF(String DocId, String subject, String body, Contact contactEmailTo, List<Contact> contactEmailCC, String quoteId) {
         String a = 'Ok, email send.';
-
-//        ContentDocumentLink contentDocumentLink = new ContentDocumentLink(
-//                LinkedEntityId = '0Q01l000000YLHVCA4',
-//                ContentDocumentId = filePdf,
-//                shareType = 'V',
-//                Visibility = 'AllUsers'
-//        );
-//
-//        insert contentDocumentLink ;
 
         String[] toAddresses = new String[]{
         };
@@ -155,7 +136,6 @@ public class SendaQuoteController {
         }
 
         // Create an email message object
-//        List<Messaging.SingleEmailMessage> allmsg = new List<Messaging.SingleEmailMessage>();
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         mail.setToAddresses(toAddresses);
         if (ccAddresses != null) {
@@ -169,26 +149,18 @@ public class SendaQuoteController {
                 mail
         });
 
-//        allmsg.add(mail);
-//        try {
-//            Messaging.SendEmailResult[] resSend = Messaging.sendEmail(allmsg, false);
-//            for (Messaging.SendEmailResult r : resSend) {
-//                System.debug('***Mail Error:' + r.getErrors());
-//                System.debug('***isSuccess:' + r.isSuccess());
-//            }
-//                        return json.serialize(resSend);
-//        } catch (Exception e) {
-//            System.debug(e.getMessage());
-//                        return 'Failure: '+ e.getMessage();
-//        }
-
+        if (quoteId != null) {
+            Quote quote = [SELECT Id, Status FROM Quote WHERE Id = :quoteId];
+            quote.Status = 'Sent';
+            update quote;
+        }
 
         return a;
     }
 
     @AuraEnabled
     public static String createQuote(String recordId) {
-//        QuoteLineItem quoteLineItem = new QuoteLineItem();
+
         List<QuoteLineItem> quoteLineItemsList = new List<QuoteLineItem>();
 
         Opportunity opportunity = [SELECT Id, Name, Pricebook2Id FROM Opportunity WHERE Id = :recordId];
@@ -220,17 +192,17 @@ public class SendaQuoteController {
         return quote.Id;
     }
 
-//    @AuraEnabled
-//    public static void deleteQuote(String quoteId, String fileId) {
-//        if (fileId != null) {
-//            ContentDocument filePDF = [SELECT Id FROM ContentDocument WHERE Id = :fileId];
-//            delete filePDF;
-//        }
-//        if (quoteId != null) {
-//            Quote quote = [SELECT Id FROM Quote WHERE Id = :quoteId];
-//            delete quote;
-//        }
-//
-//    }
+    @AuraEnabled
+    public static void deleteQuote(String quoteId, String fileId) {
+        if (fileId != null) {
+            ContentDocument filePDF = [SELECT Id FROM ContentDocument WHERE Id = :fileId];
+            delete filePDF;
+        }
+        if (quoteId != null) {
+            Quote quote = [SELECT Id FROM Quote WHERE Id = :quoteId];
+            delete quote;
+        }
+
+    }
 
 }

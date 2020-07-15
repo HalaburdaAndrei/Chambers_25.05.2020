@@ -1,9 +1,6 @@
 ({
     doInit: function (component, event, helper) {
-        console.log('recordIc >>> ' + component.get("v.recordId"));
-        // console.log('doInit contact >>> ' + component.get("v.selectedLookUpContact"));
-        // console.log('CLOSE WINDOW >>> ' + component.find("Close this window"));
-
+        
         var action = component.get("c.checkStage");
         action.setParams({recordId: component.get("v.recordId")});
         action.setCallback(this, function (response) {
@@ -36,17 +33,14 @@
     },
 
     generated: function (component, event, helper) {
-        console.log(component.get("v.selectedTemplate"));
-
+     
         component.set('v.loaded', !component.get('v.loaded'));
 
         var creQuote = component.get("c.createQuote");
         creQuote.setParams({recordId: component.get("v.recordId")});
         creQuote.setCallback(this, function (response) {
             var state = response.getState();
-            console.log(state);
-            if (state === 'SUCCESS') {
-                console.log(response.getReturnValue());
+            if (state === 'SUCCESS') {  
                 component.set("v.quoteId", response.getReturnValue());
 
                 var action = component.get("c.generateQuote");
@@ -77,8 +71,6 @@
                                 "type": "success"
                             });
                             toastEvent.fire();
-                            console.log(responseData);
-
 
                             var filePDF = component.get("c.openPDF");
                             filePDF.setParams({fileId: component.get("v.generatedPDF")});
@@ -141,7 +133,6 @@
     },
 
     openSingleFile: function (component, event, helper) {
-        console.log('Contact >>> ' + JSON.stringify(component.get("v.selectedLookUpRecords")));
         var id = component.get("v.filePDFOpen");
 
         if (id != null) {
@@ -171,7 +162,8 @@
             if (component.get("v.generatedPDF") != null) {
                 var email = component.get("c.sendEmailwithPDF");
                 email.setParams({
-                    filePdf: component.get("v.filePDFOpen"),
+                    quoteId: component.get("v.quoteId"),
+                    // filePdf: component.get("v.filePDFOpen"),
                     DocId: component.get("v.generatedPDF"),
                     body: component.get("v.body"),
                     subject: component.get("v.subject"),
@@ -224,30 +216,27 @@
 
     cancel: function (component, event, helper) {
 
-        // if ((component.get("v.quoteId") != null || component.get("v.filePDFOpen") != null)) {
-        //     var action = component.get("c.deleteQuote");
-        //     action.setParams({
-        //         quoteId: component.get("v.quoteId"),
-        //         fileId: component.get("v.filePDFOpen")
-        //     });
-        //     action.setCallback(this, function (response) {
-        //         var state = response.getState();
-        //         console.log(state);
-        //         if (state === "SUCCESS") {
-        //             console.log('QUOTE DELETE!!!');
-        //             var dismissActionPanel = $A.get("e.force:closeQuickAction");
-        //             dismissActionPanel.fire();
-        //         }
-        //     });
-        //     $A.enqueueAction(action);
-        // } else {
-        //     console.log('Quotas were not found, and the component is closed.');
-        //     var dismissActionPanel = $A.get("e.force:closeQuickAction");
-        //     dismissActionPanel.fire();
-        // }
+        if ((component.get("v.quoteId") != null || component.get("v.filePDFOpen") != null)) {
+            var action = component.get("c.deleteQuote");
+            action.setParams({
+                quoteId: component.get("v.quoteId"),
+                fileId: component.get("v.filePDFOpen")
+            });
+            action.setCallback(this, function (response) {
+                var state = response.getState();
+                console.log(state);
+                if (state === "SUCCESS") {
+                    var dismissActionPanel = $A.get("e.force:closeQuickAction");
+                    dismissActionPanel.fire();
+                }
+            });
+            $A.enqueueAction(action);
+        } else {
+            console.log('Quotas were not found, and the component is closed.');
+            var dismissActionPanel = $A.get("e.force:closeQuickAction");
+            dismissActionPanel.fire();
+        }
 
-        var dismissActionPanel = $A.get("e.force:closeQuickAction");
-        dismissActionPanel.fire();
     }
 
 })

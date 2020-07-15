@@ -1,330 +1,408 @@
-<aura:component description="RankingData" implements="force:hasRecordId,flexipage:availableForRecordHome"
+<aura:component description="RankingData" implements="force:hasRecordId,flexipage:availableForRecordHome,force:appHostable,lightning:isUrlAddressable"
                 controller="RankingDataController" access="global">
 
     <aura:attribute name="items" type="List" default="[]"/>
     <aura:attribute name="items1" type="List" default="[]"/>
+    <aura:attribute name="listYearForColumn" type="List" default="[]"/>
     <aura:attribute name="loaded" type="Boolean" default="true"/>
+    <aura:attribute name="expended" type="Boolean" default="false"/>
+    <aura:attribute name="selTabId" type="String" default="Organization Ranking" />
+    <aura:attribute name="selectIndex" type="String" />
 
     <aura:attribute name="sortAsc" type="Boolean"/>
     <aura:attribute name="sortField" type="String"/>
-    <aura:attribute name="sortindex" type="String" default="0"/>
+    <aura:attribute name="UnfilteredData" type="List" />
+
+    <aura:attribute name="timer" type="Integer"/>
+    <aura:attribute name="filterPracticeArea" type="String" default=""/>
+    <aura:attribute name="filterLocation" type="String" default=""/>
+    <aura:attribute name="filterType" type="String" default=""/>
+    <aura:attribute name="filterBranch" type="String" default=""/>
+    <aura:attribute name="filterLocationOfExpertise" type="String" default=""/>
+    <aura:attribute name="filterPerson" type="String" default=""/>
+
+<!--    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="true"/>-->
+<!--    <aura:attribute name="initialRows" type="Integer" default="10"/>-->
+<!--    <aura:attribute name="currentCount" type="Integer" default="10"/>-->
+<!--    <aura:attribute name="totalRows" type="Integer" default="0"/>-->
+<!--    <aura:attribute name="loadOffset" type="Integer" default="1"/>&lt;!&ndash;Set when to trigger loading of more rows&ndash;&gt;-->
+<!--    &lt;!&ndash;Aura Attributes END&ndash;&gt;-->
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
-    <div class="exampleHolder">
-        <aura:if isTrue="{! v.loaded }">
-            <!--            Put loaded content here-->
-            <aura:set attribute="else">
-                <lightning:spinner alternativeText="Loading"/>
-            </aura:set>
+    <div class="slds-color__background_gray-1 slds-is-relative" >
+        <b>Ranking data.</b><br/>
+
+        <aura:if isTrue="{! !v.loaded }">
+            <lightning:spinner variant="brand" alternativeText="Loading"/>
         </aura:if>
 
-    </div>
-    <div class="slds-box slds-color__background_gray-1">
-    <lightning:tabset onselect="{! c.handleSelect }" selectedTabId="Organization">
-        <lightning:tab label="Organization" id="Organization">
+        <lightning:tabset onselect="{! c.handleSelect }" selectedTabId="{!v.selTabId}">
+            <lightning:tab label="Organization" id="Organization Ranking">
 
-            <div class="slds-scrollable">
-            <table class="slds-table slds-table_cell-buffer slds-table_bordered " width="100%">
-                <thead>
-                <tr class="slds-line-height_reset">
+                <aura:if isTrue="{!v.items != null}">
+<!--                    <div style="height:450px;">-->
+<!--                        <div class="slds-scrollable_y" style="height:100%;">-->
+                            <div class="slds-scrollable">
+                                <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid" >
+                                    <thead>
+                                    <tr class="slds-line-height_reset ">
 
-                    <th class="" scope="col" onclick="{!c.sortByPracticeArea}">
-                        <div class="slds-truncate" title="PracticeArea">PracticeArea
-                        <aura:if isTrue="{!v.sortField=='practiceArea'}">
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" >
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="PracticeArea" onclick="{!c.sortByPracticeArea}">
+                                                PracticeArea
+                                                <aura:if isTrue="{!v.sortField=='practiceArea'}">
                                               <span>
                                                 {!v.sortAsc ? '&#9660;' : '&#9650;'}
                                               </span>
-                        </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col"  onclick="{!c.sortByLocation}">
-                        <div class="slds-truncate" title="Location">Location
-                            <aura:if isTrue="{!v.sortField=='location'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col" onclick="{!c.sortByType}">
-                        <div class="slds-truncate" title="Type">Type
-                            <aura:if isTrue="{!v.sortField=='type'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col" onclick="{!c.sortByLocationOfExpertise}">
-                        <div class="slds-truncate" title="Location of Expertise">Location of Expertise
-                            <aura:if isTrue="{!v.sortField=='locationOfExpertise'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col"  onclick="{!c.sortByBranch}">
-                        <div class="slds-truncate" title="Branch">Branch
-                            <aura:if isTrue="{!v.sortField=='branch'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col"  onclick="{!c.sortByHeadOffice}">
-                        <div class="slds-truncate" title="Head Office">Head Office
-                            <aura:if isTrue="{!v.sortField=='headOffice'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <aura:iteration items="{!v.items1}" var="pub" indexVar="rowIndex">
-                        <th class="" scope="col">
-                            <div class="slds-truncate" title="{!pub}">{!pub}</div>
-                        </th>
-                    </aura:iteration>
-
-                </tr>
-                </thead>
-                <tbody>
-                <aura:iteration items="{!v.items}" var="publications" indexVar="rowIndex">
-                    <tr class="slds-line-height_reset slds-is-selected">
-                        <td data-index="{!rowIndex}" onclick="{!c.toggle}">
-                            <lightning:buttonIcon value="{!rowIndex}"
-                                                  iconName="{!publications.expanded?'utility:chevrondown':'utility:chevronright'}"/>
-                            {!publications.publication}
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-                    </tr>
-                    <aura:if isTrue="{!publications.expanded}">
-
-                        <aura:iteration items="{!publications.rankings}" var="ranking">
-                            <tr class="slds-line-height_reset slds-table--col-bordered slds-table_col-bordered slds-table_bordered slds-box_border slds-box_border">
-                                <td data-label="PracticeArea" scope="row">
-                                    <div class="slds-truncate "
-                                         title="{!ranking.practiceArea}">{!ranking.practiceArea}</div>
-                                </td>
-                                <td data-label="Location">
-                                    <div class="slds-truncate" title="{!ranking.location}">{!ranking.location}</div>
-                                </td>
-                                <td data-label="Type">
-                                    <div class="slds-truncate" title="{!ranking.type}">{!ranking.type}</div>
-                                </td>
-                                <td data-label="Location of Expertise">
-                                    <div class="slds-truncate"
-                                         title="{!ranking.locationOfExpertise}">{!ranking.locationOfExpertise}</div>
-                                </td>
-                                <td data-label="Branch">
-                                    <div class="slds-truncate" title="{!ranking.branch}">{!ranking.branch}</div>
-                                </td>
-                                <td data-label="Head Office">
-                                    <div class="slds-truncate slds-align--absolute-center" title="{!ranking.headOffice}">
-                                        <div class="slds-form-element">
-                                            <div class="slds-form-element__control">
-                                                <span class="slds-checkbox slds-checkbox_standalone">
-                                                        <aura:if isTrue="{!ranking.headOffice == true}">
-                                                            <input type="checkbox" id="checkbox-unique-id-77"
-                                                                   name="label"
-                                                                   value="option" disabled="true" checked="true"/>
-                                                            <aura:set attribute="else">
-                                                                <input type="checkbox" id="checkbox-unique-id-79"
-                                                                       name="label"
-                                                                       value="option" disabled="true"/>
-                                                            </aura:set>
-                                                        </aura:if>
-                                                    <span class="slds-checkbox_faux"></span>
-                                                </span>
+                                                </aura:if>
                                             </div>
-                                        </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small" >
+<!--                                            <lightning:input name="x" value="{!v.filterPracticeArea}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterPracticeArea}" variant="label-hidden"/>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:120px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Location" onclick="{!c.sortByLocation}">
+                                                Location
+                                                <aura:if isTrue="{!v.sortField=='location'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small">
+<!--                                                <lightning:input name="x" value="{!v.filterLocation}" placeholder="Search by " />-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterLocation}" variant="label-hidden"/>
 
-                                    </div>
-                                </td>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:100px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Type" onclick="{!c.sortByType}">Type
+                                                <aura:if isTrue="{!v.sortField=='type'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small">
+<!--                                                <lightning:input name="x" value="{!v.filterType}" placeholder="Search by " />-->
+                                                <lightning:input placeholder="Search..." onkeyup="{! c.filterby }" value="{!v.filterType}" variant="label-hidden"/>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:100px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                                                 title="Location of Expertise" onclick="{!c.sortByLocationOfExpertise}">Loc of Exp
+                                                <aura:if isTrue="{!v.sortField=='locationOfExpertise'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small" >
+<!--                                                <lightning:input name="x" value="{!v.filterLocationOfExpertise}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterLocationOfExpertise}" variant="label-hidden"/>
 
-                                <aura:iteration items="{!ranking.rankYears}" var="r">
-                                    <!--                        <tr class="slds-line-height_reset">-->
-                                    <td data-label="{!r.rYears}">
-                                        <div class="slds-truncate" title="{!r.rYears}">{!r.rankingYear}</div>
-                                    </td>
-                                    <!--                        </tr>-->
-                                </aura:iteration>
-                            </tr>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" >
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Branch" onclick="{!c.sortByBranch}">Branch
+                                                <aura:if isTrue="{!v.sortField=='branch'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small"  >
+<!--                                                <lightning:input name="x" value="{!v.filterBranch}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterBranch}" variant="label-hidden"/>
 
-                        </aura:iteration>
-                    </aura:if>
-                </aura:iteration>
-                </tbody>
-            </table>
-            </div>
-        </lightning:tab>
-        <lightning:tab label="Employees" id="Employees">
-            <div class="slds-scrollable">
-            <table class="slds-table slds-table_cell-buffer slds-table_bordered " width="100%">
-                <thead>
-                <tr class="slds-line-height_reset" >
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:40px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Head Office" onclick="{!c.sortByHeadOffice}">
+                                                HO
+                                                <aura:if isTrue="{!v.sortField=='headOffice'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                        </th>
+                                        <aura:iteration items="{!v.listYearForColumn}" var="pub" indexVar="rowIndex">
+                                            <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:40px">
+                                                <div class="slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                                                     title="{!pub}">{!pub}</div>
+                                            </th>
+                                        </aura:iteration>
 
-                    <th class="" scope="col" onclick="{!c.sortByPerson}">
-                        <div class="slds-truncate" title="Person">Person
-                            <aura:if isTrue="{!v.sortField=='person'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col" onclick="{!c.sortByPracticeArea}">
-                        <div class="slds-truncate" title="PracticeArea">PracticeArea
-                            <aura:if isTrue="{!v.sortField=='practiceArea'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col" onclick="{!c.sortByLocation}">
-                        <div class="slds-truncate" title="Location">Location
-                            <aura:if isTrue="{!v.sortField=='location'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col" onclick="{!c.sortByType}">
-                        <div class="slds-truncate" title="Type">Type
-                            <aura:if isTrue="{!v.sortField=='type'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col" onclick="{!c.sortByLocationOfExpertise}">
-                        <div class="slds-truncate" title="Location of Expertise">Location of Expertise
-                            <aura:if isTrue="{!v.sortField=='locationOfExpertise'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-                    <th class="" scope="col"  onclick="{!c.sortByBranch}">
-                        <div class="slds-truncate" title="Branch">Branch
-                            <aura:if isTrue="{!v.sortField=='branch'}">
-                                              <span>
-                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
-                                              </span>
-                            </aura:if>
-                        </div>
-                    </th>
-<!--                    <th class="" scope="col"  onclick="{!c.sortByHeadOffice}">-->
-<!--                        <div class="slds-truncate" title="Head Office">Head Office-->
-<!--                            <aura:if isTrue="{!v.sortField=='headOffice'}">-->
-<!--                                              <span>-->
-<!--                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}-->
-<!--                                              </span>-->
-<!--                            </aura:if>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <aura:iteration items="{!v.items}" var="publications" indexVar="rowIndex">
+
+                                        <tr class="slds-line-height_reset slds-is-selected" name="{!rowIndex}" onclick="{!c.toggle}">
+                                            <td colspan="6" >
+                                                <lightning:buttonIcon name="{!rowIndex}"
+                                                                      iconName="{!publications.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
+
+                                                {!publications.publication}
+                                            </td>
+                                            <aura:iteration items="{!publications.listYear}" var="p"
+                                                            indexVar="rowIndex">
+                                                <td>
+                                                </td>
+                                            </aura:iteration>
+
+                                        </tr>
+                                        <aura:if isTrue="{!publications.expanded}">
+
+                                            <aura:iteration items="{!v.items1}" var="ranking">
+                                                <tr class="slds-line-height_reset slds-table--col-bordered slds-table_col-bordered slds-table_bordered slds-box_border slds-box_border">
+                                                    <td data-label="PracticeArea" scope="row">
+                                                        <div class="slds-truncate  "
+                                                             title="{!ranking.practiceArea}">{!ranking.practiceArea}</div>
+                                                    </td>
+                                                    <td data-label="Location" >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.location}">{!ranking.location}</div>
+                                                    </td>
+                                                    <td data-label="Type"  >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.type}">{!ranking.type}</div>
+                                                    </td>
+                                                    <td data-label="Location of Expertise" >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.locationOfExpertise}">{!ranking.locationOfExpertise}</div>
+                                                    </td>
+                                                    <td data-label="Branch" >
+                                                        <div class="slds-truncate "
+                                                             title="{!ranking.branch}">{!ranking.branch}</div>
+                                                    </td>
+                                                    <td data-label="Head Office">
+                                                        <div class="slds-truncate slds-align--absolute-center"
+                                                             title="{!ranking.headOffice}">
+                                                            <aura:if isTrue="{!ranking.headOffice}">
+                                                            <lightning:input type="checkbox" value="{!ranking.headOffice}" disabled="true" checked="true"/>
+                                                                <aura:set attribute="else">
+                                                                    <lightning:input type="checkbox" value="{!ranking.headOffice}" disabled="true" checked="false"/>
+                                                                </aura:set>
+                                                            </aura:if>
+
+                                                        </div>
+                                                    </td>
+
+                                                    <aura:iteration items="{!ranking.rankYears}" var="r">
+                                                        <td data-label="{!r.rYears}">
+                                                            <div class="slds-truncate"
+                                                                 title="{!r.rYears}">{!r.rankingYear}</div>
+                                                        </td>
+                                                    </aura:iteration>
+                                                </tr>
+
+                                            </aura:iteration>
+                                        </aura:if>
+                                    </aura:iteration>
+                                    </tbody>
+                                </table>
+                            </div>
 <!--                        </div>-->
-<!--                    </th>-->
-                    <aura:iteration items="{!v.items1}" var="pub" indexVar="rowIndex">
-                        <th class="" scope="col">
-                            <div class="slds-truncate" title="{!pub}">{!pub}</div>
-                        </th>
-                    </aura:iteration>
+<!--                    </div>-->
+                    <aura:set attribute="else">
+                        <b>There is no data on Ranks.</b><br/>
+                    </aura:set>
+                </aura:if>
+            </lightning:tab>
+            <lightning:tab label="Employees" id="Person Ranking">
+                <aura:if isTrue="{!v.items != null}">
+                            <div class="slds-scrollable">
+                                <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid">
+                                    <thead>
+                                    <tr class="slds-line-height_reset">
 
-                </tr>
-                </thead>
-                <tbody>
-                <aura:iteration items="{!v.items}" var="publications" indexVar="rowIndex">
-                    <tr class="slds-line-height_reset slds-is-selected">
-                        <td data-index="{!rowIndex}" onclick="{!c.toggle}">
-                            <lightning:buttonIcon value="{!rowIndex}"
-                                                  iconName="{!publications.expanded?'utility:chevrondown':'utility:chevronright'}"/>
-                            {!publications.publication}
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-<!--                        <td></td>-->
-                    </tr>
-                    <aura:if isTrue="{!publications.expanded}">
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" >
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Person" onclick="{!c.sortByPerson}">Person
+                                                <aura:if isTrue="{!v.sortField=='person'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small" >
+<!--                                                <lightning:input name="x" value="{!v.filterPerson}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterPerson}" variant="label-hidden"/>
 
-                        <aura:iteration items="{!publications.rankings}" var="ranking">
-                            <tr class="slds-line-height_reset">
-                                <td data-label="Person" scope="row">
-                                    <div class="slds-truncate" title="{!ranking.person}">{!ranking.person}</div>
-                                </td>
-                                <td data-label="PracticeArea" scope="row">
-                                    <div class="slds-truncate"
-                                         title="{!ranking.practiceArea}">{!ranking.practiceArea}</div>
-                                </td>
-                                <td data-label="Location">
-                                    <div class="slds-truncate" title="{!ranking.location}">{!ranking.location}</div>
-                                </td>
-                                <td data-label="Type">
-                                    <div class="slds-truncate" title="{!ranking.type}">{!ranking.type}</div>
-                                </td>
-                                <td data-label="Location of Expertise">
-                                    <div class="slds-truncate"
-                                         title="{!ranking.locationOfExpertise}">{!ranking.locationOfExpertise}</div>
-                                </td>
-                                <td data-label="Branch">
-                                    <div class="slds-truncate" title="{!ranking.branch}">{!ranking.branch}</div>
-                                </td>
-                                <!--                                <td data-label="Head Office">-->
-                                <!--                                    <div class="slds-truncate" title="{!rankingheadOffice}">{!rankingheadOffice}</div>-->
-                                <!--                                </td>-->
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" >
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="PracticeArea" onclick="{!c.sortByPracticeArea}">
+                                                PracticeArea
+                                                <aura:if isTrue="{!v.sortField=='practiceArea'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small" >
+<!--                                                <lightning:input name="x" value="{!v.filterPracticeArea}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterPracticeArea}" variant="label-hidden"/>
 
-                                <aura:iteration items="{!ranking.rankYears}" var="r">
-                                    <!--                        <tr class="slds-line-height_reset">-->
-                                    <!--                                    <aura:if isTrue="{!r.rYears == ranking.year}">-->
-                                    <td data-label="{!r.rYears}">
-                                        <div class="slds-truncate" title="{!r.rYears}">{!r.rankingYear}</div>
-                                    </td>
-                                    <!--                                        <aura:set attribute="else">-->
-                                    <!--                                            <td data-label="{!r.rYears}">-->
-                                    <!--                                                <div class="slds-truncate" title="{!r.rYears}"> - </div>-->
-                                    <!--                                            </td>-->
-                                    <!--                                        </aura:set>-->
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:120px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Location" onclick="{!c.sortByLocation}">
+                                                Location
+                                                <aura:if isTrue="{!v.sortField=='location'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small"  >
+<!--                                                <lightning:input name="x" value="{!v.filterLocation}" placeholder="Search by " />-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterLocation}" variant="label-hidden"/>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:100px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Type" onclick="{!c.sortByType}">Type
+                                                <aura:if isTrue="{!v.sortField=='type'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small"  >
+<!--                                                <lightning:input name="x" value="{!v.filterType}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterType}" variant="label-hidden"/>
 
-                                    <!--                                    </aura:if>-->
-                                    <!--                        </tr>-->
-                                </aura:iteration>
-                            </tr>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:100px">
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                                                 title="Location of Expertise" onclick="{!c.sortByLocationOfExpertise}">Loc of Exp
+                                                <aura:if isTrue="{!v.sortField=='locationOfExpertise'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small" >
+<!--                                                <lightning:input name="x" value="{!v.filterLocationOfExpertise}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterLocationOfExpertise}" variant="label-hidden"/>
 
-                        </aura:iteration>
-                    </aura:if>
-                </aura:iteration>
-                </tbody>
-            </table>
-            </div>
-        </lightning:tab>
-    </lightning:tabset>
+                                            </div>
+                                            </aura:if>
+                                        </th>
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" >
+                                            <div class="cursorPointer slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate" title="Branch" onclick="{!c.sortByBranch}">Branch
+                                                <aura:if isTrue="{!v.sortField=='branch'}">
+                                              <span>
+                                                {!v.sortAsc ? '&#9660;' : '&#9650;'}
+                                              </span>
+                                                </aura:if>
+                                            </div>
+                                            <aura:if isTrue="{!v.expended == true}">
+                                            <div class="slds-truncate slds-m-left_x-small slds-m-right_x-small " >
+<!--                                                <lightning:input name="x" value="{!v.filterBranch}" placeholder="Search by "/>-->
+                                                <lightning:input placeholder="Search... " onkeyup="{! c.filterby }" value="{!v.filterBranch}" variant="label-hidden"/>
+
+                                            </div>
+                                            </aura:if>
+                                        </th>
+
+                                        <aura:iteration items="{!v.listYearForColumn}" var="pub" indexVar="rowIndex">
+                                            <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col" style="width:40px">
+                                                <div class="slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                                                     title="{!pub}">{!pub}</div>
+                                            </th>
+                                        </aura:iteration>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <aura:iteration items="{!v.items}" var="publications" indexVar="rowIndex">
+                                        <tr class="slds-line-height_reset slds-is-selected" name="{!rowIndex}" onclick="{!c.toggle}">
+                                            <td colspan="6" data-index="{!rowIndex}">
+                                                <lightning:buttonIcon value="{!rowIndex}"
+                                                                      iconName="{!publications.expanded?'utility:chevrondown':'utility:chevronright'}"/>
+                                                {!publications.publication}
+                                            </td>
+
+                                            <aura:iteration items="{!publications.listYear}" var="p">
+                                                <td></td>
+                                            </aura:iteration>
+
+                                        </tr>
+                                        <aura:if isTrue="{!publications.expanded}">
+
+                                            <aura:iteration items="{!v.items1}" var="ranking">
+                                                <tr class="slds-line-height_reset slds-table--col-bordered slds-table_col-bordered slds-table_bordered slds-box_border slds-box_border">
+                                                    <td data-label="Person" scope="row">
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.person}">{!ranking.person}</div>
+                                                    </td>
+                                                    <td data-label="PracticeArea" scope="row">
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.practiceArea}">{!ranking.practiceArea}</div>
+                                                    </td>
+                                                    <td data-label="Location" >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.location}">{!ranking.location}</div>
+                                                    </td>
+                                                    <td data-label="Type" >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.type}">{!ranking.type}</div>
+                                                    </td>
+                                                    <td data-label="Location of Expertise" >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.locationOfExpertise}">{!ranking.locationOfExpertise}</div>
+                                                    </td>
+                                                    <td data-label="Branch" >
+                                                        <div class="slds-truncate"
+                                                             title="{!ranking.branch}">{!ranking.branch}</div>
+                                                    </td>
+
+                                                    <aura:iteration items="{!ranking.rankYears}" var="r">
+
+                                                        <td data-label="{!r.rYears}">
+                                                            <div class="slds-truncate"
+                                                                 title="{!r.rYears}">{!r.rankingYear}</div>
+                                                        </td>
+
+                                                    </aura:iteration>
+                                                </tr>
+
+                                            </aura:iteration>
+                                        </aura:if>
+                                    </aura:iteration>
+                                    </tbody>
+                                </table>
+                            </div>
+                    <aura:set attribute="else">
+                        <b>There is no data on Ranks.</b><br/>
+                    </aura:set>
+                </aura:if>
+            </lightning:tab>
+        </lightning:tabset>
     </div>
 
 </aura:component>

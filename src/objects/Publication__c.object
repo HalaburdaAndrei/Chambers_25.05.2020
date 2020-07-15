@@ -106,6 +106,14 @@
         <unique>true</unique>
     </fields>
     <fields>
+        <fullName>Editorial_deadline_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Editorial deadline date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>PreviousEdition__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -116,6 +124,14 @@
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Publication_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Publication Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
     </fields>
     <fields>
         <fullName>Publication_Record_SF_ID__c</fullName>

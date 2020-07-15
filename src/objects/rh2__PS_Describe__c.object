@@ -137,6 +137,15 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>rh2__Disable_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Disable Trigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>rh2__Foreign_Key_Test_Currency__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -1059,7 +1068,7 @@
         <deprecated>false</deprecated>
         <description>Used in validation rule exception test methods</description>
         <externalId>false</externalId>
-        <label>Test Integer2</label>
+        <label>Test Integer</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>

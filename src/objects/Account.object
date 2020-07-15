@@ -2053,4 +2053,23 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
         <page>MC4SF__ForwardPersonAcctToSubscriptionContact</page>
         <protected>false</protected>
     </webLinks>
+    <webLinks>
+        <fullName>Ranking_Data</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Ranking Data</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>{!URLFOR(&quot;/apex/RankingDataPage&quot;, null, [id=Account.Id])}</url>
+    </webLinks>
 </CustomObject>

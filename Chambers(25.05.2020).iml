@@ -247,6 +247,14 @@
                             <option name="name" value="RankingDataController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="RankingDataControllerTest" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="LastFYController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -275,6 +283,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="GetSessionIdVF" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="RankingDataPage" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
@@ -432,7 +444,7 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="testRankingData" />
+                            <option name="name" value="RankingDataApp" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

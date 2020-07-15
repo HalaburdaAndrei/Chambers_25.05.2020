@@ -1,2 +1,6 @@
-.THIS {
+.THIS .maintablecol {
+	min-width: 200px;
+}
+.THIS .cursorPointer{
+	cursor: pointer;
 }

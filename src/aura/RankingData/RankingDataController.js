@@ -1,84 +1,198 @@
 ({
-    doInit : function(component, event, helper) {
-        var currentOrderId = component.get("v.recordId");
-        var action = component.get("c.getRankings");
+    doInit: function (component, event, helper) {
+        // component.set('v.recordId', component.get("v.pageReference").state.C__id);
 
-        action.setParams({ recordType : "Organization Ranking",
-                            recordId : component.get("v.recordId")});
+        component.set('v.loaded', !component.get('v.loaded'));
 
-        action.setCallback(this, function(response) {
+        var action = component.get("c.getpublicationType");
+        action.setParams({
+            recordType: "Organization Ranking",
+            recordId: component.get("v.recordId"),
+        });
+        action.setCallback(this, function (response) {
             var state = response.getState();
-            //alert(state);
+            console.log(state);
             if (state === "SUCCESS") {
                 var Responsedata = response.getReturnValue();
-                //alert('Responsedata--'+JSON.stringify(Responsedata));
-                console.log(Responsedata.table);
-                component.set("v.items", response.getReturnValue().table);
-                component.set("v.items1", response.getReturnValue().table[0].listYear);
-
+                if (response.getReturnValue().table != null) {
+                    console.log(Responsedata.table);
+                    component.set("v.items", response.getReturnValue().table);
+                    component.set("v.listYearForColumn", response.getReturnValue().table[0].listYear);
+                } else {
+                    component.set("v.items", null);
+                }
+                component.set('v.loaded', !component.get('v.loaded'));
             }
         });
-
         $A.enqueueAction(action);
     },
 
-    toggle: function(component, event, helper) {
-        var items = component.get("v.items"), index = event.target.dataset.index;
-        items[index].expanded = !items[index].expanded;
-        component.set("v.items", items);
-        component.set("v.sortindex", index);
-        console.log(event.target.dataset.index);
+    toggle: function (component, event, helper) {
+
+        var items = component.get("v.items"), index = event.currentTarget.name;
+
+        for (var i = 0; i < items.length; i++) {
+            if (index == i) {
+                items[index].expanded = !items[index].expanded;
+                component.set("v.items", items);
+            } else {
+                items[i].expanded = false;
+                component.set("v.items", items);
+            }
+        }
+
+        if (items[index].expanded == true) {
+            if (component.get("v.selTabId") === 'Organization Ranking') {
+
+                component.set('v.loaded', !component.get('v.loaded'));
+                component.set("v.filterType", '');
+                component.set("v.filterBranch", '');
+                component.set("v.filterLocation", '');
+                component.set("v.filterLocationOfExpertise", '');
+                component.set("v.filterPerson", '');
+                component.set("v.filterPracticeArea", '');
+
+                var action = component.get("c.getRankings");
+                action.setParams({
+                    recordType: component.get("v.selTabId"),
+                    recordId: component.get("v.recordId"),
+                    pubType: items[index].publication,
+                    listYear: items[index].listYear
+                    // initialRows : component.get("v.initialRows") //how many rows to load during initialization
+                });
+                action.setCallback(this, function (response) {
+                    var state = response.getState();
+                    console.log(state);
+                    if (state === "SUCCESS") {
+                        var Responsedata = response.getReturnValue();
+                        if (response.getReturnValue().table != null) {
+                            console.log(Responsedata.table);
+                            component.set("v.items1", response.getReturnValue().table);
+                            component.set("v.UnfilteredData", response.getReturnValue().table);
+                            component.set("v.expended", true);
+                            component.set("v.selectIndex", index);
+                            // component.set("v.totalRows",response.getReturnValue().table[0].totalRecords);
+                            // console.log(response.getReturnValue().table[0].totalRecords);
+                            // component.set("v.listYearForColumn", response.getReturnValue().table[0].listYear);
+                        } else {
+                            component.set("v.items1", null);
+                        }
+                        component.set('v.loaded', !component.get('v.loaded'));
+                    }
+                });
+                $A.enqueueAction(action);
+            }
+
+            if (component.get("v.selTabId") === 'Person Ranking') {
+
+                component.set('v.loaded', !component.get('v.loaded'));
+                component.set("v.filterType", '');
+                component.set("v.filterBranch", '');
+                component.set("v.filterLocation", '');
+                component.set("v.filterLocationOfExpertise", '');
+                component.set("v.filterPerson", '');
+                component.set("v.filterPracticeArea", '');
+
+                var action = component.get("c.getRankings");
+                action.setParams({
+                    recordType: component.get("v.selTabId"),
+                    recordId: component.get("v.recordId"),
+                    pubType: items[index].publication,
+                    listYear: items[index].listYear
+                });
+                action.setCallback(this, function (response) {
+                    var state = response.getState();
+                    console.log(state);
+                    if (state === "SUCCESS") {
+                        var Responsedata = response.getReturnValue();
+                        if (response.getReturnValue().table != null) {
+                            console.log(Responsedata.table);
+                            component.set("v.items1", response.getReturnValue().table);
+                            component.set("v.UnfilteredData", response.getReturnValue().table);
+                            component.set("v.expended", true);
+                            component.set("v.selectIndex", index);
+                        } else {
+                            component.set("v.items1", null);
+                        }
+                        component.set('v.loaded', !component.get('v.loaded'));
+                    }
+                });
+                $A.enqueueAction(action);
+            }
+
+        } else {
+            component.set("v.items1", null);
+            component.set("v.expended", false);
+        }
+
+        // var items = component.get("v.items"), index = event.currentTarget.name;
+        // console.log('index', index);
+        //
+        // items[index].expanded = !items[index].expanded;
+        // component.set("v.items", items);
+
 
     },
 
     handleSelect: function (component, event, helper) {
-            if (event.getParam('id') === 'Organization') {
-                component.set('v.loaded', !component.get('v.loaded'));
-                var action = component.get("c.getRankings");
+        if (event.getParam('id') === 'Organization Ranking') {
 
-                action.setParams({ recordType : "Organization Ranking",
-                                     recordId : component.get("v.recordId")});
-
-                action.setCallback(this, function(response) {
-                    var state = response.getState();
-                    //alert(state);
-                    if (state === "SUCCESS") {
-                        var Responsedata = response.getReturnValue();
-                        //alert('Responsedata--'+JSON.stringify(Responsedata));
-                        console.log(Responsedata.table);
-                        component.set("v.items", response.getReturnValue().table);
-                        component.set("v.items1", response.getReturnValue().table[0].listYear);
-                        component.set('v.loaded', !component.get('v.loaded'));
-
-
-                    }
-                });
-
-                $A.enqueueAction(action);
-            }
-        if (event.getParam('id') === 'Employees') {
+            component.set("v.filterType", '');
+            component.set("v.filterBranch", '');
+            component.set("v.filterLocation", '');
+            component.set("v.filterLocationOfExpertise", '');
+            component.set("v.filterPerson", '');
+            component.set("v.filterPracticeArea", '');
+            component.set("v.expended", false);
             component.set('v.loaded', !component.get('v.loaded'));
-            var action = component.get("c.getRankings");
 
-            action.setParams({ recordType : "Person Ranking" ,
-                                recordId : component.get("v.recordId")});
-
-            action.setCallback(this, function(response) {
+            var action = component.get("c.getpublicationType");
+            action.setParams({
+                recordType: component.get("v.selTabId"),
+                recordId: component.get("v.recordId")
+            });
+            action.setCallback(this, function (response) {
                 var state = response.getState();
-                //alert(state);
                 if (state === "SUCCESS") {
-
                     var Responsedata = response.getReturnValue();
-                    //alert('Responsedata--'+JSON.stringify(Responsedata));
-                    console.log(Responsedata.table);
-                    component.set("v.items", response.getReturnValue().table);
-                    component.set("v.items1", response.getReturnValue().table[0].listYear);
+                    if (response.getReturnValue().table != null) {
+                        component.set("v.items", response.getReturnValue().table);
+                        component.set("v.listYearForColumn", response.getReturnValue().table[0].listYear);
+                    }
                     component.set('v.loaded', !component.get('v.loaded'));
-
-
                 }
             });
+            $A.enqueueAction(action);
+        }
 
+        if (event.getParam('id') === 'Person Ranking') {
+
+            component.set("v.filterType", '');
+            component.set("v.filterBranch", '');
+            component.set("v.filterLocation", '');
+            component.set("v.filterLocationOfExpertise", '');
+            component.set("v.filterPerson", '');
+            component.set("v.filterPracticeArea", '');
+            component.set("v.expended", false);
+            component.set('v.loaded', !component.get('v.loaded'));
+
+            var action = component.get("c.getpublicationType");
+            action.setParams({
+                recordType: component.get("v.selTabId"),
+                recordId: component.get("v.recordId")
+            });
+            action.setCallback(this, function (response) {
+                var state = response.getState();
+                if (state === "SUCCESS") {
+                    var Responsedata = response.getReturnValue();
+                    if (response.getReturnValue().table != null) {
+                        console.log(Responsedata.table);
+                        component.set("v.items", response.getReturnValue().table);
+                        component.set("v.listYearForColumn", response.getReturnValue().table[0].listYear);
+                    }
+                    component.set('v.loaded', !component.get('v.loaded'));
+                }
+            });
             $A.enqueueAction(action);
         }
     },
@@ -111,4 +225,17 @@
         helper.sortBy(component, event, "person");
     },
 
+    filterby : function (component, event, helper) {
+
+        var timer = component.get('v.timer');
+        clearTimeout(timer);
+
+        var timer = setTimeout(function(){
+            helper.getData(component, event);
+            clearTimeout(timer);
+            component.set('v.timer', null);
+        }, 500);
+
+        component.set('v.timer', timer);
+    },
 })

@@ -125,6 +125,14 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Current_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity.Current_FY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current FY</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Custom_Product_Details_RE__c</fullName>
         <externalId>false</externalId>
         <label>Custom Product Details</label>
@@ -137,6 +145,15 @@
     </fields>
     <fields>
         <fullName>Discount</fullName>
+    </fields>
+    <fields>
+        <fullName>Editorial_deadline_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication__r.Editorial_deadline_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Editorial deadline date</label>
+        <required>false</required>
+        <type>Date</type>
     </fields>
     <fields>
         <fullName>ListPrice</fullName>
@@ -215,6 +232,15 @@
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Publication_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication__r.Publication_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Publication Date</label>
+        <required>false</required>
+        <type>Date</type>
     </fields>
     <fields>
         <fullName>Publication__c</fullName>
@@ -312,6 +338,50 @@
     </fields>
     <fields>
         <fullName>TotalPrice</fullName>
+    </fields>
+    <fields>
+        <fullName>Total_Price_Current_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Opportunity.CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),
+IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())+1 ,5,1)) , TotalPrice ,
+0),
+0
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Price Current FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Price_Prev_FY_TO_DATE__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Opportunity.CloseDate &lt; DATE(YEAR(TODAY()),4,30),
+IF(TODAY() &gt; DATE(YEAR(TODAY()),4,30),
+IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY())) ), TotalPrice ,0),
+IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY()),MONTH(TODAY()),DAY(TODAY())) ), TotalPrice ,0)),
+0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Price Prev FY TO DATE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Price_Prev_FY__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Opportunity.CloseDate  &lt; DATE(YEAR(TODAY()) ,4,30),
+IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY()) ,5,1)) ,  TotalPrice ,0),
+0
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Price Prev FY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
     </fields>
     <fields>
         <fullName>UnitPrice</fullName>

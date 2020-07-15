@@ -7,7 +7,6 @@
             var state = response.getState();
             console.log(state);
             if (state === "SUCCESS") {
-                console.log(JSON.stringify(response.getReturnValue()));
                 if (response.getReturnValue() != null) {
                     component.set("v.selectedLookUpContact", response.getReturnValue());
                 }
@@ -22,7 +21,6 @@
             var state = response.getState();
             console.log(state);
             if (state === "SUCCESS") {
-                console.log(JSON.stringify(response.getReturnValue()));
                 component.set("v.listTemplates", response.getReturnValue());
                 component.set("v.selectedTemplate", response.getReturnValue()[0].Id);
             }

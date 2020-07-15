@@ -15,6 +15,76 @@ public with sharing class ReportsInfo {
         'LWOFPBatch' => false,
         'RPBatch' => false
     };
+
+    @AuraEnabled
+    public static List<Contact> loadRecordsLWIP(Integer rowLimit, Integer rowOffset) {
+        Map<String, Campaign_Settings__c> allCampaignSettings = Campaign_Settings__c.getAll();
+        String campaignId; 
+        for (Campaign_Settings__c cs : allCampaignSettings.values()) {
+            if (cs.Name.contains(LAWYER_WITH_INDIVIDUAL_PROFILE)) {
+                campaignId = cs.Campaign__c;
+            }
+        }
+        List<Attachment> atts = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId =: campaignId AND Name =: 'Contacts Id'];
+        List<String> contsId = (List<String>) JSON.deserialize(atts[0].Body.toString(), List<String>.class);
+        return [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name ASC LIMIT :rowLimit OFFSET :rowOffset];
+    }
+
+    @AuraEnabled
+    public static List<Contact> loadRecordsLWOIP(Integer rowLimit, Integer rowOffset) {
+        Map<String, Campaign_Settings__c> allCampaignSettings = Campaign_Settings__c.getAll();
+        String campaignId; 
+        for (Campaign_Settings__c cs : allCampaignSettings.values()) {
+            if (cs.Name.contains(LAWYER_WITHOUT_INDIVIDUAL_PROFILE)) {
+                campaignId = cs.Campaign__c;
+            }
+        }
+        List<Attachment> atts = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId =: campaignId AND Name =: 'Contacts Id'];
+        List<String> contsId = (List<String>) JSON.deserialize(atts[0].Body.toString(), List<String>.class);
+        return [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name ASC LIMIT :rowLimit OFFSET :rowOffset];
+    }
+
+    @AuraEnabled
+    public static List<Contact> loadRecordsLWFP(Integer rowLimit, Integer rowOffset) {
+        Map<String, Campaign_Settings__c> allCampaignSettings = Campaign_Settings__c.getAll();
+        String campaignId; 
+        for (Campaign_Settings__c cs : allCampaignSettings.values()) {
+            if (cs.Name.contains(LAWYER_WITH_FIRM_PROFILE)) {
+                campaignId = cs.Campaign__c;
+            }
+        }
+        List<Attachment> atts = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId =: campaignId AND Name =: 'Contacts Id'];
+        List<String> contsId = (List<String>) JSON.deserialize(atts[0].Body.toString(), List<String>.class);
+        return [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name ASC LIMIT :rowLimit OFFSET :rowOffset];
+    }
+
+    @AuraEnabled
+    public static List<Contact> loadRecordsLWOFP(Integer rowLimit, Integer rowOffset) {
+        Map<String, Campaign_Settings__c> allCampaignSettings = Campaign_Settings__c.getAll();
+        String campaignId; 
+        for (Campaign_Settings__c cs : allCampaignSettings.values()) {
+            if (cs.Name.contains(LAWYER_WITHOUT_FIRM_PROFILE)) {
+                campaignId = cs.Campaign__c;
+            }
+        }
+        List<Attachment> atts = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId =: campaignId AND Name =: 'Contacts Id'];
+        List<String> contsId = (List<String>) JSON.deserialize(atts[0].Body.toString(), List<String>.class);
+        return [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name ASC LIMIT :rowLimit OFFSET :rowOffset];
+    }
+
+    @AuraEnabled
+    public static List<Contact> loadRecordsRP(Integer rowLimit, Integer rowOffset) {
+        Map<String, Campaign_Settings__c> allCampaignSettings = Campaign_Settings__c.getAll();
+        String campaignId; 
+        for (Campaign_Settings__c cs : allCampaignSettings.values()) {
+            if (cs.Name.contains(RANKED_INDIVIDUALS_FOR_GPG)) {
+                campaignId = cs.Campaign__c;
+            }
+        }
+        List<Attachment> atts = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId =: campaignId AND Name =: 'Contacts Id'];
+        List<String> contsId = (List<String>) JSON.deserialize(atts[0].Body.toString(), List<String>.class);
+        return [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name ASC LIMIT :rowLimit OFFSET :rowOffset];
+    }
     
     @AuraEnabled
     public static Map<String, Object> getSettings() {
@@ -23,28 +93,70 @@ public with sharing class ReportsInfo {
             Map<String, Campaign_Settings__c> allCampaignSettings = Campaign_Settings__c.getAll();
             for (Campaign_Settings__c cs : allCampaignSettings.values()) {
                 if (cs.Name.contains(LAWYER_WITH_INDIVIDUAL_PROFILE)) {
-                    allObj.put(cs.Campaign__c, new Setting(cs.Publication__c, cs.Campaign__c, cs.Location__c, cs.Contact_Type__c, cs.Practice_Area__c, LAWYER_WITH_INDIVIDUAL_PROFILE, cs.Band__c));
+                    Setting item = new Setting();
+                    item.publicationId = cs.Publication__c; 
+                    item.campaignId = cs.Campaign__c; 
+                    item.locationId = cs.Location__c; 
+                    item.contactType = cs.Contact_Type__c; 
+                    item.practiceArea = cs.Practice_Area__c; 
+                    item.type = LAWYER_WITH_INDIVIDUAL_PROFILE;
+                    item.band = cs.Band__c;
+                    allObj.put(cs.Campaign__c, item);
                 }
                 if (cs.Name.contains(LAWYER_WITHOUT_INDIVIDUAL_PROFILE)) {
-                    allObj.put(cs.Campaign__c, new Setting(cs.Publication__c, cs.Campaign__c, cs.Location__c, cs.Contact_Type__c, cs.Practice_Area__c, LAWYER_WITHOUT_INDIVIDUAL_PROFILE, cs.Band__c));
+                    Setting item = new Setting();
+                    item.publicationId = cs.Publication__c; 
+                    item.campaignId = cs.Campaign__c; 
+                    item.locationId = cs.Location__c; 
+                    item.contactType = cs.Contact_Type__c; 
+                    item.practiceArea = cs.Practice_Area__c; 
+                    item.type = LAWYER_WITHOUT_INDIVIDUAL_PROFILE;
+                    item.band = cs.Band__c;
+                    allObj.put(cs.Campaign__c, item);
                 }
                 if (cs.Name.contains(LAWYER_WITH_FIRM_PROFILE)) {
-                    allObj.put(cs.Campaign__c, new Setting(cs.Publication__c, cs.Campaign__c, cs.Location__c, cs.Contact_Type__c, cs.Practice_Area__c, LAWYER_WITH_FIRM_PROFILE, cs.Band__c));
+                    Setting item = new Setting();
+                    item.publicationId = cs.Publication__c; 
+                    item.campaignId = cs.Campaign__c; 
+                    item.locationId = cs.Location__c; 
+                    item.contactType = cs.Contact_Type__c; 
+                    item.practiceArea = cs.Practice_Area__c; 
+                    item.type = LAWYER_WITH_FIRM_PROFILE;
+                    item.band = cs.Band__c;
+                    allObj.put(cs.Campaign__c, item);
                 }
                 if (cs.Name.contains(LAWYER_WITHOUT_FIRM_PROFILE)) {
-                    allObj.put(cs.Campaign__c, new Setting(cs.Publication__c, cs.Campaign__c, cs.Location__c, cs.Contact_Type__c, cs.Practice_Area__c, LAWYER_WITHOUT_FIRM_PROFILE, cs.Band__c));
+                    Setting item = new Setting();
+                    item.publicationId = cs.Publication__c; 
+                    item.campaignId = cs.Campaign__c; 
+                    item.locationId = cs.Location__c; 
+                    item.contactType = cs.Contact_Type__c; 
+                    item.practiceArea = cs.Practice_Area__c; 
+                    item.type = LAWYER_WITHOUT_FIRM_PROFILE;
+                    item.band = cs.Band__c;
+                    allObj.put(cs.Campaign__c, item);
                 }
                 if (cs.Name.contains(RANKED_INDIVIDUALS_FOR_GPG)) {
-                    allObj.put(cs.Campaign__c, new Setting(cs.Publication__c, cs.Campaign__c, cs.Location__c, cs.Contact_Type__c, cs.Practice_Area__c, RANKED_INDIVIDUALS_FOR_GPG, cs.Band__c));
+                    Setting item = new Setting();
+                    item.publicationId = cs.Publication__c; 
+                    item.campaignId = cs.Campaign__c; 
+                    item.locationId = cs.Location__c; 
+                    item.contactType = cs.Contact_Type__c; 
+                    item.practiceArea = cs.Practice_Area__c; 
+                    item.type = RANKED_INDIVIDUALS_FOR_GPG;
+                    item.band = cs.Band__c;
+                    allObj.put(cs.Campaign__c, item);
                 }
             }
             List<Attachment> atts = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId IN: allObj.keySet() AND Name =: 'Contacts Id'];
             for (Attachment att : atts) {
                 // only for 5 setting
                 List<String> contsId = (List<String>) JSON.deserialize(att.Body.toString(), List<String>.class);
-                List<Contact> contacts = [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name];
-
-                allObj.get(att.ParentId).contacts.addAll(contacts);
+                List<Contact> contacts = [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name LIMIT 50];
+                allObj.get(att.ParentId).contacts = contacts;
+                allObj.get(att.ParentId).totalRecords = [SELECT COUNT() FROM Contact WHERE Id IN: contsId];
+                allObj.get(att.ParentId).message = 'Contact records are loaded';
+                allObj.get(att.ParentId).success = true;
             }
 
             for (AsyncApexJob aaj : [SELECT Id, ApexClass.Name FROM AsyncApexJob WHERE ApexClass.Name IN: jobs.keySet() AND Status IN: STATUS]) {
@@ -125,11 +237,13 @@ public with sharing class ReportsInfo {
 
             atts[0].Body = Blob.valueOf(JSON.serialize(contsId));
             update atts[0];
-            List<Contact> contacts = [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name];
+            List<Contact> contacts = [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name LIMIT 50];
+            Integer totalRecords = [SELECT COUNT() FROM Contact WHERE Id IN: contsId];
 
             return new Map<String, Object>{
                 'status' => 'success',
-                'contacts' => contacts
+                'contacts' => contacts,
+                'totalRecords' => totalRecords
             };
         } catch (Exception ex) {
             return new Map<String, Object>{
@@ -188,11 +302,13 @@ public with sharing class ReportsInfo {
 
             atts[0].Body = Blob.valueOf(JSON.serialize(contsId));
             update atts[0];
-            List<Contact> contacts = [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name];
+            List<Contact> contacts = [SELECT Id, Name, Email FROM Contact WHERE Id IN: contsId ORDER BY Name LIMIT 50];
+            Integer totalRecords = [SELECT COUNT() FROM Contact WHERE Id IN: contsId];
 
             return new Map<String, Object>{
                 'status' => 'success',
-                'contacts' => contacts
+                'contacts' => contacts,
+                'totalRecords' => totalRecords
             };
         } catch (Exception ex) {
             return new Map<String, Object>{
@@ -313,32 +429,27 @@ public with sharing class ReportsInfo {
 
     public class Setting {
         @AuraEnabled
-        public String type {get; set;}
+        public String type;
         @AuraEnabled
-        public String band {get; set;}
+        public String band;
         @AuraEnabled
-        public String contactType {get; set;}
+        public String contactType;
         @AuraEnabled
-        public String practiceArea {get; set;}
+        public String practiceArea;
         @AuraEnabled
-        public Id campaignId {get; set;}
+        public Id campaignId;
         @AuraEnabled
-        public Id publicationId {get; set;}
+        public Id publicationId;
         @AuraEnabled
-        public Id locationId {get; set;}
+        public Id locationId;
         @AuraEnabled
-        public Set<Contact> contacts {get; set;}
-
-        public Setting(Id publicationId, Id campaignId, Id locationId, String contactType, String practiceArea, String type, String band) {
-            this.campaignId = campaignId;
-            this.publicationId = publicationId;
-            this.locationId = locationId;
-            this.practiceArea = practiceArea;
-            this.type = type;
-            this.band = band;
-            this.contactType = contactType;
-            this.contacts = new Set<Contact>();
-        }
+        public List<Contact> contacts = new List<Contact>();
+        @AuraEnabled
+        public Integer totalRecords = 0;
+        @AuraEnabled
+        public String message;
+        @AuraEnabled
+        public Boolean success;
     }
 
     public class Item {

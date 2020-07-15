@@ -80,6 +80,17 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>rh2__Disable_Currency_Update_Recalculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Checking this box will disable the functionality which recalculates currency rollups after changing the CurrencyIsoCode of a child record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box if you do not want to recalculate currency rollups after a change in a child record&apos;s CurrencyIsoCode field</inlineHelpText>
+        <label>Disable Currency Update Recalculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>rh2__Enable_Single_Parent_Processing__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
@@ -141,6 +152,19 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <inlineHelpText>Number of batch jobs that Rollup Helper can initiate concurrently.  We recommend that the total number of jobs available between Batch, Future, and Queueable is at least 30 concurrent jobs available to Rollup Helper.</inlineHelpText>
         <label>Max Concurrent Batch Processes</label>
         <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rh2__MaxExceptions__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum number of exception records that get created when errors are encountered during rollup runs. The default number of exceptions is 10,000.</inlineHelpText>
+        <label>Max Exception Records</label>
+        <precision>9</precision>
         <required>false</required>
         <scale>0</scale>
         <trackTrending>false</trackTrending>
@@ -220,6 +244,16 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rh2__RealtimeEnablementOptOut__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Checking this field prevents the Realtime Enablement pop up from displaying when saving a new Rollup Helper setting.</inlineHelpText>
+        <label>Realtime Enablement Opt Out</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>rh2__RecordScope__c</fullName>
@@ -302,12 +336,36 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>rh2__Trigger_Deployments_Run_Tests__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If this is checked all local tests will run during realtime trigger deployments. If left unchecked only the realtime trigger test will run.  It is recommended to run all local tests when adding a new trigger.</description>
+        <externalId>false</externalId>
+        <label>Run All Local Tests on Trigger Creation?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>rh2__Usage_of_Limits__c</fullName>
         <defaultValue>90</defaultValue>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Determines the percentage of governor limit usage at which Rollup Helper should switch to asynchronous processing.  It is generally not recommended to lower this value below 60%.</inlineHelpText>
         <label>Usage % of Limits</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rh2__Usage_of_Shared_Limits__c</fullName>
+        <defaultValue>90</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines the percentage of shared limit usage at which Rollup Helper should switch to asynchronous processing.  It is generally not recommended to lower this value below 60%, and the default is 90%.</inlineHelpText>
+        <label>Usage Shared % of Limits</label>
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>

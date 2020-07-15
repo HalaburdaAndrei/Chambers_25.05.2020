@@ -14,12 +14,14 @@
                         cmp.set('v.campaignIdLWIP', data[key].campaignId);
                         cmp.set('v.dataLWIPsize', data[key].contacts.length);
                         cmp.set('v.publicationLWIP', data[key].publicationId);
+                        cmp.set('v.totalLWIPRows', data[key].totalRecords);
                     }
                     if (data[key].type === 'LWOIP') {
                         cmp.set('v.dataLWOIP', data[key].contacts);
                         cmp.set('v.campaignIdLWOIP', data[key].campaignId);
                         cmp.set('v.dataLWOIPsize', data[key].contacts.length);
                         cmp.set('v.publicationLWOIP', data[key].publicationId);
+                        cmp.set('v.totalLWOIPRows', data[key].totalRecords);
                     }
                     if (data[key].type === 'LWFP') {
                         cmp.set('v.dataLWFP', data[key].contacts);
@@ -27,6 +29,7 @@
                         cmp.set('v.dataLWFPsize', data[key].contacts.length);
                         cmp.set('v.publicationLWFP', data[key].publicationId);
                         cmp.set('v.contactTypeLWFP', data[key].contactType);
+                        cmp.set('v.totalLWFPRows', data[key].totalRecords);
                     }
                     if (data[key].type === 'LWOFP') {
                         cmp.set('v.dataLWOFP', data[key].contacts);
@@ -34,6 +37,7 @@
                         cmp.set('v.dataLWOFPsize', data[key].contacts.length);
                         cmp.set('v.publicationLWOFP', data[key].publicationId);
                         cmp.set('v.contactTypeLWOFP', data[key].contactType);
+                        cmp.set('v.totalLWOFPRows', data[key].totalRecords);
                     }
                     if (data[key].type === 'RP') {
                         cmp.set('v.dataRP', data[key].contacts);
@@ -43,6 +47,7 @@
                         cmp.set('v.locationIdRP', data[key].locationId);
                         cmp.set('v.practiceAreaRP', data[key].practiceArea);
                         cmp.set('v.bandRP', JSON.parse(data[key].band));
+                        cmp.set('v.totalRPRows', data[key].totalRecords);
                     }
                 });
 
@@ -125,6 +130,150 @@
         });
         $A.enqueueAction(action);
 
+    },
+
+    handleLoadMoreLWIP : function(cmp,event,helper){
+        if(!(cmp.get("v.currentLWIPCount") >= cmp.get("v.totalLWIPRows"))){
+            //To display the spinner
+            event.getSource().set("v.isLoading", true); 
+            // To handle data returned from Promise function
+            helper.loadDataLWIP(cmp).then(function(data){ 
+                console.log(JSON.stringify(data));
+                var currentData = cmp.get("v.dataLWIP");
+                var newData = currentData.concat(data);
+                cmp.set("v.dataLWIP", newData);
+                //To hide the spinner
+                event.getSource().set("v.isLoading", false); 
+            });
+        }
+        else{
+            //To stop loading more rows
+            cmp.set("v.enableInfiniteLoading",false);
+            event.getSource().set("v.isLoading", false);
+            var toastReference = $A.get("e.force:showToast");
+            toastReference.setParams({
+                "type":"Success",
+                "title":"Success",
+                "message":"All Contacts records are loaded",
+                "mode":"dismissible"
+            });
+            toastReference.fire();
+        }
+    },
+
+    handleLoadMoreLWOIP : function(cmp,event,helper){
+        if(!(cmp.get("v.currentLWOIPCount") >= cmp.get("v.totalLWOIPRows"))){
+            //To display the spinner
+            event.getSource().set("v.isLoading", true); 
+            // To handle data returned from Promise function
+            helper.loadDataLWOIP(cmp).then(function(data){ 
+                console.log(JSON.stringify(data));
+                var currentData = cmp.get("v.dataLWOIP");
+                var newData = currentData.concat(data);
+                cmp.set("v.dataLWOIP", newData);
+                //To hide the spinner
+                event.getSource().set("v.isLoading", false); 
+            });
+        }
+        else{
+            //To stop loading more rows
+            cmp.set("v.enableInfiniteLoading",false);
+            event.getSource().set("v.isLoading", false);
+            var toastReference = $A.get("e.force:showToast");
+            toastReference.setParams({
+                "type":"Success",
+                "title":"Success",
+                "message":"All Contacts records are loaded",
+                "mode":"dismissible"
+            });
+            toastReference.fire();
+        }
+    },
+
+    handleLoadMoreLWFP : function(cmp,event,helper){
+        if(!(cmp.get("v.currentLWFPCount") >= cmp.get("v.totalLWFPRows"))){
+            //To display the spinner
+            event.getSource().set("v.isLoading", true); 
+            // To handle data returned from Promise function
+            helper.loadDataLWFP(cmp).then(function(data){ 
+                console.log(JSON.stringify(data));
+                var currentData = cmp.get("v.dataLWFP");
+                var newData = currentData.concat(data);
+                cmp.set("v.dataLWFP", newData);
+                //To hide the spinner
+                event.getSource().set("v.isLoading", false); 
+            });
+        }
+        else{
+            //To stop loading more rows
+            cmp.set("v.enableInfiniteLoading",false);
+            event.getSource().set("v.isLoading", false);
+            var toastReference = $A.get("e.force:showToast");
+            toastReference.setParams({
+                "type":"Success",
+                "title":"Success",
+                "message":"All Contacts records are loaded",
+                "mode":"dismissible"
+            });
+            toastReference.fire();
+        }
+    },
+
+    handleLoadMoreLWOFP : function(cmp,event,helper){
+        if(!(cmp.get("v.currentLWOFPCount") >= cmp.get("v.totalLWOFPRows"))){
+            //To display the spinner
+            event.getSource().set("v.isLoading", true); 
+            // To handle data returned from Promise function
+            helper.loadDataLWOFP(cmp).then(function(data){ 
+                console.log(JSON.stringify(data));
+                var currentData = cmp.get("v.dataLWOFP");
+                var newData = currentData.concat(data);
+                cmp.set("v.dataLWOFP", newData);
+                //To hide the spinner
+                event.getSource().set("v.isLoading", false); 
+            });
+        }
+        else{
+            //To stop loading more rows
+            cmp.set("v.enableInfiniteLoading",false);
+            event.getSource().set("v.isLoading", false);
+            var toastReference = $A.get("e.force:showToast");
+            toastReference.setParams({
+                "type":"Success",
+                "title":"Success",
+                "message":"All Contacts records are loaded",
+                "mode":"dismissible"
+            });
+            toastReference.fire();
+        }
+    },
+
+    handleLoadMoreRP : function(cmp,event,helper){
+        if(!(cmp.get("v.currentRPCount") >= cmp.get("v.totalRPRows"))){
+            //To display the spinner
+            event.getSource().set("v.isLoading", true); 
+            // To handle data returned from Promise function
+            helper.loadDataRP(cmp).then(function(data){ 
+                var currentData = cmp.get("v.dataRP");
+                var newData = currentData.concat(data);
+                cmp.set("v.dataRP", newData);
+                //To hide the spinner
+                event.getSource().set("v.isLoading", false); 
+            });
+        }
+        else{
+            //To stop loading more rows
+            cmp.set("v.enableInfiniteLoading",false);
+            event.getSource().set("v.isLoading", false);
+            var toastReference = $A.get("e.force:showToast");
+            toastReference.setParams({
+                "type":"Success",
+                "title":"Success",
+                "message":"All Contacts records are loaded",
+                "mode":"dismissible"
+            });
+            toastReference.fire();
+        }
     },
 
     handleClickRemoveLWIP: function (cmp, event, helper) {
