@@ -1,0 +1,27 @@
+<apex:page id="SalesDataPage" showHeader="true" sidebar="false">
+	<apex:includeLightning />
+	<div id="lightning" />
+	<script>
+		console.log('Start creation...');
+		try {
+			$Lightning.use("c:SalesDataApp", function () {
+				console.log('Lightning.createComponent function call started...');
+				try {
+					let url = new URL(window.location);
+					let searchParams = new URLSearchParams(url.search);
+					console.log(searchParams.get('id'));
+					$Lightning.createComponent("c:CurrentFY", {recordId:searchParams.get('id')}, "lightning", function (cmp) {
+						console.log('Component was created successfully!');
+					});
+					$Lightning.createComponent("c:LastFY", {recordId:searchParams.get('id')}, "lightning", function (cmp) {
+						console.log('Component was created successfully!');
+					});
+				} catch (e) {
+					console.log("Error during lightning component creation: " + e.message);
+				}
+			});
+		}  catch (e) {
+			console.log("Error: " + e.message);
+		}
+	</script>
+</apex:page>

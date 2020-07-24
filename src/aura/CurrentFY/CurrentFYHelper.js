@@ -3,11 +3,15 @@
 		var action = cmp.get('c.getOpportunities');
 		action.setParams({ 'opportunityId' : cmp.get('v.recordId')});
 		action.setCallback(this, function (response) {
-			if(cmp.isValid() && response.getState() == 'SUCCESS'){
-				console.log(response.getReturnValue().table);
+			if(cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success'){
+				console.log('success');
 				cmp.set('v.res', response.getReturnValue().table);
+				console.log(response.getReturnValue().table);
 			} else {
-				this.showToast(cmp,"error", response.getReturnValue().message, "Error!");
+				console.log('error');
+				console.log(response.getReturnValue().message);
+				this.showToast(cmp, 'error', response.getReturnValue().message, 'Error!');
+
 			}
 			cmp.set('v.showSpinner', false);
 		});
@@ -15,11 +19,10 @@
 	},
 
 	getData: function (cmp, evt) {
-		console.log('helper.getData');
 		var params = new Object();
-
 		params.recordId = cmp.get('v.recordId');
 		//Filter params
+
 		params.publicationFilter = cmp.get('v.publicationFilter');
 		params.oppIdFilter = cmp.get('v.oppIdFilter');
 		params.productFilter = cmp.get('v.productFilter');
@@ -34,36 +37,25 @@
 		params.locationFilter = cmp.get('v.locationFilter');
 		params.numberOfSubmissionsFilter = cmp.get('v.numberOfSubmissionsFilter');
 
+		console.log('params');
+		console.log(params);
 		var action = cmp.get('c.getOpportunitiesSearch');
 		action.setParams({
 			'params': params
 		});
 
 		action.setCallback(this, function (response) {
-			console.log('callback');
 			if (cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success') {
 				cmp.set('v.res', response.getReturnValue().table);
-				// cmp.set("v.showSpinner", false);
-				console.log(response.getReturnValue().table);
-				console.log(cmp.get('v.res'));
 			} else {
-				console.log('error!!!');
-				var toastEvent = $A.get('e.force:showToast');
-				toastEvent.setParams({
-					'title': 'Error!',
-					'type': 'error',
-					'message': response.getReturnValue().message
-				});
-				toastEvent.fire();
+				this.showToast(cmp, 'error', response.getReturnValue().message, 'Error!');
 			}
 			cmp.set('v.showSpinner', false);
 		});
-		console.log('!!!!');
 		$A.enqueueAction(action);
 	},
 
 	showToast: function (component, type, message, title) {
-		console.log('showToast');
 		var toastEvent = undefined;
 		try {
 			toastEvent = $A.get('e.force:showToast');
@@ -97,7 +89,6 @@
 								$A.util.removeClass(toastDiv, "slds-show");
 								$A.util.addClass(toastDiv, "slds-hide");
 							} else {
-								console.log('Component is Invalid');
 							}
 						}), 5000
 					);
@@ -106,5 +97,4 @@
 			component.set('v.isToastOpen', true);
 		}
 	}
-
 })

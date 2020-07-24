@@ -4,6 +4,8 @@
 	<aura:attribute name="res" type="List" default="[]"/>
 	<aura:attribute name="sortByField" type="String" default="" description="Determines which field is sorted"/>
 	<aura:attribute name="sortDirection" type="Boolean" default="false"/>
+	<aura:attribute name="noData" type="Boolean" default="false"/>
+
 	<!--Search-->
 	<aura:attribute name="timer" type="Integer"/>
 
@@ -26,12 +28,8 @@
 
 	<aura:attribute name="showSpinner" type="Boolean" default="true"/>
 
-	<aura:attribute name="isToastOpen" type="Boolean" default="fasle"/>
-	<aura:attribute name="toastStyle" type="String" default=""/>
-	<aura:attribute name="toastType" type="String" default=""/>
-	<aura:attribute name="toastMessage" type="String" default=""/>
-
 	<div class="slds-box slds-color__background_gray-1">
+		<!--spinner-->
 		<aura:if isTrue="{! v.showSpinner }">
 			<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
 				<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert" role="alert">
@@ -41,7 +39,7 @@
 				</div>
 			</div>
 		</aura:if>
-
+		<!--toast for VF Page-->
 		<div class="{! 'slds-notify_container slds-is-relative slds-align--absolute-center' + (v.isToastOpen ? '' : ' slds-hide')}"
 			style="height:0!important">
 			<div class="{!v.toastStyle}" style="position:fixed; top:0!important" role="alert" aura:id="toastCmp">
@@ -50,20 +48,18 @@
 					<h2 class="slds-text-heading_small ">{!v.toastMessage}</h2>
 				</div>
 				<button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close">
-					<lightning:icon iconName="utility:close" alternativeText="Close" variant="inverse"
-						onclick="{!c.closeToast}"/>
-
+					<lightning:icon iconName="utility:close" alternativeText="Close" variant="inverse" onclick="{!c.closeToast}"/>
 				</button>
 			</div>
 		</div>
 
-		<b>Last FY sales data for  HO</b><br/>
+		<b>Current FY sales data for HO</b><br/>
 		<div class="slds-scrollable">
 			<table class="slds-table slds-table_cell-buffer slds-table_bordered" width="100%">
 				<thead>
 				<tr class="slds-line-height_reset">
 					<th class="maintablecol" scope="col"></th>
-<!--publication-->
+					<!--publication-->
 					<th class="maintablecol" scope="col">
 						<div class="slds-truncate cursorPointer" data-fieldname="publication" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="publication" title="Sort by Publication">Publication</span>
@@ -82,33 +78,7 @@
 						</div>
 						<lightning:input placeholder="Filter" onkeyup="{! c.filterby }" value="{!v.publicationFilter}" variant="label-hidden"/>
 					</th>
-<!--oppId-->
-					<th class="maintablecol" scope="col">
-						<div class="slds-truncate cursorPointer" data-fieldname="oppId" onclick="{!c.sortBy}">
-							<span class="slds-truncate" data-fieldname="oppId" title="Sort by Opp Id" >Opp id</span>
-							<aura:if isTrue="{!v.sortByField == 'oppId'}">
-								<aura:if isTrue="{!v.sortDirection}">
-                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
-                                            <lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
-                                        </span>
-								</aura:if>
-								<aura:if isTrue="{! !v.sortDirection}">
-									<span class="slds-icon_container slds-icon-utility-arrowdown">
-										<lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
-									</span>
-								</aura:if>
-							</aura:if>
-						</div>
-						<div>
-							<span style="display: inline-block">
-								<lightning:input placeholder="Filter" onkeyup="{! c.filterby }" value="{!v.oppIdFilter}" variant="label-hidden" disabled="false" style="display:inline"/>
-							</span>
-							<span style="display: inline-block">
-								<lightning:helptext content="Enter Full ID"  style="display:inline"/>
-							</span>
-						</div>
-					</th>
-<!--product-->
+					<!--product-->
 					<th class="maintablecol" scope="col">
 						<div class="slds-truncate cursorPointer" data-fieldname="product" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="product" title="Sort By Product">Product</span>
@@ -127,8 +97,8 @@
 						</div>
 						<lightning:input placeholder="Filter" onkeyup="{! c.filterby }" value="{!v.productFilter}" variant="label-hidden"/>
 					</th>
-<!--quantity-->
-					<th class="maintablecol" scope="col">
+					<!--quantity-->
+					<th class="" scope="col" style="min-width: 75px;max-width: 75px">
 						<div class="slds-truncate cursorPointer" data-fieldname="quantity" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="quantity" title="Sort By Qty">Qty</span>
 							<aura:if isTrue="{!v.sortByField == 'quantity'}">
@@ -146,8 +116,8 @@
 						</div>
 						<lightning:input placeholder="Filter" type="number" onkeyup="{! c.filterby }" value="{!v.qtyFilter}" variant="label-hidden"/>
 					</th>
-<!--sales Price-->
-					<th class="maintablecol" scope="col">
+					<!--sales Price-->
+					<th class="" scope="col" style="max-width: 120px">
 						<div class="slds-truncate cursorPointer" data-fieldname="totalPrice" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="totalPrice" title="Sort By Sales Price">Sales Price</span>
 							<aura:if isTrue="{!v.sortByField == 'totalPrice'}">
@@ -165,26 +135,7 @@
 						</div>
 						<lightning:input placeholder="Filter" type="number" onkeyup="{! c.filterby }" value="{!v.salesPriceFilter}" variant="label-hidden"/>
 					</th>
-<!--salesPerson-->
-					<th class="maintablecol cursorPointer" scope="col">
-						<div class="slds-truncate" data-fieldname="salesPerson" onclick="{!c.sortBy}">
-							<span class="slds-truncate" data-fieldname="salesPerson" title="Sort By Sales Person">Sales Person</span>
-							<aura:if isTrue="{!v.sortByField == 'salesPerson'}">
-								<aura:if isTrue="{!v.sortDirection}">
-									<span class="slds-icon_container slds-icon-utility-arrowdown">
-										<lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
-									</span>
-								</aura:if>
-								<aura:if isTrue="{! !v.sortDirection}">
-									<span class="slds-icon_container slds-icon-utility-arrowdown">
-										<lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
-									</span>
-								</aura:if>
-							</aura:if>
-						</div>
-						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.salesPersonFilter}" variant="label-hidden"/>
-					</th>
-<!--Signer-->
+					<!--Signer-->
 					<th class="maintablecol cursorPointer" scope="col">
 						<div class="slds-truncate" data-fieldname="signer" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="signer" title="Sort By Signer">Signer</span>
@@ -203,8 +154,8 @@
 						</div>
 						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.signerFilter}" variant="label-hidden"/>
 					</th>
-<!--closeDate-->
-					<th class="maintablecol cursorPointer" scope="col">
+					<!--closeDate-->
+					<th class=" cursorPointer" scope="col" style="min-width: 135px">
 						<div class="slds-truncate" data-fieldname="closeDate" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="closeDate" title="Sort By Close Date">Close Date</span>
 							<aura:if isTrue="{!v.sortByField == 'closeDate'}">
@@ -222,7 +173,52 @@
 						</div>
 						<lightning:input placeholder="Filter" type="Date" onkeyup="{! c.filterby }" value="{!v.closeDateFilter}" variant="label-hidden"/>
 					</th>
-<!--Related Org-->
+					<!--salesPerson-->
+					<th class="maintablecol cursorPointer" scope="col">
+						<div class="slds-truncate" data-fieldname="salesPerson" onclick="{!c.sortBy}">
+							<span class="slds-truncate" data-fieldname="salesPerson" title="Sort By Sales Person">Sales Person</span>
+							<aura:if isTrue="{!v.sortByField == 'salesPerson'}">
+								<aura:if isTrue="{!v.sortDirection}">
+									<span class="slds-icon_container slds-icon-utility-arrowdown">
+										<lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
+									</span>
+								</aura:if>
+								<aura:if isTrue="{! !v.sortDirection}">
+									<span class="slds-icon_container slds-icon-utility-arrowdown">
+										<lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
+									</span>
+								</aura:if>
+							</aura:if>
+						</div>
+						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.salesPersonFilter}" variant="label-hidden"/>
+					</th>
+					<!--oppId-->
+					<th class="maintablecol" scope="col">
+						<div class="slds-truncate cursorPointer" data-fieldname="oppId" onclick="{!c.sortBy}">
+							<span class="slds-truncate" data-fieldname="oppId" title="Sort by Opp Id" >Opp id</span>
+							<aura:if isTrue="{!v.sortByField == 'oppId'}">
+								<aura:if isTrue="{!v.sortDirection}">
+									<span class="slds-icon_container slds-icon-utility-arrowdown">
+										<lightning:icon iconName="utility:arrowup" size="xx-small"></lightning:icon>
+									</span>
+								</aura:if>
+								<aura:if isTrue="{! !v.sortDirection}">
+									<span class="slds-icon_container slds-icon-utility-arrowdown">
+										<lightning:icon iconName="utility:arrowdown" size="xx-small"></lightning:icon>
+									</span>
+								</aura:if>
+							</aura:if>
+						</div>
+						<div>
+							<span style="display: inline-block">
+								<lightning:input placeholder="Filter" onkeyup="{! c.filterby }" value="{!v.oppIdFilter}" variant="label-hidden" disabled="false" style="display:inline"/>
+							</span>
+							<span style="display: inline-block">
+								<lightning:helptext title="Enter Full ID" content=""  style="display:inline"/>
+							</span>
+						</div>
+					</th>
+					<!--Related Org-->
 					<th class="maintablecol cursorPointer" scope="col">
 						<div class="slds-truncate" data-fieldname="relatedOrganization" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="relatedOrganization" title="Sort By Related Org">Related Org</span>
@@ -241,7 +237,7 @@
 						</div>
 						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.relatedOrganizationFilter}" variant="label-hidden"/>
 					</th>
-<!--Chapter-->
+					<!--Chapter-->
 					<th class="maintablecol cursorPointer" scope="col">
 						<div class="slds-truncate" data-fieldname="chapter" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="chapter" title="Sort By Chapter">Chapter</span>
@@ -260,7 +256,7 @@
 						</div>
 						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.chapterFilter}" variant="label-hidden"/>
 					</th>
-<!--Parent account-->
+					<!--Parent account-->
 					<th class="maintablecol cursorPointer" scope="col">
 						<div class="slds-truncate" data-fieldname="parentAccount" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="parentAccount" title="Sort By Parent account">Parent account</span>
@@ -279,7 +275,7 @@
 						</div>
 						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.parentAccountFilter}" variant="label-hidden"/>
 					</th>
-<!--Location-->
+					<!--Location-->
 					<th class="maintablecol cursorPointer" scope="col">
 						<div class="slds-truncate" data-fieldname="location" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="location" title="Sort By Location">Location</span>
@@ -298,7 +294,7 @@
 						</div>
 						<lightning:input placeholder="Filter" type="text" onkeyup="{! c.filterby }" value="{!v.locationFilter}" variant="label-hidden"/>
 					</th>
-<!--No of submissions-->
+					<!--No of submissions-->
 					<th class="maintablecol cursorPointer" scope="col">
 						<div class="slds-truncate" data-fieldname="numberOfSubmissions" onclick="{!c.sortBy}">
 							<span class="slds-truncate" data-fieldname="numberOfSubmissions" title="Sort By No of submissions">No of submissions</span>
@@ -321,41 +317,80 @@
 				</tr>
 				</thead>
 				<tbody>
-				<aura:iteration items="{!v.res}" var="priceBook" indexVar="priceBookIndex">
-					<tr style="background-color:gold">
-						<td>
-							<div class="slds-truncate" data-priceBookIndex="{!priceBookIndex}" onclick="{!c.togglePriceBook}">{!priceBook.PriceBokName}</div>
+				<aura:iteration items="{!v.res}" var="publicationTypeCategory" indexVar="publicationTypeCategoryIndex">
+					<tr>
+						<td title="{!publicationTypeCategory.publicationTypeCategory}">
+							<div class="slds-truncate" data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}" onclick="{!c.togglePublicationTypeCategory}">
+								<aura:if isTrue="{!! publicationTypeCategory.expanded}">
+									<lightning:buttonIcon iconName="utility:chevronright" />
+								</aura:if>
+								<aura:if isTrue="{!publicationTypeCategory.expanded}">
+									<lightning:buttonIcon iconName="utility:chevrondown" />
+								</aura:if>
+								{!publicationTypeCategory.publicationTypeCategory}
+							</div>
 						</td>
 						<td colspan="13"></td>
 					</tr>
-					<aura:if isTrue="{!priceBook.expanded}">
-						<aura:iteration items="{!priceBook.wrapperTotalRows}" var="totalRow" indexVar="rowIndex">
-							<tr class="slds-line-height_reset slds-is-selected">
-								<td data-rowIndex="{!rowIndex}" data-priceBookIndex="{!priceBookIndex}" onclick="{!c.toggle}">
-									{!totalRow.publication}
+					<aura:if isTrue="{!publicationTypeCategory.expanded}" >
+						<aura:iteration items="{!publicationTypeCategory.publicationTypes}" var="publicationType" indexVar="publicationTypeIndex">
+							<tr>
+								<td title="{!publicationType.publicationType}">
+									<div class="slds-truncate" onclick="{!c.togglePublicationType}" data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
+										data-publicationTypeIndex="{!publicationTypeIndex}" style="padding-left: 20px;  width:200px">
+										<aura:if isTrue="{!! publicationType.expanded}">
+											<lightning:buttonIcon iconName="utility:chevronright" />
+										</aura:if>
+										<aura:if isTrue="{!publicationType.expanded}">
+											<lightning:buttonIcon iconName="utility:chevrondown" />
+										</aura:if>
+										{!publicationType.publicationType}
+									</div>
 								</td>
-								<td colspan="4"></td>
-								<td>{!totalRow.totalPrice}</td>
-								<td colspan="8"></td>
+								<td colspan="13"></td>
 							</tr>
-							<aura:if isTrue="{!totalRow.expanded}">
-								<aura:iteration items="{!totalRow.products}" var="product">
-									<tr class="slds-line-height_reset">
-										<td scope="col"></td>
-										<td>{!product.publication}</td>
-										<td><a href="{!'/'+product.oppId}" target="_blank">{!product.oppId}</a></td>
-										<td>{!product.product}</td>
-										<td>{!product.quantity}</td>
-										<td>{!product.totalPrice}</td>
-										<td>{!product.salesPerson}</td>
-										<td>{!product.signer}</td>
-										<td>{!product.closeDate}</td>
-										<td>{!product.relatedOrganization}</td>
-										<td>{!product.chapter}</td>
-										<td>{!product.parentAccount}</td>
-										<td>{!product.location}</td>
-										<td>{!product.numberOfSubmissions}</td>
+							<aura:if isTrue="{!publicationType.expanded}">
+								<aura:iteration items="{!publicationType.totalRows}" var="totalRow" indexVar="totalrowindex">
+									<tr>
+										<td></td>
+										<td title="{!totalRow.publicationName}">
+											<div onclick="{!c.toggleTotalRow}"
+												data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
+												data-publicationTypeIndex="{!publicationTypeIndex}"
+												data-totalrowindex = "{!totalrowindex}">
+												<aura:if isTrue="{!! totalRow.expanded}">
+													<lightning:buttonIcon iconName="utility:chevronright" />
+												</aura:if>
+												<aura:if isTrue="{!totalRow.expanded}">
+													<lightning:buttonIcon iconName="utility:chevrondown" />
+												</aura:if>
+												{!totalRow.publicationName}
+											</div>
+										</td>
+										<td colspan="2"></td>
+										<td title="{!totalRow.totalPrice}">{!totalRow.totalPrice}</td>
+										<td colspan="9"></td>
 									</tr>
+									<aura:if isTrue="{!totalRow.expanded}">
+										<aura:iteration items="{!totalRow.products}" var="product">
+											<tr>
+												<td></td>
+												<td title="{!product.publication}">{!product.publication}</td>
+												<td title="{!product.product}">{!product.product}</td>
+												<td title="{!product.quantity}">{!product.quantity}</td>
+												<td title="{!product.totalPrice}">{!product.totalPrice}</td>
+												<td title="{!product.signer}">{!product.signer}</td>
+												<td title="{!product.closeDate}">{!product.closeDate}</td>
+												<td title="{!product.salesPerson}">{!product.salesPerson}</td>
+												<td title="{!product.oppId}"><a href="{!'/'+product.oppId}" target="_blank">{!product.oppId}</a></td>
+												<td style="max-width: 140px" title="{!product.relatedOrganization}"><div class="slds-truncate">{!product.relatedOrganization}</div></td>
+												<td style="max-width: 140px" title="{!product.chapter}"><div class="slds-truncate">{!product.chapter}</div></td>
+												<td style="max-width: 140px" title="{!product.parentAccount}"><div class="slds-truncate">{!product.parentAccount}</div></td>
+												<td style="max-width: 140px" title="{!product.location}"><div class="slds-truncate">{!product.location}</div></td>
+												<td title="{!product.numberOfSubmissions}">{!product.numberOfSubmissions}</td>
+											</tr>
+										</aura:iteration>
+									</aura:if>
 								</aura:iteration>
 							</aura:if>
 						</aura:iteration>
@@ -363,6 +398,9 @@
 				</aura:iteration>
 				</tbody>
 			</table>
+			<aura:if isTrue="{!v.res == null}">
+				<b>There is no data to display.</b><br/>
+			</aura:if>
 		</div>
 	</div>
 </aura:component>

@@ -15,7 +15,6 @@
             if (state === "SUCCESS") {
                 var Responsedata = response.getReturnValue();
                 if (response.getReturnValue().table != null) {
-                    console.log(Responsedata.table);
                     component.set("v.items", response.getReturnValue().table);
                     component.set("v.listYearForColumn", response.getReturnValue().table[0].listYear);
                 } else {
@@ -28,6 +27,14 @@
     },
 
     toggle: function (component, event, helper) {
+
+        var map = new Map();
+        var yearlist = component.get("v.listYearForColumn");
+        for(var year of yearlist){
+            map.set(year, '');
+        }
+        component.set("v.yearRank", map);
+        console.log(map);
 
         var items = component.get("v.items"), index = event.currentTarget.name;
 
@@ -66,8 +73,8 @@
                     if (state === "SUCCESS") {
                         var Responsedata = response.getReturnValue();
                         if (response.getReturnValue().table != null) {
-                            console.log(Responsedata.table);
                             component.set("v.items1", response.getReturnValue().table);
+                            // component.set("v.items2", response.getReturnValue().table);
                             component.set("v.UnfilteredData", response.getReturnValue().table);
                             component.set("v.expended", true);
                             component.set("v.selectIndex", index);
@@ -106,8 +113,8 @@
                     if (state === "SUCCESS") {
                         var Responsedata = response.getReturnValue();
                         if (response.getReturnValue().table != null) {
-                            console.log(Responsedata.table);
                             component.set("v.items1", response.getReturnValue().table);
+                            // component.set("v.items2", response.getReturnValue().table);
                             component.set("v.UnfilteredData", response.getReturnValue().table);
                             component.set("v.expended", true);
                             component.set("v.selectIndex", index);
@@ -186,7 +193,6 @@
                 if (state === "SUCCESS") {
                     var Responsedata = response.getReturnValue();
                     if (response.getReturnValue().table != null) {
-                        console.log(Responsedata.table);
                         component.set("v.items", response.getReturnValue().table);
                         component.set("v.listYearForColumn", response.getReturnValue().table[0].listYear);
                     }
@@ -224,6 +230,10 @@
     sortByPerson: function (component, event, helper) {
         helper.sortBy(component, event, "person");
     },
+    sortByYear: function (component, event, helper) {
+        component.set('v.targetYear', event.currentTarget.dataset.year);
+        helper.sortByYear(component, event, "rankingYear");
+    },
 
     filterby : function (component, event, helper) {
 
@@ -238,4 +248,14 @@
 
         component.set('v.timer', timer);
     },
+
+    yearFilter: function (component, event, helper) {
+
+        var r = component.get("v.yearRank");
+        r.delete(event.target.id);
+        r[event.target.id] = event.target.value;
+        component.set("v.yearRank", r);
+        helper.FilterRecords(component,event);
+    },
+
 })

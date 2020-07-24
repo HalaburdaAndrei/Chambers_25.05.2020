@@ -1,34 +1,21 @@
 ({
 	init: function (cmp) {
-		console.log('init');
 		var action = cmp.get('c.getOpportunities');
 		action.setParams({ 'opportunityId' : cmp.get('v.recordId')});
-		console.log('opportunityId: '+cmp.get('v.recordId'));
-
 		action.setCallback(this, function (response) {
-			console.log('Callback');
-
 			if(cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success'){
 				cmp.set('v.res', response.getReturnValue().table);
-
-				console.log(response.getReturnValue().table);
-				console.log(cmp.get('v.res'));
 			} else {
-				var toastEvent = $A.get("e.force:showToast");
-				toastEvent.setParams({
-					"title": "Error!",
-					"type": "error",
-					"message": response.getReturnValue().message
-				});
-				toastEvent.fire();
+				this.showToast(cmp, 'error', response.getReturnValue().message, 'Error!');
 			}
-			cmp.set('v.showSpinner', false);
+			cmp.set('v.showSpinner1', false);
 		});
 		$A.enqueueAction(action);
 	},
 
 	getData: function (cmp, evt) {
-		cmp.set("v.showSpinner", true);
+		console.log('getDataLastFY');
+		// cmp.set('v.showSpinner1', true);
 		var params = new Object();
 		params.recordId = cmp.get('v.recordId');
 		//Filter params
@@ -45,49 +32,48 @@
 		params.parentAccountFilter = cmp.get('v.parentAccountFilter');
 		params.locationFilter = cmp.get('v.locationFilter');
 		params.numberOfSubmissionsFilter = cmp.get('v.numberOfSubmissionsFilter');
-
-		var action = cmp.get('c.getOpportunitiesSearch');
+		console.log(params);
+		var action = cmp.get('c.getOpportunitiesSearchLastFY');
 		action.setParams({
 			'params': params
 		});
-		action.setCallback(this, function (response) {
 
+		action.setCallback(this, function (response) {
 			if (cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success') {
 				cmp.set('v.res', response.getReturnValue().table);
-				// cmp.set("v.showSpinner", false);
 			} else {
-				this.showToast(cmp,'error', response.getReturnValue().message,'Error!')
+				this.showToast(cmp, 'error', response.getReturnValue().message, 'Error!');
 			}
-			cmp.set('v.showSpinner', false);
+			cmp.set('v.showSpinner1', false);
 		});
 		$A.enqueueAction(action);
 	},
 
 	addProduct : function (cmp, evt) {
-		var opportunityProductId = evt.target.dataset.lineitems;
+		var opportunityProductId = evt.target.dataset.opplineitenid;
 		var currentOppId = cmp.get('v.recordId');
-
+		console.log('opportunityProductId');
+		console.log(opportunityProductId);
+		console.log('currentOppId');
+		console.log(currentOppId);
+		cmp.set('v.showSpinner1', true);
 		var action = cmp.get('c.getProduct');
 		action.setParams({
 			opportunityProductId: opportunityProductId,
 			currentOppId : currentOppId
 		});
-
 		action.setCallback(this, function (response) {
-			if (cmp.isValid() && response.getState() == 'SUCCESS') {
-				console.log('success');
+			if (cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success') {
 				this.showToast(cmp,'success', 'Product was added','Success');
 			} else {
-				console.log('error!!!');
 				this.showToast(cmp,'error', response.getReturnValue().message,'Error!');
 			}
-			cmp.set('v.showSpinner', false);
+			cmp.set('v.showSpinner1', false);
 		});
 		$A.enqueueAction(action);
 	},
 
 	showToast: function (component, type, message, title) {
-
 		var toastEvent = undefined;
 		try {
 			toastEvent = $A.get('e.force:showToast');
@@ -121,7 +107,6 @@
 								$A.util.removeClass(toastDiv, "slds-show");
 								$A.util.addClass(toastDiv, "slds-hide");
 							} else {
-								console.log('Component is Invalid');
 							}
 						}), 5000
 					);

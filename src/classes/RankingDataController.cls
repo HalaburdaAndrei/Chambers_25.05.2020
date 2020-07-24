@@ -53,16 +53,13 @@ public with sharing class RankingDataController {
             for (String y : setYear) {
                 yearSort.add(y);
                 yearSort.sort();
-                System.debug(yearSort);
             }
             for (Integer i = yearSort.size() - 1; i >= 0; i--) {
                 yearForColumn.add(yearSort[i]);
-                System.debug(yearSort[i]);
             }
 
             List<WrapperPublication> listWrapperPublications = new List<WrapperPublication>();
             for (String pub : setPublicType) {
-                System.debug(setPublicType);
                 WrapperPublication wrpPublication = new WrapperPublication();
                 wrpPublication.publication = pub;
                 wrpPublication.listYear = yearForColumn;
@@ -74,7 +71,6 @@ public with sharing class RankingDataController {
                 result.put('table', null);
             }
 
-            System.debug(result);
             return result;
         } catch (Exception ex) {
             return new Map<String, Object>{
@@ -119,11 +115,9 @@ public with sharing class RankingDataController {
             for (String y : listYear) {
                 yearSort.add(y);
                 yearSort.sort();
-                System.debug(yearSort);
             }
             for (Integer i = yearSort.size() - 1; i >= 0; i--) {
                 yearForColumn.add(yearSort[i]);
-                System.debug(yearSort[i]);
 
             }
 
@@ -147,14 +141,11 @@ public with sharing class RankingDataController {
                 }
                 sortByPracticArea.get(rank.Practice_Area_RE__c + '-' + rank.RecordTypeId + '-' + rank.Location__r.Name + '-' + rank.Publication_RE__r.Publication_Type__c + '-' + rank.Person_RE__r.Name).add(rank);
             }
-            System.debug(sortByPracticArea);
 
             List<WrapperRankigs> listWrapperRankigs = new List<WrapperRankigs>();
 
             for (String name : sortByPracticArea.keySet()) {
-                System.debug(name);
                 List<Rankings__c> rankingsList = sortByPracticArea.get(name);
-                System.debug(rankingsList);
                 WrapperRankigs wrpRanking = new WrapperRankigs();
                 wrpRanking.practiceArea = rankingsList[0].Practice_Area_RE__c;
                 wrpRanking.location = rankingsList[0].Location__r.Name;
@@ -175,7 +166,6 @@ public with sharing class RankingDataController {
                 }
                 for (Rankings__c r : rankingsList) {
                     for (WrapperRankYear wry : wryList) {
-                        System.debug(r);
                         if (wry.rYears == r.Year_RE__c) {
                             wry.rankingYear = r.CC_Ranking_Short__c;
 //                                break;
@@ -260,20 +250,18 @@ public with sharing class RankingDataController {
             if (String.isNotEmpty(filterType)) {
                 query = query + ' AND Subsection_Type_RE__c LIKE \'%' + filterType + '%\'';
             }
+
             query = query + ' ORDER BY Publication_RE__r.Publication_Type__c,  Practice_Area_RE__c ASC';
 
             List<Rankings__c> listAllRankings = Database.query(query);
-            System.debug(query);
             List<String> yearSort = new List<String>();
             List<String> yearForColumn = new List<String>();
             for (String y : listYear) {
                 yearSort.add(y);
                 yearSort.sort();
-                System.debug(yearSort);
             }
             for (Integer i = yearSort.size() - 1; i >= 0; i--) {
                 yearForColumn.add(yearSort[i]);
-                System.debug(yearSort[i]);
 
             }
 
