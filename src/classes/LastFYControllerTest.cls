@@ -92,7 +92,7 @@ public with sharing class LastFYControllerTest {
 		OpportunityLineItem opportunityProductId = [SELECT Id, Publication__c FROM OpportunityLineItem LIMIT 1];
 //		String opportunityProductId, String currentOppId
 
-		Map<String, Object> res = LastFYController.getProduct(opportunityProductId.Id, currentOpportunity.Id, opportunityProductId.Publication__c);
+		Map<String, Object> res = LastFYController.getProduct(opportunityProductId.Id, currentOpportunity.Id, opportunityProductId.Publication__c, null, null);
 		System.assertEquals('success', res.get('status'));
 
 	}

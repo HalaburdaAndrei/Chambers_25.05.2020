@@ -34,6 +34,20 @@
 			= !res[evt.target.dataset.publicationtypecategoryindex].publicationTypes[evt.target.dataset.publicationtypeindex].totalRows[evt.target.dataset.totalrowindex].expanded;
 		cmp.set("v.res", res);
 	},
+	toggleTotal: function(cmp, evt) {
+		console.log('toggleTotal');
+
+		console.log(evt.target.dataset);
+		console.log(evt.target.dataset.publicationtypecategoryindex);
+		console.log(evt.target.dataset.publicationtypeindex);
+		console.log(evt.target.dataset.totalrowindex);
+		console.log(evt.target.dataset.totalindex);
+
+		var res = cmp.get("v.res");
+		res[evt.target.dataset.publicationtypecategoryindex].publicationTypes[evt.target.dataset.publicationtypeindex].totalRows[evt.target.dataset.totalrowindex].productTotals[evt.target.dataset.totalindex].expanded
+			= !res[evt.target.dataset.publicationtypecategoryindex].publicationTypes[evt.target.dataset.publicationtypeindex].totalRows[evt.target.dataset.totalrowindex].productTotals[evt.target.dataset.totalindex].expanded;
+		cmp.set("v.res", res);
+	},
 
 	sortBy : function (cmp,evt) {
 		console.log('sort by');

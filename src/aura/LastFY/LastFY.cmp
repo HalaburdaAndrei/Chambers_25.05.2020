@@ -365,8 +365,8 @@
 								<aura:iteration items="{!publicationType.totalRows}" var="totalRow" indexVar="totalrowindex">
 									<tr>
 										<td></td>
-										<td>{!totalRow.publicationName}</td>
-										<td title="{!totalRow.productName}">
+<!--										<td>{!totalRow.publicationName}</td>-->
+										<td title="{!totalRow.publicationName}">
 											<div onclick="{!c.toggleTotalRow}"
 												 data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
 												 data-publicationTypeIndex="{!publicationTypeIndex}"
@@ -377,22 +377,47 @@
 												<aura:if isTrue="{!totalRow.expanded}">
 													<lightning:buttonIcon iconName="utility:chevrondown" />
 												</aura:if>
-												{!totalRow.productName}
+												{!totalRow.publicationName}
 											</div>
 										</td>
-<!--										<td colspan="" title="{!totalRow.totalQty}"></td>-->
-										<td title="{!totalRow.totalQty}">{!totalRow.totalQty}</td>
+										<td colspan="2"></td>
 										<td title="{!totalRow.totalPrice}">{!totalRow.totalPrice}</td>
-										<td colspan="9" ></td>
-										<td>
-											<aura:if isTrue="{!totalRow.addBatton}">
-												<div onclick="{!c.openModel}" data-opplineitenid="{!totalRow.oppLineItemId}" data-totalqty="{!totalRow.totalQty}" data-totalprice="{!totalRow.totalPrice}">
-													<lightning:buttonIcon iconName="utility:add"  title="Add Product" ></lightning:buttonIcon>
-												</div>
-											</aura:if></td>
+										<td colspan="10" ></td>
+
 									</tr>
 									<aura:if isTrue="{!totalRow.expanded}">
-										<aura:iteration items="{!totalRow.products}" var="product">
+
+									<aura:iteration items="{!totalRow.productTotals}" var="productTotal" indexVar="totalindex">
+										<tr>
+											<td></td>
+											<td></td>
+											<td title="{!productTotal.productName}">
+												<div onclick="{!c.toggleTotal}"
+													 data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
+													 data-publicationTypeIndex="{!publicationTypeIndex}"
+													 data-totalrowindex = "{!totalrowindex}"
+													 data-totalindex = "{!totalindex}">
+													<aura:if isTrue="{!! productTotal.expanded}">
+														<lightning:buttonIcon iconName="utility:chevronright" />
+													</aura:if>
+													<aura:if isTrue="{!productTotal.expanded}">
+														<lightning:buttonIcon iconName="utility:chevrondown" />
+													</aura:if>
+													{!productTotal.productName}
+												</div>
+											</td>
+											<td>{!productTotal.totalQty}</td>
+											<td>{!productTotal.totalPrice}</td>
+											<td colspan="9" ></td>
+											<td>
+												<aura:if isTrue="{!productTotal.addBatton}">
+													<div onclick="{!c.openModel}" data-opplineitenid="{!productTotal.oppLineItemId}" data-totalqty="{!productTotal.totalQty}" data-totalprice="{!productTotal.totalPrice}">
+														<lightning:buttonIcon iconName="utility:add"  title="Add Product" ></lightning:buttonIcon>
+													</div>
+												</aura:if></td>
+										</tr>
+									<aura:if isTrue="{!productTotal.expanded}">
+										<aura:iteration items="{!productTotal.products}" var="product">
 											<tr>
 												<td></td>
 <!--												<td title="{!product.publication}">{!product.publication}</td>-->
@@ -418,6 +443,8 @@
 												</td>
 											</tr>
 										</aura:iteration>
+									</aura:if>
+									</aura:iteration>
 									</aura:if>
 								</aura:iteration>
 							</aura:if>

@@ -362,33 +362,20 @@ public with sharing class LastFYController {
 		public void addWrapperPriceBookTable(List<OpportunityLineItem> oplis){
 			Map<String, List<OpportunityLineItem>> sortByPublicationName = new Map<String, List<OpportunityLineItem>>();
 			for(OpportunityLineItem opli : oplis){
-//				if(sortByPublicationName.containsKey(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name)){
-//					sortByPublicationName.get(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name).add(opli);
-//				} else {
-//					sortByPublicationName.put(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name, new List<OpportunityLineItem>{opli});
-//				}
-				if(!sortByPublicationName.containsKey(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c)){
-					sortByPublicationName.put(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c, new List<OpportunityLineItem>());
+				if(sortByPublicationName.containsKey(opli.Publication__r.Name)){
+					sortByPublicationName.get(opli.Publication__r.Name).add(opli);
+				} else {
+					sortByPublicationName.put(opli.Publication__r.Name, new List<OpportunityLineItem>{opli});
 				}
-				sortByPublicationName.get(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c).add(opli);
-
 			}
-
-
 			for (String publicationName : sortByPublicationName.keySet()){
 				WrapperTotalRow wtr = new WrapperTotalRow();
-				wtr.publicationNAme = sortByPublicationName.get(publicationName)[0].Publication__r.Name;
-				wtr.productName = sortByPublicationName.get(publicationName)[0].Product2.Name;
-				wtr.addBatton = (currentOpportunity.StageName == 'Open' || currentOpportunity.StageName == 'Qualified') &&
-						currentOpportunity.Publication_RE__r.CC_PublicationTypeCategory__c == sortByPublicationName.get(publicationName)[0].Publication__r.CC_PublicationTypeCategory__c
-//				&& currentOpportunity.Pricebook2Id == opli.Opportunity.Pricebook2Id;
-						&& (currentOpportunity.Pricebook2Id == mapProdPriceBook.get(sortByPublicationName.get(publicationName)[0].Product2Id));
+				wtr.publicationNAme = publicationName;
 				wtr.expanded = FALSE;
-				wtr.oppLineItemId = sortByPublicationName.get(publicationName)[0].Id;
 				wtr.year = sortByPublicationName.get(publicationName)[0].Publication__r.Year_Issue_RE__c;
-				for(OpportunityLineItem opli : sortByPublicationName.get(publicationName)){
-					wtr.addProduct(opli);
-				}
+//				for(OpportunityLineItem opli : sortByPublicationName.get(publicationName)){
+					wtr.addProduct(sortByPublicationName.get(publicationName));
+//				}
 				this.totalRows.add(wtr);
 			}
 			this.totalRows.sort();
@@ -412,24 +399,86 @@ public with sharing class LastFYController {
 		@AuraEnabled
 		String publicationName { get; set; }
 		@AuraEnabled
-		String productName { get; set; }
-		@AuraEnabled
 		Boolean expanded { get; set; }
 		@AuraEnabled
 		Decimal totalPrice { get; set; }
 		@AuraEnabled
-		Decimal totalQty { get; set; }
+		List <ProductTotal> productTotals { get; set; }
+		String year {get;set;}
+		WrapperTotalRow() {
+			this.productTotals = new List <ProductTotal>();
+			this.totalPrice = 0;
+			this.expanded = FALSE;
+		}
+
+		void addProduct(List<OpportunityLineItem> oplis) {
+
+			Map<String, List<OpportunityLineItem>> sortByProductName = new Map<String, List<OpportunityLineItem>>();
+			for(OpportunityLineItem opli : oplis){
+				if(!sortByProductName.containsKey(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c)){
+					sortByProductName.put(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c, new List<OpportunityLineItem>());
+				}
+				sortByProductName.get(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c).add(opli);
+
+
+			}
+			for (String publicationName : sortByProductName.keySet()){
+				ProductTotal wtr = new ProductTotal();
+				wtr.productName = sortByProductName.get(publicationName)[0].Product2.Name;
+				wtr.oppLineItemId = sortByProductName.get(publicationName)[0].Id;
+				wtr.expanded = FALSE;
+				wtr.addBatton = (currentOpportunity.StageName == 'Open' || currentOpportunity.StageName == 'Qualified') &&
+						currentOpportunity.Publication_RE__r.CC_PublicationTypeCategory__c == sortByProductName.get(publicationName)[0].Publication__r.CC_PublicationTypeCategory__c
+//				&& currentOpportunity.Pricebook2Id == opli.Opportunity.Pricebook2Id;
+						&& (currentOpportunity.Pricebook2Id == mapProdPriceBook.get(sortByProductName.get(publicationName)[0].Product2Id));
+//				wtr.year = sortByProductName.get(publicationName)[0].Publication__r.Year_Issue_RE__c;
+				for(OpportunityLineItem opli : sortByProductName.get(publicationName)){
+				wtr.addProduct(opli);
+				}
+				this.productTotals.add(wtr);
+				this.totalPrice += wtr.totalPrice;
+			}
+//			this.productTotals.sort();
+
+		}
+
+		public Integer compareTo (Object compareTo) {
+			// Cast argument to WrapperTotalRow
+			WrapperTotalRow compareToPublication = (WrapperTotalRow)compareTo;
+
+			// The return value of 0 indicates that both elements are equal.
+			Integer returnValue = 0;
+			if (year < compareToPublication.year) {
+				// Set return value to a positive value.
+				returnValue = 1;
+			} else if (year > compareToPublication.year) {
+				// Set return value to a negative value.
+				returnValue = -1;
+			}
+			return returnValue;
+		}
+	}
+
+	public class ProductTotal {
+		@AuraEnabled
+		String productName {get;set;}
+		@AuraEnabled
+		Boolean expanded { get; set; }
 		@AuraEnabled
 		Boolean addBatton {get;set;}
+		@AuraEnabled
+		Decimal totalQty {get;set;}
 		@AuraEnabled
 		String oppLineItemId {get;set;}
 		@AuraEnabled
 		List <WrapperProductRow> products { get; set; }
-		String year {get;set;}
-		WrapperTotalRow() {
+		@AuraEnabled
+		Decimal totalPrice { get; set; }
+		ProductTotal() {
 			this.products = new List <WrapperProductRow>();
 			this.totalPrice = 0;
 			this.totalQty = 0;
+//			this.expanded = FALSE;
 		}
 
 		void addProduct(OpportunityLineItem opli) {
@@ -456,22 +505,6 @@ public with sharing class LastFYController {
 			this.products.add(row);
 			this.totalPrice += opli.TotalPrice;
 			this.totalQty += opli.Quantity;
-		}
-
-		public Integer compareTo (Object compareTo) {
-			// Cast argument to WrapperTotalRow
-			WrapperTotalRow compareToPublication = (WrapperTotalRow)compareTo;
-
-			// The return value of 0 indicates that both elements are equal.
-			Integer returnValue = 0;
-			if (year < compareToPublication.year) {
-				// Set return value to a positive value.
-				returnValue = 1;
-			} else if (year > compareToPublication.year) {
-				// Set return value to a negative value.
-				returnValue = -1;
-			}
-			return returnValue;
 		}
 	}
 

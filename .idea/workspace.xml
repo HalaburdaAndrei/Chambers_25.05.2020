@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5659212c-ef46-4353-8f6e-d243b3fb313b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chambers(25.05.2020).iml" beforeDir="false" afterPath="$PROJECT_DIR$/Chambers(25.05.2020).iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/CurrentFY/CurrentFY.cmp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/CurrentFY/CurrentFY.cmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/LastFY/LastFY.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/LastFY/LastFY.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/aura/LastFY/LastFYController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/LastFY/LastFYController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/LastFY/LastFYHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/LastFY/LastFYHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/CurrentFYController.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/CurrentFYController.cls" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/LastFYController.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/LastFYController.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Opportunity.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Opportunity.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Target_goals_for_Sales_Person__c.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Target_goals_for_Sales_Person__c.object" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/LastFYControllerTest.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/LastFYControllerTest.cls" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,15 +23,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/aura/RankingData/RankingData.cmp">
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp">
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
           <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
@@ -47,23 +31,14 @@
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classes/LastFYController.cls">
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
           <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/aura/CurrentFY/CurrentFY.cmp">
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/CurrentFYController.cls">
+        <entry file="file://$PROJECT_DIR$/src/classes/LastFYControllerTest.cls">
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
           <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
         </entry>
@@ -173,11 +148,11 @@
         <option value="$PROJECT_DIR$/src/aura/CurrentFY/CurrentFY.css" />
         <option value="$PROJECT_DIR$/src/aura/CurrentFY/CurrentFY.cmp" />
         <option value="$PROJECT_DIR$/src/aura/LastFY/LastFY.css" />
-        <option value="$PROJECT_DIR$/src/classes/LastFYControllerTest.cls" />
+        <option value="$PROJECT_DIR$/src/aura/LastFY/LastFYHelper.js" />
         <option value="$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp" />
         <option value="$PROJECT_DIR$/src/classes/LastFYController.cls" />
         <option value="$PROJECT_DIR$/src/aura/LastFY/LastFYController.js" />
-        <option value="$PROJECT_DIR$/src/aura/LastFY/LastFYHelper.js" />
+        <option value="$PROJECT_DIR$/src/classes/LastFYControllerTest.cls" />
       </list>
     </option>
   </component>
@@ -206,7 +181,7 @@
                       <entry key="AURA/CURRENTFY" value="1595925519000" />
                       <entry key="AURA/CUSTOMLOOKUP" value="1592291138000" />
                       <entry key="AURA/CUSTOMLOOKUPRESULT" value="1592394381000" />
-                      <entry key="AURA/LASTFY" value="1596614640000" />
+                      <entry key="AURA/LASTFY" value="1596627893000" />
                       <entry key="AURA/RANKINGDATA" value="1595508414513" />
                       <entry key="AURA/RANKINGDATAAPP" value="1593618814000" />
                       <entry key="AURA/REPORTS" value="1593614011000" />
@@ -216,8 +191,8 @@
                       <entry key="AURA/SENDAQUOTE" value="1593010520370" />
                       <entry key="AURA/TESTBUTTON" value="1591602051000" />
                       <entry key="CLASSES/CURRENTFYCONTROLLER.CLS" value="1593432232747" />
-                      <entry key="CLASSES/LASTFYCONTROLLER.CLS" value="1596616254457" />
-                      <entry key="CLASSES/LASTFYCONTROLLERTEST.CLS" value="1596194163000" />
+                      <entry key="CLASSES/LASTFYCONTROLLER.CLS" value="1596627088000" />
+                      <entry key="CLASSES/LASTFYCONTROLLERTEST.CLS" value="1596627892000" />
                       <entry key="CLASSES/RANKINGDATACONTROLLER.CLS" value="1595507317000" />
                       <entry key="CLASSES/RANKINGDATACONTROLLERTEST.CLS" value="1594906350596" />
                       <entry key="CLASSES/REUSABLEMULTISELECTLOOKUPCTRL.CLS" value="1592394263000" />
@@ -3447,7 +3422,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="67" />
     <option name="y" value="25" />
-    <option name="width" value="1369" />
+    <option name="width" value="1362" />
     <option name="height" value="1055" />
   </component>
   <component name="ProjectReloadState">
@@ -3544,7 +3519,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Apex Unit Tests.LastFYControllerTest">
+  <component name="RunManager" selected="Apex Unit Tests.CurrentFYControllerTest">
     <configuration name="CurrentFYControllerTest" type="com.illuminatedcloud.intellij" factoryName="Apex Unit Tests" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allTests" value="false" />
       <option name="allowRunningInParallel" value="false" />
@@ -3702,8 +3677,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Apex Unit Tests.LastFYControllerTest" />
         <item itemvalue="Apex Unit Tests.CurrentFYControllerTest" />
+        <item itemvalue="Apex Unit Tests.LastFYControllerTest" />
         <item itemvalue="Apex Unit Tests.RankingDataControllerTest" />
         <item itemvalue="Apex Unit Tests.Schedule_CreateOpptys_Test" />
         <item itemvalue="Apex Unit Tests.SendaQuoteControllerTest" />
@@ -3764,20 +3739,11 @@
       <workItem from="1596175197472" duration="2620000" />
       <workItem from="1596446819150" duration="717000" />
       <workItem from="1596521110202" duration="15531000" />
-      <workItem from="1596607446424" duration="8816000" />
+      <workItem from="1596607446424" duration="22282000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RankingDataControllerTest - 2020.07.01 at 09h 03m 20s.xml">
-      <configuration name="RankingDataControllerTest" configurationId="com.illuminatedcloud.intellij" />
-    </history-entry>
-    <history-entry file="RankingDataControllerTest - 2020.07.08 at 11h 19m 54s.xml">
-      <configuration name="RankingDataControllerTest" configurationId="com.illuminatedcloud.intellij" />
-    </history-entry>
-    <history-entry file="RankingDataControllerTest - 2020.07.15 at 17h 26m 48s.xml">
-      <configuration name="RankingDataControllerTest" configurationId="com.illuminatedcloud.intellij" />
-    </history-entry>
     <history-entry file="RankingDataControllerTest - 2020.07.16 at 16h 31m 28s.xml">
       <configuration name="RankingDataControllerTest" configurationId="com.illuminatedcloud.intellij" />
     </history-entry>
@@ -3799,9 +3765,18 @@
     <history-entry file="LastFYControllerTest - 2020.07.31 at 14h 16m 19s.xml">
       <configuration name="LastFYControllerTest" configurationId="com.illuminatedcloud.intellij" />
     </history-entry>
+    <history-entry file="LastFYControllerTest - 2020.08.05 at 14h 44m 24s.xml">
+      <configuration name="LastFYControllerTest" configurationId="com.illuminatedcloud.intellij" />
+    </history-entry>
+    <history-entry file="LastFYControllerTest - 2020.08.05 at 14h 45m 13s.xml">
+      <configuration name="LastFYControllerTest" configurationId="com.illuminatedcloud.intellij" />
+    </history-entry>
+    <history-entry file="CurrentFYControllerTest - 2020.08.05 at 14h 45m 41s.xml">
+      <configuration name="CurrentFYControllerTest" configurationId="com.illuminatedcloud.intellij" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="591398000" />
+    <option name="totallyTimeSpent" value="604864000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3816,7 +3791,7 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18871057" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18871057" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -3825,13 +3800,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32963374" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32963374" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963374" />
       <window_info anchor="bottom" id="Log Viewer" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32852387" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32852387" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" />
@@ -3856,7 +3831,7 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Chambers_25_05_2020_$LastFYControllerTest.null" NAME="Chambers(25.05.2020) Coverage Results" MODIFIED="1596194169337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="Apex" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" PROJECT_NAME="Chambers(25.05.2020)" CONNECTION_NAME="Chambers(25.05.2020)" />
+    <SUITE FILE_PATH="coverage/Chambers_25_05_2020_$CurrentFYControllerTest.null" NAME="Chambers(25.05.2020) Coverage Results" MODIFIED="1596627935879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="Apex" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" PROJECT_NAME="Chambers(25.05.2020)" CONNECTION_NAME="Chambers(25.05.2020)" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/aura/customLookup/customLookup.css">
@@ -4097,10 +4072,6 @@
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/LastFYControllerTest.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/RankingData/RankingData.cmp">
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
@@ -4120,16 +4091,20 @@
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/LastFYController.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp">
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/LastFYControllerTest.cls">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/LastFYController.cls">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
     </entry>
   </component>
   <component name="masterDetails">
