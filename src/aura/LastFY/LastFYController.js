@@ -84,8 +84,31 @@
 
 	addProduct : function (cmp, evt, helper) {
 		helper.addProduct(cmp, evt);
+		cmp.set("v.isOpen", false);
+
 	},
 	closeToast : function (cmp) {
 		cmp.set('v.isToastOpen', false);
-	}
+	},
+
+	openModel: function(component, event, helper) {
+		// for Display Model,set the "isOpen" attribute to "true"
+		component.set("v.isOpen", true);
+		var opportunityProductId = event.target.dataset.opplineitenid;
+		var totalQty = event.target.dataset.totalqty;
+		var totalPrice = event.target.dataset.totalprice;
+		component.set("v.oppLineId", opportunityProductId);
+		component.set("v.oppTotalQty", totalQty);
+		component.set("v.oppTotalPrice", totalPrice);
+	},
+
+	closeModel: function(component, event, helper) {
+		// for Hide/Close Model,set the "isOpen" attribute to "Fasle"
+		component.set("v.isOpen", false);
+	},
+	handleChange : function(component, event, helper) {
+		var publicationId = event.getParam("value")[0];
+		component.set("v.publicationProd", publicationId);
+	},
+
 })

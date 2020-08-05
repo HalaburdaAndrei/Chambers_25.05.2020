@@ -28,7 +28,7 @@
 
 	<aura:attribute name="showSpinner" type="Boolean" default="true"/>
 
-	<div class="slds-box slds-color__background_gray-1">
+	<div class="slds-box slds-color__background_gray-1 ">
 		<!--spinner-->
 		<aura:if isTrue="{! v.showSpinner }">
 			<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">

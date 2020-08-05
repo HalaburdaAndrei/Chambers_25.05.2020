@@ -19,11 +19,10 @@ public with sharing class CurrentFYController {
 					TotalPrice, Opportunity.Owner.Name, Opportunity.Signer_text__c, Opportunity.CloseDate, Related_Organization__r.Name, Chapter__r.Name,
 					Opportunity.Account.Name, Location__r.Name, Submissions__c, Publication__r.Year_Issue_RE__c, Opportunity.Account.Related_HO_Account__c
 				FROM OpportunityLineItem
-				WHERE Opportunity.Account.Related_HO_Account__c LIKE :HOAccountId
-					AND Opportunity.StageName = 'Closed Won'
+				WHERE Opportunity.Account.Related_HO_Account__c LIKE :HOAccountId AND
+					Opportunity.StageName = 'Closed Won'
 					AND Opportunity.Current_FY__c = TRUE
 			];
-
 
 			List<OpportunityLineItem> checkallProduct = new List<OpportunityLineItem>();
 			for(OpportunityLineItem pr :allProduct) {

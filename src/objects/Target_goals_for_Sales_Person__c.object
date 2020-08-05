@@ -96,6 +96,10 @@
     <label>Target goals for Sales Person</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Sales_Person__c</columns>
+        <columns>Target_Goal__c</columns>
+        <columns>Year__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

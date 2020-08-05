@@ -5,6 +5,7 @@
 		action.setCallback(this, function (response) {
 			if(cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success'){
 				cmp.set('v.res', response.getReturnValue().table);
+				console.log(response.getReturnValue().table)
 			} else {
 				this.showToast(cmp, 'error', response.getReturnValue().message, 'Error!');
 			}
@@ -50,21 +51,30 @@
 	},
 
 	addProduct : function (cmp, evt) {
-		var opportunityProductId = evt.target.dataset.opplineitenid;
+		// var opportunityProductId = evt.target.dataset.opplineitenid;
+		var opportunityProductId = cmp.get("v.oppLineId");
+		var oppTotalPrice = cmp.get("v.oppTotalPrice");
+		var oppTotalQty = cmp.get("v.oppTotalQty");
+		// cmp.set("v.oppLineId", opportunityProductId);
 		var currentOppId = cmp.get('v.recordId');
 		console.log('opportunityProductId');
 		console.log(opportunityProductId);
 		console.log('currentOppId');
 		console.log(currentOppId);
+
 		cmp.set('v.showSpinner1', true);
 		var action = cmp.get('c.getProduct');
 		action.setParams({
 			opportunityProductId: opportunityProductId,
-			currentOppId : currentOppId
+			totalPrice: oppTotalPrice,
+			totalQty: oppTotalQty,
+			currentOppId : currentOppId,
+			publicationProd : cmp.get("v.publicationProd")
 		});
 		action.setCallback(this, function (response) {
 			if (cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success') {
 				this.showToast(cmp,'success', 'Product was added','Success');
+				cmp.set("v.publicationProd", null);
 			} else {
 				this.showToast(cmp,'error', response.getReturnValue().message,'Error!');
 			}

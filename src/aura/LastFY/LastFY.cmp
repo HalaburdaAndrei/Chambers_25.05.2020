@@ -31,8 +31,14 @@
 	<aura:attribute name="toastType" type="String" default=""/>
 	<aura:attribute name="toastMessage" type="String" default=""/>
 
+	<aura:attribute name="publicationProd" type="String" />
+	<aura:attribute name="oppLineId" type="String" />
+	<aura:attribute name="oppTotalQty" type="Decimal" />
+	<aura:attribute name="oppTotalPrice" type="Decimal" />
+	<aura:attribute name="isOpen" type="boolean" default="false"/>
+
 	<!--spinner-->
-	<div class="slds-box slds-color__background_gray-1">
+	<div class="slds-box slds-color__background_gray-1 slds-is-relative">
 		<aura:if isTrue="{! v.showSpinner1 }">
 			<div class="slds-spinner_container slds-show spinnerposition" aura:id="imgSpinner">
 				<div class="slds-spinner--brand slds-spinner slds-spinner--medium spinneralert" role="alert">
@@ -44,7 +50,7 @@
 		</aura:if>
 		<!--toast for VF Page-->
 		<div class="{! 'slds-notify_container slds-is-relative slds-align--absolute-center' + (v.isToastOpen ? '' : ' slds-hide')}"
-			style="height:0!important">
+			 style="height:0!important">
 			<div class="{!v.toastStyle}" style="position:fixed; top:0!important" role="alert" aura:id="toastCmp">
 				<div class="slds-notify__content">
 					<h2 class="slds-text-heading_small ">{!v.toastType}</h2>
@@ -119,7 +125,7 @@
 							</aura:if>
 						</div>
 						<div class="slds-truncate" >
-						<lightning:input placeholder="Filter" type="number" onkeyup="{! c.filterby }" value="{!v.qtyFilter}" variant="label-hidden"/>
+							<lightning:input placeholder="Filter" type="number" onkeyup="{! c.filterby }" value="{!v.qtyFilter}" variant="label-hidden"/>
 						</div>
 					</th>
 					<!--sales Price-->
@@ -343,7 +349,7 @@
 							<tr>
 								<td title="{!publicationType.publicationType}">
 									<div class="slds-truncate" onclick="{!c.togglePublicationType}" data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
-										data-publicationTypeIndex="{!publicationTypeIndex}" style="padding-left: 20px; width:200px">
+										 data-publicationTypeIndex="{!publicationTypeIndex}" style="padding-left: 20px; width:200px">
 										<aura:if isTrue="{!! publicationType.expanded}">
 											<lightning:buttonIcon iconName="utility:chevronright" />
 										</aura:if>
@@ -359,29 +365,38 @@
 								<aura:iteration items="{!publicationType.totalRows}" var="totalRow" indexVar="totalrowindex">
 									<tr>
 										<td></td>
-										<td title="{!totalRow.publicationName}">
+										<td>{!totalRow.publicationName}</td>
+										<td title="{!totalRow.productName}">
 											<div onclick="{!c.toggleTotalRow}"
-												data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
-												data-publicationTypeIndex="{!publicationTypeIndex}"
-												data-totalrowindex = "{!totalrowindex}">
+												 data-publicationTypeCategoryIndex="{!publicationTypeCategoryIndex}"
+												 data-publicationTypeIndex="{!publicationTypeIndex}"
+												 data-totalrowindex = "{!totalrowindex}">
 												<aura:if isTrue="{!! totalRow.expanded}">
 													<lightning:buttonIcon iconName="utility:chevronright" />
 												</aura:if>
 												<aura:if isTrue="{!totalRow.expanded}">
 													<lightning:buttonIcon iconName="utility:chevrondown" />
 												</aura:if>
-												{!totalRow.publicationName}
+												{!totalRow.productName}
 											</div>
 										</td>
-										<td colspan="2" title="{!totalRow.totalPrice}"></td>
+<!--										<td colspan="" title="{!totalRow.totalQty}"></td>-->
+										<td title="{!totalRow.totalQty}">{!totalRow.totalQty}</td>
 										<td title="{!totalRow.totalPrice}">{!totalRow.totalPrice}</td>
-										<td colspan="10"></td>
+										<td colspan="9" ></td>
+										<td>
+											<aura:if isTrue="{!totalRow.addBatton}">
+												<div onclick="{!c.openModel}" data-opplineitenid="{!totalRow.oppLineItemId}" data-totalqty="{!totalRow.totalQty}" data-totalprice="{!totalRow.totalPrice}">
+													<lightning:buttonIcon iconName="utility:add"  title="Add Product" ></lightning:buttonIcon>
+												</div>
+											</aura:if></td>
 									</tr>
 									<aura:if isTrue="{!totalRow.expanded}">
 										<aura:iteration items="{!totalRow.products}" var="product">
 											<tr>
 												<td></td>
-												<td title="{!product.publication}">{!product.publication}</td>
+<!--												<td title="{!product.publication}">{!product.publication}</td>-->
+												<td title="{!product.publication}"></td>
 												<td title="{!product.product}">{!product.product}</td>
 												<td title="{!product.quantity}">{!product.quantity}</td>
 												<td title="{!product.totalPrice}">{!product.totalPrice}</td>
@@ -396,7 +411,7 @@
 												<td title="{!product.numberOfSubmissions}">{!product.numberOfSubmissions}</td>
 												<td title="{!product.oppLineItemId}">
 													<aura:if isTrue="{!product.addBatton}">
-														<div onclick="{!c.addProduct}" data-opplineitenid="{!product.oppLineItemId}">
+														<div onclick="{!c.openModel}" data-opplineitenid="{!product.oppLineItemId}">
 															<lightning:buttonIcon iconName="utility:add"  title="Add Product" ></lightning:buttonIcon>
 														</div>
 													</aura:if>
@@ -416,4 +431,53 @@
 			</aura:if>
 		</div>
 	</div>
+
+	<!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->
+	<aura:if isTrue="{!v.isOpen}">
+
+		<!--###### MODAL BOX Start######-->
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!-- ###### MODAL BOX HEADER Start ######-->
+				<header class="slds-modal__header">
+					<lightning:buttonIcon iconName="utility:close"
+										  onclick="{! c.closeModel }"
+										  alternativeText="close"
+										  variant="bare-inverse"
+										  class="slds-modal__close"/>
+					<h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Product</h2>
+				</header>
+				<!--###### MODAL BOX BODY Part Start######-->
+				<div class="slds-modal__content slds-p-bottom--xx-large slds-p-top--xx-small" id="modal-content-id-1">
+					<form class="slds-form--stacked">
+						<lightning:recordEditForm
+								aura:id="filterForm"
+								recordId="{!v.oppLineId}"
+								objectApiName="OpportunityLineItem">
+
+							<lightning:layoutItem class="slds-m-around--small" size="5">
+
+								<lightning:inputField fieldName="Publication__c" onchange="{!c.handleChange}" class="myicon slds-form-element__icon"/>
+							</lightning:layoutItem>
+
+						</lightning:recordEditForm>
+					</form>
+				</div>
+				<!--###### MODAL BOX FOOTER Part Start ######-->
+				<footer class="slds-modal__footer">
+					<lightning:button variant="neutral"
+									  label="Cancel"
+									  title="Cancel"
+									  onclick="{! c.closeModel }"/>
+					<lightning:button variant="brand"
+									  label="Add Product"
+									  title="Add Product"
+									  onclick="{! c.addProduct }"/>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+		<!--###### MODAL BOX Part END Here ######-->
+
+	</aura:if>
 </aura:component>

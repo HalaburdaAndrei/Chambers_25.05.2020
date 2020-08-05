@@ -1,11 +1,12 @@
 public with sharing class LastFYController {
 	private static Opportunity currentOpportunity {get;set;}
+	private static Map<String, String> mapProdPriceBook {get;set;}
 	@AuraEnabled
 	public static Map<String, Object> getOpportunities(String opportunityId) {
 		//Id of HO account for current opportunity
 		try {
 			Map<String, Object> result = new Map<String, Object>();
-			currentOpportunity = [  SELECT Id, AccountId, Account.Related_HO_Account__c, StageName, Pricebook2Id, Publication_RE__r.Id, Publication_RE__r.CC_PublicationTypeCategory__c
+			currentOpportunity = [  SELECT Id, Pricebook2.Name, AccountId, Account.Related_HO_Account__c, StageName, Pricebook2Id, Publication_RE__r.Id, Publication_RE__r.CC_PublicationTypeCategory__c
 			FROM Opportunity
 			WHERE Id = :opportunityId];
 			String HOAccount = currentOpportunity.Account.Related_HO_Account__c.substring(10, 25);
@@ -22,27 +23,36 @@ public with sharing class LastFYController {
 			}
 
 			List<OpportunityLineItem> allProduct = [
-				SELECT Id, Publication__r.CC_PublicationTypeCategory__c, Publication__r.Publication_Type__c, Publication__r.Name,
-					OpportunityId, Product2.Name, Quantity, TotalPrice, Opportunity.Owner.Name, Opportunity.Signer_text__c, Opportunity.CloseDate,
-					Related_Organization__r.Name, Chapter__r.Name, Opportunity.Account.Name, Location__r.Name, Opportunity.Pricebook2Id,
-					Submissions__c, Publication__r.Year_Issue_RE__c,Opportunity.Account.Related_HO_Account__c
-				FROM OpportunityLineItem
-				WHERE Opportunity.Account.Related_HO_Account__c LIKE : HOAccountId
+					SELECT Id, Publication__r.CC_PublicationTypeCategory__c, Publication__r.Publication_Type__c, Publication__r.Name,
+							OpportunityId, Product2.Name, Quantity, TotalPrice, Opportunity.Owner.Name, Opportunity.Signer_text__c, Opportunity.CloseDate,
+							Related_Organization__r.Name, Chapter__r.Name, Opportunity.Account.Name, Location__r.Name,
+							Submissions__c, Publication__r.Year_Issue_RE__c,Opportunity.Account.Related_HO_Account__c, Opportunity.Pricebook2Id
+					FROM OpportunityLineItem
+					WHERE Opportunity.Account.Related_HO_Account__c LIKE : HOAccountId
 
 					AND Opportunity.StageName = 'Closed Won'
 					AND Opportunity.Current_FY__c = FALSE
 					AND Opportunity.CloseDate < :endLastFY
 					AND Opportunity.CloseDate > :startLastFY
-				ORDER BY Opportunity.CloseDate DESC
+					ORDER BY Opportunity.CloseDate DESC
 			];
 
+			Set<Id> setProd = new Set<Id>();
 			List<OpportunityLineItem> checkallProduct = new List<OpportunityLineItem>();
 			for(OpportunityLineItem pr :allProduct) {
 				if (pr.Opportunity.Account.Related_HO_Account__c.contains(HOAccount)) {
 					checkallProduct.add(pr);
+					setProd.add(pr.Product2Id);
 				}
 			}
 
+			Map<String,String> priceBookEntriProd = new Map<String, String>();
+			if(setProd != null) {
+				for (PricebookEntry pr : [SELECT Product2Id, Pricebook2Id FROM PricebookEntry WHERE Product2Id IN:setProd AND Pricebook2Id =: currentOpportunity.Pricebook2Id]) {
+					priceBookEntriProd.put(pr.Product2Id, pr.Pricebook2Id);
+				}
+				mapProdPriceBook = priceBookEntriProd;
+			}
 
 			List<PublicationTypeCategoryWrapper> table = prepareTable(checkallProduct);
 			if (table.size() > 0) {
@@ -53,8 +63,8 @@ public with sharing class LastFYController {
 
 		} catch (Exception ex) {
 			return new Map<String, Object> {
-				'status' => 'error',
-				'message' => ex.getMessage()};
+					'status' => 'error',
+					'message' => ex.getMessage()};
 		}
 	}
 
@@ -87,15 +97,15 @@ public with sharing class LastFYController {
 
 
 			String queryString =
-				'SELECT Id, Publication__r.CC_PublicationTypeCategory__c, Publication__r.Publication_Type__c, Publication__r.Name, OpportunityId, '+
-					'Product2.Name, Quantity, TotalPrice, Opportunity.Owner.Name, Opportunity.Signer_text__c, Opportunity.CloseDate, Related_Organization__r.Name, '+
-					'Chapter__r.Name, Opportunity.Account.Name, Location__r.Name, Submissions__c, Publication__r.Year_Issue_RE__c, Opportunity.Pricebook2Id, Opportunity.Account.Related_HO_Account__c ' +
-					'FROM OpportunityLineItem '+
-					'WHERE Opportunity.Account.Related_HO_Account__c LIKE :HOAccountId '+
-					'AND Opportunity.StageName = \'Closed Won\' ' +
-					'AND Opportunity.Current_FY__c = FALSE ' +
-					'AND Opportunity.CloseDate < :endLastFY ' +
-					'AND Opportunity.CloseDate > :startLastFY ' ;
+					'SELECT Id, Publication__r.CC_PublicationTypeCategory__c, Publication__r.Publication_Type__c, Publication__r.Name, OpportunityId, '+
+							'Product2.Name, Quantity, TotalPrice, Opportunity.Owner.Name, Opportunity.Signer_text__c, Opportunity.CloseDate, Related_Organization__r.Name, '+
+							'Chapter__r.Name, Opportunity.Account.Name, Location__r.Name, Submissions__c, Publication__r.Year_Issue_RE__c, Opportunity.Pricebook2Id, Opportunity.Account.Related_HO_Account__c ' +
+							'FROM OpportunityLineItem '+
+							'WHERE Opportunity.Account.Related_HO_Account__c LIKE :HOAccountId '+
+							'AND Opportunity.StageName = \'Closed Won\' ' +
+							'AND Opportunity.Current_FY__c = FALSE ' +
+							'AND Opportunity.CloseDate < :endLastFY ' +
+							'AND Opportunity.CloseDate > :startLastFY ' ;
 
 //publication+
 			if(String.isNotEmpty(params.get('publicationFilter'))){
@@ -156,11 +166,21 @@ public with sharing class LastFYController {
 
 			List <OpportunityLineItem> allProduct = Database.query(queryString);
 
+			Set<Id> setProd = new Set<Id>();
 			List<OpportunityLineItem> checkallProduct = new List<OpportunityLineItem>();
 			for(OpportunityLineItem pr :allProduct) {
 				if (pr.Opportunity.Account.Related_HO_Account__c.contains(HOAccount)) {
 					checkallProduct.add(pr);
+					setProd.add(pr.Product2Id);
 				}
+			}
+
+			Map<String,String> priceBookEntriProd = new Map<String, String>();
+			if(setProd != null) {
+				for (PricebookEntry pr : [SELECT Product2Id, Pricebook2Id FROM PricebookEntry WHERE Product2Id IN:setProd AND Pricebook2Id =: currentOpportunity.Pricebook2Id]) {
+					priceBookEntriProd.put(pr.Product2Id, pr.Pricebook2Id);
+				}
+				mapProdPriceBook = priceBookEntriProd;
 			}
 
 			List<PublicationTypeCategoryWrapper> table = prepareTable(checkallProduct);
@@ -172,13 +192,14 @@ public with sharing class LastFYController {
 
 		}  catch (Exception ex) {
 			return new Map<String, Object> {
-				'status' => 'error',
-				'message' => ex.getMessage()};
+					'status' => 'error',
+					'message' => ex.getMessage()};
 		}
 	}
 
 	private static List<PublicationTypeCategoryWrapper> prepareTable (List<OpportunityLineItem> allProducts){
 		System.debug(allProducts);
+
 
 		Map<String, List<OpportunityLineItem>> sortByPublicationTypeCategory = new Map<String, List<OpportunityLineItem>>();
 
@@ -189,7 +210,7 @@ public with sharing class LastFYController {
 				sortByPublicationTypeCategory.get(prod.Publication__r.CC_PublicationTypeCategory__c).add(prod);
 			} else {
 				sortByPublicationTypeCategory.put(prod.Publication__r.CC_PublicationTypeCategory__c, New List<OpportunityLineItem> {
-					prod
+						prod
 				});
 			}
 		}
@@ -246,11 +267,13 @@ public with sharing class LastFYController {
 		for(String publicationTypecategory :unsortedTable.keySet() ){
 			table.add(unsortedTable.get(publicationTypecategory));
 		}
+
+
 		return table;
 	}
 
 	@AuraEnabled
-	public static Map<String, Object> getProduct(String opportunityProductId, String currentOppId){
+	public static Map<String, Object> getProduct(String opportunityProductId, String currentOppId, String publicationProd, Decimal totalPrice, Decimal totalQty){
 		try {
 
 			Map<String, SObjectType> sObjects = Schema.getGlobalDescribe();
@@ -258,28 +281,46 @@ public with sharing class LastFYController {
 
 			// get all fields of an object
 			selectFields = getFields('OpportunityLineItem', sObjects);
-
 			// create SOQL
 			String soql = 'SELECT ' + String.join(new List<String>(selectFields), ',') + ' FROM OpportunityLineItem OBJ WHERE Id =: opportunityProductId';
 			List<OpportunityLineItem> original = (List<OpportunityLineItem>)Database.query(soql);
 			System.debug(original[0]);
+			Opportunity oppPriceBook = [SELECT  Id, Pricebook2Id FROM Opportunity WHERE Id =: currentOppId];
+			PricebookEntry pricebookEntryId = [SELECT Id, Pricebook2Id, Product2Id, Public_Product_Name__c FROM PricebookEntry WHERE Product2Id =: original[0].Product2Id AND Pricebook2Id =: oppPriceBook.Pricebook2Id];
 
 			OpportunityLineItem add = original[0].clone();
 
+			if(totalPrice != null){
+				add.UnitPrice = totalPrice;
+			}
+			if(totalQty != null){
+				add.Quantity = totalQty;
+			}
 			add.TotalPrice = null;
 			add.OpportunityId = (Id)currentOppId;
+			add.Related_Individual__c = null;
+			add.Practice_Area__c = null;
+			add.Location__c = null;
+			add.Submissions__c = null;
+			add.Description = null;
+			add.No_of_Practice_Areas__c = null;
+			add.Qty_Books__c = null;
+			add.Publication__c = publicationProd;
+			If(pricebookEntryId != null) {
+				add.PricebookEntryId = pricebookEntryId.Id;
+			}
 			insert add;
 			System.debug(add);
 
 			return new Map<String, Object> {
-				'status' => 'success'
+					'status' => 'success'
 			};
 		} catch (Exception ex) {
 			System.debug('error');
 			System.debug(ex.getMessage());
 			return new Map<String, Object> {
-				'status' => 'error',
-				'message' => ex.getMessage()};
+					'status' => 'error',
+					'message' => ex.getMessage()};
 		}
 	}
 
@@ -321,16 +362,29 @@ public with sharing class LastFYController {
 		public void addWrapperPriceBookTable(List<OpportunityLineItem> oplis){
 			Map<String, List<OpportunityLineItem>> sortByPublicationName = new Map<String, List<OpportunityLineItem>>();
 			for(OpportunityLineItem opli : oplis){
-				if(sortByPublicationName.containsKey(opli.Publication__r.Name)){
-					sortByPublicationName.get(opli.Publication__r.Name).add(opli);
-				} else {
-					sortByPublicationName.put(opli.Publication__r.Name, new List<OpportunityLineItem>{opli});
+//				if(sortByPublicationName.containsKey(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name)){
+//					sortByPublicationName.get(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name).add(opli);
+//				} else {
+//					sortByPublicationName.put(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name, new List<OpportunityLineItem>{opli});
+//				}
+				if(!sortByPublicationName.containsKey(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c)){
+					sortByPublicationName.put(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c, new List<OpportunityLineItem>());
 				}
+				sortByPublicationName.get(opli.Publication__r.Name+'-'+opli.Product2.Name+'-'+opli.Opportunity.CloseDate+'-'+opli.Opportunity.Owner.Name+'-'+opli.Opportunity.Signer_text__c).add(opli);
+
 			}
+
+
 			for (String publicationName : sortByPublicationName.keySet()){
 				WrapperTotalRow wtr = new WrapperTotalRow();
-				wtr.publicationNAme = publicationName;
+				wtr.publicationNAme = sortByPublicationName.get(publicationName)[0].Publication__r.Name;
+				wtr.productName = sortByPublicationName.get(publicationName)[0].Product2.Name;
+				wtr.addBatton = (currentOpportunity.StageName == 'Open' || currentOpportunity.StageName == 'Qualified') &&
+						currentOpportunity.Publication_RE__r.CC_PublicationTypeCategory__c == sortByPublicationName.get(publicationName)[0].Publication__r.CC_PublicationTypeCategory__c
+//				&& currentOpportunity.Pricebook2Id == opli.Opportunity.Pricebook2Id;
+						&& (currentOpportunity.Pricebook2Id == mapProdPriceBook.get(sortByPublicationName.get(publicationName)[0].Product2Id));
 				wtr.expanded = FALSE;
+				wtr.oppLineItemId = sortByPublicationName.get(publicationName)[0].Id;
 				wtr.year = sortByPublicationName.get(publicationName)[0].Publication__r.Year_Issue_RE__c;
 				for(OpportunityLineItem opli : sortByPublicationName.get(publicationName)){
 					wtr.addProduct(opli);
@@ -358,15 +412,24 @@ public with sharing class LastFYController {
 		@AuraEnabled
 		String publicationName { get; set; }
 		@AuraEnabled
+		String productName { get; set; }
+		@AuraEnabled
 		Boolean expanded { get; set; }
 		@AuraEnabled
 		Decimal totalPrice { get; set; }
+		@AuraEnabled
+		Decimal totalQty { get; set; }
+		@AuraEnabled
+		Boolean addBatton {get;set;}
+		@AuraEnabled
+		String oppLineItemId {get;set;}
 		@AuraEnabled
 		List <WrapperProductRow> products { get; set; }
 		String year {get;set;}
 		WrapperTotalRow() {
 			this.products = new List <WrapperProductRow>();
 			this.totalPrice = 0;
+			this.totalQty = 0;
 		}
 
 		void addProduct(OpportunityLineItem opli) {
@@ -385,12 +448,14 @@ public with sharing class LastFYController {
 			row.location = opli.Location__r.Name;
 			row.numberOfSubmissions = opli.Submissions__c;
 			row.addBatton = (currentOpportunity.StageName == 'Open' || currentOpportunity.StageName == 'Qualified') &&
-				currentOpportunity.Publication_RE__r.CC_PublicationTypeCategory__c == opli.Publication__r.CC_PublicationTypeCategory__c
-				&& currentOpportunity.Pricebook2Id == opli.Opportunity.Pricebook2Id;
+					currentOpportunity.Publication_RE__r.CC_PublicationTypeCategory__c == opli.Publication__r.CC_PublicationTypeCategory__c
+//				&& currentOpportunity.Pricebook2Id == opli.Opportunity.Pricebook2Id;
+					&& (currentOpportunity.Pricebook2Id == mapProdPriceBook.get(opli.Product2Id));
 //			row.addBatton = TRUE;
 			row.oppLineItemId = opli.Id;
 			this.products.add(row);
 			this.totalPrice += opli.TotalPrice;
+			this.totalQty += opli.Quantity;
 		}
 
 		public Integer compareTo (Object compareTo) {
