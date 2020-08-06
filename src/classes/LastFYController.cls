@@ -291,12 +291,13 @@ public with sharing class LastFYController {
 			OpportunityLineItem add = original[0].clone();
 
 			if(totalPrice != null){
-				add.UnitPrice = totalPrice;
+				add.TotalPrice = totalPrice;
 			}
 			if(totalQty != null){
 				add.Quantity = totalQty;
 			}
-			add.TotalPrice = null;
+//			add.TotalPrice = null;
+			add.UnitPrice = null;
 			add.OpportunityId = (Id)currentOppId;
 			add.Related_Individual__c = null;
 			add.Practice_Area__c = null;

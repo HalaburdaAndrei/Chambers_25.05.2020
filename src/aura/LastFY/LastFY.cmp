@@ -412,7 +412,7 @@
 											<td>
 												<aura:if isTrue="{!productTotal.addBatton}">
 													<div onclick="{!c.openModel}" data-opplineitenid="{!productTotal.oppLineItemId}" data-totalqty="{!productTotal.totalQty}" data-totalprice="{!productTotal.totalPrice}">
-														<lightning:buttonIcon iconName="utility:add"  title="Add Product" ></lightning:buttonIcon>
+														<lightning:button label="ADD" title="Add Product" ></lightning:button>
 													</div>
 												</aura:if></td>
 										</tr>
@@ -437,7 +437,7 @@
 												<td title="{!product.oppLineItemId}">
 													<aura:if isTrue="{!product.addBatton}">
 														<div onclick="{!c.openModel}" data-opplineitenid="{!product.oppLineItemId}">
-															<lightning:buttonIcon iconName="utility:add"  title="Add Product" ></lightning:buttonIcon>
+															<lightning:button label="ADD" title="Add Product" ></lightning:button>
 														</div>
 													</aura:if>
 												</td>

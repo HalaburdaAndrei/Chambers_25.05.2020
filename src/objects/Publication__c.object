@@ -66,6 +66,30 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Allocated_Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>Directory_Allocated_Target__c + Insights_Allocated_Target__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Allocated Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Budget__c</fullName>
+        <externalId>false</externalId>
+        <formula>Directory_Budget__c + Insights_Budget__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
         <fullName>CC_Date_Create__c</fullName>
         <description>Date/Time that the publication record was created in CC.</description>
         <externalId>false</externalId>
@@ -106,12 +130,84 @@
         <unique>true</unique>
     </fields>
     <fields>
+        <fullName>Directory_Allocated_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Directory Allocated Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Directory_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Directory Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Directory_Management_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Directory Management Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
         <fullName>Editorial_deadline_date__c</fullName>
         <externalId>false</externalId>
         <label>Editorial deadline date</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Insights_Allocated_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Insights Allocated Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Insights_Budget__c</fullName>
+        <externalId>false</externalId>
+        <label>Insights Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Insights_Management_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Insights Management Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Management_Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>Directory_Management_Target__c + Insights_Management_Target__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Management Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
     </fields>
     <fields>
         <fullName>PreviousEdition__c</fullName>

@@ -961,11 +961,11 @@ IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),CloseDate &lt; DATE(YEAR(TODA
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Target_goals_for_Sales_Person__c</fullName>
+        <fullName>Target__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>Target goals for Sales Person</label>
-        <referenceTo>Target_goals_for_Sales_Person__c</referenceTo>
+        <label>Target</label>
+        <referenceTo>Sales_Target__c</referenceTo>
         <relationshipLabel>Opportunities</relationshipLabel>
         <relationshipName>Opportunities</relationshipName>
         <required>false</required>

@@ -1,0 +1,43 @@
+<template>
+
+    <lightning-card 
+        variant="Narrow"  
+        title="Person Sales Target" 
+        icon-name="standard:sales_value"
+        style="height: 100%;"
+    >
+        <div slot="actions">
+            <lightning-combobox
+                name="startyear"
+                label="Years"
+                value={selectedYear}
+                placeholder="Select years range"
+                options={availableYears}
+                onchange={handleSelectYear} 
+            ></lightning-combobox>
+        </div>
+        
+
+        <lightning-layout multiple-rows>
+            <template if:true={tableData}>
+                <lightning-layout-item size="12" padding="around-small">
+                    
+                    <lightning-datatable 
+                        key-field="userId"
+                        data={tableData}
+                        columns={columns}
+                        hide-checkbox-column
+                        onsave={handleSave}
+                    ></lightning-datatable>
+                </lightning-layout-item>
+            </template>
+                
+            <tamplate if:false={isReadyData}>
+                <lightning-layout-item size="12" padding="around-small">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+                </lightning-layout-item>
+            </tamplate>
+        </lightning-layout>
+    </lightning-card>
+ 
+</template>
