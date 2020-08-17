@@ -389,7 +389,14 @@
 
 									<aura:iteration items="{!totalRow.productTotals}" var="productTotal" indexVar="totalindex">
 										<tr>
-											<td></td>
+											<td>
+												<aura:if isTrue="{!productTotal.addBatton}">
+													<div onclick="{!c.openModel}" data-opplineitenid="{!productTotal.oppLineItemId}" data-totalqty="{!productTotal.totalQty}" data-totalprice="{!productTotal.totalPrice}" data-publicationid="{!productTotal.publicationId}" >
+														<lightning:button label="ADD" title="Add Product" ></lightning:button>
+													</div>
+												</aura:if>
+											</td>
+<!--											<td></td>-->
 											<td></td>
 											<td title="{!productTotal.productName}">
 												<div onclick="{!c.toggleTotal}"
@@ -408,18 +415,19 @@
 											</td>
 											<td>{!productTotal.totalQty}</td>
 											<td>{!productTotal.totalPrice}</td>
-											<td colspan="9" ></td>
-											<td>
-												<aura:if isTrue="{!productTotal.addBatton}">
-													<div onclick="{!c.openModel}" data-opplineitenid="{!productTotal.oppLineItemId}" data-totalqty="{!productTotal.totalQty}" data-totalprice="{!productTotal.totalPrice}">
-														<lightning:button label="ADD" title="Add Product" ></lightning:button>
-													</div>
-												</aura:if></td>
+											<td colspan="10" ></td>
+
 										</tr>
 									<aura:if isTrue="{!productTotal.expanded}">
 										<aura:iteration items="{!productTotal.products}" var="product">
 											<tr>
-												<td></td>
+												<td title="{!product.oppLineItemId}">
+													<aura:if isTrue="{!product.addBatton}">
+														<div onclick="{!c.openModel}" data-opplineitenid="{!product.oppLineItemId}" data-totalqty="{!product.quantity}" data-totalprice="{!product.totalPrice}" data-publicationid="{!product.publicationId}" >
+															<lightning:button label="ADD" title="Add Product" ></lightning:button>
+														</div>
+													</aura:if>
+												</td>
 <!--												<td title="{!product.publication}">{!product.publication}</td>-->
 												<td title="{!product.publication}"></td>
 												<td title="{!product.product}">{!product.product}</td>
@@ -434,13 +442,8 @@
 												<td style="max-width: 140px" title="{!product.parentAccount}"><div class="slds-truncate">{!product.parentAccount}</div></td>
 												<td style="max-width: 140px" title="{!product.location}"><div class="slds-truncate">{!product.location}</div></td>
 												<td title="{!product.numberOfSubmissions}">{!product.numberOfSubmissions}</td>
-												<td title="{!product.oppLineItemId}">
-													<aura:if isTrue="{!product.addBatton}">
-														<div onclick="{!c.openModel}" data-opplineitenid="{!product.oppLineItemId}">
-															<lightning:button label="ADD" title="Add Product" ></lightning:button>
-														</div>
-													</aura:if>
-												</td>
+												<td></td>
+
 											</tr>
 										</aura:iteration>
 									</aura:if>

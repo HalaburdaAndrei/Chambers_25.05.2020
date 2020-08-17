@@ -297,18 +297,37 @@ public with sharing class LastFYController {
 				add.Quantity = totalQty;
 			}
 //			add.TotalPrice = null;
-			add.UnitPrice = null;
-			add.OpportunityId = (Id)currentOppId;
-			add.Related_Individual__c = null;
-			add.Practice_Area__c = null;
-			add.Location__c = null;
-			add.Submissions__c = null;
-			add.Description = null;
-			add.No_of_Practice_Areas__c = null;
-			add.Qty_Books__c = null;
-			add.Publication__c = publicationProd;
-			If(pricebookEntryId != null) {
-				add.PricebookEntryId = pricebookEntryId.Id;
+			if(totalQty == 1) {
+				add.UnitPrice = null;
+				add.OpportunityId = (Id) currentOppId;
+				add.Related_Individual__c = null;
+				add.Practice_Area__c = null;
+				add.Location__c = null;
+				add.Submissions__c = null;
+				add.Description = null;
+				add.No_of_Practice_Areas__c = null;
+				add.Qty_Books__c = null;
+				add.Publication__c = publicationProd;
+				If (pricebookEntryId != null) {
+					add.PricebookEntryId = pricebookEntryId.Id;
+				}
+			}else if(totalQty > 1){
+				add.UnitPrice = null;
+				add.OpportunityId = (Id) currentOppId;
+				add.Related_Individual__c = null;
+				add.Related_Organization__c = null;
+				add.Practice_Area__c = null;
+				add.Location__c = null;
+				add.Submissions__c = null;
+				add.Description = null;
+				add.Chapter__c = null;
+				add.No_of_Practice_Areas__c = null;
+				add.Practice_Area_Text__c = null;
+				add.Qty_Books__c = null;
+				add.Publication__c = publicationProd;
+				If (pricebookEntryId != null) {
+					add.PricebookEntryId = pricebookEntryId.Id;
+				}
 			}
 			insert add;
 			System.debug(add);
@@ -427,6 +446,7 @@ public with sharing class LastFYController {
 				ProductTotal wtr = new ProductTotal();
 				wtr.productName = sortByProductName.get(publicationName)[0].Product2.Name;
 				wtr.oppLineItemId = sortByProductName.get(publicationName)[0].Id;
+				wtr.publicationId = sortByProductName.get(publicationName)[0].Publication__c;
 				wtr.expanded = FALSE;
 				wtr.addBatton = (currentOpportunity.StageName == 'Open' || currentOpportunity.StageName == 'Qualified') &&
 						currentOpportunity.Publication_RE__r.CC_PublicationTypeCategory__c == sortByProductName.get(publicationName)[0].Publication__r.CC_PublicationTypeCategory__c
@@ -472,6 +492,8 @@ public with sharing class LastFYController {
 		@AuraEnabled
 		String oppLineItemId {get;set;}
 		@AuraEnabled
+		String publicationId {get;set;}
+		@AuraEnabled
 		List <WrapperProductRow> products { get; set; }
 		@AuraEnabled
 		Decimal totalPrice { get; set; }
@@ -485,6 +507,7 @@ public with sharing class LastFYController {
 		void addProduct(OpportunityLineItem opli) {
 			WrapperProductRow row = new WrapperProductRow();
 			row.publication = opli.Publication__r.Name;
+			row.publicationId = opli.Publication__c;
 			row.oppId = opli.OpportunityId;
 			row.product = opli.Product2.Name;
 			row.quantity = opli.Quantity;
@@ -512,6 +535,8 @@ public with sharing class LastFYController {
 	public class WrapperProductRow {
 		@AuraEnabled
 		String publication { get; set; }
+		@AuraEnabled
+		String publicationId { get; set; }
 		@AuraEnabled
 		String oppId { get; set; }
 		@AuraEnabled

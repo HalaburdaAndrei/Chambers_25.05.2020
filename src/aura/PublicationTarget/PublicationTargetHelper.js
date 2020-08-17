@@ -1,24 +1,72 @@
 ({
+    datatable : function(component, event, helper){
+        component.set('v.loaded', !component.get('v.loaded'));
+        var action = component.get("c.getPublications");
+        action.setCallback(this, function (response) {
+            var state = response.getState();
+            if (state === "SUCCESS") {
+                var records = response.getReturnValue();
+                records.forEach(function(record){
+                    if(typeof record.Id != 'undefined'){
+                        record.showClass = 'graycolor';
+                    }
+                });
+                component.set('v.loaded', !component.get('v.loaded'));
+                component.set("v.data", records);
+            }
+            if(state === 'ERROR'){
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    "title": "Error!",
+                    "type": "error",
+                    "message": response.getError()
+                });
+                toastEvent.fire();
+            }
+        });
+        $A.enqueueAction(action);
+    },
+
     saveEdition: function (cmp, draftValues) {
-        var self = this;
-        console.log(self);
+
+        cmp.set('v.loaded', !cmp.get('v.loaded'));
         var action = cmp.get("c.saveTarget");
         action.setParams({pubTarget : draftValues});
         action.setCallback(this, function (response) {
            var state = response.getState();
            console.log(state);
            if(state === 'SUCCESS'){
-               var toastEvent = $A.get("e.force:showToast");
-               toastEvent.setParams({
-                   "title": "Success!",
-                   "type": "success",
-                   "message": "The publications has been saved successfully."
-               });
-               toastEvent.fire();
-               $A.get('e.force:refreshView').fire();
+               if(response.getReturnValue() == 'ok') {
+                   cmp.set('v.loaded', !cmp.get('v.loaded'));
+                   var toastEvent = $A.get("e.force:showToast");
+                   toastEvent.setParams({
+                       "title": "Success!",
+                       "type": "success",
+                       "message": "The publications has been saved successfully."
+                   });
+                   toastEvent.fire();
+                   $A.get('e.force:refreshView').fire();
+               }else{
+                   var toastEvent = $A.get("e.force:showToast");
+                   toastEvent.setParams({
+                       "title": "Error!",
+                       "type": "error",
+                       "message": response.getReturnValue()
+                   });
+                   toastEvent.fire();
+               }
                // window.location.reload()
 
            }
+            if(state === 'ERROR'){
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    "title": "Error!",
+                    "type": "error",
+                    "message": response.getError()
+                });
+                toastEvent.fire();
+            }
         });
         $A.enqueueAction(action);
     },

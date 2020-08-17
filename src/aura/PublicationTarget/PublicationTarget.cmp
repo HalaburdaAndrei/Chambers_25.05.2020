@@ -1,47 +1,58 @@
-<aura:component description="PublicationTarget" controller="PublicationTargetController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+<aura:component description="PublicationTarget" controller="PublicationTargetController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
 
-    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="data" type="Object[]"/>
     <aura:attribute name="columns" type="List"/>
     <aura:attribute name="errors" type="Object" default="[]"/>
     <aura:attribute name="draftValues" type="Object" default="[]"/>
-    <aura:attribute name="sortDirection" type="String" default="asc" />
-    <aura:attribute name="defaultSortDirection" type="String" default="asc" />
-    <aura:attribute name="sortedBy" type="String" />
+    <aura:attribute name="sortDirection" type="String" default="asc"/>
+    <aura:attribute name="defaultSortDirection" type="String" default="asc"/>
+    <aura:attribute name="sortedBy" type="String"/>
     <aura:attribute name="selectedLookUpRecords" type="sObject[]" default="[]"/>
+    <aura:attribute name="loaded" type="Boolean" default="true"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
-    <div class="slds-box slds-color__background_gray-1 slds-is-relative">
+    <!--    <div class="slds-box slds-color__background_gray-1 slds-is-relative">-->
+    <lightning:card title="Publication Target" iconName="standard:article"
+                    class="slds-p-around_medium slds-is-relative">
 
-    <div class="slds-p-around_medium">
-        <h1 class="slds-text-heading_large">Publication Target</h1>
-    </div>
-    <div class="slds-p-bottom--x-large slds-p-left--medium ">
-        <div class="slds-size_1-of-3">
-    <c:lookupPublication objectAPIName="Publication__c"
-                    IconName="standard:account"
-                         lstSelectedRecords="{!v.selectedLookUpRecords}"
-                    label="Publication Name"/>
+        <aura:if isTrue="{! !v.loaded }">
+            <lightning:spinner variant="brand" alternativeText="Loading"/>
+        </aura:if>
+
+        <div class="slds-p-bottom--medium slds-p-left_medium">
+            <div class="slds-size_1-of-4">
+                <c:lookupPublication objectAPIName="Publication__c"
+                                     IconName="standard:article"
+                                     lstSelectedRecords="{!v.selectedLookUpRecords}"
+                                     label="Publication Name"/>
+            </div>
+            <div class="slds-var-m-x-small slds-p-top--xx-small">
+                <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
+            </div>
         </div>
-        <div class="slds-var-m-x-small ">
-            <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
-        </div>
-    </div>
 
-
-    <div style="height: 200px">
-        <lightning:datatable
-                columns="{! v.columns }"
-                data="{! v.data }"
-                keyField="Id"
-                errors="{! v.errors }"
-                draftValues="{! v.draftValues }"
-                onsave="{! c.handleSaveEdition }"
-                sortedDirection="{!v.sortDirection}"
-                sortedBy="{!v.sortedBy}"
-                onsort="{!c.handleSort}"
-        />
-    </div>
-    </div>
-
+        <aura:if isTrue="{!v.data != null}">
+            <div style="height: 200px">
+                <lightning:datatable
+                        columns="{! v.columns }"
+                        data="{! v.data }"
+                        keyField="Id"
+                        errors="{! v.errors }"
+                        draftValues="{! v.draftValues }"
+                        onsave="{! c.handleSaveEdition }"
+                        sortedDirection="{!v.sortDirection}"
+                        hideCheckboxColumn="true"
+                        sortedBy="{!v.sortedBy}"
+                        onsort="{!c.handleSort}"
+                />
+            </div>
+            <aura:set attribute="else">
+                <b>There is no data on Publications.</b><br/>
+            </aura:set>
+        </aura:if>
+        <!--    </div>-->
+    </lightning:card>
 </aura:component>

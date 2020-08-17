@@ -14,7 +14,7 @@
                 </span>
             </span>
             <span class="slds-media__body">
-                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!v.oRecord.Name}</span>
+                <span class="slds-listbox__option-text slds-listbox__option-text_entity" title="{!v.oRecord.Name}">{!v.oRecord.Name}</span>
             </span>
         </span>
     </li>

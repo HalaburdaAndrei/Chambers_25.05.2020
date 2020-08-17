@@ -35,7 +35,7 @@
                     </div>
                     <!--Selected Records Pills Section-->
                     <aura:iteration items="{!v.lstSelectedRecords}" var="sr">
-                        <lightning:pill class="slds-m-around_xx-small" label="{!sr.Name}" name="{!sr.Id}" onremove="{! c.clear }">
+                        <lightning:pill class="slds-m-around_xx-small" title="{!sr.Name}" label="{!sr.Name}" name="{!sr.Id}" onremove="{! c.clear }">
                             <aura:set attribute="media">
                                 <lightning:icon iconName="{!v.IconName}" size="x-small" alternativeText="icon"/>
                             </aura:set>

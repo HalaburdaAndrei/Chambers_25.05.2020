@@ -2,9 +2,9 @@
  * It's a clacc which works with 'PersonSalesTargets' LWC
  */
 public with sharing class PersonSalesTargets_CTRL {
-  private final static Integer startFyMonth = 7; // TODO: Probably need to make it as custom settings
-  private final static Integer cuntMonths = 12; // TODO: Probably need to make it as custom settings
-  private final static String userProfileName = 'Sales Rep'; // TODO: Probably need to make it as custom settings
+  private final static Integer startFyMonth = 7; 
+  private final static Integer cuntMonths = 12;
+  private final static String userProfileName = 'Sales Rep';
   
   /**
    * Method retrive Users with related Sales_Target__c objects
@@ -33,16 +33,17 @@ public with sharing class PersonSalesTargets_CTRL {
   public static void upsertSalesTargets(List<Sales_Target__c> salesTargets){
     Schema.DescribeFieldResult F = Sales_Target__c.Id.getDescribe();
     Schema.sObjectField T = F.getSObjectField();
-
     Database.UpsertResult[] upsertResult = Database.upsert(salesTargets, T, true);
   }
 
 
   /**
-   * Helper methods
+   * Helper methods for LWC component
    */
   // get users with sales targets
   private static List<User> getUsersWithSalesTargets(Integer selectedYear){
+    Date startDate = Date.newInstance(selectedYear, startFyMonth, 1);
+    Date endDate = Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1);
     return [
       SELECT 
         Id,
@@ -53,8 +54,8 @@ public with sharing class PersonSalesTargets_CTRL {
             Date__c,  
             Target__c
           FROM Sales_Targets__r
-          WHERE Date__c >= :Date.newInstance(selectedYear, startFyMonth, 1) 
-            AND Date__c <= :Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1) 
+          WHERE CALENDAR_YEAR(Date__c) >= :startDate.year()
+            AND CALENDAR_YEAR(Date__c) <= :endDate.year()
           ORDER BY Date__c
         )
       FROM User
@@ -85,9 +86,6 @@ public with sharing class PersonSalesTargets_CTRL {
     return usersMap;
   }
 
-
-  
-
   /**
    * Helpers for developing
    */
@@ -100,7 +98,7 @@ public with sharing class PersonSalesTargets_CTRL {
       WHERE Profile.Name = 'Sales Rep'
     ];
     List<Sales_Target__c> salesTargets = new List<Sales_Target__c>();
-    List<Date> dates = generateDates(2020);
+    List<Date> dates = generateDates(2018);
     for(User u : users) {
       for (Date d : dates) {
         salesTargets.add(new Sales_Target__c(

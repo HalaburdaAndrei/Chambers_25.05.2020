@@ -109,8 +109,11 @@
 		// for Display Model,set the "isOpen" attribute to "true"
 		component.set("v.isOpen", true);
 		var opportunityProductId = event.target.dataset.opplineitenid;
+		var publicationId = event.target.dataset.publicationid;
 		var totalQty = event.target.dataset.totalqty;
 		var totalPrice = event.target.dataset.totalprice;
+		console.log(publicationId);
+		component.set("v.publicationProd", publicationId);
 		component.set("v.oppLineId", opportunityProductId);
 		component.set("v.oppTotalQty", totalQty);
 		component.set("v.oppTotalPrice", totalPrice);

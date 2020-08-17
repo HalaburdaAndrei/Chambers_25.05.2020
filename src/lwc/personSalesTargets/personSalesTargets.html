@@ -1,8 +1,7 @@
 <template>
-
     <lightning-card 
         variant="Narrow"  
-        title="Person Sales Target" 
+        title="Person Sales Targets" 
         icon-name="standard:sales_value"
         style="height: 100%;"
     >
@@ -16,7 +15,6 @@
                 onchange={handleSelectYear} 
             ></lightning-combobox>
         </div>
-        
 
         <lightning-layout multiple-rows>
             <template if:true={tableData}>
