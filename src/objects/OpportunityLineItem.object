@@ -516,11 +516,14 @@
     </fields>
     <fields>
         <fullName>Total_Price_Current_FY__c</fullName>
+        <description>Shows the opportunity for the current fiscal year.</description>
         <externalId>false</externalId>
-        <formula>IF( Opportunity.CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),
-IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())+1 ,5,1)) , TotalPrice ,
+        <formula>IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY()) ,6,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())+1 ,7,1), Opportunity.CloseDate &lt;= TODAY()), TotalPrice,
 0),
-0
+IF(TODAY() &lt; DATE(YEAR(TODAY()),7,1),
+IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY()),7,1), Opportunity.CloseDate &lt;= TODAY()), TotalPrice,
+0),0)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total Price Current FY</label>
@@ -531,12 +534,15 @@ IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),Opportunity.CloseDa
     </fields>
     <fields>
         <fullName>Total_Price_Prev_FY_TO_DATE__c</fullName>
+        <description>Shows the opportunity for the last fiscal YTD.</description>
         <externalId>false</externalId>
-        <formula>IF( Opportunity.CloseDate &lt; DATE(YEAR(TODAY()),4,30),
-IF(TODAY() &gt; DATE(YEAR(TODAY()),4,30),
-IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY())) ), TotalPrice ,0),
-IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY()),MONTH(TODAY()),DAY(TODAY())) ), TotalPrice ,0)),
-0)</formula>
+        <formula>IF(TODAY() &lt; DATE(YEAR(TODAY()) ,7,1),
+IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-2 ,6,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())-1 ,7,1), Opportunity.CloseDate &lt;= DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY()))) , TotalPrice,
+0),
+IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30), Opportunity.CloseDate &lt; DATE(YEAR(TODAY()),7,1), Opportunity.CloseDate &lt;= DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY()))) , TotalPrice,
+0),0)
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total Price Prev FY TO DATE</label>
         <precision>18</precision>
@@ -546,10 +552,14 @@ IF(AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),Opportunity.CloseDa
     </fields>
     <fields>
         <fullName>Total_Price_Prev_FY__c</fullName>
+        <description>Shows the opportunity for the last fiscal year.</description>
         <externalId>false</externalId>
-        <formula>IF( Opportunity.CloseDate  &lt; DATE(YEAR(TODAY()) ,4,30),
-IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY()) ,5,1)) ,  TotalPrice ,0),
-0
+        <formula>IF(TODAY() &lt; DATE(YEAR(TODAY()) ,7,1),
+IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-2 ,6,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY())-1 ,7,1)) , TotalPrice,
+0),
+IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF( AND(Opportunity.CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),Opportunity.CloseDate &lt; DATE(YEAR(TODAY()) ,7,1)) , TotalPrice,
+0),0)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total Price Prev FY</label>

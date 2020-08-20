@@ -1,6 +1,12 @@
 <apex:page id="RankingDataPage" showHeader="true" sidebar="false">
     <apex:includeLightning />
     <div id="lightning" />
+    <style>
+        th {
+            line-height: 1.5rem;
+            height: 49px;
+        }
+    </style>
     <script>
         console.log('Start creation...');
         try {

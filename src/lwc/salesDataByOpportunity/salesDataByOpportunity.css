@@ -1,0 +1,53 @@
+.filterBlock {
+  display: flex;
+  padding-right: 8px;
+  margin-bottom: 5px;
+  align-items: flex-end;
+}
+
+.input-term {
+  flex-grow: 1;
+  padding: 0 5px;
+  width: calc(100%);
+}
+
+.input-link {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+.slds-scope .slds-input-has-icon_right .slds-input{
+  padding-right: 0 !important;
+}
+.arrow-up:after {
+  content: "";
+  transform: rotate(45deg);
+  margin-left: 5px;
+  width: 9px;
+  height: 9px;
+  border-top: 1.5px solid #706e6b;
+  border-left: 1.5px solid #706e6b;
+}
+
+.arrow-down:after {
+  content: "";
+  transform: rotate(45deg);
+  margin-left: 5px;
+  width: 9px;
+  height: 9px;
+  border-bottom: 1.5px solid #706e6b;
+  border-right: 1.5px solid #706e6b;
+}
+
+.padding-none{
+  padding: 0 !important;
+}
+
+.toast-container{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+}

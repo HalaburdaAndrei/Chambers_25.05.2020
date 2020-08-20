@@ -140,11 +140,14 @@
     </fields>
     <fields>
         <fullName>Amount_Current_FY__c</fullName>
+        <description>Shows the opportunity for the current fiscal year.</description>
         <externalId>false</externalId>
-        <formula>IF(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),
-IF(AND(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),CloseDate &lt; DATE(YEAR(TODAY())+1 ,5,1)), Amount,
+        <formula>IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF(AND(CloseDate &gt; DATE(YEAR(TODAY()) ,6,30),CloseDate &lt; DATE(YEAR(TODAY())+1 ,7,1), CloseDate &lt;= TODAY()), Amount,
 0),
-0
+IF(TODAY() &lt; DATE(YEAR(TODAY()),7,1),
+IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODAY()),7,1), CloseDate &lt;= TODAY()), Amount,
+0),0)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Amount Current FY</label>
@@ -156,12 +159,15 @@ IF(AND(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),CloseDate &lt; DATE(YEAR(TODAY()
     </fields>
     <fields>
         <fullName>Amount_Prev_FY_TO_DATE__c</fullName>
+        <description>Shows the opportunity for the last fiscal YTD.</description>
         <externalId>false</externalId>
-        <formula>IF( CloseDate &lt; DATE(YEAR(TODAY()),5,1),
-IF(TODAY() &gt; DATE(YEAR(TODAY()),4,30),
-IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),CloseDate &lt; DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY())) ), Amount ,0),
-IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),CloseDate &lt; DATE(YEAR(TODAY()),MONTH(TODAY()),DAY(TODAY())) ), Amount ,0)),
-0)</formula>
+        <formula>IF(TODAY() &lt; DATE(YEAR(TODAY()) ,7,1),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-2 ,6,30),CloseDate &lt; DATE(YEAR(TODAY())-1 ,7,1), CloseDate &lt;= DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY()))) , Amount,
+0),
+IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30), CloseDate &lt; DATE(YEAR(TODAY()),7,1), CloseDate &lt;= DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY()))) , Amount,
+0),0)
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Amount Prev FY TO DATE</label>
         <precision>18</precision>
@@ -172,11 +178,14 @@ IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),CloseDate &lt; DATE(YEAR(TODAY(
     </fields>
     <fields>
         <fullName>Amount_Prev_FY__c</fullName>
+        <description>Shows the opportunity for the last fiscal year.</description>
         <externalId>false</externalId>
-        <formula>IF(CloseDate &lt; DATE(YEAR(TODAY()) ,4,30),
-IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),CloseDate &lt; DATE(YEAR(TODAY()) ,5,1)) , Amount,
+        <formula>IF(TODAY() &lt; DATE(YEAR(TODAY()) ,7,1),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-2 ,6,30),CloseDate &lt; DATE(YEAR(TODAY())-1 ,7,1)) , Amount,
 0),
-0
+IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODAY()) ,7,1)) , Amount,
+0),0)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Amount Prev FY</label>
@@ -534,14 +543,14 @@ IF( AND( CloseDate &lt; DATE(YEAR(TODAY()) ,5,1), CloseDate &gt; DATE(YEAR(TODAY
         <externalId>false</externalId>
         <formula>(
 CloseDate -
-DATE(YEAR(CloseDate) - IF(MONTH(CloseDate) &lt; 5, 1, 0), 05, 01)
+DATE(YEAR(CloseDate) - IF(MONTH(CloseDate) &lt; 7, 1, 0), 07, 01)
 )
 
 &lt;=
 
 (
 TODAY() - 
-DATE(YEAR(TODAY()) - IF(MONTH(TODAY()) &lt; 5, 1, 0), 05, 01)
+DATE(YEAR(TODAY()) - IF(MONTH(TODAY()) &lt; 7, 1, 0), 07, 01)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>FYTD</label>
@@ -675,6 +684,17 @@ DATE(YEAR(TODAY()) - IF(MONTH(TODAY()) &lt; 5, 1, 0), 05, 01)
         </valueSet>
     </fields>
     <fields>
+        <fullName>MTD__c</fullName>
+        <description>Shows the current fiscal MTD and the last fiscal MTD.</description>
+        <externalId>false</externalId>
+        <formula>(IF( MONTH(CloseDate) = MONTH(Today()), IF(DAY(CloseDate) &lt;= DAY(TODAY()), True, False), False))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Shows the current fiscal MTD and the last fiscal MTD.</inlineHelpText>
+        <label>MTD</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Name</fullName>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
@@ -796,9 +816,10 @@ DATE(YEAR(TODAY()) - IF(MONTH(TODAY()) &lt; 5, 1, 0), 05, 01)
     </fields>
     <fields>
         <fullName>QTD__c</fullName>
+        <description>Shows the current fiscal QTD and the last fiscal QTD.</description>
         <externalId>false</externalId>
         <formula>AND(
-CEILING( MONTH (CloseDate ) / 3 ) = CEILING( MONTH (TODAY()) / 3 ),
+CEILING( MONTH (CloseDate )/ 3 ) = CEILING( MONTH (TODAY()) / 3 ),
 OR(
 AND(
 YEAR(TODAY()) = YEAR(CloseDate),
@@ -807,10 +828,47 @@ CloseDate &lt;= TODAY()
 AND(
 YEAR(TODAY()) = YEAR(CloseDate)+1,
 CloseDate &lt;= DATE(YEAR(TODAY())-1, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+2,
+CloseDate &lt;= DATE(YEAR(TODAY())-2, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+3,
+CloseDate &lt;= DATE(YEAR(TODAY())-3, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+4,
+CloseDate &lt;= DATE(YEAR(TODAY())-4, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+5,
+CloseDate &lt;= DATE(YEAR(TODAY())-5, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+6,
+CloseDate &lt;= DATE(YEAR(TODAY())-6, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+7,
+CloseDate &lt;= DATE(YEAR(TODAY())-7, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+8,
+CloseDate &lt;= DATE(YEAR(TODAY())-8, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+9,
+CloseDate &lt;= DATE(YEAR(TODAY())-9, MONTH(TODAY()),DAY(TODAY()))
+),
+AND(
+YEAR(TODAY()) = YEAR(CloseDate)+10,
+CloseDate &lt;= DATE(YEAR(TODAY())-10, MONTH(TODAY()),DAY(TODAY()))
 )
 )
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Shows the current fiscal QTD and the last fiscal QTD.</inlineHelpText>
         <label>QTD</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -818,10 +876,12 @@ CloseDate &lt;= DATE(YEAR(TODAY())-1, MONTH(TODAY()),DAY(TODAY()))
     <fields>
         <fullName>Quantity_Current_FY__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),
-IF(AND(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),CloseDate &lt; DATE(YEAR(TODAY())+1 ,5,1)) ,  TotalOpportunityQuantity ,
+        <formula>IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF(AND(CloseDate &gt; DATE(YEAR(TODAY()) ,6,30),CloseDate &lt; DATE(YEAR(TODAY())+1 ,7,1), CloseDate &lt;= TODAY()), TotalOpportunityQuantity,
 0),
-0
+IF(TODAY() &lt; DATE(YEAR(TODAY()),7,1),
+IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODAY()),7,1), CloseDate &lt;= TODAY()), TotalOpportunityQuantity,
+0),0)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Quantity Current FY</label>
@@ -835,11 +895,13 @@ IF(AND(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),CloseDate &lt; DATE(YEAR(TODAY()
     <fields>
         <fullName>Quantity_Prev_FY_TO_DATE__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( CloseDate &lt; DATE(YEAR(TODAY()),4,30),
-IF(TODAY() &gt; DATE(YEAR(TODAY()),4,30),
-IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),CloseDate &lt; DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY())) ), TotalOpportunityQuantity ,0),
-IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),CloseDate &lt; DATE(YEAR(TODAY()),MONTH(TODAY()),DAY(TODAY())) ), TotalOpportunityQuantity ,0)),
-0)</formula>
+        <formula>IF(TODAY() &lt; DATE(YEAR(TODAY()) ,7,1),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-2 ,6,30),CloseDate &lt; DATE(YEAR(TODAY())-1 ,7,1), CloseDate &lt;= DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY()))) , TotalOpportunityQuantity,
+0),
+IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30), CloseDate &lt; DATE(YEAR(TODAY()),7,1), CloseDate &lt;= DATE(YEAR(TODAY())-1,MONTH(TODAY()),DAY(TODAY()))) , TotalOpportunityQuantity,
+0),0)
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Quantity Prev FY TO DATE</label>
         <precision>18</precision>
@@ -852,10 +914,12 @@ IF(AND(CloseDate &gt; DATE(YEAR(TODAY())-1,4,30),CloseDate &lt; DATE(YEAR(TODAY(
     <fields>
         <fullName>Quantity_Prev_FY__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(CloseDate &lt; DATE(YEAR(TODAY()) ,4,30),
-IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),CloseDate &lt; DATE(YEAR(TODAY()) ,5,1)) ,  TotalOpportunityQuantity ,
+        <formula>IF(TODAY() &lt; DATE(YEAR(TODAY()) ,7,1),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-2 ,6,30),CloseDate &lt; DATE(YEAR(TODAY())-1 ,7,1)) , TotalOpportunityQuantity,
 0),
-0
+IF(TODAY() &gt; DATE(YEAR(TODAY()) ,6,30),
+IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODAY()) ,7,1)) , TotalOpportunityQuantity,
+0),0)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Quantity Prev FY</label>
@@ -1008,9 +1072,11 @@ IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),CloseDate &lt; DATE(YEAR(TODA
     </fields>
     <fields>
         <fullName>YTD__c</fullName>
+        <description>Shows the current fiscal YTD and the last fiscal YTD.</description>
         <externalId>false</externalId>
         <formula>IF(AND((YEAR( CloseDate ) = (YEAR(TODAY()) - 1)), (CloseDate &lt;= (TODAY() - 365))), TRUE, IF((YEAR(CloseDate) = YEAR(Today())),TRUE,FALSE))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Shows the current fiscal YTD and the last fiscal YTD.</inlineHelpText>
         <label>YTD</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -1238,6 +1304,12 @@ IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,4,30),CloseDate &lt; DATE(YEAR(TODA
     </listViews>
     <listViews>
         <fullName>Won</fullName>
+        <columns>OPPORTUNITY.NAME</columns>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>OPPORTUNITY.AMOUNT</columns>
+        <columns>OPPORTUNITY.CLOSE_DATE</columns>
+        <columns>OPPORTUNITY.STAGE_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>OPPORTUNITY.WON</field>

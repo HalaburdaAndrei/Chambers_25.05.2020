@@ -89,7 +89,7 @@ public with sharing class PersonSalesTargets_CTRL {
   /**
    * Helpers for developing
    */
-  public static void generateData(){
+  public static void generateData(Integer countMonths, Date startDate){
     List<User> users = [
       SELECT 
         Id, 
@@ -98,13 +98,12 @@ public with sharing class PersonSalesTargets_CTRL {
       WHERE Profile.Name = 'Sales Rep'
     ];
     List<Sales_Target__c> salesTargets = new List<Sales_Target__c>();
-    List<Date> dates = generateDates(2018);
     for(User u : users) {
-      for (Date d : dates) {
+      for(Integer i = 1; i <= countMonths; i++){
         salesTargets.add(new Sales_Target__c(
           Sales_Person__c = u.Id,
           Target__c = Integer.valueof((Math.random() * 10000)),
-          Date__c = d
+          Date__c = startDate.addMonths(i)
         ));
       }
     }

@@ -1,0 +1,205 @@
+<template>
+    <lightning-card  variant="Narrow"  title={titleForYear} class="componentCard">
+        <!-- Sort fields -->
+        <div class="filterBlock">
+            <div class="input-term" style="min-width: 240px;max-width: 240px;">
+                <a class="input-link" data-value="publicationName" onclick={sortHandler}>Publication</a>
+                <lightning-input
+                    variant="label-hidden"
+                    type="text" 
+                    value={searchTerms.catalogName.value}
+                    name="catalogName"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term" style="min-width: 80px;max-width: 80px;"></div>
+            <div class="input-term" style="min-width: 200px;max-width: 200px;">
+                <a class="input-link" data-value="productName" onclick={sortHandler}>Product</a>
+                <lightning-input
+                    type="text" 
+                    variant="label-hidden"
+                    value={searchTerms.productName.value}
+                    name="productName"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term" style="min-width: 80px;max-width: 80px;">
+                <a class="input-link" data-value="quantity" onclick={sortHandler}>Qty</a>
+                <lightning-input
+                    type="number" 
+                    variant="label-hidden"
+                    value={searchTerms.quantity.value}
+                    name="quantity"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="totalPrice" onclick={sortHandler}>Total Price</a>
+                <lightning-input
+                    type="number" 
+                    value={searchTerms.totalPrice.value}
+                    variant="label-hidden"
+                    name="totalPrice"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="signer" onclick={sortHandler}>Signer</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.signer.value}
+                    variant="label-hidden"
+                    name="signer"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="closeDate" onclick={sortHandler}>Close Date</a>
+                <lightning-input
+                    class="input-term date-input"
+                    type="date" 
+                    value={searchTerms.closeDate.value}
+                    variant="label-hidden"
+                    name="closeDate"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="salesPerson" onclick={sortHandler}>Sales Person</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.salesPerson.value}
+                    variant="label-hidden"
+                    name="salesPerson"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="opportunityId" onclick={sortHandler}>Opp id</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.opportunityId.value}
+                    variant="label-hidden"
+                    name="opportunityId"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="relatedOrg" onclick={sortHandler}>Related Org</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.relatedOrg.value}
+                    variant="label-hidden"
+                    name="relatedOrg"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="chapter" onclick={sortHandler}>Chapter</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.chapter.value}
+                    variant="label-hidden"
+                    name="chapter"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="parentAccount" onclick={sortHandler}>Parent account</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.parentAccount.value}
+                    variant="label-hidden"
+                    name="parentAccount"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="location" onclick={sortHandler}>Location</a>
+                <lightning-input
+                    type="text" 
+                    value={searchTerms.location.value}
+                    variant="label-hidden"
+                    name="location"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+            <div class="input-term">
+                <a class="input-link" data-value="numberOfSubmissions" onclick={sortHandler}>No of submissions</a>
+                <lightning-input
+                    type="number" 
+                    value={searchTerms.numberOfSubmissions.value}
+                    variant="label-hidden"
+                    name="numberOfSubmissions"
+                    onchange={handleSearchTermsChange}
+                ></lightning-input>
+            </div>
+        </div>
+        <!-- Tree Grid -->
+        <template if:true={isData}>
+            <lightning-tree-grid
+                class="treeGridCmp"
+                columns={gridColumns}
+                data={gridData}
+                key-field="keyField"
+                onrowaction = {handleRowAction}
+                hide-checkbox-column
+            ></lightning-tree-grid>
+        </template>
+        <!-- Message when no data -->
+        <template if:false={isData}>
+            There is no data to display.
+        </template>
+        <!-- Spinner -->
+        <template if:false={isReady}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </template>
+        <!-- Modal to add new Opportunity Product -->
+        <template if:true={isShowModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Add product</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="min-height: 200px;">
+                        <lightning-record-edit-form object-api-name="OpportunityLineItem">
+                            <lightning-input-field 
+                                field-name="Publication__c" 
+                                onchange={handleChangePublication}
+                                value={publicationId}
+                            ></lightning-input-field>
+                        </lightning-record-edit-form>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button 
+                            label="Cancel" 
+                            title="cancel" 
+                            onclick={toggelModal}
+                        ></lightning-button>
+                        <lightning-button
+                            style="margin: 0 5px;"
+                            variant="brand" 
+                            label="Add product" 
+                            title="add product" 
+                            onclick={handleAddProduct}
+                        ></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <!-- Custom toast -->
+        <template if:true={toast.isShow}>
+            <div class="toast-container">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class={toast.type} role="status">
+                        <lightning-formatted-text value={toast.message} ></lightning-formatted-text>
+                        <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" onclick={handleCloseToast}>
+                            <lightning-icon icon-name="utility:close" variant="inverse" alternative-text="Close" title="Close" size="x-small" ></lightning-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+</template>

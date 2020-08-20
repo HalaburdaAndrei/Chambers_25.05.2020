@@ -49,7 +49,7 @@ export default class PersonSalesTargets extends LightningElement {
     for (let userId in salesTargets) {
       let tableRow = {}
       tableRow.userName = salesTargets[userId].userName
-      tableRow.cellBorderCssClass = 'slds-border_right'
+      tableRow.cellBorderCssClass = 'slds-cell-edit  slds-border_right'
       dates.forEach(date => {
         tableRow.userId = userId
         tableRow[date] = salesTargets[userId][date] ? salesTargets[userId][date].Target__c : null

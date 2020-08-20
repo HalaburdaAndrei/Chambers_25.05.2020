@@ -1,5 +1,6 @@
 <aura:component description="CurrentFY" implements="force:hasRecordId,flexipage:availableForRecordHome" controller="CurrentFYController">
 	<aura:attribute name="record" type="Opportunity"/>
+    <aura:attribute name="currYear" type="Boolean" />
 
 	<aura:attribute name="res" type="List" default="[]"/>
 	<aura:attribute name="sortByField" type="String" default="" description="Determines which field is sorted"/>

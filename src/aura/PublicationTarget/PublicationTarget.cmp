@@ -22,14 +22,14 @@
             <lightning:spinner variant="brand" alternativeText="Loading"/>
         </aura:if>
 
-        <div class="slds-p-bottom--medium slds-p-left_medium">
-            <div class="slds-size_1-of-4">
+        <div class="slds-p-bottom--medium slds-p-left_medium" style="display: flex; align-items: flex-end;">
+            <div>
                 <c:lookupPublication objectAPIName="Publication__c"
                                      IconName="standard:article"
                                      lstSelectedRecords="{!v.selectedLookUpRecords}"
                                      label="Publication Name"/>
             </div>
-            <div class="slds-var-m-x-small slds-p-top--xx-small">
+            <div class="slds-m-left_small slds-m-bottom_xx-small">
                 <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
             </div>
         </div>

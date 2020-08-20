@@ -1,4 +1,4 @@
-public class lookUpPublicationController {
+public with sharing class lookUpPublicationController {
     @AuraEnabled
     public static List < sObject > fetchLookUpValues(String searchKeyWord, String ObjectName, List<sObject> ExcludeitemsList) {
         String searchKey = '%' + searchKeyWord + '%';

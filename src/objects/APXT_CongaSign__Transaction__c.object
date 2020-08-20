@@ -51,6 +51,7 @@
         <fields>Name</fields>
         <fields>APXT_CongaSign__Status__c</fields>
         <fields>APXT_CongaSign__WritebackStatus__c</fields>
+        <fields>APXT_CongaSign__BusinessUnit__c</fields>
         <fields>APXT_CongaSign__RequestedOn__c</fields>
         <fields>APXT_CongaSign__CompletedOn__c</fields>
         <label>Transaction Compact Layout</label>
@@ -67,6 +68,18 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>APXT_CongaSign__BusinessUnit__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Business Unit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <fields>
         <fullName>APXT_CongaSign__CompletedOn__c</fullName>
         <deprecated>false</deprecated>

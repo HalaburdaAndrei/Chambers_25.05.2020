@@ -5,7 +5,10 @@ public with sharing class CurrentFYController {
 		try {
 			Map<String, Object> result = new Map<String, Object>();
 			String HOAccount = [
-				SELECT Id, AccountId, Account.Related_HO_Account__c
+				SELECT 
+					Id, 
+					AccountId, 
+					Account.Related_HO_Account__c
 				FROM Opportunity
 				WHERE Id = :opportunityId
 			].Account.Related_HO_Account__c;
@@ -15,12 +18,28 @@ public with sharing class CurrentFYController {
 
 			result.put('HOAccount', HOAccount);
 			List<OpportunityLineItem> allProduct = [
-				SELECT Id, Publication__r.CC_PublicationTypeCategory__c, Publication__r.Publication_Type__c, Publication__r.Name, OpportunityId, Product2.Name, Quantity,
-					TotalPrice, Opportunity.Owner.Name, Opportunity.Signer_text__c, Opportunity.CloseDate, Related_Organization__r.Name, Chapter__r.Name,
-					Opportunity.Account.Name, Location__r.Name, Submissions__c, Publication__r.Year_Issue_RE__c, Opportunity.Account.Related_HO_Account__c
+				SELECT 
+					Id, 
+					Publication__r.CC_PublicationTypeCategory__c, 
+					Publication__r.Publication_Type__c, 
+					Publication__r.Name, 
+					OpportunityId, 
+					Product2.Name, 
+					Quantity,
+					TotalPrice, 
+					Opportunity.Owner.Name, 
+					Opportunity.Signer_text__c, 
+					Opportunity.CloseDate, 
+					Related_Organization__r.Name, 
+					Chapter__r.Name,
+					Opportunity.Account.Name, 
+					Location__r.Name, 
+					Submissions__c, 
+					Publication__r.Year_Issue_RE__c, 
+					Opportunity.Account.Related_HO_Account__c
 				FROM OpportunityLineItem
-				WHERE Opportunity.Account.Related_HO_Account__c LIKE :HOAccountId AND
-					Opportunity.StageName = 'Closed Won'
+				WHERE Opportunity.Account.Related_HO_Account__c LIKE :HOAccountId 
+					AND	Opportunity.StageName = 'Closed Won'
 					AND Opportunity.Current_FY__c = TRUE
 			];
 
@@ -151,12 +170,11 @@ public with sharing class CurrentFYController {
 	}
 
 	private static List<PublicationTypeCategoryWrapper> prepareTable (List<OpportunityLineItem> allProducts){
-		System.debug(allProducts);
-
-		Map<String, List<OpportunityLineItem>> sortByPublicationTypeCategory = new Map<String, List<OpportunityLineItem>>();
-
-		System.debug(sortByPublicationTypeCategory);
-
+		// Result Table
+		List<PublicationTypeCategoryWrapper> table = new List<PublicationTypeCategoryWrapper>();
+		// Map of List of Opportunity Products GROUPED BY Publication Type Category Name
+		Map<String, List<OpportunityLineItem>> sortByPublicationTypeCategory = 
+			new Map<String, List<OpportunityLineItem>>();
 		for (OpportunityLineItem prod : allProducts) {
 			if (sortByPublicationTypeCategory.containsKey(prod.Publication__r.CC_PublicationTypeCategory__c)) {
 				sortByPublicationTypeCategory.get(prod.Publication__r.CC_PublicationTypeCategory__c).add(prod);
@@ -168,10 +186,8 @@ public with sharing class CurrentFYController {
 		}
 
 
-		Map<String, PublicationTypeCategoryWrapper> unsortedTable= new Map<String, CurrentFYController.PublicationTypeCategoryWrapper>();
-
-		List<PublicationTypeCategoryWrapper> table = new List<PublicationTypeCategoryWrapper>();
-
+		Map<String, PublicationTypeCategoryWrapper> unsortedTable = 
+			new Map<String, PublicationTypeCategoryWrapper>();
 		for (String publicationTypeCategory : sortByPublicationTypeCategory.keySet()) {
 			PublicationTypeCategoryWrapper line = new PublicationTypeCategoryWrapper();
 			line.publicationTypeCategory = publicationTypeCategory;
@@ -225,11 +241,11 @@ public with sharing class CurrentFYController {
 
 	public class PublicationTypeCategoryWrapper {
 		@AuraEnabled
-		String publicationTypeCategory {get;set;}
+			String publicationTypeCategory {get;set;}
 		@AuraEnabled
-		List<PublicationTypeWrapper> publicationTypes {get;set;}
+			List<PublicationTypeWrapper> publicationTypes {get;set;}
 		@AuraEnabled
-		Boolean expanded {get;set;}
+			Boolean expanded {get;set;}
 		PublicationTypeCategoryWrapper(){
 			this.expanded = FALSE;
 		}
@@ -237,11 +253,11 @@ public with sharing class CurrentFYController {
 
 	public class PublicationTypeWrapper implements Comparable{
 		@AuraEnabled
-		String publicationType {get;set;}
+			String publicationType {get;set;}
 		@AuraEnabled
-		List<WrapperTotalRow> totalRows {get;set;}
+			List<WrapperTotalRow> totalRows {get;set;}
 		@AuraEnabled
-		Boolean expanded {get;set;}
+			Boolean expanded {get;set;}
 		PublicationTypeWrapper(){
 			this.expanded = FALSE;
 		}
@@ -284,13 +300,13 @@ public with sharing class CurrentFYController {
 
 	public class WrapperTotalRow implements Comparable {
 		@AuraEnabled
-		String publicationName { get; set; }
+			String publicationName { get; set; }
 		@AuraEnabled
-		Boolean expanded { get; set; }
+			Boolean expanded { get; set; }
 		@AuraEnabled
-		Decimal totalPrice { get; set; }
+			Decimal totalPrice { get; set; }
 		@AuraEnabled
-		List <WrapperProductRow> products { get; set; }
+			List <WrapperProductRow> products { get; set; }
 		String year {get;set;}
 		WrapperTotalRow() {
 			this.products = new List <WrapperProductRow>();
@@ -335,30 +351,30 @@ public with sharing class CurrentFYController {
 
 	public class WrapperProductRow {
 		@AuraEnabled
-		String publication { get; set; }
+			String publication { get; set; }
 		@AuraEnabled
-		String oppId { get; set; }
+			String oppId { get; set; }
 		@AuraEnabled
-		String product { get; set; }
+			String product { get; set; }
 		@AuraEnabled
-		Decimal quantity { get; set; }
+			Decimal quantity { get; set; }
 		@AuraEnabled
-		Decimal totalPrice { get; set; }
+			Decimal totalPrice { get; set; }
 		@AuraEnabled
-		String salesPerson { get; set; }
+			String salesPerson { get; set; }
 		@AuraEnabled
-		String signer { get; set; }
+			String signer { get; set; }
 		@AuraEnabled
-		Date closeDate { get; set; }
+			Date closeDate { get; set; }
 		@AuraEnabled
-		String relatedOrganization { get; set; }
+			String relatedOrganization { get; set; }
 		@AuraEnabled
-		String chapter { get; set; }
+			String chapter { get; set; }
 		@AuraEnabled
-		String parentAccount { get; set; }
+			String parentAccount { get; set; }
 		@AuraEnabled
-		String location { get; set; }
+			String location { get; set; }
 		@AuraEnabled
-		Decimal numberOfSubmissions { get; set; }
+			Decimal numberOfSubmissions { get; set; }
 	}
 }

@@ -1,7 +1,9 @@
 ({
 	init: function (cmp) {
 		var action = cmp.get('c.getOpportunities');
-		action.setParams({ 'opportunityId' : cmp.get('v.recordId')});
+		action.setParams({
+			'opportunityId' : cmp.get('v.recordId')
+		});
 		action.setCallback(this, function (response) {
 			if(cmp.isValid() && response.getState() == 'SUCCESS' && response.getReturnValue().status == 'success'){
 				cmp.set('v.res', response.getReturnValue().table);

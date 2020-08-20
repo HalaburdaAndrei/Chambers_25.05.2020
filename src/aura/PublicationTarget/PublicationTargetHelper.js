@@ -27,7 +27,7 @@
         $A.enqueueAction(action);
     },
 
-    saveEdition: function (cmp, draftValues) {
+    saveEdition: function (cmp, event, draftValues) {
 
         cmp.set('v.loaded', !cmp.get('v.loaded'));
         var action = cmp.get("c.saveTarget");
@@ -45,7 +45,10 @@
                        "message": "The publications has been saved successfully."
                    });
                    toastEvent.fire();
-                   $A.get('e.force:refreshView').fire();
+                   cmp.set('v.errors', []);
+                   cmp.set('v.draftValues', []);
+                   this.datatable(cmp);
+                   // $A.get('e.force:refreshView').fire();
                }else{
                    var toastEvent = $A.get("e.force:showToast");
                    toastEvent.setParams({
