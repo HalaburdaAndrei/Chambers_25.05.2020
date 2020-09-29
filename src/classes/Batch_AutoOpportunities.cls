@@ -1,8 +1,6 @@
 global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Database.Stateful {
 
     private Integer step;
-    Exception[] errors = new Exception[0];
-    global Map<Id, Exception> errorMap { get; set; }
     global Map<String, List<String>> errorMaps = new Map<String, List<String>>();
     global Map<String, Map<Id, Set<Id>>> step1AcctIds = new Map<String, Map<Id, Set<Id>>>();
     global Map<String, Map<Id, Map<Id, Map<String, Integer>>>> step1AcctRankingCount = new Map<String, Map<Id, Map<Id, Map<String, Integer>>>>();
@@ -32,13 +30,12 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
 
     global Batch_AutoOpportunities() {
         this.step = 1;
-           for (Pricebook2 pb : [SELECT Id, Name FROM Pricebook2]) {
+        for (Pricebook2 pb : [SELECT Id, Name FROM Pricebook2]) {
             String type = guideBooks.get(pb.Name);
             if (type != null) priceBooks.put(type, pb.Id);
         }
 
         thisDate = Date.today();
-        system.debug(thisDate);
     }
 
     global Batch_AutoOpportunities(Date myDate) {
@@ -53,7 +50,6 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
         } else {
             thisDate = Date.today();
         }
-        system.debug(thisDate);
     }
 
     global Batch_AutoOpportunities(Integer step,
@@ -82,7 +78,6 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
 
         thisDate = Date.today();
 
-        system.debug(thisDate);
     }
 
 
@@ -91,54 +86,52 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
         return Database.getQueryLocator(query);
     }
 
-    //SELECT Id, EligibleProducts_RE__c, AccountId, Account_Location__c, (SELECT Id FROM OpportunityLineItems) FROM Opportunity
     global void execute(Database.BatchableContext BC, List<Publication__c> scope) {
-        System.debug('scope >>>>> ' + scope);
-        System.debug('scope >>>>> ' + scope[0].Id);
+
         String publicationIdStep1;
         String publicationIdStep2;
-            // LIST OF Opptys TO CREATE
-            List<Opportunity> newOpps = new List<Opportunity>();
+        // LIST OF Opptys TO CREATE
+        List<Opportunity> newOpps = new List<Opportunity>();
 
-            // LIST OF PUBLICATION IDS
-            // Set<Id> pubIds = new Set<Id>();
-            Set<Id> prevPubIds = new Set<Id>();
-            Set<Id> curPubIds = new Set<Id>();
-            Set<Id> allPubIds = new Set<Id>();
-            Set<Id> carPubIds = new Set<Id>();
+        // LIST OF PUBLICATION IDS
+        // Set<Id> pubIds = new Set<Id>();
+        Set<Id> prevPubIds = new Set<Id>();
+        Set<Id> curPubIds = new Set<Id>();
+        Set<Id> allPubIds = new Set<Id>();
+        Set<Id> carPubIds = new Set<Id>();
 
-            // MAP OF PREV PUB IDS TO CURRENT PUB ID
-            Map<Id, String> pubMap = new Map<Id, String>();
-            Map<Id, Id> prevPubMap = new Map<Id, Id>();
+        // MAP OF PREV PUB IDS TO CURRENT PUB ID
+        Map<Id, String> pubMap = new Map<Id, String>();
+        Map<Id, Id> prevPubMap = new Map<Id, Id>();
 
-            // MAP OF PUBLICATION NAMES
-            Map<Id, String> pubNames = new Map<Id, String>();
-            Map<Id, String> pubCats = new Map<Id, String>();
-            Map<Id, Boolean> pubStart = new Map<Id, Boolean>();
-            Map<Id, Date> pubStartDates = new Map<Id, Date>();
+        // MAP OF PUBLICATION NAMES
+        Map<Id, String> pubNames = new Map<Id, String>();
+        Map<Id, String> pubCats = new Map<Id, String>();
+        Map<Id, Boolean> pubStart = new Map<Id, Boolean>();
+        Map<Id, Date> pubStartDates = new Map<Id, Date>();
 
-            for (Publication__c s : scope) {
+        for (Publication__c s : scope) {
 
-                if (s.CC_PublicationTypeCategory__c == 'Career Guides')
-                    carPubIds.add(s.PreviousEdition__c);
-                allPubIds.add(s.Id);
-                curPubIds.add(s.Id);
-                Boolean start = (s.SalesStartDate_RE__c == thisDate);
-                if (s.PreviousEdition__c != null) {
-                    if (!prevPubIds.contains(s.PreviousEdition__c)) {
-                        prevPubIds.add(s.PreviousEdition__c);
-                        prevPubMap.put(s.PreviousEdition__c, s.Id);
-                    }
-                    if (!allPubIds.contains(s.PreviousEdition__c)) {
-                        allPubIds.add(s.PreviousEdition__c);
-                    }
+            if (s.CC_PublicationTypeCategory__c == 'Career Guides')
+                carPubIds.add(s.PreviousEdition__c);
+            allPubIds.add(s.Id);
+            curPubIds.add(s.Id);
+            Boolean start = (s.SalesStartDate_RE__c == thisDate);
+            if (s.PreviousEdition__c != null) {
+                if (!prevPubIds.contains(s.PreviousEdition__c)) {
+                    prevPubIds.add(s.PreviousEdition__c);
+                    prevPubMap.put(s.PreviousEdition__c, s.Id);
                 }
-                String pubCat = s.CC_PublicationTypeCategory__c == 'Professional Adviser Guides' ? 'Ranking Guides' : s.CC_PublicationTypeCategory__c;
-                pubCats.put(s.Id, pubCat);
-                pubNames.put(s.Id, s.Name);
-                pubStart.put(s.Id, start);
-                pubStartDates.put(s.Id, s.SalesStartDate_RE__c);
+                if (!allPubIds.contains(s.PreviousEdition__c)) {
+                    allPubIds.add(s.PreviousEdition__c);
+                }
             }
+            String pubCat = s.CC_PublicationTypeCategory__c == 'Professional Adviser Guides' ? 'Ranking Guides' : s.CC_PublicationTypeCategory__c;
+            pubCats.put(s.Id, pubCat);
+            pubNames.put(s.Id, s.Name);
+            pubStart.put(s.Id, start);
+            pubStartDates.put(s.Id, s.SalesStartDate_RE__c);
+        }
         try {
 
             if (step == 1) {
@@ -156,8 +149,6 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                 Map<Id, Map<Id, Set<String>>> practiceAreas = new Map<Id, Map<Id, Set<String>>>();
                 Map<Id, Map<Id, Datetime>> latestRankingDates = new Map<Id, Map<Id, Datetime>>();
 
-                System.debug('getLimitQueryRows - ' + Limits.getLimitQueryRows());
-                System.debug('getQueryRows' + Limits.getQueryRows());
                 for (Publication__c pub : [
                         SELECT Id, (SELECT Publication_RE__c, Account_RE__c, RecordType.Name, Practice_Area_RE__c, CreatedDate FROM Rankings__r), (SELECT Organization_RE__c, Publication__c FROM Submissions__r), (SELECT Id, Opportunity.Id, Related_Organization__c, Publication__r.CC_PublicationTypeCategory__c, Publication__c, Opportunity.StageName, Opportunity.Type, Opportunity.AccountId, Product2.Product_Category__c, Opportunity.CloseDate, Practice_Area__r.Name FROM Opportunity_Product__r WHERE Opportunity.StageName = 'Closed Won')
                         FROM Publication__c
@@ -214,12 +205,7 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                             if (prevAcctOppLinesByPub.get(thisAcctId) == null) prevAcctOppLinesByPub.put(thisAcctId, new Map<Id, Set<OpportunityLineItem>>());
                             if (prevAcctOppLinesByPub.get(thisAcctId).get(thisPubId) == null) prevAcctOppLinesByPub.get(thisAcctId).put(thisPubId, new Set<OpportunityLineItem>());
                             prevAcctOppLinesByPub.get(thisAcctId).get(thisPubId).add(opp);
-                            // if(practiceAreas.get(thisAcctId)==null)
-                            //     practiceAreas.put(thisAcctId,new Map<Id,Set<String>>());
-                            // if(practiceAreas.get(thisAcctId).get(thisPubId)==null)
-                            //     practiceAreas.get(thisAcctId).put(thisPubId, new Set<String>());
-                            // if(!practiceAreas.get(thisAcctId).get(thisPubId).contains(opp.Practice_Area__r.Name))
-                            //     practiceAreas.get(thisAcctId).get(thisPubId).add(opp.Practice_Area__r.Name);
+
                         }
                         if (acctIds.get(thisAcctId) == null) acctIds.put(thisAcctId, new Set<Id>());
                         if (!acctIds.get(thisAcctId).contains(thisPubId)) acctIds.get(thisAcctId).add(thisPubId);
@@ -239,14 +225,14 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
 
             }
         } catch (Exception e) {
-            String errorString = 'Error: '+(publicationIdStep1 != null ? ('Publication ID: '+publicationIdStep1 + '\n'):null) + e.getMessage()+'\n' + e.getStackTraceString();
-            if(!errorMaps.containsKey('Step 1')){
+            String errorString = 'Error: ' + (publicationIdStep1 != null ? ('Publication ID: ' + publicationIdStep1 + '\n') : null) + e.getMessage() + '\n' + e.getStackTraceString();
+            if (!errorMaps.containsKey('Step 1')) {
                 errorMaps.put('Step 1', new List<String>());
             }
             errorMaps.get('Step 1').add(errorString);
         }
 
-        try{
+        try {
             if (step == 2) {
                 for (String Id : curPubIds) {
                     publicationIdStep2 = Id;
@@ -262,8 +248,7 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                     // MAP OF OPPORTUNITIES BY PUBLICATION
                     Map<Id, Map<Id, Set<Opportunity>>> acctOppsByPub = new Map<Id, Map<Id, Set<Opportunity>>>();
                     Map<Id, Map<Id, Set<Opportunity>>> prevAcctOppsByPub = new Map<Id, Map<Id, Set<Opportunity>>>();
-                    System.debug('getLimitQueryRows - ' + Limits.getLimitQueryRows());
-                    System.debug('getQueryRows' + Limits.getQueryRows());
+
                     for (Opportunity opp : [SELECT Name, Id, EligibleProducts_RE__c, AccountId, Publication_RE__c, CreatedDate, StageName, Type FROM Opportunity WHERE Publication_RE__c IN :curPubIds AND StageName != 'Closed Lost' AND System_Generated__c = TRUE ORDER BY CreatedDate DESC]) {
                         Id thisPubId = opp.Publication_RE__c;
                         if (acctOppsByPub.get(opp.AccountId) == null) acctOppsByPub.put(opp.AccountId, new Map<Id, Set<Opportunity>>());
@@ -272,8 +257,7 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                         if (acctIds.get(opp.AccountId) == null) acctIds.put(opp.AccountId, new Set<Id>());
                         if (!acctIds.get(opp.AccountId).contains(thisPubId)) acctIds.get(opp.AccountId).add(thisPubId);
                     }
-                    System.debug('getLimitQueryRows - ' + Limits.getLimitQueryRows());
-                    System.debug('getQueryRows' + Limits.getQueryRows());
+
                     // MAP OF PREVIOUS OPPORTUNITIES FOR CAREER PUBLICATIONS
                     if (!carPubIds.isEmpty())
                         for (Opportunity opp : [SELECT Name, Id, EligibleProducts_RE__c, AccountId, Publication_RE__c, CreatedDate, StageName, Type, System_Generated__c FROM Opportunity WHERE EligibleProducts_RE__c != NULL AND Publication_RE__c IN :carPubIds ORDER BY CreatedDate DESC]) {
@@ -304,8 +288,7 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                         accts.add(aId);
 
                     Set<Id> headAcctIds = new Set<Id>();
-                    System.debug('getLimitQueryRows - ' + Limits.getLimitQueryRows());
-                    System.debug('getQueryRows' + Limits.getQueryRows());
+
                     // CREATE MAPS OF HEAD ACCOUNT DATA
                     Map<Id, Map<String, Object>> allAcctData = new Map<Id, Map<String, Object>>();
                     for (Account acct : [SELECT Id, Name, ParentId, Parent.Name, OwnerId, Owner.isActive, Parent.OwnerId, Parent.Owner.isActive, ShippingCountry, Type, Organization_Type_RE__c FROM Account WHERE Id IN :accts AND Organization_Type_RE__c != 'Client']) {
@@ -421,13 +404,11 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
 
                         if (!headAcctIds.contains(headId)) headAcctIds.add(headId);
                     }
-                    System.debug('getLimitQueryRows - ' + Limits.getLimitQueryRows());
-                    System.debug('getQueryRows' + Limits.getQueryRows());
+
                     // CREATE MAP OF HEAD ACCOUNT TEAM MEMBERS
                     Map<Id, Map<String, Id>> acctTeamMembers = new Map<Id, Map<String, Id>>();
                     for (AccountTeamMember tm : [SELECT Id, TeamMemberRole, AccountId, UserId FROM AccountTeamMember WHERE AccountId IN:headAcctIds AND User.isActive = true]) {
                         if (acctTeamMembers.get(tm.AccountId) == null) acctTeamMembers.put(tm.AccountId, new Map<String, Id>());
-                        // String guide = roleGuides.get(tm.TeamMemberRole);
                         String guide = '';
                         String role = tm.TeamMemberRole != null ? tm.TeamMemberRole.toLowerCase() : '';
                         if (role.contains('ranking')) {
@@ -537,8 +518,6 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                                     }
                             } else if (pubCat == 'Practice Guides') {
                                 // Practice_Area contains Banking & Finance
-                                // System.debug('Practice Guides ----------------------> '+pubPAs);
-                                // System.debug('prevBought ----------------------> '+prevBought);
                                 if (prevBought) {
                                     elgProds = guideProducts.get('Practice Guides');
                                     doNew = true;
@@ -578,15 +557,9 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                                             hasAddOn = true;
                                         pubOpp.EligibleProducts_RE__c = elgProds;
                                         newOpps.add(pubOpp);
-//                                        System.debug(pubOpp);
                                     }
                                 }
                             }
-
-                            // System.debug('createNew ----------------------> '+createNew);
-                            // System.debug('pubOpps ----------------------> '+pubOpps);
-                            // System.debug('closedOpps ----------------------> '+closedOpps);
-                            // System.debug('hasClosed ----------------------> '+hasClosed);
 
                             if (hasClosed && !hasAddon && doAddOn) {
                                 createNew = true;
@@ -594,9 +567,6 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                             } else if (hasClosed && pubOpps.size() == closedOpps) {
                                 createNew = false;
                             }
-
-                            // System.debug('doNew ----------------------> '+doNew);
-                            // System.debug('createNew ----------------------> '+createNew);
 
                             if (doNew && createNew) {
                                 String oppType = 'New';
@@ -610,7 +580,7 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                                 if (ownerId != null)
                                     if (Test.isRunningTest()) {
                                         thisOpp.OwnerId = null;
-                                    }else {
+                                    } else {
                                         thisOpp.OwnerId = ownerId;
                                     }
                                 thisOpp.AccountId = acctId;
@@ -624,7 +594,6 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                                 thisOpp.System_Generated__c = true;
                                 thisOpp.EligibleProducts_RE__c = elgProds;
                                 newOpps.add(thisOpp);
-//                                System.debug(thisOpp);
                             }
                         }
                     }
@@ -635,8 +604,8 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
             }
         } catch (Exception e) {
 
-            String errorString = 'Error: '+(publicationIdStep2 != null ? ('Publication ID: '+publicationIdStep2 + '\n'):null) + e.getMessage()+'\n' + e.getStackTraceString();
-            if(!errorMaps.containsKey('Step 2')){
+            String errorString = 'Error: ' + (publicationIdStep2 != null ? ('Publication ID: ' + publicationIdStep2 + '\n') : null) + e.getMessage() + '\n' + e.getStackTraceString();
+            if (!errorMaps.containsKey('Step 2')) {
                 errorMaps.put('Step 2', new List<String>());
             }
             errorMaps.get('Step 2').add(errorString);
@@ -672,21 +641,19 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
                     + 'There were errors.\n';
 
             for (String step : errorMaps.keySet()) {
-                for(String error : errorMaps.get(step)) {
-                    body = body + step+'\n' + errorMaps.get(step)+'\n';
+                for (String error : errorMaps.get(step)) {
+                    body = body + step + '\n' + errorMaps.get(step) + '\n';
                 }
             }
 
             Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-            String[] toAddresses = new String[]{
-                    'andrey.goloburda@succraft.com'
-            };
-            mail.setToAddresses(toAddresses);
-//            mail.setToAddresses(emails);
+            mail.setToAddresses(emails);
             mail.setSenderDisplayName('Apex error message');
             mail.setSubject('Error from Batch AutoOpportunities : ' + UserInfo.getOrganizationName());
             mail.setPlainTextBody(body);
-            Messaging.sendEmail(new Messaging.SingleEmailMessage[]{mail});
+            Messaging.sendEmail(new Messaging.SingleEmailMessage[]{
+                    mail
+            });
         }
     }
 

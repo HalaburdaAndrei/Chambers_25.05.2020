@@ -2,31 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5659212c-ef46-4353-8f6e-d243b3fb313b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/aura/BookingForm/BookingForm.cmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/BookingForm/BookingForm.cmp-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/BookingForm/BookingForm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/BookingForm/BookingFormController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aura/BookingForm/BookingFormHelper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/BookingFormController.cls" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/BookingFormController.cls-meta.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/BookingFormControllerTest.cls" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classes/BookingFormControllerTest.cls-meta.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chambers(25.05.2020).iml" beforeDir="false" afterPath="$PROJECT_DIR$/Chambers(25.05.2020).iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTarget.cmp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTarget.cmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTargetHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTargetHelper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/testButtonController.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/testButtonController.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/ContactPointEmail.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/ContactPointEmail.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/ContactPointPhone.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/ContactPointPhone.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Opportunity.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Opportunity.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/OpportunityLineItem.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/OpportunityLineItem.object" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/Order.object" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/Order.object" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,7 +74,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PublicationTypeWrapper</find>
       <find>Attempt to de-reference a null object</find>
       <find>lds-form-element__icon</find>
       <find>PersonSalesTargets_CTRL</find>
@@ -128,6 +103,7 @@
       <find>isR</find>
       <find>getContent</find>
       <find>GetSessionIdVF</find>
+      <find>pubIds</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -236,7 +212,7 @@
                       <entry key="AURA/SELECTEDSPUBLICATIONRECORDEVENT" value="1596708743000" />
                       <entry key="AURA/SENDAQUOTE" value="1593010520370" />
                       <entry key="AURA/TESTBUTTON" value="1600953363000" />
-                      <entry key="CLASSES/BATCH_AUTOOPPORTUNITIES.CLS" value="1601291442811" />
+                      <entry key="CLASSES/BATCH_AUTOOPPORTUNITIES.CLS" value="1601386765101" />
                       <entry key="CLASSES/BOOKINGFORMCONTROLLER.CLS" value="1601366186614" />
                       <entry key="CLASSES/BOOKINGFORMCONTROLLERTEST.CLS" value="1601361541000" />
                       <entry key="CLASSES/CURRENTFYCONTROLLER.CLS" value="1593432232747" />
@@ -3902,7 +3878,7 @@
       <workItem from="1600927271939" duration="11481000" />
       <workItem from="1601013734970" duration="14924000" />
       <workItem from="1601271896076" duration="11761000" />
-      <workItem from="1601360646109" duration="5991000" />
+      <workItem from="1601360646109" duration="7340000" />
     </task>
     <servers />
   </component>
@@ -3939,7 +3915,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="818754000" />
+    <option name="totallyTimeSpent" value="820103000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3963,13 +3939,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33851278" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33851278" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963374" />
       <window_info anchor="bottom" id="Log Viewer" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32741398" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32741398" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" />
