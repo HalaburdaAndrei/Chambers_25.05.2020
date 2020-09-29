@@ -303,6 +303,14 @@
                             <option name="name" value="SalesDataByOpportunity_CTRL_tests" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="BookingFormController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="BookingFormControllerTest" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -521,6 +529,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="lookupPublication" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="BookingForm" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

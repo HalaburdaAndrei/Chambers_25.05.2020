@@ -125,6 +125,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Count_HO_Accounts_in_Product__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Related_Organization__r.IsParent__c  = TRUE, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Count HO Accounts in Product</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Current_FY__c</fullName>
         <externalId>false</externalId>
         <formula>Opportunity.Current_FY__c</formula>
@@ -179,6 +191,9 @@
         <required>false</required>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
     </fields>
     <fields>
         <fullName>No_of_Practice_Areas__c</fullName>

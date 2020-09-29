@@ -41,7 +41,7 @@ public class testButtonController {
         String mainParams = 'https://composer.congamerge.com/composer8/index.html'+
                 '?sessionId='+ sessionId +
                 '&serverUrl='+ EncodingUtil.urlEncode(serverURL, 'UTF-8') +
-                '&id=0061l00000JmP6gAAF';
+                '&id=zz';
         String endParams = '&SC0=1&SC1=SalesforceFile&FP0=1&DefaultPDF=1&APIMode=1';
 
         String finalURL = mainParams + templateCover + endParams;

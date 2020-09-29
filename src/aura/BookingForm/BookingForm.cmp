@@ -1,0 +1,19 @@
+
+<aura:component description="BookingForm"
+                implements="force:lightningQuickActionWithoutHeader,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+                controller="BookingFormController" access="global">
+
+    <aura:attribute name="isToastOpen" type="Boolean" default="fasle"/>
+    <aura:attribute name="toastStyle" type="String" default=""/>
+    <aura:attribute name="toastType" type="String" default=""/>
+    <aura:attribute name="toastMessage" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-color__background_gray-3 slds-box slds-is-relative ">
+        <div class="slds-text-align_right">
+    <lightning:button  variant="neutral" label="Booking Form" onclick="{!c.generated}"/>
+        </div>
+    </div>
+
+</aura:component>

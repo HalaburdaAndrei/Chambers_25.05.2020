@@ -14,6 +14,7 @@ export default class PersonSalesTargets extends LightningElement {
     let currYear = new Date().getFullYear()
     let nextYear = currYear + 1
     return [
+      { label: `${(currYear - 1).toString()} - ${(nextYear - 1).toString()}`, value: currYear - 1 },
       { label: `${currYear.toString()} - ${nextYear.toString()}`, value: currYear },
       { label: `${nextYear.toString()} - ${(nextYear + 1).toString()}`, value: nextYear }
     ]
@@ -26,7 +27,7 @@ export default class PersonSalesTargets extends LightningElement {
   connectedCallback() {
     this.loadData()
   }
-
+  
   loadData() {
     this.isReadyData = false
     Promise.all([
@@ -121,6 +122,7 @@ export default class PersonSalesTargets extends LightningElement {
           dataToUpdate.push({
             sobjectType: 'Sales_Target__c',
             Sales_Person__c: sts.userId,
+            OwnerId: sts.userId,
             Date__c: key,
             Target__c: +sts[key]
           })

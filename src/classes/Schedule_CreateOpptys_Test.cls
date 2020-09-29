@@ -1,53 +1,54 @@
 @isTest
 private class Schedule_CreateOpptys_Test {
-    @isTest static void test() {
+    @testSetup
+    static void setup() {
         Publication__c pub1 = new Publication__c(
-            Name = 'Test Pub1',
-            CC_PublicationTypeCategory__c = 'Ranking Guides',
-            SalesStartDate_RE__c = Date.today().addMonths(-6),
-            CC_Final_Date_RE__c = Date.today().addMonths(-10),
-            Year_Issue_RE__c = '2019',
-            Publication_Type_ID_RE__c = '999'
+                Name = 'Test Pub1',
+                CC_PublicationTypeCategory__c = 'Ranking Guides',
+                SalesStartDate_RE__c = Date.today().addMonths(-6),
+                CC_Final_Date_RE__c = Date.today().addMonths(-10),
+                Year_Issue_RE__c = '2019',
+                Publication_Type_ID_RE__c = '999'
         );
         insert pub1;
 
         Publication__c pub2 = new Publication__c(
-            Name = 'Test Pub2',
-            CC_PublicationTypeCategory__c = 'Career Guides',
-            SalesStartDate_RE__c = Date.today(),
-            CC_Final_Date_RE__c = Date.today().addMonths(4),
-            Year_Issue_RE__c = '2020',
-            Publication_Type_ID_RE__c = '999'
+                Name = 'Test Pub2',
+                CC_PublicationTypeCategory__c = 'Career Guides',
+                SalesStartDate_RE__c = Date.today(),
+                CC_Final_Date_RE__c = Date.today().addMonths(4),
+                Year_Issue_RE__c = '2020',
+                Publication_Type_ID_RE__c = '999'
         );
         insert pub2;
 
         Publication__c pub3 = new Publication__c(
-            Name = 'Test Pub3',
-            CC_PublicationTypeCategory__c = 'Ranking Guides',
-            SalesStartDate_RE__c = Date.today().addMonths(-6),
-            CC_Final_Date_RE__c = Date.today(),
-            Year_Issue_RE__c = '2020',
-            Publication_Type_ID_RE__c = '999'
+                Name = 'Test Pub3',
+                CC_PublicationTypeCategory__c = 'Ranking Guides',
+                SalesStartDate_RE__c = Date.today().addMonths(-6),
+                CC_Final_Date_RE__c = Date.today(),
+                Year_Issue_RE__c = '2020',
+                Publication_Type_ID_RE__c = '999'
         );
         insert pub3;
 
         // List<Account> accts = new List<Account>();
         Account acct1 = new Account(
-            Name = 'Test Account1',
-            BillingStreet = '123 Some St.',
-            BillingCity = 'Some City',
-            BillingState = 'OR',
-            BillingPostalCode = '97701',
-            BillingCountry = 'US'
+                Name = 'Test Account1',
+                BillingStreet = '123 Some St.',
+                BillingCity = 'Some City',
+                BillingState = 'OR',
+                BillingPostalCode = '97701',
+                BillingCountry = 'US'
         );
         insert acct1;
 
         // List<Account> accts = new List<Account>();
         Contact con1 = new Contact(
-            AccountId = acct1.Id,
-            FirstName = 'Test',
-            LastName = 'Contact1',
-            Email = 'email@test.com'
+                AccountId = acct1.Id,
+                FirstName = 'Test',
+                LastName = 'Contact1',
+                Email = 'email@test.com'
         );
         insert con1;
 
@@ -56,49 +57,49 @@ private class Schedule_CreateOpptys_Test {
 
         List<Rankings__c> ranks = new List<Rankings__c>();
         ranks.add(new Rankings__c(
-            Publication_RE__c = pub1.Id, 
-            Account_RE__c = acct1.Id, 
-            RecordTypeId = personRTId
+                Publication_RE__c = pub1.Id,
+                Account_RE__c = acct1.Id,
+                RecordTypeId = personRTId
         ));
         ranks.add(new Rankings__c(
-            Publication_RE__c = pub1.Id, 
-            Account_RE__c = acct1.Id,
-            RecordTypeId = orgRTId
+                Publication_RE__c = pub1.Id,
+                Account_RE__c = acct1.Id,
+                RecordTypeId = orgRTId
         ));
         ranks.add(new Rankings__c(
-            Publication_RE__c = pub2.Id, 
-            Account_RE__c = acct1.Id, 
-            RecordTypeId = personRTId
+                Publication_RE__c = pub2.Id,
+                Account_RE__c = acct1.Id,
+                RecordTypeId = personRTId
         ));
         ranks.add(new Rankings__c(
-            Publication_RE__c = pub2.Id, 
-            Account_RE__c = acct1.Id,
-            RecordTypeId = orgRTId
+                Publication_RE__c = pub2.Id,
+                Account_RE__c = acct1.Id,
+                RecordTypeId = orgRTId
         ));
         ranks.add(new Rankings__c(
-            Publication_RE__c = pub3.Id, 
-            Account_RE__c = acct1.Id, 
-            RecordTypeId = personRTId
+                Publication_RE__c = pub3.Id,
+                Account_RE__c = acct1.Id,
+                RecordTypeId = personRTId
         ));
         ranks.add(new Rankings__c(
-            Publication_RE__c = pub3.Id, 
-            Account_RE__c = acct1.Id,
-            RecordTypeId = orgRTId
+                Publication_RE__c = pub3.Id,
+                Account_RE__c = acct1.Id,
+                RecordTypeId = orgRTId
         ));
         insert ranks;
 
         List<Submissions__c> subs = new List<Submissions__c>();
         subs.add(new Submissions__c(
-            Organization_RE__c = acct1.Id,
-            Publication__c = pub1.Id
+                Organization_RE__c = acct1.Id,
+                Publication__c = pub1.Id
         ));
         subs.add(new Submissions__c(
-            Organization_RE__c = acct1.Id,
-            Publication__c = pub2.Id
+                Organization_RE__c = acct1.Id,
+                Publication__c = pub2.Id
         ));
         subs.add(new Submissions__c(
-            Organization_RE__c = acct1.Id,
-            Publication__c = pub3.Id
+                Organization_RE__c = acct1.Id,
+                Publication__c = pub3.Id
         ));
         insert subs;
 
@@ -112,27 +113,64 @@ private class Schedule_CreateOpptys_Test {
 
         List<Opportunity> opps = new List<Opportunity>();
         opps.add(new Opportunity(
-            Name = 'Test Oppty1',
-            AccountId = acct1.Id,
-            Publication_RE__c = pub1.Id,
-            // EligibleProducts_RE__c = 'TEST PRODUCT',
-            CloseDate = Date.today().addDays(90),
-            StageName = 'Qualified',
-            System_Generated__c = true,
-            Pricebook2Id = Test.getStandardPricebookId(),
-            Signer__c = con1.Id
+                Name = 'Test Oppty1',
+                AccountId = acct1.Id,
+                Publication_RE__c = pub1.Id,
+                // EligibleProducts_RE__c = 'TEST PRODUCT',
+                CloseDate = Date.today().addDays(90),
+                StageName = 'Qualified',
+                System_Generated__c = true,
+                Pricebook2Id = Test.getStandardPricebookId(),
+                Signer__c = con1.Id
         ));
         opps.add(new Opportunity(
-            Name = 'Test Oppty2',
-            AccountId = acct1.Id,
-            Publication_RE__c = pub1.Id,
-            // EligibleProducts_RE__c = 'TEST PRODUCT',
-            CloseDate = Date.today().addDays(90),
-            StageName = 'Qualified',
-            System_Generated__c = true,
-            Pricebook2Id = Test.getStandardPricebookId(),
-            Signer__c = con1.Id
+                Name = 'Test Oppty2',
+                AccountId = acct1.Id,
+                Publication_RE__c = pub1.Id,
+                // EligibleProducts_RE__c = 'TEST PRODUCT',
+                CloseDate = Date.today().addDays(90),
+                StageName = 'Qualified',
+                System_Generated__c = true,
+                Pricebook2Id = Test.getStandardPricebookId(),
+                Signer__c = con1.Id
         ));
+        opps.add(new Opportunity(
+                Name = 'Test Oppty3',
+                AccountId = acct1.Id,
+                Publication_RE__c = pub1.Id,
+                // EligibleProducts_RE__c = 'TEST PRODUCT',
+                CloseDate = Date.today().addDays(90),
+                StageName = 'Closed Won',
+                Type = 'Add-on',
+                System_Generated__c = true,
+                Pricebook2Id = Test.getStandardPricebookId(),
+                Signer__c = con1.Id
+        ));
+        opps.add(new Opportunity(
+                Name = 'Test Oppty4',
+                AccountId = acct1.Id,
+                Publication_RE__c = pub2.Id,
+                // EligibleProducts_RE__c = 'TEST PRODUCT',
+                CloseDate = Date.today().addDays(90),
+                StageName = 'Closed Won',
+                Type = 'Add-on',
+                System_Generated__c = true,
+                Pricebook2Id = Test.getStandardPricebookId(),
+                Signer__c = con1.Id
+        ));
+        opps.add(new Opportunity(
+                Name = 'Test Oppty5',
+                AccountId = acct1.Id,
+                Publication_RE__c = pub3.Id,
+                // EligibleProducts_RE__c = 'TEST PRODUCT',
+                CloseDate = Date.today().addDays(90),
+                StageName = 'Closed Won',
+                Type = 'Add-on',
+                System_Generated__c = true,
+                Pricebook2Id = Test.getStandardPricebookId(),
+                Signer__c = con1.Id
+        ));
+
         // System.debug();
         insert opps;
 
@@ -140,36 +178,61 @@ private class Schedule_CreateOpptys_Test {
         // // Iterate through each returned result
         // for (Database.SaveResult sr : srList) {
         //     if (!sr.isSuccess()) {
-        //         // Operation failed, so get all errors                
+        //         // Operation failed, so get all errors
         //         for(Database.Error err : sr.getErrors()) {
-        //             System.debug('The following error has occurred.');                    
+        //             System.debug('The following error has occurred.');
         //             System.debug(err.getStatusCode() + ': ' + err.getMessage());
         //             System.debug('Fields that affected this error: ' + err.getFields());
         //         }
         //     }
         // }
-        
+
         List<OpportunityLineItem> lines = new List<OpportunityLineItem>();
         lines.add(new OpportunityLineItem(
-            OpportunityId = opps[0].Id,
-            Related_Organization__c = acct1.Id,
-            Publication__c = pub3.Id,
-            PricebookEntryId = pbe.Id,
-            Quantity = 1,
-            TotalPrice = 1
+                OpportunityId = opps[0].Id,
+                Related_Organization__c = acct1.Id,
+                Publication__c = pub3.Id,
+                PricebookEntryId = pbe.Id,
+                Quantity = 1,
+                TotalPrice = 1
         ));
         lines.add(new OpportunityLineItem(
-            OpportunityId = opps[1].Id,
-            Related_Organization__c = acct1.Id,
-            Publication__c = pub3.Id,
-            PricebookEntryId = pbe.Id,
-            Quantity = 1,
-            TotalPrice = 1
+                OpportunityId = opps[1].Id,
+                Related_Organization__c = acct1.Id,
+                Publication__c = pub3.Id,
+                PricebookEntryId = pbe.Id,
+                Quantity = 1,
+                TotalPrice = 1
         ));
         insert lines;
-
+    }
+    @isTest static void test() {
+        List<Opportunity> opps = [SELECT Id, StageName FROM Opportunity];
         opps[0].StageName = 'Closed Won';
         update opps[0];
+
+        Test.startTest();
+
+        String CRON_EXP = '0 0 0 3 9 ? 2022';
+        String jobId = System.schedule('Schedule_CreateOpptysTest', CRON_EXP, new Schedule_CreateOpptys());
+        CronTrigger ct = [SELECT Id, CronExpression, TimesTriggered, NextFireTime FROM CronTrigger WHERE id = :jobId];
+        System.assertEquals(0, ct.TimesTriggered);
+        System.assertEquals('2022-09-03 00:00:00', String.valueOf(ct.NextFireTime));
+
+        Test.stopTest();
+    }
+    @isTest static void test2() {
+        List<Publication__c> listPub = [SELECT Id, CC_PublicationTypeCategory__c FROM Publication__c];
+        List<Publication__c> updatePub = new List<Publication__c>();
+        for(Publication__c pub : listPub){
+            pub.CC_PublicationTypeCategory__c = 'Practice Guides';
+            updatePub.add(pub);
+        }
+        update updatePub;
+        List<Opportunity> opps = [SELECT Id, StageName FROM Opportunity];
+        opps[0].StageName = 'Closed Won';
+        update opps[0];
+
 
         Test.startTest();
 

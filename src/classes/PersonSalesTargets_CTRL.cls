@@ -4,7 +4,7 @@
 public with sharing class PersonSalesTargets_CTRL {
   private final static Integer startFyMonth = 7; 
   private final static Integer cuntMonths = 12;
-  private final static String userProfileName = 'Sales Rep';
+  private final static Set<String> userProfileName = new Set<String>();//'Sales Rep';
   
   /**
    * Method retrive Users with related Sales_Target__c objects
@@ -42,6 +42,8 @@ public with sharing class PersonSalesTargets_CTRL {
    */
   // get users with sales targets
   private static List<User> getUsersWithSalesTargets(Integer selectedYear){
+    userProfileName.add('Sales Rep');
+    userProfileName.add('Sales Management');
     Date startDate = Date.newInstance(selectedYear, startFyMonth, 1);
     Date endDate = Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1);
     return [
@@ -59,7 +61,8 @@ public with sharing class PersonSalesTargets_CTRL {
           ORDER BY Date__c
         )
       FROM User
-      WHERE Profile.Name = :userProfileName
+      WHERE Profile.Name IN :userProfileName
+      AND IsActive = TRUE
       ORDER BY Name
     ];
   }

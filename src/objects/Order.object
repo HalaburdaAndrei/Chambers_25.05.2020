@@ -54,7 +54,11 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Order_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
@@ -184,6 +188,7 @@
     </fields>
     <fields>
         <fullName>TotalAmount</fullName>
+        <trackHistory>true</trackHistory>
     </fields>
     <fields>
         <fullName>Type</fullName>

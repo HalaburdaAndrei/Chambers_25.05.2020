@@ -1,20 +1,22 @@
 ({
-    datatable : function(component, event, helper){
+    datatable: function (component, event, helper) {
         component.set('v.loaded', !component.get('v.loaded'));
         var action = component.get("c.getPublications");
         action.setCallback(this, function (response) {
             var state = response.getState();
             if (state === "SUCCESS") {
                 var records = response.getReturnValue();
-                records.forEach(function(record){
-                    if(typeof record.Id != 'undefined'){
-                        record.showClass = 'graycolor';
-                    }
-                });
+                if (records != null) {
+                    records.forEach(function (record) {
+                        if (typeof record.Id != 'undefined') {
+                            record.showClass = 'graycolor';
+                        }
+                    });
+                }
                 component.set('v.loaded', !component.get('v.loaded'));
                 component.set("v.data", records);
             }
-            if(state === 'ERROR'){
+            if (state === 'ERROR') {
                 var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Error!",
@@ -31,37 +33,37 @@
 
         cmp.set('v.loaded', !cmp.get('v.loaded'));
         var action = cmp.get("c.saveTarget");
-        action.setParams({pubTarget : draftValues});
+        action.setParams({pubTarget: draftValues});
         action.setCallback(this, function (response) {
-           var state = response.getState();
-           console.log(state);
-           if(state === 'SUCCESS'){
-               if(response.getReturnValue() == 'ok') {
-                   cmp.set('v.loaded', !cmp.get('v.loaded'));
-                   var toastEvent = $A.get("e.force:showToast");
-                   toastEvent.setParams({
-                       "title": "Success!",
-                       "type": "success",
-                       "message": "The publications has been saved successfully."
-                   });
-                   toastEvent.fire();
-                   cmp.set('v.errors', []);
-                   cmp.set('v.draftValues', []);
-                   this.datatable(cmp);
-                   // $A.get('e.force:refreshView').fire();
-               }else{
-                   var toastEvent = $A.get("e.force:showToast");
-                   toastEvent.setParams({
-                       "title": "Error!",
-                       "type": "error",
-                       "message": response.getReturnValue()
-                   });
-                   toastEvent.fire();
-               }
-               // window.location.reload()
+            var state = response.getState();
+            console.log(state);
+            if (state === 'SUCCESS') {
+                if (response.getReturnValue() == 'ok') {
+                    cmp.set('v.loaded', !cmp.get('v.loaded'));
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Success!",
+                        "type": "success",
+                        "message": "The publications has been saved successfully."
+                    });
+                    toastEvent.fire();
+                    cmp.set('v.errors', []);
+                    cmp.set('v.draftValues', []);
+                    this.datatable(cmp);
+                    // $A.get('e.force:refreshView').fire();
+                } else {
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Error!",
+                        "type": "error",
+                        "message": response.getReturnValue()
+                    });
+                    toastEvent.fire();
+                }
+                // window.location.reload()
 
-           }
-            if(state === 'ERROR'){
+            }
+            if (state === 'ERROR') {
                 var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Error!",
@@ -74,23 +76,23 @@
         $A.enqueueAction(action);
     },
 
-    sortBy: function(field, reverse, primer) {
+    sortBy: function (field, reverse, primer) {
         var key = primer
-            ? function(x) {
+            ? function (x) {
                 return primer(x[field]);
             }
-            : function(x) {
+            : function (x) {
                 return x[field];
             };
 
-        return function(a, b) {
+        return function (a, b) {
             a = key(a);
             b = key(b);
             return reverse * ((a > b) - (b > a));
         };
     },
 
-    handleSort: function(cmp, event) {
+    handleSort: function (cmp, event) {
         var sortedBy = event.getParam('fieldName');
         var sortDirection = event.getParam('sortDirection');
 

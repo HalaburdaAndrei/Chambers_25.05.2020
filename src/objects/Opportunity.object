@@ -430,6 +430,19 @@ IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODA
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Count_HO_Accounts_in_Opp__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Account.IsParent__c = TRUE, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Count HO Accounts in Opp</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Current_FY__c</fullName>
         <externalId>false</externalId>
         <formula>IF(CloseDate &gt; DATE(YEAR(TODAY()) ,4,30),
@@ -1095,11 +1108,6 @@ IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODA
         <columns>CORE.USERS.FULL_NAME</columns>
         <columns>Signer__c</columns>
         <filterScope>Everything</filterScope>
-        <filters>
-            <field>OPPORTUNITY.STAGE_NAME</field>
-            <operation>equals</operation>
-            <value>Open</value>
-        </filters>
         <label>All Opportunities</label>
     </listViews>
     <listViews>
@@ -2026,16 +2034,16 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
 
 &amp;TemplateId=a0K1t000005SDbF
 
-&amp;LRTF=1 
+&amp;LRTF=1 
 
 &amp;DefaultPDF=1
 &amp;AC0=1
 &amp;AC1=Follow+up+{!Opportunity.Name}
 &amp;AC3=3
 
-&amp;LiveEditVisible=0 
+&amp;LiveEditVisible=0 
 
-&amp;LiveEditEnable=0 
+&amp;LiveEditEnable=0 
 
 &amp;csvisible=1
 

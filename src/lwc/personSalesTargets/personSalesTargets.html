@@ -3,7 +3,6 @@
         variant="Narrow"  
         title="Person Sales Targets" 
         icon-name="standard:sales_value"
-        style="height: 100%;"
     >
         <div slot="actions">
             <lightning-combobox
@@ -15,27 +14,22 @@
                 onchange={handleSelectYear} 
             ></lightning-combobox>
         </div>
-
-        <lightning-layout multiple-rows>
-            <template if:true={tableData}>
-                <lightning-layout-item size="12" padding="around-small">
-                    
-                    <lightning-datatable 
-                        key-field="userId"
-                        data={tableData}
-                        columns={columns}
-                        hide-checkbox-column
-                        onsave={handleSave}
-                    ></lightning-datatable>
-                </lightning-layout-item>
-            </template>
-                
-            <tamplate if:false={isReadyData}>
-                <lightning-layout-item size="12" padding="around-small">
-                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
-                </lightning-layout-item>
-            </tamplate>
-        </lightning-layout>
     </lightning-card>
- 
+
+    <template if:true={tableData}>
+        <div style="height: 90%; margin: 0 0 40px 0">
+            <lightning-datatable 
+                key-field="userId"
+                data={tableData}
+                columns={columns}
+                hide-checkbox-column
+                onsave={handleSave}
+            ></lightning-datatable>
+        </div>
+    </template>
+    <tamplate if:false={isReadyData}>
+        <lightning-layout-item size="12" padding="around-small">
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </lightning-layout-item>
+    </tamplate>
 </template>

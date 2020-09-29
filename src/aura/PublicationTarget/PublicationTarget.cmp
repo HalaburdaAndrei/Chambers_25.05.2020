@@ -35,7 +35,8 @@
         </div>
 
         <aura:if isTrue="{!v.data != null}">
-            <div style="height: 200px">
+<!--            <div style="height: 200px">-->
+            <div>
                 <lightning:datatable
                         columns="{! v.columns }"
                         data="{! v.data }"
