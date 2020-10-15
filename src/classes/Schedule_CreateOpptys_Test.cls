@@ -289,6 +289,19 @@ private class Schedule_CreateOpptys_Test {
     }
 
     @IsTest
+    static void testCareerGuidesMyDate() {
+        Test.startTest();
+        String CRON_EXP = '0 0 0 3 9 ? 2022';
+        String jobId = System.schedule('Schedule_CreateOpptysTest', CRON_EXP, new Schedule_CreateOpptys());
+        CronTrigger ct = [SELECT Id, CronExpression, TimesTriggered, NextFireTime FROM CronTrigger WHERE id = :jobId];
+        Batch_AutoOpportunities bcn = new Batch_AutoOpportunities(Date.today().addDays(-1));
+        Id bcnId = Database.executeBatch(bcn,1);
+        System.assertEquals(0, ct.TimesTriggered);
+        System.assertEquals('2022-09-03 00:00:00', String.valueOf(ct.NextFireTime));
+        Test.stopTest();
+    }
+
+    @IsTest
     static void testRankingGuides() {
 
         Publication__c pub = [SELECT Id, CC_PublicationTypeCategory__c FROM Publication__c WHERE Name = 'Test Pub2' LIMIT 1];

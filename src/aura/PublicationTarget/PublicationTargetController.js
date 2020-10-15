@@ -2,18 +2,18 @@
     doInit: function (component, event, helper) {
         console.log('Start');
         component.set('v.columns', [{
-                label: 'Guide Annual Target',
-                fieldName: 'Name',
-                type: 'text',
-                editable: false,
-                sortable: true,
-                wrapText: true,
-                initialWidth: 220,
-                title: true,
-                typeAttributes: {
-                    required: true
-                }
-            },
+            label: 'Guide Annual Target',
+            fieldName: 'Name',
+            type: 'text',
+            editable: false,
+            sortable: true,
+            wrapText: true,
+            initialWidth: 220,
+            title: true,
+            typeAttributes: {
+                required: true
+            }
+        },
             {
                 label: 'Allocated Target',
                 fieldName: 'Allocated_Target__c',

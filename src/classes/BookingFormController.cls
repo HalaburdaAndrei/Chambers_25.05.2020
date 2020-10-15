@@ -46,7 +46,7 @@ public with sharing class BookingFormController {
         if(transactionSent == 0){
             String sessionId = fetchUserSessionId();
             String serverURL = Url.getSalesforceBaseUrl().toExternalForm() + '/services/Soap/u/46.0/' + UserInfo.getOrganizationId();
-//            String templateCover = '&TemplateId=a0K1t000005SDcr';
+            String templateCover = '&TemplateId=a0K1t000005SDbFEAW';
             String query;
             if(qId != null){
                 query = '&QueryId=[BookingFormQuery]'+qId;
@@ -62,8 +62,8 @@ public with sharing class BookingFormController {
                     '&csEmailMessage=Hello, ' + opportunity.Signer__r.Name + ', in reference to our conversation a short while ago, please find attached the booking form as detailed. You can you now confirm your inclusion by clicking the Begin Signing button. If you require anything further just let me know and I look forward to hearing back from you.' +
                     '&csExpiration=' + opportunity.Book_Expiration_Date__c + '&csExpirationReminder=' + opportunity.Booking_Form_Reminder__c;
 
-//            finalURL = mainParams + query + templateCover + endParams;
-            finalURL = mainParams + query + endParams;
+            finalURL = mainParams + query + templateCover + endParams;
+//            finalURL = mainParams + query + endParams;
         }else{
             finalURL = 'no';
 

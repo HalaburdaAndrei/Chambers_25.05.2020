@@ -260,15 +260,7 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="TargetSalesPersonController" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
                             <option name="name" value="testAccountHierarchy" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="testButtonController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
@@ -509,10 +501,6 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="strike_tooltip" />
-                            <option name="selected" value="true" />
-                          </MetadataEntry>
-                          <MetadataEntry>
-                            <option name="name" value="TargetSalesPerson" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
