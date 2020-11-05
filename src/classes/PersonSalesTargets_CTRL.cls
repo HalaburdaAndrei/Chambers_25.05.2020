@@ -2,10 +2,10 @@
  * It's a clacc which works with 'PersonSalesTargets' LWC
  */
 public with sharing class PersonSalesTargets_CTRL {
-  private final static Integer startFyMonth = 7; 
+  private final static Integer startFyMonth = 7;
   private final static Integer cuntMonths = 12;
   private final static Set<String> userProfileName = new Set<String>();//'Sales Rep';
-  
+
   /**
    * Method retrive Users with related Sales_Target__c objects
    * and generate Map
@@ -13,7 +13,7 @@ public with sharing class PersonSalesTargets_CTRL {
   @AuraEnabled
   public static Map<String, Object> getUserSalesTargets(Integer selectedYear){
     return generateUserMap(
-      getUsersWithSalesTargets(selectedYear)
+            getUsersWithSalesTargets(selectedYear)
     );
   }
 
@@ -47,23 +47,23 @@ public with sharing class PersonSalesTargets_CTRL {
     Date startDate = Date.newInstance(selectedYear, startFyMonth, 1);
     Date endDate = Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1);
     return [
-      SELECT 
-        Id,
-        Name,
-        (
-          SELECT 
-            Sales_Person__c,
-            Date__c,  
-            Target__c
-          FROM Sales_Targets__r
-          WHERE CALENDAR_YEAR(Date__c) >= :startDate.year()
-            AND CALENDAR_YEAR(Date__c) <= :endDate.year()
-          ORDER BY Date__c
-        )
-      FROM User
-      WHERE Profile.Name IN :userProfileName
-      AND IsActive = TRUE
-      ORDER BY Name
+            SELECT
+                    Id,
+                    Name,
+            (
+                    SELECT
+                            Sales_Person__c,
+                            Date__c,
+                            Target__c
+                    FROM Sales_Targets__r
+                    WHERE CALENDAR_YEAR(Date__c) >= :startDate.year()
+                    AND CALENDAR_YEAR(Date__c) <= :endDate.year()
+                    ORDER BY Date__c
+            )
+            FROM User
+            WHERE Profile.Name IN :userProfileName
+            AND IsActive = TRUE
+            ORDER BY Name
     ];
   }
 
@@ -74,14 +74,14 @@ public with sharing class PersonSalesTargets_CTRL {
       Map<String, Object> salesTargetsMap = new Map<String, Object>();
       for(Sales_Target__c st : u.Sales_Targets__r){
         salesTargetsMap.put(
-          String.valueOf(
-            Date.newInstance(
-              st.Date__c.year(), 
-              st.Date__c.month(), 
-              1
-            )
-          ), 
-        st);
+                String.valueOf(
+                        Date.newInstance(
+                                st.Date__c.year(),
+                                st.Date__c.month(),
+                                1
+                        )
+                ),
+                st);
       }
       salesTargetsMap.put('userName', u.Name);
       usersMap.put(u.Id, salesTargetsMap);
@@ -94,19 +94,20 @@ public with sharing class PersonSalesTargets_CTRL {
    */
   public static void generateData(Integer countMonths, Date startDate){
     List<User> users = [
-      SELECT 
-        Id, 
-        Name
-      FROM User
-      WHERE Profile.Name = 'Sales Rep'
+            SELECT
+                    Id,
+                    Name
+            FROM User
+            WHERE Profile.Name = 'Sales Rep' AND Profile.Name = 'Sales Management' AND IsActive = TRUE
     ];
     List<Sales_Target__c> salesTargets = new List<Sales_Target__c>();
     for(User u : users) {
       for(Integer i = 1; i <= countMonths; i++){
         salesTargets.add(new Sales_Target__c(
-          Sales_Person__c = u.Id,
-          Target__c = Integer.valueof((Math.random() * 10000)),
-          Date__c = startDate.addMonths(i)
+                Sales_Person__c = u.Id,
+                OwnerId = u.Id,
+                Target__c = Integer.valueof((Math.random() * 10000)),
+                Date__c = startDate.addMonths(i)
         ));
       }
     }

@@ -1,0 +1,111 @@
+<aura:component description="PersonSalesTargetWithPubl" controller="PersonSalesTargetWithPublController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="selectedYear" type="String"/>
+    <aura:attribute name="tableHead" type="List" />
+    <aura:attribute name="tableBody" type="List" />
+    <aura:attribute name="selectedLookUpRecords" type="sObject[]" default="[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div class="slds-color__background_gray-1 slds-is-relative">
+        <b>Person Sales Target With Publication.</b><br/><br/><br/>
+
+        <div class="slds-p-bottom--medium slds-p-left_medium" style="display: flex; align-items: flex-end;">
+            <div>
+                <c:lookupPublication objectAPIName="Publication__c"
+                                     IconName="standard:article"
+                                     lstSelectedRecords="{!v.selectedLookUpRecords}"
+                                     label="Publication Name"/>
+            </div>
+            <div class="slds-m-left_small slds-m-bottom_xx-small">
+                <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
+            </div>
+
+            <div class="slds-size_2-of-12 slds-p-bottom--medium slds-container--right slds-p-right--medium">
+                <lightning:combobox name="progress" label="Year" value="{!v.selectedYear}"
+                                    options="{! v.options }" onchange="{! c.handleChange }"/>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div>
+    <table aria-multiselectable="true"
+           class="slds-table slds-table_bordered slds-table_col-bordered slds-table_resizable-cols"
+           role="grid">
+        <thead>
+        <tr>
+            <th class="slds-text-align_right" rowspan="2" style="width:3.25rem">
+                <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
+                <div class="slds-th__action slds-th__action_form">
+                    <div class="slds-checkbox">
+                        <input type="checkbox" name="options" id="checkbox-unique-id-353" value="checkbox-unique-id-353" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-353" id="check-select-all-label">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                        </label>
+                    </div>
+                </div>
+            </th>
+            <th rowspan="2">Sales Person</th>
+            <aura:iteration items="{!v.tableHead}" var="head" indexVar="rowIndex">
+
+                <th colspan="2" class="slds-text-align--center">{!head}</th>
+            </aura:iteration>
+
+        </tr>
+        <tr>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+            <th class="slds-text-align--center"> Direct<br/> Target</th>
+            <th class="slds-text-align--center"> Insight<br/> Target</th>
+
+        </tr>
+        </thead>
+        <tbody>
+<!--        <tr><td>test</td></tr>-->
+
+<aura:iteration items="{!v.tableBody}" var="body" indexVar="key">
+    <tr>
+        <td class="slds-text-align_right" >
+            <div class="slds-checkbox">
+                <input type="checkbox" name="options" id="checkbox-01" value="checkbox-01" tabindex="0" aria-labelledby="check-button-label-01 column-group-header" />
+                <label class="slds-checkbox__label" for="checkbox-01" id="check-button-label-01">
+                    <span class="slds-checkbox_faux"></span>
+                    <span class="slds-form-element__label slds-assistive-text">Select item 1</span>
+                </label>
+            </div>
+        </td>
+    <td>{!body.key}</td>
+        <aura:iteration items="{!body.value}" var="mapValue" indexVar="key">
+            <td>{!mapValue}</td>
+        </aura:iteration>
+    </tr>
+</aura:iteration>
+
+        </tbody>
+    </table>
+    </div>
+</aura:component>

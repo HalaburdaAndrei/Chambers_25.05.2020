@@ -2,20 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5659212c-ef46-4353-8f6e-d243b3fb313b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPubl.cmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPubl.cmp-meta.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPublController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classes/PersonSalesTargetWithPublController.cls" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classes/PersonSalesTargetWithPublController.cls-meta.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chambers(25.05.2020).iml" beforeDir="false" afterPath="$PROJECT_DIR$/Chambers(25.05.2020).iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/BookingForm/BookingForm.cmp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/BookingForm/BookingForm.cmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTargetController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTargetController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/TargetSalesPerson/TargetSalesPerson.cmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/TargetSalesPerson/TargetSalesPerson.cmp-meta.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aura/TargetSalesPerson/TargetSalesPersonController.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/BookingFormController.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/BookingFormController.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/TargetSalesPersonController.cls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/TargetSalesPersonController.cls-meta.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/testButtonController.cls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/testButtonController.cls-meta.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,39 +28,48 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/AcrRolesTempTriggerHandler.cls">
+        <entry file="file://$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPubl.cmp">
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls">
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls">
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+        <entry file="file://$PROJECT_DIR$/src/classes/PersonSalesTargetWithPublController.cls">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="409">
+              <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/AccountTriggerHandler.cls">
+        <entry file="file://$PROJECT_DIR$/src/aura/RankingData/RankingData.cmp">
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
           <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/AccountBatch.cls">
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+        <entry file="file://$PROJECT_DIR$/src/classes/RankingDataController.cls">
           <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/classes/RecordUtil.cls">
-          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+        <entry file="file://$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls">
           <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js">
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+          <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+          <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
         </entry>
       </file>
     </leaf>
@@ -76,25 +80,20 @@
         <option value="Lightning Component Event" />
         <option value="Lightning Renderer" />
         <option value="Lightning Application Event" />
-        <option value="Lightning Component" />
-        <option value="Lightning Controller" />
-        <option value="Apex Class" />
         <option value="Lightning Application" />
         <option value="Visualforce Page" />
         <option value="Lightning Helper" />
         <option value="Lightning Style" />
         <option value="Apex Unit Test Class" />
+        <option value="Lightning Component" />
+        <option value="Lightning Controller" />
+        <option value="Apex Class" />
         <option value="Apex Metadata" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>DataByCatigoryType</find>
-      <find>QueryCondition</find>
-      <find>startSelectedFY</find>
-      <find>upsertSalesTargets</find>
-      <find>acctData</find>
       <find>type</find>
       <find>allAcctData</find>
       <find>acct</find>
@@ -120,6 +119,11 @@
       <find>RecordUtil</find>
       <find>RolesOnContactFromACR_Batch</find>
       <find>headAccts</find>
+      <find>dateToStr</find>
+      <find>date</find>
+      <find>dates</find>
+      <find>selectedLookUpRecords</find>
+      <find>listYearForColumn</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -128,9 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/aura/Reports/Reports.cmp" />
-        <option value="$PROJECT_DIR$/src/aura/RankingData/RankingData.css" />
-        <option value="$PROJECT_DIR$/src/classes/RankingDataControllerTest.cls" />
         <option value="$PROJECT_DIR$/src/classes/Check_batch.cls" />
         <option value="$PROJECT_DIR$/src/classes/RankingDataController.cls" />
         <option value="$PROJECT_DIR$/src/aura/RankingData/RankingData.cmp" />
@@ -160,8 +161,6 @@
         <option value="$PROJECT_DIR$/src/classes/PublicationTargetControllerTest.cls" />
         <option value="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTarget.cmp" />
         <option value="$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTargetHelper.js" />
-        <option value="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js" />
-        <option value="$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls" />
         <option value="$PROJECT_DIR$/src/aura/RankingDataApp/RankingDataApp.app" />
         <option value="$PROJECT_DIR$/src/pages/RankingDataPage.page" />
         <option value="$PROJECT_DIR$/src/aura/testButton/testButton.cmp" />
@@ -179,6 +178,11 @@
         <option value="$PROJECT_DIR$/src/classes/testButtonController.cls" />
         <option value="$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls" />
         <option value="$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls" />
+        <option value="$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls" />
+        <option value="$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js" />
+        <option value="$PROJECT_DIR$/src/classes/PersonSalesTargetWithPublController.cls" />
+        <option value="$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPublController.js" />
+        <option value="$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPubl.cmp" />
       </list>
     </option>
   </component>
@@ -188,7 +192,7 @@
         <entry key="Chambers(25.05.2020)">
           <value>
             <ModuleWorkspaceSettings>
-              <option name="moduleContentsLastModified" value="1602750096703" />
+              <option name="moduleContentsLastModified" value="1604562105981" />
               <option name="serverMetadataLastPopulated" value="1590399349824" />
             </ModuleWorkspaceSettings>
           </value>
@@ -217,6 +221,7 @@
                       <entry key="AURA/LASTFY" value="1597305670950" />
                       <entry key="AURA/LOOKUPPUBLICATION" value="1597306264000" />
                       <entry key="AURA/LOOKUPPUBLICATIONRESULT" value="1597306263000" />
+                      <entry key="AURA/PERSONSALESTARGETWITHPUBL" value="1604587919000" />
                       <entry key="AURA/PUBLICATIONTARGET" value="1601556237000" />
                       <entry key="AURA/PUBLICATIONTARGETAPP" value="1596699788000" />
                       <entry key="AURA/RANKINGDATA" value="1595508414513" />
@@ -236,7 +241,8 @@
                       <entry key="CLASSES/LASTFYCONTROLLERTEST.CLS" value="1596627892000" />
                       <entry key="CLASSES/LOOKUPPUBLICATIONCONTROLLER.CLS" value="1597756406000" />
                       <entry key="CLASSES/LOOKUPPUBLICATIONCONTROLLERTEST.CLS" value="1597934701000" />
-                      <entry key="CLASSES/PERSONSALESTARGETS_CTRL.CLS" value="1599232518000" />
+                      <entry key="CLASSES/PERSONSALESTARGETS_CTRL.CLS" value="1604562612000" />
+                      <entry key="CLASSES/PERSONSALESTARGETWITHPUBLCONTROLLER.CLS" value="1604587582000" />
                       <entry key="CLASSES/PUBLICATIONTARGETCONTROLLER.CLS" value="1597991433113" />
                       <entry key="CLASSES/PUBLICATIONTARGETCONTROLLERTEST.CLS" value="1597993887623" />
                       <entry key="CLASSES/RANKINGDATACONTROLLER.CLS" value="1595507317000" />
@@ -244,11 +250,11 @@
                       <entry key="CLASSES/REUSABLEMULTISELECTLOOKUPCTRL.CLS" value="1592394263000" />
                       <entry key="CLASSES/REUSABLEMULTISELECTLOOKUPCTRLTEST.CLS" value="1592203804000" />
                       <entry key="CLASSES/SCHEDULE_CREATEOPPTYS.CLS" value="1601446170415" />
-                      <entry key="CLASSES/SCHEDULE_CREATEOPPTYS_TEST.CLS" value="1601620672431" />
+                      <entry key="CLASSES/SCHEDULE_CREATEOPPTYS_TEST.CLS" value="1602750157026" />
                       <entry key="CLASSES/SENDAQUOTECONTROLLER.CLS" value="1593010314000" />
                       <entry key="CLASSES/SENDAQUOTECONTROLLERTEST.CLS" value="1592320068851" />
                       <entry key="CLASSES/SINGLEREQUESTMOCK.CLS" value="1592228355073" />
-                      <entry key="LWC/PERSONSALESTARGETS" value="1599232518000" />
+                      <entry key="LWC/PERSONSALESTARGETS" value="1604581052000" />
                       <entry key="PAGES/RANKINGDATAPAGE.PAGE" value="1600953294000" />
                     </map>
                   </option>
@@ -3550,10 +3556,10 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="1853" />
-    <option name="height" value="1055" />
+    <option name="x" value="1920" />
+    <option name="y" value="-2" />
+    <option name="width" value="1920" />
+    <option name="height" value="1082" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="1" />
@@ -3580,6 +3586,36 @@
               <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="BookingForm" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="LastFY" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lookupPublication" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="PersonSalesTargetWithPubl" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="PublicationTarget" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chambers_25.05.2020" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="RankingData" type="edc2aaaf:IlluminatedCloudProjectTreeStructureProvider$BundleDirectoryNode" />
             </path>
             <path>
               <item name="Chambers(25.05.2020)" type="b2602c69:ProjectViewProjectNode" />
@@ -3912,7 +3948,8 @@
       <workItem from="1602137369610" duration="15688000" />
       <workItem from="1602224237079" duration="3071000" />
       <workItem from="1602657952591" duration="8038000" />
-      <workItem from="1602741694159" duration="1229000" />
+      <workItem from="1602741694159" duration="4314000" />
+      <workItem from="1604561939720" duration="22446000" />
     </task>
     <servers />
   </component>
@@ -3949,7 +3986,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="882881000" />
+    <option name="totallyTimeSpent" value="908412000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3961,10 +3998,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="1920" y="-2" width="1920" height="1082" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23408966" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22838847" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -3979,7 +4016,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963374" />
       <window_info anchor="bottom" id="Log Viewer" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32668883" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.31681034" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32963374" />
@@ -3987,7 +4024,7 @@
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32963374" />
       <window_info anchor="bottom" id="SOQL Query" order="15" weight="0.34857142" />
-      <window_info anchor="bottom" id="Illuminated Cloud" order="16" weight="0.336293" />
+      <window_info active="true" anchor="bottom" id="Illuminated Cloud" order="16" visible="true" weight="0.33620688" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -4007,65 +4044,29 @@
     <SUITE FILE_PATH="coverage/Chambers_25_05_2020_$Schedule_CreateOpptys_Test.null" NAME="Chambers(25.05.2020) Coverage Results" MODIFIED="1601447266785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="Apex" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" PROJECT_NAME="Chambers(25.05.2020)" CONNECTION_NAME="Chambers(25.05.2020)" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/IlluminatedCloud/Chambers_25_05_2020_/OfflineSymbolTable.zip!/System/Date.cls">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="68" column="23" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/OpportunityHandler.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.html">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/SalesDataPage.page">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/PublicationTargetController.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-      <provider editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/SalesDataByOpportunity_CTRL.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lwc/salesDataByOpportunity/salesDataByOpportunity.html">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/LastFYController.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/FireOpptyAutomationCtrlr.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/RPBatchTest.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/AccountHierarchyTestData.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/AccountStructure.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL_tests.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="jar://$PROJECT_DIR$/IlluminatedCloud/Chambers_25_05_2020_/OfflineSymbolTable.zip!/System/Exception.cls">
       <provider selected="true" editor-type-id="text-editor">
@@ -4079,58 +4080,42 @@
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/BookingForm/BookingFormController.js">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/RankingDataPage.page">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/testButton/testButton.cmp">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/BookingFormApp/BookingFormApp.app" />
     <entry file="file://$PROJECT_DIR$/src/aura/BookingForm/BookingFormHelper.js">
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningDesignFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aura/RankingData/RankingData.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningRendererFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/BookingForm/BookingForm.css">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/SendaQuote/SendaQuote.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/PublicationTargetControllerTest.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="679">
           <caret line="53" selection-start-line="53" selection-end-line="53" />
@@ -4138,53 +4123,33 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SendaQuoteController.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SendaQuoteControllerTest.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/BookingFormPage.page" />
     <entry file="file://$PROJECT_DIR$/src/pages/GetSessionIdVF.page">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/RankingDataController.cls">
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="143" lean-forward="true" selection-start-line="6" selection-start-column="143" selection-end-line="6" selection-end-column="143" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/Schedule_CreateOpptys.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/TargetSalesPersonController.cls" />
     <entry file="file://$PROJECT_DIR$/src/aura/TargetSalesPerson/TargetSalesPerson.cmp" />
-    <entry file="file://$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTarget.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.css">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/BookingFormControllerTest.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="1245">
           <caret line="83" column="76" selection-start-line="83" selection-start-column="76" selection-end-line="83" selection-end-column="76" />
@@ -4192,70 +4157,142 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/BatchCallOut.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/BookingFormController.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="47" column="28" lean-forward="true" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/aura/BookingForm/BookingForm.cmp">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/ContactTriggerHandler.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/AccountBatchTest.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/LWFPBatch.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/AcrRolesTempTriggerHandler.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    <entry file="file://$PROJECT_DIR$/src/classes/testButtonController.cls" />
+    <entry file="file://$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls">
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/AccountTriggerHandler.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/AccountBatch.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/RecordUtil.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/testButtonController.cls">
       <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
-      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/Batch_AutoOpportunities.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/classes/Schedule_CreateOpptys_Test.cls">
-      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    <entry file="file://$PROJECT_DIR$/src/classes/AcrRolesTempTriggerHandler.cls">
       <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPublController.js">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lwc/salesDataByOpportunity/salesDataByOpportunity.html">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/PublicationTargetController.cls">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/lookupPublication/lookupPublication.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/LastFY/LastFY.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningDesignFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/lookUpPublicationController.cls">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lwc/personSalesTargets/personSalesTargets.js">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/PersonSalesTargets_CTRL.cls">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/PublicationTarget/PublicationTarget.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/RankingData/RankingData.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningRendererFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningStyleFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningHelperFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/RankingDataController.cls">
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.MetadataFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="143" lean-forward="true" selection-start-line="6" selection-start-column="143" selection-end-line="6" selection-end-column="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aura/PersonSalesTargetWithPubl/PersonSalesTargetWithPubl.cmp">
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.MetaXmlFileEditorProvider" />
+      <provider selected="true" editor-type-id="com.illuminatedcloud.intellij.editor.LightningMarkupFileEditorProvider" />
+      <provider editor-type-id="com.illuminatedcloud.intellij.editor.LightningControllerFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classes/PersonSalesTargetWithPublController.cls">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

@@ -27,7 +27,7 @@ export default class PersonSalesTargets extends LightningElement {
   connectedCallback() {
     this.loadData()
   }
-  
+
   loadData() {
     this.isReadyData = false
     Promise.all([
@@ -39,6 +39,8 @@ export default class PersonSalesTargets extends LightningElement {
       this.columns = this.generateColumns(dates)
       this.tableData = this.generateTableData(salesTargets, dates)
       this.isReadyData = true
+      console.log(this.generateColumns(dates))
+      console.log(this.generateTableData(salesTargets, dates))
     }).catch(err => {
       this.showToast('Error', err.body.message, 'error')
       this.isReadyData = true
@@ -57,6 +59,8 @@ export default class PersonSalesTargets extends LightningElement {
       });
       tableData.push(tableRow)
     }
+    console.log("start");
+    console.log(tableData);
     return tableData
   }
 
@@ -66,27 +70,27 @@ export default class PersonSalesTargets extends LightningElement {
       fieldName: 'userName',
       editable: false,
       initialWidth: 120,
-      cellAttributes: { 
+      cellAttributes: {
         class: { fieldName: 'cellBorderCssClass' }
       }
     }]
     return columns.concat(
-      dates.map(date => {
-        return {
-          label: this.dateToStr(date),
-          fieldName: date,
-          type: 'currency',
-          editable: true,
-          cellAttributes: { 
-            class: { fieldName: 'cellBorderCssClass' } 
+        dates.map(date => {
+          return {
+            label: this.dateToStr(date),
+            fieldName: date,
+            type: 'currency',
+            editable: true,
+            cellAttributes: {
+              class: { fieldName: 'cellBorderCssClass' }
+            }
           }
-        }
-      })
+        })
     )
   }
 
   /**
-   * Save data in dataBase 
+   * Save data in dataBase
    */
 
   handleSave(event) {
@@ -94,7 +98,7 @@ export default class PersonSalesTargets extends LightningElement {
     event.preventDefault()
     let dataToUpdate = this.makeListSalesTargToUpds(event);
     upsertSalesTargets(
-      { 'salesTargets': dataToUpdate }
+        { 'salesTargets': dataToUpdate }
     ).then(() => {
       this.loadData();
       this.showToast('Success', 'Person Sales Targets have been updated.', 'success')
@@ -133,7 +137,7 @@ export default class PersonSalesTargets extends LightningElement {
   }
 
   /**
-   * Select Year 
+   * Select Year
    */
 
   handleSelectYear(event) {
@@ -142,7 +146,7 @@ export default class PersonSalesTargets extends LightningElement {
   }
 
   /**
-   * Helper Methods 
+   * Helper Methods
    */
 
   dateToStr(date) {
