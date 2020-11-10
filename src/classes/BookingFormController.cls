@@ -1,4 +1,3 @@
-
 public with sharing class BookingFormController {
 
     public static String fetchUserSessionId() {

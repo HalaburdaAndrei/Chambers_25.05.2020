@@ -303,7 +303,7 @@ global class Batch_AutoOpportunities implements Database.Batchable<sObject>, Dat
 
                 // CREATE MAPS OF HEAD ACCOUNT DATA
                 Map<Id, Map<String, Object>> allAcctData = new Map<Id, Map<String, Object>>();
-                for (Account acct : [SELECT Id, Name, ParentId, Parent.Name, OwnerId, Owner.isActive, Parent.OwnerId, Parent.Owner.isActive, ShippingCountry, Type, Organization_Type_RE__c FROM Account WHERE Id IN :accts]) {
+                for (Account acct : [SELECT Id, Name, ParentId, Parent.Name, OwnerId, Owner.isActive, Parent.OwnerId, Parent.Owner.isActive, ShippingCountry, Type, Organization_Type_RE__c FROM Account WHERE Id IN :accts AND Type != '']) {
 
                     Id headId = (acct.ParentId != null ? acct.ParentId : acct.Id);
                     allAcctData.put(headId, new Map<String, Object>{

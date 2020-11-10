@@ -270,6 +270,17 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>Publication_Target__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Publication Target</label>
+        <referenceTo>Publication_Target__c</referenceTo>
+        <relationshipLabel>Opportunity Publication Target</relationshipLabel>
+        <relationshipName>Opportunity_Publication_Target</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Publication__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>lookup to the Publication being sold for this line item</description>
@@ -497,6 +508,17 @@
         <referenceTo>Account</referenceTo>
         <relationshipLabel>Opportunity Lines as Related Org</relationshipLabel>
         <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Target__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sales Target</label>
+        <referenceTo>Sales_Target__c</referenceTo>
+        <relationshipLabel>Opportunity Sales Target</relationshipLabel>
+        <relationshipName>Opportunity_Sales_Target</relationshipName>
         <required>false</required>
         <type>Lookup</type>
     </fields>

@@ -3,9 +3,14 @@
                 access="global">
     <aura:attribute name="options" type="List"/>
     <aura:attribute name="selectedYear" type="String"/>
-    <aura:attribute name="tableHead" type="List" />
-    <aura:attribute name="tableBody" type="List" />
+    <aura:attribute name="tableHead" type="List"/>
+    <aura:attribute name="DirectInsight" type="List"/>
+    <aura:attribute name="tableBody" type="Object"/>
     <aura:attribute name="selectedLookUpRecords" type="sObject[]" default="[]"/>
+
+    <aura:attribute name="nameEditMode" type="boolean" default="false"/>
+    <aura:attribute name="showSaveCancelBtn" type="boolean"/>
+    <aura:attribute name="showErrorClass" type="boolean" default="false"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <div class="slds-color__background_gray-1 slds-is-relative">
@@ -24,88 +29,136 @@
 
             <div class="slds-size_2-of-12 slds-p-bottom--medium slds-container--right slds-p-right--medium">
                 <lightning:combobox name="progress" label="Year" value="{!v.selectedYear}"
-                                    options="{! v.options }" onchange="{! c.handleChange }"/>
+                                    options="{! v.options }" onchange="{! c.selectedYearinOption }"/>
             </div>
         </div>
-
 
     </div>
 
     <div>
-    <table aria-multiselectable="true"
-           class="slds-table slds-table_bordered slds-table_col-bordered slds-table_resizable-cols"
-           role="grid">
-        <thead>
-        <tr>
-            <th class="slds-text-align_right" rowspan="2" style="width:3.25rem">
-                <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
-                <div class="slds-th__action slds-th__action_form">
-                    <div class="slds-checkbox">
-                        <input type="checkbox" name="options" id="checkbox-unique-id-353" value="checkbox-unique-id-353" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
-                        <label class="slds-checkbox__label" for="checkbox-unique-id-353" id="check-select-all-label">
-                            <span class="slds-checkbox_faux"></span>
-                            <span class="slds-form-element__label slds-assistive-text">Select All</span>
-                        </label>
+        <table aria-multiselectable="true"
+               class="slds-table slds-table_bordered slds-table_col-bordered slds-table_resizable-cols"
+               role="grid">
+            <thead>
+            <tr class="slds-text-title--caps">
+                <th style="width:3.25rem;" rowspan="2" class="slds-text-align--right">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <label class="slds-checkbox">
+                                <!--header checkbox for select all-->
+                                <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}"/>
+                                <span class="slds-checkbox--faux"></span>
+                                <span class="slds-form-element__label text"></span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-            </th>
-            <th rowspan="2">Sales Person</th>
-            <aura:iteration items="{!v.tableHead}" var="head" indexVar="rowIndex">
+                </th>
+                <th rowspan="2">Sales Person</th>
+                <aura:iteration items="{!v.tableHead}" var="head" indexVar="rowIndex">
 
-                <th colspan="2" class="slds-text-align--center">{!head}</th>
+                    <th colspan="2" class="slds-text-align--center">{!head}</th>
+                </aura:iteration>
+
+            </tr>
+            <tr>
+                <aura:iteration items="{!v.DirectInsight}" var="di" indexVar="rowIndex">
+                    <th class="slds-text-align--center"> Direct<br/> Target</th>
+                    <th class="slds-text-align--center"> Insight<br/> Target</th>
+                </aura:iteration>
+
+            </tr>
+            </thead>
+            <tbody>
+            <!--        <tr><td>test</td></tr>-->
+
+            <aura:iteration items="{!v.tableBody}" var="body" indexVar="rowIndex">
+                <tr class="slds-line-height_reset slds-is-selected">
+                    <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                        <!--                        <div class="slds-form-element">-->
+                        <!--                            <div class="slds-form-element__control">-->
+                        <label class="slds-checkbox">
+                            <ui:inputCheckbox text="{!rowIndex}" aura:id="boxPack" value=""
+                                              change="{!c.checkboxSelect}"/>
+                            <span class="slds-checkbox--faux"></span>
+                            <span class="slds-form-element__label text"></span>
+                        </label>
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                    </td>
+                    <td name="{!rowIndex}" onclick="{!c.toggle}">
+                        <lightning:icon name="{!rowIndex}" size="xx-small" class="slds-p-right--small"
+                                        iconName="{!body.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
+                        {!body.userName}</td>
+                    <td colspan="24"></td>
+                </tr>
+                <aura:if isTrue="{!body.expanded}">
+
+                    <aura:iteration items="{!body.publications}" var="publ" indexVar="indexvar">
+                        <tr>
+                            <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                <!--                            <div class="slds-form-element">-->
+                                <!--                                <div class="slds-form-element__control">-->
+                                <label class="slds-checkbox">
+                                    <ui:inputCheckbox text="{!indexvar}" aura:id="boxPub" value=""
+                                                      change="{!c.checkboxSelect}"/>
+                                    <span class="slds-checkbox--faux"></span>
+                                    <span class="slds-form-element__label text"></span>
+                                </label>
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                            </td>
+                            <td>{!publ.publnName}</td>
+
+                            <aura:iteration items="{!publ.publicTargets1}" var="mapValue" indexVar="key">
+                                <!--            <tr>-->
+                                <td ondblclick="{!c.inlineEditName}"
+                                    class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+                                    <span class="slds-grid slds-grid_align-spread">
+                                        <!-- show input and output section based on boolean flag -->
+                                        <aura:if isTrue="{!v.nameEditMode == false}">
+                                            <span class="slds-truncate" title="Name">{!mapValue.Directory_Target__c}</span>
+                                            <button onclick="{!c.inlineEditName}"
+                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0"
+                                                    title="Edit Name">
+                                              <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                            </button>
+
+                                            <!-- Inline Edit Section in else case-->
+                                            <aura:set attribute="else">
+                                                <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
+                                                         style="position: absolute; top: 0px">
+                                                    <div class="slds-popover__body">
+                                                        <div class="slds-form-element slds-grid slds-wrap">
+                                                            <div class="slds-form-element__control slds-grow">
+                                                                <ui:inputText class="slds-input inputFieldWidth"
+                                                                              labelClass="slds-form-element__label slds-form-element__label_edit slds-no-flex"
+                                                                              aura:id="inputId"
+                                                                              blur="{!c.closeNameBox}"
+                                                                              change="{!c.onNameChange}"
+                                                                              required="true"
+                                                                              label="Direct"
+                                                                              value="{!mapValue.directTarget}"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <span id="form-end" tabindex="0"></span>
+                                                </section>
+                                            </aura:set>
+                                        </aura:if>
+                                    </span>
+                                </td>
+                                <!--                            <td>{!mapValue.directTarget}</td>-->
+                                <td>{!mapValue.Insights_Target__c}</td>
+                                <!--    </tr>-->
+                            </aura:iteration>
+                        </tr>
+                    </aura:iteration>
+                </aura:if>
             </aura:iteration>
 
-        </tr>
-        <tr>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
-            <th class="slds-text-align--center"> Direct<br/> Target</th>
-            <th class="slds-text-align--center"> Insight<br/> Target</th>
 
-        </tr>
-        </thead>
-        <tbody>
-<!--        <tr><td>test</td></tr>-->
-
-<aura:iteration items="{!v.tableBody}" var="body" indexVar="key">
-    <tr>
-        <td class="slds-text-align_right" >
-            <div class="slds-checkbox">
-                <input type="checkbox" name="options" id="checkbox-01" value="checkbox-01" tabindex="0" aria-labelledby="check-button-label-01 column-group-header" />
-                <label class="slds-checkbox__label" for="checkbox-01" id="check-button-label-01">
-                    <span class="slds-checkbox_faux"></span>
-                    <span class="slds-form-element__label slds-assistive-text">Select item 1</span>
-                </label>
-            </div>
-        </td>
-    <td>{!body.key}</td>
-        <aura:iteration items="{!body.value}" var="mapValue" indexVar="key">
-            <td>{!mapValue}</td>
-        </aura:iteration>
-    </tr>
-</aura:iteration>
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
+
 </aura:component>

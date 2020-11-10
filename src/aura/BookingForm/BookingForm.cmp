@@ -1,4 +1,3 @@
-
 <aura:component description="BookingForm"
                 implements="force:lightningQuickActionWithoutHeader,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
                 controller="BookingFormController" access="global">

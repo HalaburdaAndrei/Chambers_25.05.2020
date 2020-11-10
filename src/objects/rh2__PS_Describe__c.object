@@ -159,6 +159,17 @@
         <type>Currency</type>
     </fields>
     <fields>
+        <fullName>rh2__Formula_Date_Time_Test__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>DATETIMEVALUE(CreatedDate)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Formula Date Time Test</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
         <fullName>rh2__Hierarchy_Test_2__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <deprecated>false</deprecated>

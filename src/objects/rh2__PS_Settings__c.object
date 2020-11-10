@@ -80,6 +80,16 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>rh2__Disable_Auto_Running_User_Changes__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked, automatic processes will not update the running user for Rollup Helper.</inlineHelpText>
+        <label>Disable Auto Changes to Running User</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>rh2__Disable_Currency_Update_Recalculation__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
