@@ -31,17 +31,18 @@ public with sharing class PersonSalesTargetWithPublController {
         Map<Id, String> mapUserName = new Map<Id, String>();
         Map<Id, String> mapPublicationName = new Map<Id, String>();
         Map<String, Map<String, List<Sales_Target__c>>> userTable = new Map<String, Map<String, List<Sales_Target__c>>>();
-        List<Sales_Target__c> listSalesTargets = [
-                SELECT Id, Sales_Person__c, Sales_Person__r.Name, Date__c, Target__c, Publication__c, Publication__r.Name, Publication_Visible__c, Directory_Target__c, Insights_Target__c
-                FROM Sales_Target__c
-                WHERE Publication_Visible__c = TRUE
-        ];
+//        List<Sales_Target__c> listSalesTargets = [
+//                SELECT Id, Sales_Person__c, Sales_Person__r.Name, Date__c, Target__c, Publication__c, Publication__r.Name, Publication_Visible__c, Directory_Target__c, Insights_Target__c
+//                FROM Sales_Target__c
+//                WHERE Publication_Visible__c = TRUE
+//        ];
 
         List<User> listUsers = [
                 SELECT
                         Id,
                         Name, (
                         SELECT
+                                Id,
                                 Sales_Person__c,
                                 Sales_Person__r.Name,
                                 Date__c, Target__c,
@@ -87,7 +88,15 @@ public with sharing class PersonSalesTargetWithPublController {
             slPerson.expanded = false;
             slPerson.userName = mapUserName.get(userId);
             slPerson.userId = userId;
-
+            List<UserTarget> listUserTarget = new List<UserTarget>();
+            for (Date dateYear : years) {
+                UserTarget target = new UserTarget();
+                target.dateTarget = dateYear;
+                target.directTarget = 0;
+                target.insightTarget = 0;
+                listUserTarget.add(target);
+            }
+            slPerson.usTargets = listUserTarget;
 
             List<PublicationRow> listPublicationNames = new List<PublicationRow>();
             for (String pubId : userTable.get(userId).keySet()) {
@@ -101,13 +110,17 @@ public with sharing class PersonSalesTargetWithPublController {
                 for (Date dateYear : years) {
                     Sales_Target__c target = new Sales_Target__c();
                     target.Date__c = dateYear;
+                    target.Sales_Person__c = userId;
+                    target.Publication__c = pubId;
                     target.Directory_Target__c = null;
                     target.Insights_Target__c = null;
+                    target.Publication_Visible__c = true;
                     listTarget.add(target);
                 }
                 for (Sales_Target__c target : listTarget) {
                     for (Sales_Target__c sTarget : lstSalesTargets) {
                         if (target.Date__c == sTarget.Date__c) {
+                            target.Id = sTarget.Id;
                             target.Sales_Person__c = sTarget.Sales_Person__c;
                             target.Publication__c = sTarget.Publication__c;
                             target.Publication_Visible__c = sTarget.Publication_Visible__c;
@@ -137,6 +150,8 @@ public with sharing class PersonSalesTargetWithPublController {
     @AuraEnabled
     public static List<SalesPerson> addPublicationList (List<Publication__c> newlistPubl, Integer selectedYear, List<String> listUser, String oldListSalesPerson) {
         List<Date> years = generateDates(selectedYear);
+        Date startDate = Date.newInstance(selectedYear, startFyMonth, 1);
+        Date endDate = Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1);
         List<Sales_Target__c> checkTarget = [
                 SELECT Id,
                         Name,
@@ -150,7 +165,8 @@ public with sharing class PersonSalesTargetWithPublController {
                         Date__c
                 FROM Sales_Target__c
                 WHERE Sales_Person__c IN: listUser
-                AND CALENDAR_YEAR(Date__c) =: selectedYear
+                AND CALENDAR_YEAR(Date__c) >= :startDate.year()
+                AND CALENDAR_YEAR(Date__c) <= :endDate.year()
 
         ];
 
@@ -217,7 +233,7 @@ public with sharing class PersonSalesTargetWithPublController {
                 mapUserPublicationTarget.get(st.Sales_Person__c).get(st.Publication__c).add(st);
             }
         }
-
+        List<Sales_Target__c> upsertSalesTarget = new List<Sales_Target__c>();
         List<SalesPerson> listSalesPerson = new List<SalesPerson>();
 
         for (String userId : mapUserPublicationTarget.keySet()) {
@@ -239,18 +255,24 @@ public with sharing class PersonSalesTargetWithPublController {
                 for (Date dateYear : years) {
                     Sales_Target__c target = new Sales_Target__c();
                     target.Date__c = dateYear;
+                    target.Sales_Person__c = userId;
+                    target.Publication__c = pubId;
                     target.Directory_Target__c = null;
                     target.Insights_Target__c = null;
+                    target.Publication_Visible__c = true;
                     listTarget.add(target);
+                    upsertSalesTarget.add(target);
                 }
                 for (Sales_Target__c target : listTarget) {
                     for (Sales_Target__c sTarget : lstSalesTargets) {
                         if (target.Date__c == sTarget.Date__c) {
+                            target.Id = sTarget.Id;
                             target.Sales_Person__c = sTarget.Sales_Person__c;
                             target.Publication__c = sTarget.Publication__c;
                             target.Publication_Visible__c = true;
                             target.Directory_Target__c = sTarget.Directory_Target__c;
                             target.Insights_Target__c = sTarget.Insights_Target__c;
+
                         }
                     }
                 }
@@ -265,7 +287,89 @@ public with sharing class PersonSalesTargetWithPublController {
 
         }
 
+        upsert(upsertSalesTarget);
+
         return listSalesPerson;
+    }
+
+    @AuraEnabled
+    public static void deletePublication (Integer selectedYear, String oldListSalesPerson){
+        List<SalesPerson> parsSalesPerson = (List<SalesPerson>)JSON.deserialize(oldListSalesPerson, List<SalesPerson>.class);
+        System.debug(parsSalesPerson);
+
+        Map<Id, String> mapUserName = new Map<Id, String>();
+        Map<Id, String> mapPublicationName = new Map<Id, String>();
+        Map<String,Map<String,List<Sales_Target__c>>> mapUserPublicationTarget = new Map<String,Map<String,List<Sales_Target__c>>>();
+
+        List<Sales_Target__c> updateSalesTarget = new List<Sales_Target__c>();
+
+        for(SalesPerson salesper : parsSalesPerson){
+            if(!mapUserPublicationTarget.containsKey(salesper.userId)) {
+                mapUserPublicationTarget.put(salesper.userId, new Map<String, List<Sales_Target__c>>());
+            }
+            if(!mapUserName.containsKey(salesper.userId)){
+                mapUserName.put(salesper.userId,salesper.userName);
+            }
+            for(PublicationRow pubRow : salesper.publications){
+                if(!mapUserPublicationTarget.get(salesper.userId).containsKey(pubRow.publicationId)) {
+                    mapUserPublicationTarget.get(salesper.userId).put(pubRow.publicationId, new List<Sales_Target__c>());
+                }
+                if(!mapPublicationName.containsKey(pubRow.publicationId)){
+                    mapPublicationName.put(pubRow.publicationId, pubRow.publnName);
+                }
+            for(Sales_Target__c st : pubRow.publicTargets1){
+                System.debug(st);
+                if(st.Publication_Visible__c == true){
+                    mapUserPublicationTarget.get(salesper.userId).get(pubRow.publicationId).add(st);
+                }
+                if(st.Publication_Visible__c == false){
+                    updateSalesTarget.add(st);
+                }
+
+            }
+            }
+        }
+
+        update updateSalesTarget;
+
+//        return null;
+    }
+
+    @AuraEnabled
+    public static void saveSalesTarget ( String salesTarget){
+        List<SalesPerson> parsSalesPerson = (List<SalesPerson>)JSON.deserialize(salesTarget, List<SalesPerson>.class);
+        System.debug(parsSalesPerson);
+
+        Map<Id, String> mapUserName = new Map<Id, String>();
+        Map<Id, String> mapPublicationName = new Map<Id, String>();
+        Map<String,Map<String,List<Sales_Target__c>>> mapUserPublicationTarget = new Map<String,Map<String,List<Sales_Target__c>>>();
+
+        List<Sales_Target__c> updateSalesTarget = new List<Sales_Target__c>();
+
+        for(SalesPerson salesper : parsSalesPerson){
+            if(!mapUserPublicationTarget.containsKey(salesper.userId)) {
+                mapUserPublicationTarget.put(salesper.userId, new Map<String, List<Sales_Target__c>>());
+            }
+            if(!mapUserName.containsKey(salesper.userId)){
+                mapUserName.put(salesper.userId,salesper.userName);
+            }
+            for(PublicationRow pubRow : salesper.publications){
+                if(!mapUserPublicationTarget.get(salesper.userId).containsKey(pubRow.publicationId)) {
+                    mapUserPublicationTarget.get(salesper.userId).put(pubRow.publicationId, new List<Sales_Target__c>());
+                }
+                if(!mapPublicationName.containsKey(pubRow.publicationId)){
+                    mapPublicationName.put(pubRow.publicationId, pubRow.publnName);
+                }
+                for(Sales_Target__c st : pubRow.publicTargets1){
+                    System.debug(st);
+                        updateSalesTarget.add(st);
+
+
+                }
+            }
+        }
+
+        update updateSalesTarget;
     }
 
     public class SalesPerson {
@@ -273,15 +377,16 @@ public with sharing class PersonSalesTargetWithPublController {
         String userName { get; set; }
         @AuraEnabled
         String userId { get; set; }
-//        @AuraEnabled
-//        List<String> salesTargets { get; set; }
+        @AuraEnabled
+        List<UserTarget> usTargets { get; set; }
         @AuraEnabled
         List<PublicationRow> publications { get; set; }
         @AuraEnabled
         Boolean expanded { get; set; }
 
         SalesPerson() {
-//            salesTargets = new List<String>();
+            usTargets = new List<UserTarget>();
+
             publications = new List<PublicationRow>();
             expanded = true;
         }
@@ -292,18 +397,16 @@ public with sharing class PersonSalesTargetWithPublController {
         String publnName { get; set; }
         @AuraEnabled
         String publicationId { get; set; }
-        @AuraEnabled
-        List<PubTarget> publicTargets { get; set; }
+
         @AuraEnabled
         List<Sales_Target__c> publicTargets1 { get; set; }
 
         PublicationRow() {
-            publicTargets = new List<PubTarget>();
             publicTargets1 = new List<Sales_Target__c>();
         }
     }
 
-    public class PubTarget {
+    public class UserTarget {
         @AuraEnabled
         Date dateTarget { get; set; }
         @AuraEnabled

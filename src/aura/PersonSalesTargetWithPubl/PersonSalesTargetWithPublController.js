@@ -75,6 +75,26 @@
 
         items[index].expanded = !items[index].expanded;
         component.set("v.tableBody", items);
+
+        var numberDirect = 0;
+        console.log(numberDirect);
+        console.log(items[0].publications[1].publicTargets1[0].Directory_Target__c);
+
+        for(var u = 0; u < items.length; u++){
+
+            for(var p = 0; p < items[u].publications.length; p++){
+
+                for(var t = 0; t < items[u].publications[p].publicTargets1.length; t++){
+                    if(items[u].publications[p].publicTargets1[t].Directory_Target__c != null) {
+                        numberDirect += items[u].publications[p].publicTargets1[t].Directory_Target__c;
+                        // console.log(numberDirect);
+                        console.log(items[u].publications[p].publicTargets1[t].Directory_Target__c);
+                    }
+                }
+            }
+        }
+        console.log(numberDirect);
+
     },
 
     addPublication: function (component, event, helper) {
@@ -139,6 +159,28 @@
 
     },
 
+    delPublication: function (component, event, helper){
+        var items = component.get("v.tableBody");
+        var selectedYear = parseInt(component.get("v.selectedYear"));
+        var action = component.get("c.deletePublication");
+        action.setParams({
+            selectedYear: selectedYear,
+            oldListSalesPerson: JSON.stringify(items)
+        });
+        action.setCallback(this, function (response) {
+           var state = response.getState();
+           console.log(state);
+           console.log(response.getError());
+
+           if(state === 'SUCCESS'){
+               $A.get('e.force:refreshView').fire();
+
+           }
+        });
+        $A.enqueueAction(action);
+
+    },
+
     selectAll: function (component, event, helper) {
         //get the header checkbox value
         var selectedHeaderCheck = event.getSource().get("v.value");
@@ -170,52 +212,102 @@
 
     },
 
-    checkboxSelect: function (component, event, helper) {
-        // get the selected checkbox value
+    checkboxSelectUser: function (component, event, helper) {
         var selectedRec = event.getSource().get("v.value");
         console.log(selectedRec);
 
-        var addPubforSales = [];
-
-        var getAllId = component.find("boxPack");
-        if (!Array.isArray(getAllId)) {
-            if (getAllId.get("v.value") == true) {
-                addPubforSales.push(getAllId.get("v.text"));
-            }
-        } else {
-            for (var i = 0; i < getAllId.length; i++) {
-                if (getAllId[i].get("v.value") == true) {
-                    addPubforSales.push(getAllId[i].get("v.text"));
-                }
-            }
-        }
-
-        var pubcheckBox = [];
-        var getAllPubId = component.find("boxPub");
-        if (!Array.isArray(getAllPubId)) {
-            if (getAllPubId.get("v.value") == true) {
-                pubcheckBox.push(getAllPubId.get("v.text"));
-            }
-        } else {
-            for (var i = 0; i < getAllPubId.length; i++) {
-                if (getAllPubId[i].get("v.value") == true) {
-                    pubcheckBox.push(getAllPubId[i].get("v.text"));
-                }
-            }
-        }
-        console.log(addPubforSales);
-        console.log(pubcheckBox);
     },
 
-    inlineEditName: function (component, event, helper) {
-        // show the name edit field popup
-        component.set("v.nameEditMode", true);
-        // after the 100 millisecond set focus to input field
-        setTimeout(function () {
-            // component.find("inputId").focus();
-            console.log(component.find("inputId"));
-            component.find("inputId");
-        }, 100);
+    checkboxSelectPublication: function (component, event, helper) {
+        // get the selected checkbox value
+        console.log('Start');
+        var item = component.get("v.tableBody");
+        console.log(event.getSource().get("v.labelClass"));
+        console.log(event.getSource().get("v.text"));
+        var selectedRec = event.getSource().get("v.value");
+
+
+        if(selectedRec == true) {
+            for (var i = 0; i < item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1.length; i++) {
+                item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1[i].Publication_Visible__c = false;
+            }
+        }else{
+            for (var i = 0; i < item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1.length; i++) {
+                item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1[i].Publication_Visible__c = true;
+            }
+        }
+        console.log(item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1);
+        console.log(selectedRec);
+
+
+    },
+
+    inlineEditDirectory: function (component, event, helper) {
+        var item = component.get("v.tableBody");
+        console.log(event.target.dataset.user);
+        console.log(event.target.dataset.pub);
+        console.log(event.target.dataset.datadirectory);
+        // console.log(item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1[0]);
+
+
+        var element = event.target.id;
+        console.log('>>>> ' + event.target.id);
+        console.log(element);
+        console.log(element.toString());
+        // console.log('>>>> ' + event.getSource().get("v.id"));
+
+
+        var x = document.querySelectorAll('div[id="'+element+'"]');
+        console.log(x);
+        if (x[0].style.display === "none") {
+            x[0].style.display = "block";
+        } else {
+            x[0].style.display = "none";
+            console.log(item);
+
+        }
+
+
+        // // show the name edit field popup
+        // component.set("v.nameEditModeDirectory", true);
+        // // after the 100 millisecond set focus to input field
+        // setTimeout(function () {
+        //     component.find("2020-07-01").focus();
+        //     console.log(component.find(element));
+        //     // component.find("inputIdDirectory");
+        // }, 100);
+    },
+
+    inlineEditInsight: function (component, event, helper) {
+        var item = component.get("v.tableBody");
+
+        var element = event.target.id;
+        console.log('>>>> ' + event.target.id);
+        console.log(element);
+        console.log(element.toString());
+        // console.log('>>>> ' + event.getSource().get("v.id"));
+
+
+        var x = document.querySelectorAll('div[id="'+element+'"]');
+        console.log(x);
+        if (x[0].style.display === "none") {
+            x[0].style.display = "block";
+        } else {
+            x[0].style.display = "none";
+            console.log(item);
+
+        }
+        component.set("v.showSaveCancelBtn", true)
+        // component.set("v.showErrorClass", true);
+        console.log(component.get("v.showSaveCancelBtn"));
+        // // show the name edit field popup
+        // component.set("v.nameEditModeInsight", true);
+        // // after the 100 millisecond set focus to input field
+        // setTimeout(function () {
+        //     // component.find("inputId").focus();
+        //     console.log(component.find("inputId"));
+        //     component.find("inputId");
+        // }, 100);
     },
 
     onNameChange: function (component, event, helper) {
@@ -228,7 +320,7 @@
 
     closeNameBox: function (component, event, helper) {
         // on focus out, close the input section by setting the 'nameEditMode' att. as false
-        component.set("v.nameEditMode", false);
+        component.set("v.nameEditModeDirectory", false);
         // check if change/update Name field is blank, then add error class to column -
         // by setting the 'showErrorClass' att. as True , else remove error class by setting it False
         if (event.getSource().get("v.value").trim() == '') {
@@ -237,5 +329,22 @@
             component.set("v.showErrorClass", false);
         }
     },
+
+    saveButton: function (component, event, helper) {
+        var item = component.get("v.tableBody");
+
+        var action = component.get("c.saveSalesTarget");
+        action.setParams({salesTarget: JSON.stringify(item)});
+        action.setCallback(this, function (response) {
+           var state = response.getState();
+           console.log(state);
+           if(state === "SUCCESS"){
+               $A.get('e.force:refreshView').fire();
+
+           }
+
+        });
+        $A.enqueueAction(action);
+    }
 
 })
