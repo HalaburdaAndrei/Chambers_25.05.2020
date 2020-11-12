@@ -315,6 +315,14 @@
                             <option name="name" value="testButtonController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="PersonSalesTargetWithPublControllerTest" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="PublicationAllocatedTarget" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -537,6 +545,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="PersonSalesTargetWithPubl" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="PublicationAllocatedTarget" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

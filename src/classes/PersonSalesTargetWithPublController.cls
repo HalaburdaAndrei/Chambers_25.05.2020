@@ -52,8 +52,8 @@ public with sharing class PersonSalesTargetWithPublController {
                                 Directory_Target__c,
                                 Insights_Target__c
                         FROM Sales_Targets__r
-                        WHERE CALENDAR_YEAR(Date__c) >= :startDate.year()
-                        AND CALENDAR_YEAR(Date__c) <= :endDate.year()
+                        WHERE Date__c >= :startDate
+                        AND Date__c <= :endDate
                         AND Publication_Visible__c = TRUE
                         ORDER BY Date__c
                 )
@@ -165,8 +165,8 @@ public with sharing class PersonSalesTargetWithPublController {
                         Date__c
                 FROM Sales_Target__c
                 WHERE Sales_Person__c IN: listUser
-                AND CALENDAR_YEAR(Date__c) >= :startDate.year()
-                AND CALENDAR_YEAR(Date__c) <= :endDate.year()
+                AND Date__c >= :startDate
+                AND Date__c <= :endDate
 
         ];
 
@@ -175,6 +175,7 @@ public with sharing class PersonSalesTargetWithPublController {
 
         Map<Id, String> mapUserName = new Map<Id, String>();
         Map<Id, String> mapPublicationName = new Map<Id, String>();
+        Map<Id, String> mapPublicationTrue = new Map<Id, String>();
         Map<String,Map<String,List<Sales_Target__c>>> mapUserPublicationTarget = new Map<String,Map<String,List<Sales_Target__c>>>();
 
         for(SalesPerson salesper : parsSalesPerson){
@@ -190,6 +191,7 @@ public with sharing class PersonSalesTargetWithPublController {
                 }
                 if(!mapPublicationName.containsKey(pubRow.publicationId)){
                     mapPublicationName.put(pubRow.publicationId, pubRow.publnName);
+                    mapPublicationTrue.put(pubRow.publicationId, pubRow.publnName);
                 }
 
             }
@@ -206,6 +208,8 @@ public with sharing class PersonSalesTargetWithPublController {
                 }
                 if(!mapPublicationName.containsKey(pub.Id)){
                     mapPublicationName.put(pub.Id, pub.Name);
+                    mapPublicationTrue.put(pub.Id, pub.Name);
+
                 }
             }
             if(!mapUserName.containsKey(user.Id)){
@@ -253,26 +257,30 @@ public with sharing class PersonSalesTargetWithPublController {
 
                 List<Sales_Target__c> listTarget = new List<Sales_Target__c>();
                 for (Date dateYear : years) {
-                    Sales_Target__c target = new Sales_Target__c();
-                    target.Date__c = dateYear;
-                    target.Sales_Person__c = userId;
-                    target.Publication__c = pubId;
-                    target.Directory_Target__c = null;
-                    target.Insights_Target__c = null;
-                    target.Publication_Visible__c = true;
-                    listTarget.add(target);
-                    upsertSalesTarget.add(target);
+                    if(mapPublicationTrue.containsKey(pubId)) {
+
+                        Sales_Target__c target = new Sales_Target__c();
+                        target.Date__c = dateYear;
+                        target.Sales_Person__c = userId;
+                        target.Publication__c = pubId;
+                        target.Directory_Target__c = null;
+                        target.Insights_Target__c = null;
+                        target.Publication_Visible__c = true;
+                        listTarget.add(target);
+                        upsertSalesTarget.add(target);
+                    }
                 }
                 for (Sales_Target__c target : listTarget) {
                     for (Sales_Target__c sTarget : lstSalesTargets) {
                         if (target.Date__c == sTarget.Date__c) {
-                            target.Id = sTarget.Id;
-                            target.Sales_Person__c = sTarget.Sales_Person__c;
-                            target.Publication__c = sTarget.Publication__c;
-                            target.Publication_Visible__c = true;
-                            target.Directory_Target__c = sTarget.Directory_Target__c;
-                            target.Insights_Target__c = sTarget.Insights_Target__c;
-
+                            if(mapPublicationTrue.containsKey(pubId)) {
+                                target.Id = sTarget.Id;
+                                target.Sales_Person__c = sTarget.Sales_Person__c;
+                                target.Publication__c = sTarget.Publication__c;
+                                target.Publication_Visible__c = true;
+                                target.Directory_Target__c = sTarget.Directory_Target__c;
+                                target.Insights_Target__c = sTarget.Insights_Target__c;
+                            }
                         }
                     }
                 }
