@@ -1,3 +1,283 @@
+<aura:component description="PublicationAllocatedTarget" controller="PublicationAllocatedTarget"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
 
-<aura:component description="PublicationAllocatedTarget">
+    <aura:attribute name="selectedLookUpRecords" type="sObject[]" default="[]"/>
+    <aura:attribute name="resultTableTarget" type="Object"/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-color__background_gray-1 slds-is-relative">
+
+        <div class="slds-p-bottom--medium slds-p-left_medium" style="display: flex; align-items: flex-end;">
+            <div>
+                <c:lookupPublication objectAPIName="Publication__c"
+                                     IconName="standard:article"
+                                     lstSelectedRecords="{!v.selectedLookUpRecords}"
+                                     label="Publication Name"/>
+            </div>
+            <div class="slds-m-left_small slds-m-bottom_xx-small">
+                <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
+                <lightning:button variant="destructive" label="Delete Publication" onclick="{!c.delPublication }"/>
+
+            </div>
+
+            <!--            <div class="slds-size_2-of-12 slds-p-bottom&#45;&#45;medium slds-container&#45;&#45;right slds-p-right&#45;&#45;medium">-->
+            <!--                <lightning:combobox name="progress" label="Year" value="{!v.selectedYear}"-->
+            <!--                                    options="{! v.options }" onchange="{! c.selectedYearinOption }"/>-->
+            <!--            </div>-->
+        </div>
+
+        <div class="slds-table_edit_container slds-is-relative">
+            <table aria-multiselectable="true"
+                   class="slds-table slds-table_bordered slds-table_edit slds-table_fixed-layout slds-table_resizable-cols"
+                   role="grid">
+                <thead>
+                <tr class="slds-line-height_reset">
+
+                    <th class="" scope="col" style="width:2rem">
+                        <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
+                        <div class="slds-th__action slds-th__action_form">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" name="options" id="checkbox-unique-id-225"
+                                       value="checkbox-unique-id-225" tabindex="0" onchange="{!c.selectAll}"
+                                       aria-labelledby="check-select-all-label column-group-header"/>
+                                <label class="slds-checkbox__label" for="checkbox-unique-id-225"
+                                       id="check-select-all-label">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                                </label>
+                            </div>
+                        </div>
+                    </th>
+                    <th aria-label="Guide Annual Target" aria-sort="none" class="slds-is-resizable slds-is-sortable"
+                        scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button"
+                           tabindex="0">
+                            <span class="slds-assistive-text">Sort by: </span>
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Guide Annual Target">Guide Annual Target</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+
+                            </span>
+                            </div>
+                        </a>
+                        <div class="slds-resizable">
+                            <input type="range" aria-label="Name column width"
+                                   class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-414"
+                                   max="1000"
+                                   min="20" tabindex="0"/>
+                            <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                        </span>
+                        </div>
+                    </th>
+                    <th aria-label="Allocated Target" aria-sort="none" class="slds-is-resizable slds-is-sortable"
+                        scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button"
+                           tabindex="0">
+                            <span class="slds-assistive-text">Sort by: </span>
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Allocated Target">Allocated Target</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+
+                            </span>
+                            </div>
+                        </a>
+                        <div class="slds-resizable">
+                            <input type="range" aria-label="Account Name column width"
+                                   class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-415"
+                                   max="1000"
+                                   min="20" tabindex="0"/>
+                            <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                        </span>
+                        </div>
+                    </th>
+                    <th aria-label="Directory Allocated Target" aria-sort="none"
+                        class="slds-is-resizable slds-is-sortable"
+                        scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button"
+                           tabindex="0">
+                            <span class="slds-assistive-text">Sort by: </span>
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate"
+                                  title="Directory Allocated Target">Directory Allocated Target</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+
+                            </span>
+                            </div>
+                        </a>
+                        <div class="slds-resizable">
+                            <input type="range" aria-label="Close Date column width"
+                                   class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-416"
+                                   max="1000"
+                                   min="20" tabindex="0"/>
+                            <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                        </span>
+                        </div>
+                    </th>
+                    <th aria-label="Insights Allocated Target" aria-sort="none"
+                        class="slds-is-resizable slds-is-sortable"
+                        scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button"
+                           tabindex="0">
+                            <span class="slds-assistive-text">Sort by: </span>
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate"
+                                  title="Insights Allocated Target">Insights Allocated Target</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+                            </span>
+                            </div>
+                        </a>
+                        <div class="slds-resizable">
+                            <input type="range" aria-label="Stage column width"
+                                   class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-417"
+                                   max="1000"
+                                   min="20" tabindex="0"/>
+                            <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                        </span>
+                        </div>
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <aura:iteration items="{!v.resultTableTarget}" var="publicationRow" indexVar="indexPublication">
+                    <tr aria-selected="true" class="slds-hint-parent slds-is-selected">
+                        <td class="slds-cell-edit" role="gridcell">
+                            <div class="slds-checkbox">
+                                <lightning:input type="checkbox" name="options" aura:id="checkboxPublication"
+                                                 id="{!indexPublication}" value=""
+                                                 aria-labelledby="check-button-label-01 column-group-header"
+                                                 checked=""/>
+                            </div>
+                        </td>
+                        <th class="slds-cell-edit" scope="row" onclick="{!c.toggle}" name="{!indexPublication}">
+
+                            <span class="slds-grid slds-grid_align-spread">
+                                 <lightning:icon name="{!indexPublication}" size="xx-small" class="slds-p-right--small"
+                                                 iconName="{!publicationRow.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
+                                <a class="slds-truncate" id="link-01" tabindex="0"
+                                   title="Acme - 1,200 Widgets">{!publicationRow.publicationName}</a>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0"
+                                        title="Edit Name of Acme - 1,200 Widgets" aria-hidden="true">
+                                </button>
+                            </span>
+                        </th>
+                        <td class="slds-cell-edit " role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate"
+                                      title="{!publicationRow.publicationAllocatedTarget}">{!publicationRow.publicationAllocatedTarget}</span>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate"
+                                    title="{!publicationRow.publicationDirectoryAllocatedTarget}">{!publicationRow.publicationDirectoryAllocatedTarget}</span>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate"
+                                      title="{!publicationRow.publicationInsightsAllocatedTarget}">{!publicationRow.publicationInsightsAllocatedTarget}</span>
+                            </span>
+                        </td>
+
+                    </tr>
+                    <aura:if isTrue="{!publicationRow.expanded}">
+                    <aura:iteration items="{!publicationRow.productCategaryRows}" var="productCategaryRow"
+                                    indexVar="indexProdCategary">
+                    <tr aria-selected="false" class="">
+
+                        <td class="slds-cell-edit" role="gridcell">
+                            <div class="slds-checkbox">
+                                <lightning:input type="checkbox" name="options"
+                                                 aura:id="checkboxProductCategary" id="{!indexProdCategary}"
+                                                 value=""
+                                                 aria-labelledby="check-button-label-01 column-group-header"
+                                                 checked=""/>
+                            </div>
+                        </td>
+                        <th class="slds-cell-edit" scope="row">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <a class="slds-truncate" id="link-01"
+                                   title="{!productCategaryRow.productCategoryName}">{!productCategaryRow.productCategoryName}</a>
+                            </span>
+                        </th>
+                        <aura:iteration items="{!productCategaryRow.publicationTargets}" var="publicationTarget"
+                                                    indexVar="indexTarget">
+                        <td class="slds-cell-edit slds-is-edited" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate"
+                                      title="{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}">{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}</span>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate"
+                                      title="{!publicationTarget.Directory_Allocated_Target__c}">{!publicationTarget.Directory_Allocated_Target__c}</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
+                                        onclick="{!c.inlineEditDirectoryAllocatedTarget}"
+                                        title="{!'Edit ' + publicationTarget.Directory_Allocated_Target__c}"
+                                        id="{!'Directory-' +indexPublication+'-'+indexProdCategary}"
+                                        data-numberrow="{!indexProdCategary}">
+                                    <lightning:icon aria-hidden="true" iconName="utility:edit" size="xx-small"
+                                                    alternativeText="edit"/>
+                                </button>
+                                <div style="display: none" id="{!'Directory-' +indexPublication+'-'+indexProdCategary}">
+                                    <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
+                                             style="position:  relative; top: 0px">
+                                                    <ui:inputNumber class="slds-input inputFieldWidth"
+                                                                    labelClass="{!'Directory-' +indexPublication+'-'+indexProdCategary}"
+                                                                    blur="{!c.closeDirectoryBox}"
+                                                                    aura:id="focusIdDirectory"
+                                                                    value="{!publicationTarget.Directory_Allocated_Target__c}"/>
+                                        <span id="form-end" tabindex="0"></span>
+                                    </section>
+                                </div>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate"
+                                      title="{!publicationTarget.Insights_Allocated_Target__c}">{!publicationTarget.Insights_Allocated_Target__c}
+                                </span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
+                                        onclick="{!c.inlineEditInsightsAllocatedTarget}"
+                                        title="{!'Edit ' + publicationTarget.Insights_Allocated_Target__c}"
+                                        id="{!'Insights-' +indexPublication+'-'+indexProdCategary}"
+                                        data-numberrow="{!indexProdCategary}">
+                                    <lightning:icon aria-hidden="true" iconName="utility:edit" size="xx-small"
+                                                    alternativeText="edit"/>
+                                </button>
+                                <div style="display: none" id="{!'Insights-' +indexPublication+'-'+indexProdCategary}">
+                                        <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
+                                                 style="position:  relative; top: 0px">
+                                                        <ui:inputNumber class="slds-input inputFieldWidth"
+                                                                        labelClass="{!'Insights-' +indexPublication+'-'+indexProdCategary}"
+                                                                        blur="{!c.closeInsightsBox}"
+                                                                        aura:id="focusIdInsights"
+                                                                        value="{!publicationTarget.Directory_Allocated_Target__c}"/>
+                                            <span id="form-end" tabindex="0"></span>
+                                        </section>
+                                </div>
+                            </span>
+                         </td>
+                        </aura:iteration>
+                    </tr>
+
+                        </aura:iteration>
+
+                    </aura:if>
+                </aura:iteration>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </aura:component>
