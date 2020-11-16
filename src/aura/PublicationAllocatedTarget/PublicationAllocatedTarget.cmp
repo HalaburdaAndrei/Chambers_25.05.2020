@@ -4,11 +4,20 @@
 
     <aura:attribute name="selectedLookUpRecords" type="sObject[]" default="[]"/>
     <aura:attribute name="resultTableTarget" type="Object"/>
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="selectedProdCategory" type="String"/>
+    <aura:attribute name="loaded" type="Boolean" default="true"/>
+    <aura:attribute name="showSaveCancelBtn" type="boolean"/>
+
 
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
     <div class="slds-color__background_gray-1 slds-is-relative">
+
+        <aura:if isTrue="{! !v.loaded }">
+            <lightning:spinner variant="brand" alternativeText="Loading"/>
+        </aura:if>
 
         <div class="slds-p-bottom--medium slds-p-left_medium" style="display: flex; align-items: flex-end;">
             <div>
@@ -23,11 +32,20 @@
 
             </div>
 
-            <!--            <div class="slds-size_2-of-12 slds-p-bottom&#45;&#45;medium slds-container&#45;&#45;right slds-p-right&#45;&#45;medium">-->
-            <!--                <lightning:combobox name="progress" label="Year" value="{!v.selectedYear}"-->
-            <!--                                    options="{! v.options }" onchange="{! c.selectedYearinOption }"/>-->
-            <!--            </div>-->
+                        <div class="slds-size_2-of-12 slds-p-bottom--medium slds-container--right slds-p-right--medium">
+<!--                            <lightning:combobox name="progress" label="Product category" value="{!v.selectedProdCategory}"-->
+<!--                                                options="{! v.options }" onchange="{! c.selectedProductcategoryOption }"/>-->
+                            <c:MultiSelect aura:id="jobLocationMS" mslabel="Product Category" msoptions="{!v.options}" />
+
+                        </div>
+
         </div>
+        <aura:if isTrue="{!v.showSaveCancelBtn == True}">
+            <div class="slds-m-left_small slds-m-bottom_xx-small slds-align_absolute-center slds-p-right--medium">
+                <lightning:button variant="neutral" label="Cancel" onclick="{!c.cancelButton }"/>
+                <lightning:button variant="brand" label="Save" onclick="{!c.saveButton }"/>
+            </div>
+        </aura:if>
 
         <div class="slds-table_edit_container slds-is-relative">
             <table aria-multiselectable="true"
@@ -152,7 +170,7 @@
                         <td class="slds-cell-edit" role="gridcell">
                             <div class="slds-checkbox">
                                 <lightning:input type="checkbox" name="options" aura:id="checkboxPublication"
-                                                 id="{!indexPublication}" value=""
+                                                 id="{!indexPublication}" value="" onchange="{!c.selectPublicationCheckBox}"
                                                  aria-labelledby="check-button-label-01 column-group-header"
                                                  checked=""/>
                             </div>
@@ -172,7 +190,7 @@
                         <td class="slds-cell-edit " role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationRow.publicationAllocatedTarget}">{!publicationRow.publicationAllocatedTarget}</span>
+                                      title="{!publicationRow.publicationDirectoryAllocatedTarget + publicationRow.publicationInsightsAllocatedTarget}">{!publicationRow.publicationDirectoryAllocatedTarget + publicationRow.publicationInsightsAllocatedTarget }</span>
                             </span>
                         </td>
                         <td class="slds-cell-edit" role="gridcell">
@@ -196,9 +214,9 @@
 
                         <td class="slds-cell-edit" role="gridcell">
                             <div class="slds-checkbox">
-                                <lightning:input type="checkbox" name="options"
+                                <lightning:input type="checkbox" name="{!indexPublication}"
                                                  aura:id="checkboxProductCategary" id="{!indexProdCategary}"
-                                                 value=""
+                                                 value="" onchange="{!c.selectProductcategoryCheckBox}"
                                                  aria-labelledby="check-button-label-01 column-group-header"
                                                  checked=""/>
                             </div>
@@ -211,7 +229,7 @@
                         </th>
                         <aura:iteration items="{!productCategaryRow.publicationTargets}" var="publicationTarget"
                                                     indexVar="indexTarget">
-                        <td class="slds-cell-edit slds-is-edited" role="gridcell">
+                        <td class="slds-cell-edit" role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
                                       title="{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}">{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}</span>
@@ -221,6 +239,7 @@
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
                                       title="{!publicationTarget.Directory_Allocated_Target__c}">{!publicationTarget.Directory_Allocated_Target__c}</span>
+                            <aura:if isTrue="{!publicationTarget.Product_Category__c  != 'Unpublished Report'}">
                                 <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
                                         onclick="{!c.inlineEditDirectoryAllocatedTarget}"
                                         title="{!'Edit ' + publicationTarget.Directory_Allocated_Target__c}"
@@ -240,13 +259,15 @@
                                         <span id="form-end" tabindex="0"></span>
                                     </section>
                                 </div>
+                            </aura:if>
                             </span>
                         </td>
-                        <td class="slds-cell-edit" role="gridcell">
+                        <td class="slds-cell-edit " role="gridcell" aura:id="test">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
                                       title="{!publicationTarget.Insights_Allocated_Target__c}">{!publicationTarget.Insights_Allocated_Target__c}
                                 </span>
+                                <aura:if isTrue="{!publicationTarget.Product_Category__c  == 'Unpublished Report'}">
                                 <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
                                         onclick="{!c.inlineEditInsightsAllocatedTarget}"
                                         title="{!'Edit ' + publicationTarget.Insights_Allocated_Target__c}"
@@ -262,10 +283,11 @@
                                                                         labelClass="{!'Insights-' +indexPublication+'-'+indexProdCategary}"
                                                                         blur="{!c.closeInsightsBox}"
                                                                         aura:id="focusIdInsights"
-                                                                        value="{!publicationTarget.Directory_Allocated_Target__c}"/>
+                                                                        value="{!publicationTarget.Insights_Allocated_Target__c}"/>
                                             <span id="form-end" tabindex="0"></span>
                                         </section>
                                 </div>
+                                    </aura:if>
                             </span>
                          </td>
                         </aura:iteration>

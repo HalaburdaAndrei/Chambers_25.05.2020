@@ -34,6 +34,7 @@ public with sharing class PublicationAllocatedTarget {
                         Insights_Allocated_Target__c
                 FROM Publication_Target__c
                 WHERE Category_Visible__c = TRUE
+                ORDER BY Publication__r.Name, Product_Category__c ASC
         ];
 
         Map<Id, String> mapPublicationName = new Map<Id, String>();
@@ -79,70 +80,216 @@ public with sharing class PublicationAllocatedTarget {
             resultTable.put('table', null);
         }
 
-
         return resultTable;
     }
 
     @AuraEnabled
-    public static List<PublicationRow> addPublicationApex(list<Publication__c> listNewPublications) {
+    public static List<PublicationRow> addPublicationApex(list<Publication__c> listNewPublications, String jsonResultTable, List<String> selectedProductCategory) {
+        List<String> listCategoryforRankingGuides = new List<String>{'Firm Profile', 'Individual Profile', 'PFO', 'Unpublished Report'};
+        List<String> listCategoryforPracticeGuides = new List<String>{'Q&A', 'T&D'};
+        List<Publication_Target__c> upsertPublicationTargets = new List<Publication_Target__c>();
+        List<PublicationRow> parsePublicationRows = new List<PublicationRow>();
+                if(jsonResultTable != null) {
+           parsePublicationRows = (List<PublicationRow>) JSON.deserialize(jsonResultTable, List<PublicationRow>.class);
+        }
+
+
+
+        Map<Id, String> mapPublicationName = new Map<Id, String>();
+        Map<String, Map<String, List<Publication_Target__c>>> mapPublicationTarget = new Map<String, Map<String, List<Publication_Target__c>>>();
+
+        if(parsePublicationRows.size() > 0) {
+            for (PublicationRow publicationRow : parsePublicationRows) {
+                if (!mapPublicationTarget.containsKey(publicationRow.publicationId)) {
+                    mapPublicationTarget.put(publicationRow.publicationId, new Map<String, List<Publication_Target__c>>());
+                }
+                if (!mapPublicationName.containsKey(publicationRow.publicationId)) {
+                    mapPublicationName.put(publicationRow.publicationId, publicationRow.publicationName);
+                }
+
+                for (ProductCategoryRow productCategoryRow : publicationRow.productCategaryRows) {
+                    if (!mapPublicationTarget.get(publicationRow.publicationId).containsKey(productCategoryRow.productCategoryName)) {
+                        mapPublicationTarget.get(publicationRow.publicationId).put(productCategoryRow.productCategoryName, new List<Publication_Target__c>());
+                    }
+
+//                for(Publication_Target__c pbTarget : productCategoryRow.publicationTargets){
+////                    if(!mapPublicationTarget.get(publicationRow.publicationId).containsKey(productCategoryRow.productCategoryName)){
+//                        mapPublicationTarget.get(publicationRow.publicationId).get(productCategoryRow.productCategoryName).add(pbTarget);
+////                    }
+//                }
+                }
+
+            }
+        }
+
+        for( Publication__c publication : listNewPublications){
+            if(!mapPublicationTarget.containsKey(publication.Id)){
+                mapPublicationTarget.put(publication.Id, new Map<String, List<Publication_Target__c>>());
+            }
+            if(publication.CC_PublicationTypeCategory__c == 'Practice Guides') {
+                for (String category : listCategoryforPracticeGuides) {
+                    if (!mapPublicationTarget.get(publication.Id).containsKey(category)) {
+                        mapPublicationTarget.get(publication.Id).put(category, new List<Publication_Target__c>());
+                    }
+                }
+            }else if(publication.CC_PublicationTypeCategory__c == 'Ranking Guides'){
+                for (String category : listCategoryforRankingGuides) {
+                    if (!mapPublicationTarget.get(publication.Id).containsKey(category)) {
+                        mapPublicationTarget.get(publication.Id).put(category, new List<Publication_Target__c>());
+                    }
+                }
+            }
+            if(selectedProductCategory.size() > 0) {
+                for (String c : selectedProductCategory) {
+                    if (!mapPublicationTarget.get(publication.Id).containsKey(c)) {
+                        mapPublicationTarget.get(publication.Id).put(c, new List<Publication_Target__c>());
+                    }
+                }
+            }
+            if(!mapPublicationName.containsKey(publication.Id)){
+                mapPublicationName.put(publication.Id, publication.Name);
+            }
+        }
+
         List<Publication_Target__c> listPublicationTargets = [
                 SELECT Id,
                         Publication__c,
+                        Publication__r.Name,
                         Product_Category__c,
                         Directory_Allocated_Target__c,
                         Insights_Allocated_Target__c
                 FROM Publication_Target__c
-                WHERE Publication__c IN: listNewPublications
+                WHERE Publication__c IN: mapPublicationName.keySet()
+                ORDER BY Publication__r.Name, Product_Category__c ASC
+
         ];
 
-        Map<Id, String> mapPublicationName = new Map<Id, String>();
-        Map<String, Map<String, List<Publication_Target__c>>> mapPublicationTarget = new Map<String, Map<String, List<Publication_Target__c>>>();
-        for (Publication_Target__c pubTarget : listPublicationTargets) {
-            if (!mapPublicationTarget.containsKey(pubTarget.Publication__c)) {
-                mapPublicationTarget.put(pubTarget.Publication__c, new Map<String, List<Publication_Target__c>>());
-            }
-            if (!mapPublicationName.containsKey(pubTarget.Publication__c)) {
-                mapPublicationName.put(pubTarget.Publication__c, pubTarget.Publication__r.Name);
-            }
-
-            if (!mapPublicationTarget.get(pubTarget.Publication__c).containsKey(pubTarget.Product_Category__c)) {
-                mapPublicationTarget.get(pubTarget.Publication__c).put(pubTarget.Product_Category__c, new List<Publication_Target__c>());
-            }
-            mapPublicationTarget.get(pubTarget.Publication__c).get(pubTarget.Product_Category__c).add(pubTarget);
-        }
-
-        for(Publication__c publication : listNewPublications){
-            if(!mapPublicationTarget.containsKey(publication.Id)){
-                mapPublicationTarget.put(publication.Id, new Map<String, List<Publication_Target__c>>());
-                if (!mapPublicationName.containsKey(publication.Id)) {
-                    mapPublicationName.put(publication.Id, publication.Name);
+        if(listPublicationTargets.size() > 0) {
+            for (Publication_Target__c pubTarget : listPublicationTargets) {
+                if (!mapPublicationTarget.containsKey(pubTarget.Publication__c)) {
+                    mapPublicationTarget.put(pubTarget.Publication__c, new Map<String, List<Publication_Target__c>>());
+                }
+                if (!mapPublicationTarget.get(pubTarget.Publication__c).containsKey(pubTarget.Product_Category__c)) {
+                    mapPublicationTarget.get(pubTarget.Publication__c).put(pubTarget.Product_Category__c, new List<Publication_Target__c>());
+                }
+                mapPublicationTarget.get(pubTarget.Publication__c).get(pubTarget.Product_Category__c).add(pubTarget);
+                System.debug(mapPublicationTarget.get(pubTarget.Publication__c).get(pubTarget.Product_Category__c));
+                System.debug(mapPublicationTarget);
+                System.debug(mapPublicationTarget.get(pubTarget.Publication__c));
+                if (!mapPublicationName.containsKey(pubTarget.Publication__c)) {
+                    mapPublicationName.put(pubTarget.Publication__c, pubTarget.Publication__r.Name);
                 }
             }
         }
 
 
         List<PublicationRow> listPublicationRows = new List<PublicationRow>();
-        for (String pubId : mapPublicationTarget.keySet()) {
+        for(String publId : mapPublicationTarget.keySet()){
             PublicationRow publicationRow = new PublicationRow();
-            publicationRow.publicationId = pubId;
-            publicationRow.publicationName = mapPublicationName.get(pubId);
+            publicationRow.publicationName =  mapPublicationName.get(publId);
+            publicationRow.publicationId = publId;
             publicationRow.expanded = false;
             publicationRow.publicationAllocatedTarget = 0;
             publicationRow.publicationDirectoryAllocatedTarget = 0;
             publicationRow.publicationInsightsAllocatedTarget = 0;
 
-            List<ProductCategoryRow> listCategoryRows = new List<ProductCategoryRow>();
-            for (String prodCategory : mapPublicationTarget.get(pubId).keySet()) {
+            List<ProductCategoryRow> listProductCategoryRows = new List<ProductCategoryRow>();
+            for(String prodCategory : mapPublicationTarget.get(publId).keySet()){
                 ProductCategoryRow productCategoryRow = new ProductCategoryRow();
-                productCategoryRow.productCategoryName = prodCategory;
-                productCategoryRow.publicationTargets = mapPublicationTarget.get(pubId).get(prodCategory);
-                listCategoryRows.add(productCategoryRow);
+                if(prodCategory != null) {
+                    productCategoryRow.productCategoryName = prodCategory;
+
+                    List<Publication_Target__c> listPublicTargets = new List<Publication_Target__c>();
+                    if(mapPublicationTarget.get(publId).get(prodCategory).size() > 0) {
+                        for (Publication_Target__c publTarget : mapPublicationTarget.get(publId).get(prodCategory)) {
+                            Publication_Target__c publicationTarget = new Publication_Target__c();
+                            publicationTarget.Id = publTarget.Id;
+                            publicationTarget.Publication__c = publId;
+                            publicationTarget.Product_Category__c = prodCategory;
+                            publicationTarget.Directory_Allocated_Target__c = publTarget.Directory_Allocated_Target__c;
+                            publicationTarget.Insights_Allocated_Target__c = publTarget.Insights_Allocated_Target__c;
+                            publicationTarget.Category_Visible__c = true;
+                            listPublicTargets.add(publicationTarget);
+                            System.debug(publTarget);
+                            upsertPublicationTargets.add(publicationTarget);
+                        }
+                    }else{
+                        Publication_Target__c publicationTarget = new Publication_Target__c();
+                        publicationTarget.Publication__c = publId;
+                        publicationTarget.Product_Category__c = prodCategory;
+                        publicationTarget.Directory_Allocated_Target__c = 0;
+                        publicationTarget.Insights_Allocated_Target__c = 0;
+                        publicationTarget.Category_Visible__c = true;
+                        listPublicTargets.add(publicationTarget);
+                        upsertPublicationTargets.add(publicationTarget);
+
+                    }
+                    productCategoryRow.publicationTargets = listPublicTargets;
+                }else{
+                    productCategoryRow = null;
+                }
+                System.debug(productCategoryRow);
+                listProductCategoryRows.add(productCategoryRow);
+
             }
-            publicationRow.productCategaryRows = listCategoryRows;
+            publicationRow.productCategaryRows = listProductCategoryRows;
             listPublicationRows.add(publicationRow);
         }
 
+        if(upsertPublicationTargets.size() > 0){
+            upsert upsertPublicationTargets;
+        }
+
+
         return listPublicationRows;
+
+    }
+
+    @AuraEnabled
+    public static void deletePublication(String jsonResultTable){
+        List<PublicationRow> parsePublicationRows = new List<PublicationRow>();
+        if(jsonResultTable != null) {
+            parsePublicationRows = (List<PublicationRow>) JSON.deserialize(jsonResultTable, List<PublicationRow>.class);
+        }
+        List<Publication_Target__c> updatePublicationTargets = new List<Publication_Target__c>();
+        if(parsePublicationRows.size() > 0) {
+            for (PublicationRow publicationRow : parsePublicationRows) {
+                for (ProductCategoryRow productCategoryRow : publicationRow.productCategaryRows) {
+                for(Publication_Target__c pbTarget : productCategoryRow.publicationTargets){
+                   if(pbTarget.Category_Visible__c == false){
+                       updatePublicationTargets.add(pbTarget);
+                   }
+                }
+                }
+            }
+        }
+
+        if(updatePublicationTargets.size() > 0){
+            update updatePublicationTargets;
+        }
+    }
+
+    @Auraenabled
+    public static void savePublicationTarget (string jsonResultTable){
+
+        List<PublicationRow> parsePublicationRows = new List<PublicationRow>();
+        if(jsonResultTable != null) {
+            parsePublicationRows = (List<PublicationRow>) JSON.deserialize(jsonResultTable, List<PublicationRow>.class);
+        }
+        List<Publication_Target__c> updatePublicationTargets = new List<Publication_Target__c>();
+        if(parsePublicationRows.size() > 0) {
+            for (PublicationRow publicationRow : parsePublicationRows) {
+                for (ProductCategoryRow productCategoryRow : publicationRow.productCategaryRows) {
+                    for(Publication_Target__c pbTarget : productCategoryRow.publicationTargets){
+                            updatePublicationTargets.add(pbTarget);
+                    }
+                }
+            }
+        }
+
+        if(updatePublicationTargets.size() > 0){
+            update updatePublicationTargets;
+        }
 
     }
 
