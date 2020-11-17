@@ -1,58 +1,9 @@
 ({
     doInit: function (component, event, helper) {
 
-        var getPicklistCategory = component.get("c.getPicklistProductCategory");
-        getPicklistCategory.setCallback(this, function (response) {
-           var state = response.getState();
-           console.log(state);
-           if(state === 'SUCCESS'){
-               console.log(response.getReturnValue());
-               var result = response.getReturnValue();
-               var items = [];
-               for (var i = 0; i < result.length; i++) {
-                   var item = {
-                       "Id": result[i],
-                       "Name": result[i]
-                   };
-                   items.push(item);
-               }
-               console.log(items);
-               component.set("v.selectedProdCategory", items[0].value);
-               component.set("v.options", items);
-
-           }
-        });
-        $A.enqueueAction(getPicklistCategory);
-
-        var getresultTable = component.get("c.generateDataTable");
-        getresultTable.setCallback(this, function (response) {
-           var state = response.getState();
-           console.log(state);
-            if(state === 'SUCCESS'){
-                var result = response.getReturnValue().table;
-                console.log('start');
-                console.log(response.getReturnValue().table);
-                component.set("v.resultTableTarget", result);
-
-                var items = component.get("v.resultTableTarget");
-
-                for(var i = 0; i < items.length; i++){
-
-                    for(var p = 0; p < items[i].productCategaryRows.length; p++){
-                        if(items[i].publicationId === items[i].productCategaryRows[p].publicationTargets[0].Publication__c ){
-                            items[i].publicationDirectoryAllocatedTarget += items[i].productCategaryRows[p].publicationTargets[0].Directory_Allocated_Target__c;
-                        }
-                        if(items[i].publicationId === items[i].productCategaryRows[p].publicationTargets[0].Publication__c ){
-                            items[i].publicationInsightsAllocatedTarget += items[i].productCategaryRows[p].publicationTargets[0].Insights_Allocated_Target__c;
-                        }
-
-                    }
-                }
-            }
-        });
-        $A.enqueueAction(getresultTable);
-
-
+        helper.picklistProductcategory(component, event, helper);
+        helper.picklistPublicationCategory(component, event, helper);
+        helper.getResultPublicationTarget(component, event, helper);
 
     },
 
@@ -60,33 +11,30 @@
 
         var items = component.get("v.resultTableTarget"), index = event.currentTarget.name;
         items[index].expanded = !items[index].expanded;
+
+        var sortAsc = component.get("v.sortAsc");
+
+        let keyValue = (a) => {
+            return a["productCategoryName"];
+        };
+
+        items[index].productCategaryRows.sort((x, y) => {
+            x = keyValue(x) ? keyValue(x) : ''; // handling null values
+            y = keyValue(y) ? keyValue(y) : '';
+            // sorting values based on direction
+            // if (sortAsc) {
+            return ((x > y) - (y > x));
+            // } else {
+            //     return ((x > y) - (y > x)) * -1;
+            // }
+        });
         component.set("v.resultTableTarget", items);
 
     },
 
-    // selectedProductcategoryOption : function (component, event, helper){
-    //     //
-    //     // var selectedOptionValue = event.getParam("value");
-    //     // console.log(selectedOptionValue);
-    //
-    //     const selectedOptions = component.find("jobLocationMS").get("v.selectedOptions");
-    //     console.log(selectedOptions);
-    //
-    //     // var getPicklistCategory = component.get("c.getPicklistProductCategory");
-    //     // getPicklistCategory.setCallback(this, function (response) {
-    //     //     var state = response.getState();
-    //     //     console.log(state);
-    //     //     if(state === 'SUCCESS'){
-    //     //         console.log(response.getReturnValue());
-    //     //         component.set("v.options", response.getReturnValue());
-    //     //     }
-    //     // });
-    //     // $A.enqueueAction(getPicklistCategory);
-    //
-    //
-    // },
-
     addPublication : function(component,event, helper){
+        component.set('v.loaded', !component.get('v.loaded'));
+
         const selectedOptions = component.find("jobLocationMS").get("v.selectedOptions");
         console.log(selectedOptions);
         var listcategory = [];
@@ -95,25 +43,45 @@
         }
         console.log(listcategory);
 
-      var selectedPublication = component.get("v.selectedLookUpRecords");
+      var selectedPublicationCategory = component.get("v.selectedPublicationCategory");
+      var selectedYear = component.get("v.selectedYear");
       var oldResultTable = JSON.stringify(component.get("v.resultTableTarget"));
       var selProdcategory = component.get("v.selectedProdCategory");
       var addPub = component.get("c.addPublicationApex");
-      addPub.setParams({listNewPublications : selectedPublication,
-                        jsonResultTable : oldResultTable,
-                        selectedProductCategory : listcategory});
+      // addPub.setParams({listNewPublications : selectedPublication,
+      //                   jsonResultTable : oldResultTable,
+      //                   selectedProductCategory : listcategory});
+      addPub.setParams({publicationCategory : selectedPublicationCategory,
+                        year : selectedYear});
       addPub.setCallback(this, function (response) {
          var state = response.getState();
          console.log(state);
          if(state === 'SUCCESS'){
              var result = response.getReturnValue();
              var items = component.get("v.resultTableTarget");
-             // items.push(response.getReturnValue()[0]);
-             // console.log(response.getReturnValue()[0]);
-// console.log(items.length);
+             var sortAsc = component.get("v.sortAsc");
 
+             let keyValue = (a) => {
+                 return a["publicationName"];
+             };
+
+             result.sort((x, y) => {
+                 x = keyValue(x) ? keyValue(x) : ''; // handling null values
+                 y = keyValue(y) ? keyValue(y) : '';
+                 // sorting values based on direction
+                 // if (sortAsc) {
+                     return ((x > y) - (y > x));
+                 // } else {
+                 //     return ((x > y) - (y > x)) * -1;
+                 // }
+             });
 
              component.set("v.resultTableTarget", result);
+             component.set("v.selectedLookUpRecords", []);
+             helper.calculatePublicationTarget(component,event,helper);
+
+             component.set('v.loaded', !component.get('v.loaded'));
+
 
          }
       });
@@ -121,7 +89,9 @@
     },
 
     delPublication : function(component, event, helper){
-      var items = JSON.stringify(component.get("v.resultTableTarget"));
+        component.set('v.loaded', !component.get('v.loaded'));
+
+        var items = JSON.stringify(component.get("v.resultTableTarget"));
 
       var delPub = component.get("c.deletePublication");
       delPub.setParams({jsonResultTable : items});
@@ -131,7 +101,8 @@
          if(state === 'SUCCESS'){
              console.log('delete');
              $A.get('e.force:refreshView').fire();
-
+             helper.calculatePublicationTarget(component,event,helper);
+             component.set('v.loaded', !component.get('v.loaded'));
          }
       });
       $A.enqueueAction(delPub);
@@ -183,6 +154,23 @@
                 }
             }
         }
+
+        var item = component.get("v.resultTableTarget");
+
+        if(selectedHeaderCheck == true) {
+            for (var i = 0; i < item.length; i++) {
+                for(var k = 0; k < item[i].productCategaryRows.length; k++) {
+                item[i].productCategaryRows[k].publicationTargets[0].Category_Visible__c = false;
+                }
+            }
+        }else{
+            for (var i = 0; i < item.length; i++) {
+                for(var k = 0; k < item[i].productCategaryRows.length; k++) {
+                item[i].productCategaryRows[k].publicationTargets[0].Category_Visible__c = true;
+                }
+            }
+        }
+        console.log(item);
     },
 
     selectPublicationCheckBox : function(component, event, helper){
@@ -275,6 +263,9 @@
     },
 
     closeDirectoryBox : function(component, event, helper){
+
+        console.log(event.getSource().get("v.placeholder"));
+
         var element = event.getSource().get("v.labelClass");
         var x = document.querySelectorAll('div[id="'+element+'"]');
         // console.log(x);
@@ -283,6 +274,18 @@
         } else {
             x[0].style.display = "none";
             component.set("v.showSaveCancelBtn", true);
+            var item = component.get("v.resultTableTarget");
+            var getAllIdCategory = component.find("focusIdDirectory");
+            if(getAllIdCategory != null) {
+                item[event.getSource().get("v.placeholder")].publicationDirectoryAllocatedTarget = 0;
+                    for (var i = 0; i < getAllIdCategory.length; i++) {
+                        if(event.getSource().get("v.placeholder") === component.find("focusIdDirectory")[i].get("v.placeholder")) {
+                            item[event.getSource().get("v.placeholder")].publicationDirectoryAllocatedTarget += component.find("focusIdDirectory")[i].get("v.value");
+                        }
+                    }
+            }
+            component.set("v.resultTableTarget", item);
+
             // console.log(item);
 
         }
@@ -308,11 +311,24 @@
         }
 
         setTimeout(function(){
-            component.find("focusIdInsights")[event.target.dataset.numberrow].focus();
+            var getAllIdCategory = component.find("focusIdInsights");
+            console.log(getAllIdCategory);
+            if (Array.isArray(getAllIdCategory)) {
+                for (var i = 0; i < getAllIdCategory.length; i++) {
+
+                    if (event.target.dataset.id === component.find("focusIdInsights")[i].get("v.labelClass")) {
+
+                        component.find("focusIdInsights")[event.target.dataset.numberrow].focus();
+                    }
+                }
+            }else {
+                component.find("focusIdInsights").focus();
+            }
         }, 100);
     },
 
     closeInsightsBox : function(component, event, helper){
+        console.log(event.getSource().get("v.placeholder"));
         var element = event.getSource().get("v.labelClass");
         var x = document.querySelectorAll('div[id="'+element+'"]');
         // console.log(x);
@@ -321,6 +337,23 @@
         } else {
             x[0].style.display = "none";
             component.set("v.showSaveCancelBtn", true);
+            var item = component.get("v.resultTableTarget");
+            var getAllIdCategory = component.find("focusIdInsights");
+            if(getAllIdCategory != null) {
+                item[event.getSource().get("v.placeholder")].publicationInsightsAllocatedTarget = 0;
+                if (!Array.isArray(getAllIdCategory)) {
+                    if (event.getSource().get("v.placeholder") === component.find("focusIdInsights").get("v.placeholder")) {
+                        item[event.getSource().get("v.placeholder")].publicationInsightsAllocatedTarget = component.find("focusIdInsights").get("v.value");
+                    }
+                }else {
+                    for (var i = 0; i < getAllIdCategory.length; i++) {
+                        if (event.getSource().get("v.placeholder") === component.find("focusIdInsights")[i].get("v.placeholder")) {
+                            item[event.getSource().get("v.placeholder")].publicationInsightsAllocatedTarget = component.find("focusIdInsights")[i].get("v.value");
+                        }
+                    }
+                }
+            }
+            component.set("v.resultTableTarget", item);
         }
 
 
@@ -369,7 +402,19 @@
     cancelButton : function (component, event, helper) {
         component.set("v.showSaveCancelBtn", false);
 
-    }
+    },
+
+    selectedYearOption: function (component, event, helper) {
+        var selectedOptionValue = event.getParam("value");
+        console.log(selectedOptionValue);
+        component.set("v.selectedYear", selectedOptionValue);
+    },
+
+    selectedPublicationCategoryOption: function (component, event, helper) {
+        var selectedOptionValue = event.getParam("value");
+        console.log(selectedOptionValue);
+        component.set("v.selectedPublicationCategory", selectedOptionValue);
+    },
 
 
 })
