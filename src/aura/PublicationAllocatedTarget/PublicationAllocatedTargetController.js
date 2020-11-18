@@ -12,28 +12,21 @@
         var items = component.get("v.resultTableTarget"), index = event.currentTarget.name;
         items[index].expanded = !items[index].expanded;
 
-        var sortAsc = component.get("v.sortAsc");
-
         let keyValue = (a) => {
             return a["productCategoryName"];
         };
 
         items[index].productCategaryRows.sort((x, y) => {
-            x = keyValue(x) ? keyValue(x) : ''; // handling null values
+            x = keyValue(x) ? keyValue(x) : '';
             y = keyValue(y) ? keyValue(y) : '';
-            // sorting values based on direction
-            // if (sortAsc) {
             return ((x > y) - (y > x));
-            // } else {
-            //     return ((x > y) - (y > x)) * -1;
-            // }
+
         });
         component.set("v.resultTableTarget", items);
 
     },
 
     addPublication : function(component,event, helper){
-        component.set('v.loaded', !component.get('v.loaded'));
 
         const selectedOptions = component.find("jobLocationMS").get("v.selectedOptions");
         console.log(selectedOptions);
@@ -44,48 +37,153 @@
         console.log(listcategory);
 
       var selectedPublicationCategory = component.get("v.selectedPublicationCategory");
-      var selectedYear = component.get("v.selectedYear");
-      var oldResultTable = JSON.stringify(component.get("v.resultTableTarget"));
-      var selProdcategory = component.get("v.selectedProdCategory");
-      var addPub = component.get("c.addPublicationApex");
-      // addPub.setParams({listNewPublications : selectedPublication,
-      //                   jsonResultTable : oldResultTable,
-      //                   selectedProductCategory : listcategory});
-      addPub.setParams({publicationCategory : selectedPublicationCategory,
-                        year : selectedYear});
-      addPub.setCallback(this, function (response) {
-         var state = response.getState();
-         console.log(state);
-         if(state === 'SUCCESS'){
-             var result = response.getReturnValue();
-             var items = component.get("v.resultTableTarget");
-             var sortAsc = component.get("v.sortAsc");
+      if(selectedPublicationCategory != null) {
+          component.set('v.loaded', !component.get('v.loaded'));
 
-             let keyValue = (a) => {
-                 return a["publicationName"];
-             };
+          var selectedYear = component.get("v.selectedYear");
+          var oldResultTable = JSON.stringify(component.get("v.resultTableTarget"));
+          var selProdcategory = component.get("v.selectedProdCategory");
+          var addPub = component.get("c.addPublicationApex");
+          // addPub.setParams({listNewPublications : selectedPublication,
+          //                   jsonResultTable : oldResultTable,
+          //                   selectedProductCategory : listcategory});
+          addPub.setParams({
+              publicationCategory: selectedPublicationCategory,
+              year: selectedYear,
+              jsonOldResult: oldResultTable
+          });
+          addPub.setCallback(this, function (response) {
+              var state = response.getState();
+              console.log(state);
+              if (state === 'SUCCESS') {
+                  var result = response.getReturnValue();
+                  var items = component.get("v.resultTableTarget");
 
-             result.sort((x, y) => {
-                 x = keyValue(x) ? keyValue(x) : ''; // handling null values
-                 y = keyValue(y) ? keyValue(y) : '';
-                 // sorting values based on direction
-                 // if (sortAsc) {
-                     return ((x > y) - (y > x));
-                 // } else {
-                 //     return ((x > y) - (y > x)) * -1;
-                 // }
-             });
+                  let keyValue = (a) => {
+                      return a["publicationName"];
+                  };
 
-             component.set("v.resultTableTarget", result);
-             component.set("v.selectedLookUpRecords", []);
-             helper.calculatePublicationTarget(component,event,helper);
+                  result.sort((x, y) => {
+                      x = keyValue(x) ? keyValue(x) : '';
+                      y = keyValue(y) ? keyValue(y) : '';
+                      return ((x > y) - (y > x));
+                  });
 
-             component.set('v.loaded', !component.get('v.loaded'));
+                  component.set("v.resultTableTarget", result);
+                  component.set("v.selectedLookUpRecords", []);
+                  helper.calculatePublicationTarget(component, event, helper);
 
+                  component.set('v.loaded', !component.get('v.loaded'));
+                  var toastEvent = $A.get("e.force:showToast");
+                  toastEvent.setParams({
+                      "title": "Success!",
+                      "type": "success",
+                      "message": "Publications has been added successfully."
+                  });
+                  toastEvent.fire();
+              }
+              if (state === 'ERROR') {
+                  var toastEvent = $A.get("e.force:showToast");
+                  toastEvent.setParams({
+                      "title": "Error!",
+                      "type": "error",
+                      "message": response.getError()
+                  });
+                  toastEvent.fire();
+                  component.set('v.loaded', !component.get('v.loaded'));
 
-         }
-      });
-      $A.enqueueAction(addPub);
+              }
+          });
+          $A.enqueueAction(addPub);
+      }else{
+            var toastEvent = $A.get("e.force:showToast");
+            toastEvent.setParams({
+                "title": "Warning!",
+                "type": "warning",
+                "message": "Select a Publication Category"
+            });
+            toastEvent.fire();
+        }
+    },
+
+    addProductCategoryButton : function(component,helper,event){
+
+        const selectedOptions = component.find("jobLocationMS").get("v.selectedOptions");
+        console.log(selectedOptions);
+        var listcategory = [];
+        for(var i = 0; i < selectedOptions.length; i++){
+            listcategory.push(selectedOptions[i].Id);
+        }
+
+        console.log(listcategory);
+        console.log(component.get("v.listPublicationForProdCategory"));
+
+        if(component.get("v.listPublicationForProdCategory").length > 0) {
+            component.set('v.loaded', !component.get('v.loaded'));
+            var addProdCat = component.get("c.addProductcategoryApex");
+            addProdCat.setParams({
+                publicationForAddProdCategory: JSON.stringify(component.get("v.listPublicationForProdCategory")),
+                selectedProductCategory: listcategory
+            });
+            addProdCat.setCallback(this, function (response) {
+                var state = response.getState();
+                console.log(state);
+                console.log(response.getError());
+                if (state === 'SUCCESS') {
+                    console.log(response.getReturnValue());
+                    var result = response.getReturnValue();
+                    var items = component.get("v.resultTableTarget");
+
+                    for (var i = 0; i < items.length; i++) {
+                        for (var p = 0; p < result.length; p++) {
+                            if (items[i].publicationName === result[p].publicationName) {
+                                items[i] = result[p];
+                                let keyValue = (a) => {
+                                    return a["productCategoryName"];
+                                };
+
+                                items[i].productCategaryRows.sort((x, y) => {
+                                    x = keyValue(x) ? keyValue(x) : '';
+                                    y = keyValue(y) ? keyValue(y) : '';
+                                    return ((x > y) - (y > x));
+                                });
+                            }
+                        }
+                    }
+                    component.set("v.listPublicationForProdCategory", []);
+                    component.set("v.resultTableTarget", items);
+                    component.set('v.loaded', !component.get('v.loaded'));
+
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Success!",
+                        "type": "success",
+                        "message": "Product category has been added successfully."
+                    });
+                    toastEvent.fire();
+                }
+                if (state === 'ERROR') {
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Error!",
+                        "type": "error",
+                        "message": response.getError()
+                    });
+                    toastEvent.fire();
+                    component.set('v.loaded', !component.get('v.loaded'));
+
+                }
+            });
+            $A.enqueueAction(addProdCat);
+        }else{
+            var toastEvent = $A.get("e.force:showToast");
+            toastEvent.setParams({
+                "title": "Warning!",
+                "type": "warning",
+                "message": "Select a Product Category"
+            });
+            toastEvent.fire();
+        }
     },
 
     delPublication : function(component, event, helper){
@@ -103,7 +201,25 @@
              $A.get('e.force:refreshView').fire();
              helper.calculatePublicationTarget(component,event,helper);
              component.set('v.loaded', !component.get('v.loaded'));
+             var toastEvent = $A.get("e.force:showToast");
+             toastEvent.setParams({
+                 "title": "Success!",
+                 "type": "success",
+                 "message": "Data has been deleted successfully."
+             });
+             toastEvent.fire();
          }
+          if (state === 'ERROR') {
+              var toastEvent = $A.get("e.force:showToast");
+              toastEvent.setParams({
+                  "title": "Error!",
+                  "type": "error",
+                  "message": response.getError()
+              });
+              toastEvent.fire();
+              component.set('v.loaded', !component.get('v.loaded'));
+
+          }
       });
       $A.enqueueAction(delPub);
     },
@@ -156,12 +272,14 @@
         }
 
         var item = component.get("v.resultTableTarget");
-
+        var countCheckBox = 0;
+        var listPubForProd = [];
         if(selectedHeaderCheck == true) {
             for (var i = 0; i < item.length; i++) {
                 for(var k = 0; k < item[i].productCategaryRows.length; k++) {
                 item[i].productCategaryRows[k].publicationTargets[0].Category_Visible__c = false;
                 }
+                listPubForProd.push(item[i]);
             }
         }else{
             for (var i = 0; i < item.length; i++) {
@@ -169,8 +287,11 @@
                 item[i].productCategaryRows[k].publicationTargets[0].Category_Visible__c = true;
                 }
             }
+            listPubForProd = [];
         }
+        component.set("v.listPublicationForProdCategory", listPubForProd);
         console.log(item);
+        console.log(listPubForProd);
     },
 
     selectPublicationCheckBox : function(component, event, helper){
@@ -182,7 +303,6 @@
             if (!Array.isArray(getAllIdCategory)) {
                 if (selectedRec == true) {
                     if(event.getSource().get("v.id") === component.find("checkboxProductCategary").get("v.name")) {
-
                         component.find("checkboxProductCategary").set("v.checked", true);
                     }
                 } else {
@@ -208,6 +328,7 @@
         }
 
         var item = component.get("v.resultTableTarget");
+        var listPubForProd = component.get("v.listPublicationForProdCategory");
 
         if(selectedRec == true) {
             for (var i = 0; i < item[event.getSource().get("v.id")].productCategaryRows.length; i++) {
@@ -215,14 +336,23 @@
                     item[event.getSource().get("v.id")].productCategaryRows[i].publicationTargets[0].Category_Visible__c = false;
                 // }
             }
+            listPubForProd.push(item[event.getSource().get("v.id")]);
+
         }else{
             for (var i = 0; i < item[event.getSource().get("v.id")].productCategaryRows.length; i++) {
                 // for(var k = 0; k < item[event.getSource().get("v.id")].productCategaryRows[i].publicationTargets.length; k++) {
                     item[event.getSource().get("v.id")].productCategaryRows[i].publicationTargets[0].Category_Visible__c = true;
                 // }
             }
+            for( var i = 0; i < listPubForProd.length; i++){
+                if ( listPubForProd[i].publicationName === item[event.getSource().get("v.id")].publicationName) {
+                    listPubForProd.splice(i, 1);
+                    i--;
+                }
+            }
         }
 
+        console.log(listPubForProd);
     },
 
     selectProductcategoryCheckBox : function(component, event, helper){

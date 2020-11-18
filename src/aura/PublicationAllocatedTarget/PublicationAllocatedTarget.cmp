@@ -7,46 +7,58 @@
     <aura:attribute name="optionsProductCategory" type="List"/>
     <aura:attribute name="optionsPublicationCategory" type="List"/>
     <aura:attribute name="optionsYears" type="List"/>
+    <aura:attribute name="listPublicationForProdCategory" type="List"/>
     <aura:attribute name="selectedPublicationCategory" type="String"/>
     <aura:attribute name="selectedYear" type="String"/>
+    <aura:attribute name="countCheckBox" type="Integer" default="0"/>
     <aura:attribute name="loaded" type="Boolean" default="true"/>
     <aura:attribute name="showSaveCancelBtn" type="boolean"/>
-    <aura:attribute name="sortAsc" type="Boolean"/>
 
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
     <div class="slds-color__background_gray-1 slds-is-relative">
-
+        <b>Publication Target.</b><br/><br/>
         <aura:if isTrue="{! !v.loaded }">
             <lightning:spinner variant="brand" alternativeText="Loading"/>
         </aura:if>
 
+        <div class="slds-grid slds-gutters slds-p-bottom--small slds-p-left_medium">
+            <div class="slds-col slds-size_2-of-12 ">
+                <lightning:combobox name="progress" label="Publication Category" value="{!v.selectedPublicationCategory}"
+                                    options="{! v.optionsPublicationCategory }" onchange="{! c.selectedPublicationCategoryOption }"/>
 
-        <div class="slds-p-bottom--small slds-p-left_medium" style="display: flex; align-items: flex-end;">
-            <div>
-                <c:lookupPublication objectAPIName="Publication__c"
-                                     IconName="standard:article"
-                                     lstSelectedRecords="{!v.selectedLookUpRecords}"
-                                     label="Publication Name"/>
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <lightning:combobox name="progress" label="Years" value="{!v.selectedYear}"
+                                    options="{! v.optionsYears }" onchange="{! c.selectedYearOption }"/>
+<!--                <c:MultiSelect aura:id="jobLocationMS" mslabel="Product Category" msoptions="{!v.optionsProductCategory}"/>-->
+<!--                <div class="slds-p-top&#45;&#45;small">-->
+<!--                <lightning:button variant="brand" label="Add Product category" onclick="{!c.addProductCategoryButton }"/>-->
+<!--                </div>-->
+            </div>
+            <div class="slds-col  slds-p-top--large">
+                <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
             </div>
 
-            <div class="slds-size_2-of-12 slds-p-left_medium slds-p-bottom--medium slds-container--right slds-p-right--medium">
+        </div>
+
+        <div class="slds-grid slds-gutters slds-p-bottom--small slds-p-left_medium slds-size_1-of-2 ">
+            <div class="slds-col">
                 <c:MultiSelect aura:id="jobLocationMS" mslabel="Product Category" msoptions="{!v.optionsProductCategory}"/>
             </div>
+<!--            <div class="slds-col slds-p-top&#45;&#45;large ">-->
+<!--                <lightning:button variant="brand" label="Add Product category" onclick="{!c.addProductCategoryButton }"/>-->
+<!--            </div>-->
+<!--            <div class="slds-col slds-p-top&#45;&#45;large">-->
+<!--                <lightning:button variant="destructive" label="Delete" onclick="{!c.delPublication }"/>-->
+<!--            </div>-->
+        </div>
+        <div class="slds-p-left_medium  slds-p-bottom--small">
+        <lightning:button variant="brand" label="Add Product category" onclick="{!c.addProductCategoryButton }"/>
+        <lightning:button variant="destructive" label="Delete" onclick="{!c.delPublication }"/>
+        </div>
 
-        </div>
-        <div class="slds-p-left_medium slds-m-bottom_medium">
-            <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
-            <lightning:button variant="destructive" label="Delete Publication" onclick="{!c.delPublication }"/>
-
-        </div>
-        <div class="slds-size_2-of-12 slds-p-bottom--medium slds-container--left slds-p-left--medium">
-            <lightning:combobox name="progress" label="Publication Category" value="{!v.selectedPublicationCategory}"
-                                options="{! v.optionsPublicationCategory }" onchange="{! c.selectedPublicationCategoryOption }"/>
-            <lightning:combobox name="progress" label="Years" value="{!v.selectedYear}"
-                                options="{! v.optionsYears }" onchange="{! c.selectedYearOption }"/>
-        </div>
         <aura:if isTrue="{!v.showSaveCancelBtn == True}">
             <div class="slds-m-left_small slds-m-bottom_xx-small slds-align_absolute-center slds-p-right--medium">
                 <lightning:button variant="neutral" label="Cancel" onclick="{!c.cancelButton }"/>

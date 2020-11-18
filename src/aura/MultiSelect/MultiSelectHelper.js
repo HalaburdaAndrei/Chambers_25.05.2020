@@ -79,38 +79,38 @@
      * This function will be used to filter options based on input box value
      * @author - Manish Choudhari
      * */
-    rebuildPicklist: function(component) {
-        var allSelectElements = component.getElement().querySelectorAll("li");
-        Array.from(allSelectElements).forEach(function(node){
-            node.classList.remove('slds-is-selected');
-        });
-    },
+    // rebuildPicklist: function(component) {
+    //     var allSelectElements = component.getElement().querySelectorAll("li");
+    //     Array.from(allSelectElements).forEach(function(node){
+    //         node.classList.remove('slds-is-selected');
+    //     });
+    // },
 
     /**
      * This function will be used to filter options based on input box value
      * @author - Manish Choudhari
      * */
-    filterDropDownValues: function(component, inputText) {
-        var allSelectElements = component.getElement().querySelectorAll("li");
-        Array.from(allSelectElements).forEach(function(node){
-            if(!inputText){
-                node.style.display = "block";
-            }
-            else if(node.dataset.name.toLowerCase().indexOf(inputText.toString().trim().toLowerCase()) != -1){
-                node.style.display = "block";
-            } else{
-                node.style.display = "none";
-            }
-        });
-    },
+    // filterDropDownValues: function(component, inputText) {
+    //     var allSelectElements = component.getElement().querySelectorAll("li");
+    //     Array.from(allSelectElements).forEach(function(node){
+    //         if(!inputText){
+    //             node.style.display = "block";
+    //         }
+    //         else if(node.dataset.name.toLowerCase().indexOf(inputText.toString().trim().toLowerCase()) != -1){
+    //             node.style.display = "block";
+    //         } else{
+    //             node.style.display = "none";
+    //         }
+    //     });
+    // },
 
     /**
      * This function clear the filters
      * @author - Manish Choudhari
      * */
-    resetAllFilters : function(component) {
-        this.filterDropDownValues(component, '');
-    },
+    // resetAllFilters : function(component) {
+    //     this.filterDropDownValues(component, '');
+    // },
 
     /**
      * This function will set text on picklist
