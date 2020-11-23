@@ -36,28 +36,35 @@
         component.set('v.loaded', !component.get('v.loaded'));
 
         var items = component.get("v.tableBody");
-        // items.forEach(user => user.usTargets.forEach(target => target.directTarget = 0, target.insightTarget = 0));
 
         for(var u = 0; u < items.length; u++){
+            for(var k = 0; k < items[u].usTargets.length; k++){
+                items[u].usTargets[k].directTarget = 0;
+                items[u].usTargets[k].insightTarget = 0;
+            }
 
             for(var p = 0; p < items[u].publications.length; p++){
-
+                    items[u].publications[p].totalpubl = 0;
                 for(var t = 0; t < items[u].publications[p].publicTargets1.length; t++) {
                     if (items[u].publications[p].publicTargets1[t].Directory_Target__c != null) {
                         if (items[u].usTargets[t].dateTarget === items[u].publications[p].publicTargets1[t].Date__c) {
-                            // console.log(numberDirect);
                             items[u].usTargets[t].directTarget += items[u].publications[p].publicTargets1[t].Directory_Target__c;
-                            // console.log(items[u].usTargets[t].directTarget);
+                            items[u].publications[p].totalpubl += items[u].publications[p].publicTargets1[t].Directory_Target__c;
                         }
                     }
-                        if (items[u].publications[p].publicTargets1[t].Insights_Target__c != null) {
-                            if (items[u].usTargets[t].dateTarget === items[u].publications[p].publicTargets1[t].Date__c) {
-                                items[u].usTargets[t].insightTarget += items[u].publications[p].publicTargets1[t].Insights_Target__c;
-                                // console.log(items[u].usTargets[t].directTarget);
-                            }
+                    if (items[u].publications[p].publicTargets1[t].Insights_Target__c != null) {
+                        if (items[u].usTargets[t].dateTarget === items[u].publications[p].publicTargets1[t].Date__c) {
+                            items[u].usTargets[t].insightTarget += items[u].publications[p].publicTargets1[t].Insights_Target__c;
+                            items[u].publications[p].totalpubl += items[u].publications[p].publicTargets1[t].Insights_Target__c;
                         }
+                    }
 
                 }
+            }
+        }
+        for(var u = 0; u < items.length; u++) {
+            for (var k = 0; k < items[u].usTargets.length; k++) {
+                items[u].totalUser += items[u].usTargets[k].directTarget + items[u].usTargets[k].insightTarget;
             }
         }
         component.set('v.loaded', !component.get('v.loaded'));

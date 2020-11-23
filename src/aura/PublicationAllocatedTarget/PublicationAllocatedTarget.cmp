@@ -8,6 +8,7 @@
     <aura:attribute name="optionsPublicationCategory" type="List"/>
     <aura:attribute name="optionsYears" type="List"/>
     <aura:attribute name="listPublicationForProdCategory" type="List"/>
+    <aura:attribute name="checkProdCategoryForDelete" type="List"/>
     <aura:attribute name="selectedPublicationCategory" type="String"/>
     <aura:attribute name="selectedYear" type="String"/>
     <aura:attribute name="countCheckBox" type="Integer" default="0"/>
@@ -38,7 +39,7 @@
 <!--                </div>-->
             </div>
             <div class="slds-col  slds-p-top--large">
-                <lightning:button variant="brand" label="Add Publication" onclick="{!c.addPublication }"/>
+                <lightning:button variant="brand" label="Show Publication" onclick="{!c.addPublication }"/>
             </div>
 
         </div>
@@ -200,7 +201,7 @@
                             <span class="slds-grid ">
                                  <lightning:icon name="{!indexPublication}" size="xx-small" class="slds-p-right--small"
                                                  iconName="{!publicationRow.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
-                                <a class="slds-truncate" id="link-01" tabindex="0"
+                                <a class="slds-truncate" id="link-01"
                                    title="{!publicationRow.publicationName}">{!publicationRow.publicationName}</a>
                             </span>
                             </th>

@@ -60,7 +60,7 @@ public with sharing class OpportunityHandler {
 	private List<Publication_Target__c> getPublicationTargets(Set<String> categories, Set<Id> publicationsId) {
 		return [
 			SELECT
-				Id
+				Id, Publication__c, Product_Category__c
 			FROM Publication_Target__c
 			WHERE Product_Category__c IN :categories
 			AND Publication__c IN: publicationsId
@@ -127,6 +127,8 @@ public with sharing class OpportunityHandler {
                 } else {
                     Sales_Target__c st = new Sales_Target__c(
                         Sales_Person__c = opp.OwnerId,
+						Publication__c = oli.Publication__c,
+						OwnerId = opp.OwnerId,
                         Target__c = null,
                         Date__c = Date.newInstance(opp.CloseDate.year(), opp.CloseDate.month(), 1)
                     );
@@ -143,6 +145,7 @@ public with sharing class OpportunityHandler {
         List<PublicationTargetsByOppItem> ptByOppItemList = new List<PublicationTargetsByOppItem>();
         List<Publication_Target__c> newPtList = new List<Publication_Target__c>();
 		for(Id oppId : oppsIdToOppLine.keySet()) {
+			Opportunity opp = oppNewMap.get(oppId);
             for (OpportunityLineItem oli : oppsIdToOppLine.get(oppId)) {
 				String key = oli.Publication__c + '-' + oli.Product2.Product_Category__c;
                 if (existPublicationTargetsMap.containsKey(key)) {
@@ -152,6 +155,7 @@ public with sharing class OpportunityHandler {
                 } else {
                     Publication_Target__c pt = new Publication_Target__c(
                         Publication__c = oli.Publication__c,
+						OwnerId = opp.OwnerId,
                         Product_Category__c = oli.Product2.Product_Category__c
                     );
                     ptByOppItemList.add(new PublicationTargetsByOppItem(oli, pt));

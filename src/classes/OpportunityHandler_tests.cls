@@ -19,8 +19,9 @@ public with sharing class OpportunityHandler_tests {
       FROM Sales_Target__c
     ];
     System.assertEquals(12, salesTargets.size());
-    for(Opportunity opp : [SELECT Target__c FROM Opportunity]) {
-      System.assert(opp.Target__c != null);
+//    for(Opportunity opp : [SELECT Target__c FROM Opportunity]) {
+    for(OpportunityLineItem opp : [SELECT Sales_Target__c FROM OpportunityLineItem WHERE OpportunityId IN: opps]) {
+      System.assert(opp.Sales_Target__c != null);
     }
 
   }
@@ -45,6 +46,20 @@ public with sharing class OpportunityHandler_tests {
     );
     insert acc;
 
+    Publication__c pub = new Publication__c(
+            Name = 'testPublicationGuiede',
+            Publication_Type__c = 'Alternative Energy & Power 2020',
+            CC_PublicationTypeCategory__c = 'Practice Guides',
+            CC_Publication_ID_RE__c = '12234',
+            Year_Issue_RE__c = '2020'
+    );
+    insert  pub;
+
+    Product2 prod = new Product2(Name = 'SLA: Bronze', IsActive = true);
+    insert prod;
+    PricebookEntry pbe=new PricebookEntry(unitprice=0.01,Product2Id=prod.Id, Pricebook2Id=Test.getStandardPricebookId(), IsActive= true);
+    insert pbe;
+
     List<Opportunity> opps = new List<Opportunity>();
     for(Integer i = 1; i <= 12; i++) {
       opps.add(new Opportunity(
@@ -58,14 +73,31 @@ public with sharing class OpportunityHandler_tests {
     }
     insert opps;
 
+    List<OpportunityLineItem> opportunityLineItems = new List<OpportunityLineItem>();
+    for(Integer i = 1; i < opps.size(); i++){
+      opportunityLineItems.add(new OpportunityLineItem(
+              OpportunityId = opps[i].Id,
+              Related_Organization__c = acc.Id,
+              Publication__c = pub.Id,
+              PricebookEntryId = pbe.Id,
+              Quantity = 1,
+              TotalPrice = 1
+      ));
+    }
+    insert opportunityLineItems;
+
     List<Sales_Target__c> salesTargets = new List<Sales_Target__c>();
     for(Integer i = 1; i <= 6; i++) {
       salesTargets.add(new Sales_Target__c(
         Target__c = 10000,
+        Directory_Target__c = 12000,
+        Insights_Target__c = 11000,
         Date__c = Date.newInstance(2020, i, 1),
         Sales_Person__c = u.Id
       ));
     }
     insert salesTargets;
   }
+
+
 }

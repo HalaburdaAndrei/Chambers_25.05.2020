@@ -35,6 +35,7 @@
             listcategory.push(selectedOptions[i].Id);
         }
         console.log(listcategory);
+        console.log(JSON.stringify(component.get("v.resultTableTarget")));
 
       var selectedPublicationCategory = component.get("v.selectedPublicationCategory");
       if(selectedPublicationCategory != null) {
@@ -150,6 +151,10 @@
                             }
                         }
                     }
+                    component.find("jobLocationMS").set("v.selectedOptions", []);
+                    component.find("jobLocationMS").set("v.selectedLabel", "Select a value..");
+                    component.find("jobLocationMS").set("v.msoptions", component.get("v.optionsProductCategory"));
+                    console.log('11111>>> ' + component.find("jobLocationMS").get("v.selectedOptions"));
                     component.set("v.listPublicationForProdCategory", []);
                     component.set("v.resultTableTarget", items);
                     component.set('v.loaded', !component.get('v.loaded'));
@@ -180,16 +185,48 @@
             toastEvent.setParams({
                 "title": "Warning!",
                 "type": "warning",
-                "message": "Select a Product Category"
+                "message": "Select a Product Category and Publication"
             });
             toastEvent.fire();
         }
     },
 
     delPublication : function(component, event, helper){
-        component.set('v.loaded', !component.get('v.loaded'));
 
         var items = JSON.stringify(component.get("v.resultTableTarget"));
+
+        var delPublic = [];
+        var delProdCateg = [];
+
+        var getAllId = component.find("checkboxPublication");
+        if (!Array.isArray(getAllId)) {
+            if (getAllId.get("v.checked") == true) {
+                delPublic.push(getAllId);
+            }
+        } else {
+            for (var i = 0; i < getAllId.length; i++) {
+                if (getAllId[i].get("v.checked") == true) {
+                    delPublic.push(getAllId[i]);
+                }
+            }
+        }
+
+        var getAllPubId = component.find("checkboxProductCategary");
+        if (getAllPubId != null) {
+            if (!Array.isArray(getAllPubId)) {
+                if (getAllPubId.get("v.checked") == true) {
+                    delProdCateg.push(getAllPubId);
+                }
+            } else {
+                for (var i = 0; i < getAllPubId.length; i++) {
+                    if (getAllPubId[i].get("v.checked") == true) {
+                        delProdCateg.push(getAllPubId[i]);
+                    }
+                }
+            }
+        }
+        if (delPublic.length > 0 || delProdCateg.length > 0 ) {
+            component.set('v.loaded', !component.get('v.loaded'));
 
       var delPub = component.get("c.deletePublication");
       delPub.setParams({jsonResultTable : items});
@@ -222,6 +259,15 @@
           }
       });
       $A.enqueueAction(delPub);
+        } else {
+            var toastEvent = $A.get("e.force:showToast");
+            toastEvent.setParams({
+                "title": "Warning!",
+                "type": "warning",
+                "message": 'To delete a Product Category, select Publication or Product Category.'
+            });
+            toastEvent.fire();
+        }
     },
 
     selectAll: function (component, event, helper) {
@@ -272,12 +318,13 @@
         }
 
         var item = component.get("v.resultTableTarget");
-        var countCheckBox = 0;
         var listPubForProd = [];
+        var checkProdCategoryDelete = [];
         if(selectedHeaderCheck == true) {
             for (var i = 0; i < item.length; i++) {
                 for(var k = 0; k < item[i].productCategaryRows.length; k++) {
                 item[i].productCategaryRows[k].publicationTargets[0].Category_Visible__c = false;
+                    checkProdCategoryDelete.push(item[i].productCategaryRows[k]);
                 }
                 listPubForProd.push(item[i]);
             }
@@ -288,10 +335,13 @@
                 }
             }
             listPubForProd = [];
+            checkProdCategoryDelete = [];
         }
         component.set("v.listPublicationForProdCategory", listPubForProd);
+        component.set("v.checkProdCategoryForDelete", checkProdCategoryDelete);
         console.log(item);
         console.log(listPubForProd);
+        console.log(checkProdCategoryDelete);
     },
 
     selectPublicationCheckBox : function(component, event, helper){
@@ -359,12 +409,16 @@
         var selectedRec = event.getSource().get("v.checked");
         console.log(selectedRec);
         var item = component.get("v.resultTableTarget");
+        var checkProdCategoryDelete = [];
+
         if(selectedRec == true) {
                     item[event.getSource().get("v.name")].productCategaryRows[event.getSource().get("v.id")].publicationTargets[0].Category_Visible__c = false;
+            checkProdCategoryDelete.push(item[event.getSource().get("v.name")].productCategaryRows[event.getSource().get("v.id")])
         }else{
                     item[event.getSource().get("v.name")].productCategaryRows[event.getSource().get("v.id")].publicationTargets[0].Category_Visible__c = true;
         }
 
+        console.log(checkProdCategoryDelete);
     },
 
     inlineEditDirectoryAllocatedTarget : function (component, event, helper) {

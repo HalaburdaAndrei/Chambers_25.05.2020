@@ -323,6 +323,10 @@
                             <option name="name" value="PublicationAllocatedTarget" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="PublicationAllocatedTargetTest" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
