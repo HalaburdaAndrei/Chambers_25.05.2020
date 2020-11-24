@@ -59,6 +59,12 @@ public with sharing class PublicationAllocatedTarget {
             if (!mapPublicationTarget.get(pubTarget.Publication__c).containsKey(pubTarget.Product_Category__c)) {
                 mapPublicationTarget.get(pubTarget.Publication__c).put(pubTarget.Product_Category__c, new List<Publication_Target__c>());
             }
+            if(pubTarget.Directory_Allocated_Target__c == null){
+                pubTarget.Directory_Allocated_Target__c = 0;
+            }
+            if(pubTarget.Insights_Allocated_Target__c == null){
+                pubTarget.Insights_Allocated_Target__c = 0;
+            }
             mapPublicationTarget.get(pubTarget.Publication__c).get(pubTarget.Product_Category__c).add(pubTarget);
         }
 
@@ -193,6 +199,12 @@ public with sharing class PublicationAllocatedTarget {
                 }
                 if (!mapPublicationTarget.get(pubTarget.Publication__c).containsKey(pubTarget.Product_Category__c)) {
                     mapPublicationTarget.get(pubTarget.Publication__c).put(pubTarget.Product_Category__c, new List<Publication_Target__c>());
+                }
+                if(pubTarget.Directory_Allocated_Target__c == null){
+                    pubTarget.Directory_Allocated_Target__c = 0;
+                }
+                if(pubTarget.Insights_Allocated_Target__c == null){
+                    pubTarget.Insights_Allocated_Target__c = 0;
                 }
                 mapPublicationTarget.get(pubTarget.Publication__c).get(pubTarget.Product_Category__c).add(pubTarget);
                 if (!mapPublicationName.containsKey(pubTarget.Publication__c)) {

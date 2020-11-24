@@ -156,6 +156,28 @@
         <fullName>Description</fullName>
     </fields>
     <fields>
+        <fullName>Direct_Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Target__r.Directory_Target__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Direct Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Directory_Allocated_Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication_Target__r.Directory_Allocated_Target__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Directory Allocated Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
         <fullName>Discount</fullName>
     </fields>
     <fields>
@@ -166,6 +188,28 @@
         <label>Editorial deadline date</label>
         <required>false</required>
         <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Insight_Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Target__r.Insights_Target__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Insight Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Insights_Allocated_Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication_Target__r.Insights_Allocated_Target__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Insights Allocated Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
     </fields>
     <fields>
         <fullName>ListPrice</fullName>

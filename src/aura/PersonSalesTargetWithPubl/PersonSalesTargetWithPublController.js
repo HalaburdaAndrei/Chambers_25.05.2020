@@ -165,10 +165,23 @@
                         for (var i = 0; i < result.length; i++) {
                             if (items[index].userId === result[i].userId) {
                                 items[index].publications = result[i].publications
+
+                                let keyValue = (a) => {
+                                    return a["publnName"];
+                                };
+
+                                items[index].publications.sort((x, y) => {
+                                    x = keyValue(x) ? keyValue(x) : '';
+                                    y = keyValue(y) ? keyValue(y) : '';
+                                    return ((x > y) - (y > x));
+
+                                });
                             }
                         }
 
                     }
+
+
                     // helper.calculateUserTarget(component,event,helper);
                     // $A.get('e.force:refreshView').fire();
 
@@ -346,11 +359,11 @@
         if (getAllPubId != null) {
             if (!Array.isArray(getAllPubId)) {
                 if (selectedRec == true) {
-                    if (event.getSource().get("v.text") === component.find("boxPub").get("labelClass")) {
+                    if (event.getSource().get("v.text") === component.find("boxPub").get("v.labelClass")) {
                         component.find("boxPub").set("v.value", true);
                     }
                 } else {
-                    if (event.getSource().get("v.text") === component.find("boxPub").get("labelClass")) {
+                    if (event.getSource().get("v.text") === component.find("boxPub").get("v.labelClass")) {
                         component.find("boxPub").set("v.value", false);
                     }
                 }
@@ -569,6 +582,8 @@
 
     cancelButton: function (component, event, helper) {
         component.set("v.showSaveCancelBtn", false);
+        $A.get('e.force:refreshView').fire();
+
 
     }
 

@@ -102,10 +102,10 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-                                <input type="range" aria-label="Name column width"
-                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-414"
-                                       max="1000"
-                                       min="20" tabindex="0"/>
+<!--                                <input type="range" aria-label="Name column width"-->
+<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-414"-->
+<!--                                       max="1000"-->
+<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -124,10 +124,10 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-                                <input type="range" aria-label="Account Name column width"
-                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-415"
-                                       max="1000"
-                                       min="20" tabindex="0"/>
+<!--                                <input type="range" aria-label="Account Name column width"-->
+<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-415"-->
+<!--                                       max="1000"-->
+<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -148,10 +148,10 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-                                <input type="range" aria-label="Close Date column width"
-                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-416"
-                                       max="1000"
-                                       min="20" tabindex="0"/>
+<!--                                <input type="range" aria-label="Close Date column width"-->
+<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-416"-->
+<!--                                       max="1000"-->
+<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -171,10 +171,10 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-                                <input type="range" aria-label="Stage column width"
-                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-417"
-                                       max="1000"
-                                       min="20" tabindex="0"/>
+<!--                                <input type="range" aria-label="Stage column width"-->
+<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-417"-->
+<!--                                       max="1000"-->
+<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
