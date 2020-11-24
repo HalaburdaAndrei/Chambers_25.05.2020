@@ -181,7 +181,7 @@ public with sharing class PublicationAllocatedTarget {
                         Insights_Allocated_Target__c
                 FROM Publication_Target__c
                 WHERE Publication__c IN:mapPublicationName.keySet()
-                AND Product_Category__c IN: setProductCategory
+//                AND Product_Category__c IN: setProductCategory
                 ORDER BY Publication__r.Name, Product_Category__c ASC
 
         ];

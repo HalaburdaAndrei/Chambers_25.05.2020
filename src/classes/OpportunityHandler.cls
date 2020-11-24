@@ -48,6 +48,7 @@ public with sharing class OpportunityHandler {
 			SELECT
 				Id,
 				Sales_Person__c,
+				Publication__c,
 				Date__c
 			FROM Sales_Target__c
 			WHERE Sales_Person__c IN :userIds
@@ -71,6 +72,7 @@ public with sharing class OpportunityHandler {
 		Map<String, Sales_Target__c> existSalesTargetsMap = new Map<String, Sales_Target__c>();
 		for(Sales_Target__c st : salesTargets){
 			String key = st.Sales_Person__c + 'x' +
+//				st.Publication__c + 'x' +
 				String.valueOf(st.Date__c.year()) + '-' +
 				String.valueOf(st.Date__c.month());
 			// key: <SalesTarget Id>x<year>-<month>
@@ -118,6 +120,7 @@ public with sharing class OpportunityHandler {
             for (OpportunityLineItem oli : oppsIdToOppLine.get(oppId)) {
 				Opportunity opp = oppNewMap.get(oppId);
                 String key = opp.OwnerId + 'x' +
+//						oli.Publication__c + 'x' +
                     String.valueOf(opp.CloseDate.year()) + '-' +
                     String.valueOf(opp.CloseDate.month());
                 if (existSalesTargetsMap.containsKey(key)) {
@@ -156,7 +159,9 @@ public with sharing class OpportunityHandler {
                     Publication_Target__c pt = new Publication_Target__c(
                         Publication__c = oli.Publication__c,
 						OwnerId = opp.OwnerId,
-                        Product_Category__c = oli.Product2.Product_Category__c
+                        Product_Category__c = oli.Product2.Product_Category__c,
+						Directory_Allocated_Target__c = 0,
+						Insights_Allocated_Target__c = 0
                     );
                     ptByOppItemList.add(new PublicationTargetsByOppItem(oli, pt));
                     newPtList.add(pt);

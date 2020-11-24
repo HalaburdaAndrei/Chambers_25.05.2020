@@ -95,6 +95,18 @@
         var items = component.get("v.tableBody"), index = event.currentTarget.name;
 
         items[index].expanded = !items[index].expanded;
+
+        let keyValue = (a) => {
+            return a["publnName"];
+        };
+
+        items[index].publications.sort((x, y) => {
+            x = keyValue(x) ? keyValue(x) : '';
+            y = keyValue(y) ? keyValue(y) : '';
+            return ((x > y) - (y > x));
+
+        });
+
         component.set("v.tableBody", items);
         component.set('v.loaded', !component.get('v.loaded'));
 
@@ -158,7 +170,7 @@
 
                     }
                     // helper.calculateUserTarget(component,event,helper);
-                    $A.get('e.force:refreshView').fire();
+                    // $A.get('e.force:refreshView').fire();
 
                     component.set('v.loaded', !component.get('v.loaded'));
 
