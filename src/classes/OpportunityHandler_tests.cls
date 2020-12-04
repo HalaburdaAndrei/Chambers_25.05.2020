@@ -18,7 +18,7 @@ public with sharing class OpportunityHandler_tests {
         Sales_Person__c 
       FROM Sales_Target__c
     ];
-    System.assertEquals(12, salesTargets.size());
+    System.assertEquals(17, salesTargets.size());
 //    for(Opportunity opp : [SELECT Target__c FROM Opportunity]) {
     for(OpportunityLineItem opp : [SELECT Sales_Target__c FROM OpportunityLineItem WHERE OpportunityId IN: opps]) {
       System.assert(opp.Sales_Target__c != null);

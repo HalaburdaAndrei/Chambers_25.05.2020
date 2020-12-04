@@ -8,12 +8,10 @@
             console.log(state);
             if(state === 'SUCCESS'){
                 var result = response.getReturnValue().table;
-                console.log('start');
-                console.log(response.getReturnValue().table);
+                console.log(result);
                 component.set("v.resultTableTarget", result);
                 helper.calculatePublicationTarget(component,event,helper);
                 component.set('v.loaded', !component.get('v.loaded'));
-
             }
         });
         $A.enqueueAction(getresultTable);
@@ -23,7 +21,8 @@
         var items = component.get("v.resultTableTarget");
         if(items != null) {
             for (var i = 0; i < items.length; i++) {
-
+                items[i].publicationDirectoryAllocatedTarget = 0;
+                items[i].publicationInsightsAllocatedTarget = 0;
                 for (var p = 0; p < items[i].productCategaryRows.length; p++) {
                     if (items[i].publicationId === items[i].productCategaryRows[p].publicationTargets[0].Publication__c) {
                         items[i].publicationDirectoryAllocatedTarget += items[i].productCategaryRows[p].publicationTargets[0].Directory_Allocated_Target__c;
@@ -31,7 +30,6 @@
                     if (items[i].publicationId === items[i].productCategaryRows[p].publicationTargets[0].Publication__c) {
                         items[i].publicationInsightsAllocatedTarget += items[i].productCategaryRows[p].publicationTargets[0].Insights_Allocated_Target__c;
                     }
-
                 }
             }
         }
@@ -55,12 +53,9 @@
                     };
                     items.push(item);
                 }
-                console.log(items);
                 component.set("v.selectedProdCategory", items[0].value);
                 component.set("v.optionsProductCategory", items);
                 component.set('v.loaded', !component.get('v.loaded'));
-
-
             }
         });
         $A.enqueueAction(getPicklistCategory);

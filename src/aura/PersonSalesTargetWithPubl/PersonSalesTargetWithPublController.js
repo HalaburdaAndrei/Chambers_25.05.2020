@@ -15,8 +15,6 @@
             directInsight.push({direct: 'Direct \n Target', insight: 'Insight \n Target'});
         }
         component.set("v.DirectInsight", directInsight);
-        console.log('start');
-        console.log(yearList);
         component.set("v.options", yearList);
         component.set("v.selectedYear", currYear.toString());
         var genDate = component.get("c.generateDates");
@@ -27,12 +25,8 @@
             if (state === "SUCCESS") {
                 helper.genDataTable(component, event, helper);
 
-                // console.log( JSON.parse(JSON.stringify(response.getReturnValue())));
                 component.set("v.tableHead", JSON.parse(JSON.stringify(response.getReturnValue())));
-
-                // console.log('>>>>>' + directInsight);
                 component.set('v.loaded', !component.get('v.loaded'));
-
             }
             if (state === 'ERROR') {
                 var toastEvent = $A.get("e.force:showToast");
@@ -42,22 +36,17 @@
                     "message": response.getError()
                 });
                 toastEvent.fire();
-                // component.set('v.loaded', !component.get('v.loaded'));
-
+                component.set('v.loaded', !component.get('v.loaded'));
             }
         });
         $A.enqueueAction(genDate);
-
-        // helper.genDataTable(component,event,helper);
 
     },
 
     selectedYearinOption: function (component, event, helper) {
 
         var selectedOptionValue = event.getParam("value");
-        console.log(selectedOptionValue);
         component.set("v.selectedYear", selectedOptionValue);
-        // helper.genDataTable(component,event,helper);
         component.set('v.loaded', !component.get('v.loaded'));
 
         var genDate = component.get("c.generateDates");
@@ -68,12 +57,8 @@
             if (state === "SUCCESS") {
                 helper.genDataTable(component, event, helper);
 
-                // console.log( JSON.parse(JSON.stringify(response.getReturnValue())));
                 component.set("v.tableHead", JSON.parse(JSON.stringify(response.getReturnValue())));
-
-                // console.log('>>>>>' + directInsight);
                 component.set('v.loaded', !component.get('v.loaded'));
-
             }
             if (state === 'ERROR') {
                 var toastEvent = $A.get("e.force:showToast");
@@ -83,7 +68,7 @@
                     "message": response.getError()
                 });
                 toastEvent.fire();
-                // component.set('v.loaded', !component.get('v.loaded'));
+                component.set('v.loaded', !component.get('v.loaded'));
 
             }
         });
@@ -110,7 +95,6 @@
         component.set("v.tableBody", items);
         component.set('v.loaded', !component.get('v.loaded'));
 
-
     },
 
     addPublication: function (component, event, helper) {
@@ -118,7 +102,6 @@
         var items = component.get("v.tableBody")
         var selectedYear = parseInt(component.get("v.selectedYear"));
         var selectedPublication = component.get("v.selectedLookUpRecords");
-
         var addPubforSales = [];
 
         var getAllId = component.find("boxPack");
@@ -133,18 +116,15 @@
                 }
             }
         }
-        console.log(addPubforSales);
         if (addPubforSales.length > 0) {
             component.set('v.loaded', !component.get('v.loaded'));
 
             var userId = [];
             var oldSalesPerson = [];
             for (var number of addPubforSales) {
-                console.log(items[number]);
                 userId.push(items[number].userId);
                 oldSalesPerson.push(items[number]);
             }
-            console.log('oldSalesPerson >> ' + JSON.stringify(oldSalesPerson));
 
             var addPubl = component.get("c.addPublicationList");
             addPubl.setParams({
@@ -156,10 +136,8 @@
             addPubl.setCallback(this, function (response) {
                 var state = response.getState();
                 console.log(state);
-                console.log(response.getError());
                 if (state === 'SUCCESS') {
                     var result = response.getReturnValue();
-                    // console.log(result);
 
                     for (var index of addPubforSales) {
                         for (var i = 0; i < result.length; i++) {
@@ -174,21 +152,40 @@
                                     x = keyValue(x) ? keyValue(x) : '';
                                     y = keyValue(y) ? keyValue(y) : '';
                                     return ((x > y) - (y > x));
-
                                 });
                             }
                         }
+                    }
+                    component.set("v.tableBody", items);
+                    helper.calculateUserTarget(component, event, helper);
+                    // $A.get('e.force:refreshView').fire();
+                    var getAllId = component.find("boxPack");
+                    if (getAllId != null) {
+                        if (!Array.isArray(getAllId)) {
+                            component.find("boxPack").set("v.value", false);
+                        } else {
+                            for (var i = 0; i < getAllId.length; i++) {
+                                component.find("boxPack")[i].set("v.value", false);
+                            }
+                        }
+                    }
 
+                    var getAllPubId = component.find("boxPub");
+                    if (getAllPubId != null) {
+
+                        if (!Array.isArray(getAllPubId)) {
+                            component.find("boxPub").set("v.value", false);
+                        } else {
+                            for (var i = 0; i < getAllPubId.length; i++) {
+                                component.find("boxPub")[i].set("v.value", false);
+                            }
+                        }
                     }
 
 
-                    // helper.calculateUserTarget(component,event,helper);
-                    // $A.get('e.force:refreshView').fire();
-
+                    component.set("v.selectedLookUpRecords", []);
                     component.set('v.loaded', !component.get('v.loaded'));
 
-                    component.set("v.tableBody", items);
-                    component.set("v.selectedLookUpRecords", []);
                     var toastEvent = $A.get("e.force:showToast");
                     toastEvent.setParams({
                         "title": "Success!",
@@ -255,45 +252,55 @@
                 }
             }
         }
-        console.log(addPubforSales);
-        console.log(delPub);
-        if (addPubforSales.length > 0 || delPub.length > 0 ) {
+        if (addPubforSales.length > 0 || delPub.length > 0) {
             component.set('v.loaded', !component.get('v.loaded'));
 
-        var action = component.get("c.deletePublication");
-        action.setParams({
-            selectedYear: selectedYear,
-            oldListSalesPerson: JSON.stringify(items)
-        });
-        action.setCallback(this, function (response) {
-            var state = response.getState();
-            console.log(state);
-            console.log(response.getError());
+            var action = component.get("c.deletePublication");
+            action.setParams({
+                selectedYear: selectedYear,
+                oldListSalesPerson: JSON.stringify(items)
+            });
+            action.setCallback(this, function (response) {
+                var state = response.getState();
+                console.log(state);
+                if (state === 'SUCCESS') {
+                    // $A.get('e.force:refreshView').fire();
+                    var items1 = JSON.parse(JSON.stringify(response.getReturnValue()));
+                    let keyValue = (a) => {
+                        return a["activeUser"];
+                    };
 
-            if (state === 'SUCCESS') {
-                $A.get('e.force:refreshView').fire();
-                // helper.calculateUserTarget(component,event,helper);
-                component.set('v.loaded', !component.get('v.loaded'));
-                var toastEvent = $A.get("e.force:showToast");
-                toastEvent.setParams({
-                    "title": "Success!",
-                    "type": "success",
-                    "message": "The publications has been deleted successfully."
-                });
-                toastEvent.fire();
-            }
-            if (state === 'ERROR') {
-                var toastEvent = $A.get("e.force:showToast");
-                toastEvent.setParams({
-                    "title": "Error!",
-                    "type": "error",
-                    "message": response.getError()
-                });
-                toastEvent.fire();
-                component.set('v.loaded', !component.get('v.loaded'));
-            }
-        });
-        $A.enqueueAction(action);
+                    items1.sort((x, y) => {
+                        x = keyValue(x) ? keyValue(x) : '';
+                        y = keyValue(y) ? keyValue(y) : '';
+                        return ((y > x) - (x > y));
+
+                    });
+
+                    component.set("v.tableBody", items1);
+
+                    helper.calculateUserTarget(component, event, helper);
+                    component.set('v.loaded', !component.get('v.loaded'));
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Success!",
+                        "type": "success",
+                        "message": "The publications has been deleted successfully."
+                    });
+                    toastEvent.fire();
+                }
+                if (state === 'ERROR') {
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        "title": "Error!",
+                        "type": "error",
+                        "message": response.getError()
+                    });
+                    toastEvent.fire();
+                    component.set('v.loaded', !component.get('v.loaded'));
+                }
+            });
+            $A.enqueueAction(action);
         } else {
             var toastEvent = $A.get("e.force:showToast");
             toastEvent.setParams({
@@ -309,20 +316,22 @@
     selectAll: function (component, event, helper) {
         var selectedHeaderCheck = event.getSource().get("v.value");
         var getAllId = component.find("boxPack");
-        if (!Array.isArray(getAllId)) {
-            if (selectedHeaderCheck == true) {
-                component.find("boxPack").set("v.value", true);
-            } else {
-                component.find("boxPack").set("v.value", false);
-            }
-        } else {
-            if (selectedHeaderCheck == true) {
-                for (var i = 0; i < getAllId.length; i++) {
-                    component.find("boxPack")[i].set("v.value", true);
+        if (getAllId != null) {
+            if (!Array.isArray(getAllId)) {
+                if (selectedHeaderCheck == true) {
+                    component.find("boxPack").set("v.value", true);
+                } else {
+                    component.find("boxPack").set("v.value", false);
                 }
             } else {
-                for (var i = 0; i < getAllId.length; i++) {
-                    component.find("boxPack")[i].set("v.value", false);
+                if (selectedHeaderCheck == true) {
+                    for (var i = 0; i < getAllId.length; i++) {
+                        component.find("boxPack")[i].set("v.value", true);
+                    }
+                } else {
+                    for (var i = 0; i < getAllId.length; i++) {
+                        component.find("boxPack")[i].set("v.value", false);
+                    }
                 }
             }
         }
@@ -353,8 +362,6 @@
 
     checkboxSelectUser: function (component, event, helper) {
         var selectedRec = event.getSource().get("v.value");
-        console.log(selectedRec);
-        console.log(event.getSource().get("v.text"));
         var getAllPubId = component.find("boxPub");
         if (getAllPubId != null) {
             if (!Array.isArray(getAllPubId)) {
@@ -400,14 +407,12 @@
                 }
             }
         }
-        console.log(item);
 
     },
 
     checkboxSelectPublication: function (component, event, helper) {
         var item = component.get("v.tableBody");
         var selectedRec = event.getSource().get("v.value");
-
 
         if (selectedRec == true) {
             for (var i = 0; i < item[event.getSource().get("v.labelClass")].publications[event.getSource().get("v.text")].publicTargets1.length; i++) {
@@ -421,25 +426,15 @@
     },
 
     inlineEditDirectory: function (component, event, helper) {
-        var item = component.get("v.tableBody");
 
         var element = event.target.id;
-        console.log('>>>> ' + event.target.id);
-        console.log('>>>> ' + event.currentTarget.id);
-
-
         var x = document.querySelectorAll('div[id="' + element + '"]');
-        // console.log(x);
+
         if (x[0].style.display === "none") {
             x[0].style.display = "block";
         } else {
             x[0].style.display = "none";
         }
-        // component.set("v.showSaveCancelBtn", true);
-
-        // setTimeout(function(){
-        //     component.find("inputId").focus();
-        // }, 100);
 
     },
     closeDirectoryBox: function (component, event, helper) {
@@ -454,49 +449,46 @@
 
             var items = component.get("v.tableBody");
 
-            for (var k = 0; k < items[event.getSource().get("v.placeholder")].usTargets.length; k++) {
-                items[event.getSource().get("v.placeholder")].usTargets[k].directTarget = 0;
-                items[event.getSource().get("v.placeholder")].usTargets[k].insightTarget = 0;
+            for (var k = 0; k < items[event.getSource().get("v.requiredIndicatorClass")].usTargets.length; k++) {
+                items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].directTarget = 0;
+                items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].insightTarget = 0;
             }
 
-            for (var p = 0; p < items[event.getSource().get("v.placeholder")].publications.length; p++) {
-                items[event.getSource().get("v.placeholder")].publications[p].totalpubl = 0;
+            for (var p = 0; p < items[event.getSource().get("v.requiredIndicatorClass")].publications.length; p++) {
+                items[event.getSource().get("v.requiredIndicatorClass")].publications[p].totalpubl = 0;
 
-                for (var t = 0; t < items[event.getSource().get("v.placeholder")].publications[p].publicTargets1.length; t++) {
-                    if (items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Directory_Target__c != null) {
-                        if (items[event.getSource().get("v.placeholder")].usTargets[t].dateTarget === items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Date__c) {
-                            items[event.getSource().get("v.placeholder")].usTargets[t].directTarget += items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Directory_Target__c;
+                for (var t = 0; t < items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1.length; t++) {
+                    if (items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Directory_Target__c != null) {
+                        if (items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].dateTarget === items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Date__c) {
+                            items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].directTarget += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Directory_Target__c;
+                            items[event.getSource().get("v.requiredIndicatorClass")].publications[p].totalpubl += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Directory_Target__c;
                         }
                     }
-                    if (items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Insights_Target__c != null) {
-                        if (items[event.getSource().get("v.placeholder")].usTargets[t].dateTarget === items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Date__c) {
-                            items[event.getSource().get("v.placeholder")].usTargets[t].insightTarget += items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Insights_Target__c;
+                    if (items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Insights_Target__c != null) {
+                        if (items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].dateTarget === items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Date__c) {
+                            items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].insightTarget += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Insights_Target__c;
+                            items[event.getSource().get("v.requiredIndicatorClass")].publications[p].totalpubl += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Insights_Target__c;
                         }
                     }
                 }
             }
-            for (var k = 0; k < items[event.getSource().get("v.placeholder")].usTargets.length; k++) {
-                items[event.getSource().get("v.placeholder")].totalUser += items[event.getSource().get("v.placeholder")].usTargets[k].directTarget + items[event.getSource().get("v.placeholder")].usTargets[k].insightTarget;
+            for (var k = 0; k < items[event.getSource().get("v.requiredIndicatorClass")].usTargets.length; k++) {
+                items[event.getSource().get("v.requiredIndicatorClass")].totalUser += items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].directTarget + items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].insightTarget;
             }
-
             component.set("v.tableBody", items);
+
         }
     },
 
     inlineEditInsight: function (component, event, helper) {
-        var item = component.get("v.tableBody");
 
         var element = event.target.id;
-        console.log('>>>> ' + event.target.id);
-        console.log('>>>> ' + event.currentTarget.id);
-
         var x = document.querySelectorAll('div[id="' + element + '"]');
 
         if (x[0].style.display === "none") {
             x[0].style.display = "block";
         } else {
             x[0].style.display = "none";
-
         }
 
     },
@@ -512,31 +504,31 @@
             component.set("v.showSaveCancelBtn", true);
             var items = component.get("v.tableBody");
 
-            for (var k = 0; k < items[event.getSource().get("v.placeholder")].usTargets.length; k++) {
-                items[event.getSource().get("v.placeholder")].usTargets[k].directTarget = 0;
-                items[event.getSource().get("v.placeholder")].usTargets[k].insightTarget = 0;
+            for (var k = 0; k < items[event.getSource().get("v.requiredIndicatorClass")].usTargets.length; k++) {
+                items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].directTarget = 0;
+                items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].insightTarget = 0;
             }
 
-            for (var p = 0; p < items[event.getSource().get("v.placeholder")].publications.length; p++) {
-                items[event.getSource().get("v.placeholder")].publications[p].totalpubl = 0;
+            for (var p = 0; p < items[event.getSource().get("v.requiredIndicatorClass")].publications.length; p++) {
+                items[event.getSource().get("v.requiredIndicatorClass")].publications[p].totalpubl = 0;
 
-                for (var t = 0; t < items[event.getSource().get("v.placeholder")].publications[p].publicTargets1.length; t++) {
-                    if (items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Directory_Target__c != null) {
-                        if (items[event.getSource().get("v.placeholder")].usTargets[t].dateTarget === items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Date__c) {
-                            items[event.getSource().get("v.placeholder")].usTargets[t].directTarget += items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Directory_Target__c;
-                            items[event.getSource().get("v.placeholder")].publications[p].totalpubl += items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Directory_Target__c;
+                for (var t = 0; t < items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1.length; t++) {
+                    if (items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Directory_Target__c != null) {
+                        if (items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].dateTarget === items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Date__c) {
+                            items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].directTarget += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Directory_Target__c;
+                            items[event.getSource().get("v.requiredIndicatorClass")].publications[p].totalpubl += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Directory_Target__c;
                         }
                     }
-                    if (items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Insights_Target__c != null) {
-                        if (items[event.getSource().get("v.placeholder")].usTargets[t].dateTarget === items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Date__c) {
-                            items[event.getSource().get("v.placeholder")].usTargets[t].insightTarget += items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Insights_Target__c;
-                            items[event.getSource().get("v.placeholder")].publications[p].totalpubl += items[event.getSource().get("v.placeholder")].publications[p].publicTargets1[t].Insights_Target__c;
+                    if (items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Insights_Target__c != null) {
+                        if (items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].dateTarget === items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Date__c) {
+                            items[event.getSource().get("v.requiredIndicatorClass")].usTargets[t].insightTarget += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Insights_Target__c;
+                            items[event.getSource().get("v.requiredIndicatorClass")].publications[p].totalpubl += items[event.getSource().get("v.requiredIndicatorClass")].publications[p].publicTargets1[t].Insights_Target__c;
                         }
                     }
                 }
             }
-            for (var k = 0; k < items[event.getSource().get("v.placeholder")].usTargets.length; k++) {
-                items[event.getSource().get("v.placeholder")].totalUser += items[event.getSource().get("v.placeholder")].usTargets[k].directTarget + items[event.getSource().get("v.placeholder")].usTargets[k].insightTarget;
+            for (var k = 0; k < items[event.getSource().get("v.requiredIndicatorClass")].usTargets.length; k++) {
+                items[event.getSource().get("v.requiredIndicatorClass")].totalUser += items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].directTarget + items[event.getSource().get("v.requiredIndicatorClass")].usTargets[k].insightTarget;
             }
             component.set("v.tableBody", items);
         }
@@ -544,18 +536,33 @@
 
     saveButton: function (component, event, helper) {
         component.set('v.loaded', !component.get('v.loaded'));
-
+        var selectedYear = parseInt(component.get("v.selectedYear"));
         var item = JSON.stringify(component.get("v.tableBody"));
 
         var action = component.get("c.saveSalesTarget");
-        action.setParams({salesTarget: item});
+        action.setParams({
+            selectedYear: selectedYear,
+            salesTarget: item
+        });
         action.setCallback(this, function (response) {
             var state = response.getState();
             console.log(state);
-            console.log(response.getError());
             if (state === "SUCCESS") {
-                $A.get('e.force:refreshView').fire();
+                // $A.get('e.force:refreshView').fire();
+                var items1 = JSON.parse(JSON.stringify(response.getReturnValue()));
+                let keyValue = (a) => {
+                    return a["activeUser"];
+                };
+
+                items1.sort((x, y) => {
+                    x = keyValue(x) ? keyValue(x) : '';
+                    y = keyValue(y) ? keyValue(y) : '';
+                    return ((y > x) - (x > y));
+                });
+
+                component.set("v.tableBody", items1);
                 component.set("v.showSaveCancelBtn", false);
+                helper.calculateUserTarget(component, event, helper);
 
                 component.set('v.loaded', !component.get('v.loaded'));
                 var toastEvent = $A.get("e.force:showToast");
@@ -583,8 +590,6 @@
     cancelButton: function (component, event, helper) {
         component.set("v.showSaveCancelBtn", false);
         $A.get('e.force:refreshView').fire();
-
-
-    }
+    },
 
 })

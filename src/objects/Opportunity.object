@@ -1108,6 +1108,16 @@ IF( AND(CloseDate &gt; DATE(YEAR(TODAY())-1 ,6,30),CloseDate &lt; DATE(YEAR(TODA
         <columns>CORE.USERS.FULL_NAME</columns>
         <columns>Signer__c</columns>
         <filterScope>Everything</filterScope>
+        <filters>
+            <field>Number_of_Products_RE__c</field>
+            <operation>greaterThan</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>OPPORTUNITY.STAGE_NAME</field>
+            <operation>equals</operation>
+            <value>Qualified,Open,Pitched,Closed Won</value>
+        </filters>
         <label>All Opportunities</label>
     </listViews>
     <listViews>

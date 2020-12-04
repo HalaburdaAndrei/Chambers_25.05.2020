@@ -25,14 +25,15 @@ public with sharing class PersonSalesTargetWithPublController {
         Date startDate = Date.newInstance(selectedYear, startFyMonth, 1);
         Date endDate = Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1);
 
-        Map<Id, String> mapUserName = new Map<Id, String>();
+        Map<Id, User> mapUserName = new Map<Id, User>();
         Map<Id, String> mapPublicationName = new Map<Id, String>();
         Map<String, Map<String, List<Sales_Target__c>>> userTable = new Map<String, Map<String, List<Sales_Target__c>>>();
 
         List<User> listUsers = [
                 SELECT
                         Id,
-                        Name, (
+                        Name,
+                        IsActive, (
                         SELECT
                                 Id,
                                 Sales_Person__c,
@@ -51,7 +52,7 @@ public with sharing class PersonSalesTargetWithPublController {
                 )
                 FROM User
                 WHERE Profile.Name IN :userProfileName
-                AND IsActive = TRUE
+//                AND IsActive = TRUE
                 ORDER BY Name
         ];
 
@@ -60,7 +61,7 @@ public with sharing class PersonSalesTargetWithPublController {
                 userTable.put(us.Id, new Map<String, List<Sales_Target__c>>());
             }
             if (!mapUserName.containsKey(us.Id)) {
-                mapUserName.put(us.Id, us.Name);
+                mapUserName.put(us.Id, us);
             }
             for (Sales_Target__c st : us.Sales_Targets__r) {
                 if (!userTable.get(st.Sales_Person__c).containsKey(st.Publication__c)) {
@@ -78,7 +79,8 @@ public with sharing class PersonSalesTargetWithPublController {
         for (String userId : userTable.keySet()) {
             SalesPerson slPerson = new SalesPerson();
             slPerson.expanded = false;
-            slPerson.userName = mapUserName.get(userId);
+            slPerson.activeUser = mapUserName.get(userId).IsActive;
+            slPerson.userName = mapUserName.get(userId).Name;
             slPerson.userId = userId;
             slPerson.totalUser = 0;
             List<UserTarget> listUserTarget = new List<UserTarget>();
@@ -143,26 +145,8 @@ public with sharing class PersonSalesTargetWithPublController {
         List<Date> years = generateDates(selectedYear);
         Date startDate = Date.newInstance(selectedYear, startFyMonth, 1);
         Date endDate = Date.newInstance(selectedYear, startFyMonth + cuntMonths - 1, 1);
-        List<Sales_Target__c> checkTarget = [
-                SELECT Id,
-                        Name,
-                        Sales_Person__c,
-                        Sales_Person__r.Name,
-                        Publication__c,
-                        Publication__r.Name,
-                        Directory_Target__c,
-                        Insights_Target__c,
-                        Publication_Visible__c,
-                        Date__c
-                FROM Sales_Target__c
-                WHERE Sales_Person__c IN:listUser
-                AND Date__c >= :startDate
-                AND Date__c <= :endDate
-
-        ];
 
         List<SalesPerson> parsSalesPerson = (List<SalesPerson>) JSON.deserialize(oldListSalesPerson, List<SalesPerson>.class);
-        System.debug(parsSalesPerson);
 
         Map<Id, String> mapUserName = new Map<Id, String>();
         Map<Id, String> mapPublicationName = new Map<Id, String>();
@@ -205,6 +189,25 @@ public with sharing class PersonSalesTargetWithPublController {
                 mapUserName.put(user.Id, user.Name);
             }
         }
+
+        List<Sales_Target__c> checkTarget = [
+                SELECT Id,
+                        Name,
+                        Sales_Person__c,
+                        Sales_Person__r.Name,
+                        Publication__c,
+                        Publication__r.Name,
+                        Directory_Target__c,
+                        Insights_Target__c,
+                        Publication_Visible__c,
+                        Date__c
+                FROM Sales_Target__c
+                WHERE Sales_Person__c IN:listUser
+                AND Publication__c IN:mapPublicationName.keySet()
+                AND Date__c >= :startDate
+                AND Date__c <= :endDate
+
+        ];
 
         for (Sales_Target__c st : checkTarget) {
             if (st.Publication__c != null) {
@@ -282,40 +285,172 @@ public with sharing class PersonSalesTargetWithPublController {
     }
 
     @AuraEnabled
-    public static void deletePublication(Integer selectedYear, String oldListSalesPerson) {
+    public static List<SalesPerson> deletePublication(Integer selectedYear, String oldListSalesPerson) {
         List<SalesPerson> parsSalesPerson = (List<SalesPerson>) JSON.deserialize(oldListSalesPerson, List<SalesPerson>.class);
 
         List<Sales_Target__c> updateSalesTarget = new List<Sales_Target__c>();
+        List<Sales_Target__c> showSalesTarget = new List<Sales_Target__c>();
 
         for (SalesPerson salesper : parsSalesPerson) {
             for (PublicationRow pubRow : salesper.publications) {
                 for (Sales_Target__c st : pubRow.publicTargets1) {
                     if (st.Publication_Visible__c == false) {
                         updateSalesTarget.add(st);
+                    } else {
+                        showSalesTarget.add(st);
                     }
                 }
             }
         }
-        update updateSalesTarget;
+        if (updateSalesTarget.size() > 0) {
+            update updateSalesTarget;
+        }
+
+        List<SalesPerson> listSalesPerson = showSalesTarget(selectedYear, showSalesTarget);
+
+        return listSalesPerson;
     }
 
     @AuraEnabled
-    public static void saveSalesTarget(String salesTarget) {
+    public static List<SalesPerson> saveSalesTarget(Integer selectedYear, String salesTarget) {
+
+        List<Sales_Target__c> showSalesTarget = new List<Sales_Target__c>();
+
         List<SalesPerson> parsSalesPerson = (List<SalesPerson>) JSON.deserialize(salesTarget, List<SalesPerson>.class);
-        System.debug(parsSalesPerson);
 
         List<Sales_Target__c> updateSalesTarget = new List<Sales_Target__c>();
 
         for (SalesPerson salesper : parsSalesPerson) {
             for (PublicationRow pubRow : salesper.publications) {
                 for (Sales_Target__c st : pubRow.publicTargets1) {
-                    System.debug(st);
                     updateSalesTarget.add(st);
+                    if (st.Publication_Visible__c != false) {
+                        showSalesTarget.add(st);
+                    }
                 }
             }
         }
+        if (updateSalesTarget.size() > 0) {
+            upsert updateSalesTarget;
+        }
+        List<SalesPerson> listSalesPerson = showSalesTarget(selectedYear, showSalesTarget);
 
-        upsert updateSalesTarget;
+        return listSalesPerson;
+    }
+
+    private static List<SalesPerson> showSalesTarget(Integer selectedYear, List<Sales_Target__c> showTargets) {
+        List<Date> years = generateDates(selectedYear);
+        userProfileName.add('Sales Rep');
+        userProfileName.add('Sales Management');
+
+        Map<Id, User> mapUserName = new Map<Id, User>();
+        Map<Id, String> mapPublicationName = new Map<Id, String>();
+        Map<String, Map<String, List<Sales_Target__c>>> userTable = new Map<String, Map<String, List<Sales_Target__c>>>();
+
+        List<User> listUsers = [
+                SELECT
+                        Id,
+                        Name,
+                        IsActive, (
+                        SELECT
+                                Id,
+                                Sales_Person__c,
+                                Sales_Person__r.Name,
+                                Date__c, Target__c,
+                                Publication__c,
+                                Publication__r.Name,
+                                Publication_Visible__c,
+                                Directory_Target__c,
+                                Insights_Target__c
+                        FROM Sales_Targets__r
+                        WHERE Id IN:showTargets
+                        AND Publication_Visible__c = TRUE
+                        ORDER BY Date__c
+                )
+                FROM User
+                WHERE Profile.Name IN :userProfileName
+//                AND IsActive = TRUE
+                ORDER BY Name
+        ];
+
+        for (User us : listUsers) {
+            if (!userTable.containsKey(us.Id)) {
+                userTable.put(us.Id, new Map<String, List<Sales_Target__c>>());
+            }
+            if (!mapUserName.containsKey(us.Id)) {
+                mapUserName.put(us.Id, us);
+            }
+            for (Sales_Target__c st : us.Sales_Targets__r) {
+                if (!userTable.get(st.Sales_Person__c).containsKey(st.Publication__c)) {
+                    userTable.get(st.Sales_Person__c).put(st.Publication__c, new List<Sales_Target__c>());
+                }
+                if (!mapPublicationName.containsKey(st.Publication__c)) {
+                    mapPublicationName.put(st.Publication__c, st.Publication__r.Name);
+                }
+                userTable.get(st.Sales_Person__c).get(st.Publication__c).add(st);
+            }
+        }
+
+        List<SalesPerson> listSalesPerson = new List<SalesPerson>();
+
+        for (String userId : userTable.keySet()) {
+            SalesPerson slPerson = new SalesPerson();
+            slPerson.expanded = false;
+            slPerson.activeUser = mapUserName.get(userId).IsActive;
+            slPerson.userName = mapUserName.get(userId).Name;
+            slPerson.userId = userId;
+            slPerson.totalUser = 0;
+            List<UserTarget> listUserTarget = new List<UserTarget>();
+            for (Date dateYear : years) {
+                UserTarget target = new UserTarget();
+                target.dateTarget = dateYear;
+                target.directTarget = 0;
+                target.insightTarget = 0;
+                listUserTarget.add(target);
+            }
+            slPerson.usTargets = listUserTarget;
+
+            List<PublicationRow> listPublicationNames = new List<PublicationRow>();
+            for (String pubId : userTable.get(userId).keySet()) {
+                List<Sales_Target__c> lstSalesTargets = userTable.get(userId).get(pubId);
+
+                PublicationRow pubName = new PublicationRow();
+                pubName.publnName = mapPublicationName.get(pubId);
+                pubName.publicationId = pubId;
+                pubName.totalpubl = 0;
+
+                List<Sales_Target__c> listTarget = new List<Sales_Target__c>();
+                for (Date dateYear : years) {
+                    Sales_Target__c target = new Sales_Target__c();
+                    target.Date__c = dateYear;
+                    target.Sales_Person__c = userId;
+                    target.Publication__c = pubId;
+                    target.Directory_Target__c = null;
+                    target.Insights_Target__c = null;
+                    target.Publication_Visible__c = true;
+                    listTarget.add(target);
+                }
+                for (Sales_Target__c target : listTarget) {
+                    for (Sales_Target__c sTarget : lstSalesTargets) {
+                        if (target.Date__c == sTarget.Date__c) {
+                            target.Id = sTarget.Id;
+                            target.Sales_Person__c = sTarget.Sales_Person__c;
+                            target.Publication__c = sTarget.Publication__c;
+                            target.Publication_Visible__c = sTarget.Publication_Visible__c;
+                            target.Directory_Target__c = sTarget.Directory_Target__c;
+                            target.Insights_Target__c = sTarget.Insights_Target__c;
+                        }
+                    }
+                }
+                pubName.publicTargets1 = listTarget;
+                listPublicationNames.add(pubName);
+
+            }
+            slPerson.publications = listPublicationNames;
+            listSalesPerson.add(slPerson);
+        }
+        return listSalesPerson;
+
     }
 
     public class SalesPerson {
@@ -331,6 +466,8 @@ public with sharing class PersonSalesTargetWithPublController {
         List<PublicationRow> publications { get; set; }
         @AuraEnabled
         Boolean expanded { get; set; }
+        @AuraEnabled
+        Boolean activeUser { get; set; }
 
         SalesPerson() {
             usTargets = new List<UserTarget>();

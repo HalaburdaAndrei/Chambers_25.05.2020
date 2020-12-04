@@ -1,7 +1,6 @@
 ({
     genDataTable : function(component,event,helper){
         component.set('v.loaded', !component.get('v.loaded'));
-
         var selectedYear = parseInt(component.get("v.selectedYear"));
 
         var action = component.get("c.generateDataTable");
@@ -11,11 +10,22 @@
             console.log(state);
             if (state === "SUCCESS") {
                 console.log(JSON.parse(JSON.stringify(response.getReturnValue().table)));
+                var items = JSON.parse(JSON.stringify(response.getReturnValue().table));
+                let keyValue = (a) => {
+                    return a["activeUser"];
+                };
 
-                component.set("v.tableBody", JSON.parse(JSON.stringify(response.getReturnValue().table)));
+                items.sort((x, y) => {
+                    x = keyValue(x) ? keyValue(x) : '';
+                    y = keyValue(y) ? keyValue(y) : '';
+                    return ((y > x) - (x > y));
+
+                });
+
+                component.set("v.tableBody", items);
+
                 helper.calculateUserTarget(component,event,helper);
                 component.set('v.loaded', !component.get('v.loaded'));
-
             }
             if (state === 'ERROR') {
                 var toastEvent = $A.get("e.force:showToast");
@@ -26,7 +36,6 @@
                 });
                 toastEvent.fire();
                 component.set('v.loaded', !component.get('v.loaded'));
-
             }
         });
         $A.enqueueAction(action);
@@ -58,7 +67,6 @@
                             items[u].publications[p].totalpubl += items[u].publications[p].publicTargets1[t].Insights_Target__c;
                         }
                     }
-
                 }
             }
         }
@@ -68,7 +76,5 @@
             }
         }
         component.set('v.loaded', !component.get('v.loaded'));
-
-        console.log(items);
     },
 });

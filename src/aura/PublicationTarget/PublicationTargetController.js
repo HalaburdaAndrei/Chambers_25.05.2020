@@ -33,7 +33,7 @@
                 type: 'currency',
                 sortable: true,
                 hideDefaultActions: "true",
-                editable: true
+                editable: false
             },
             {
                 label: 'Insights Allocated Target',
@@ -41,7 +41,7 @@
                 type: 'currency',
                 sortable: true,
                 hideDefaultActions: "true",
-                editable: true
+                editable: false
             },
             {
                 label: 'Budget',

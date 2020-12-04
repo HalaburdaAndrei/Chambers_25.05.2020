@@ -80,7 +80,8 @@ public with sharing class OpportunityHandler {
 				Id,
 				Sales_Person__c,
 				Publication__c,
-				Date__c
+				Date__c,
+				OwnerId
 			FROM Sales_Target__c
 			WHERE Sales_Person__c IN :userIds
 			AND CALENDAR_YEAR(Date__c) IN :years
@@ -92,7 +93,7 @@ public with sharing class OpportunityHandler {
 	private List<Publication_Target__c> getPublicationTargets(Set<String> categories, Set<Id> publicationsId) {
 		return [
 			SELECT
-				Id, Publication__c, Product_Category__c
+				Id, Publication__c, Product_Category__c, OwnerId
 			FROM Publication_Target__c
 			WHERE Product_Category__c IN :categories
 			AND Publication__c IN: publicationsId
@@ -147,6 +148,7 @@ public with sharing class OpportunityHandler {
 	private List<SalesTargetsByOppItem> createSalesTargetsByOppItems(Map<Id,List<OpportunityLineItem>> oppsIdToOppLine, Map<String, Sales_Target__c> existSalesTargetsMap, Map<Id, Opportunity> oppNewMap) {
 		List<SalesTargetsByOppItem> stByOppItemList = new List<SalesTargetsByOppItem>();
 		List<Sales_Target__c> newStList = new List<Sales_Target__c>();
+		Set<Sales_Target__c> setForUpdateStList = new Set<Sales_Target__c>();
 		Map<String, Sales_Target__c> newSTmap = new Map<String, Sales_Target__c>();
 		for(Id oppId : oppsIdToOppLine.keySet()) {
 			for (OpportunityLineItem oli : oppsIdToOppLine.get(oppId)) {
@@ -156,9 +158,12 @@ public with sharing class OpportunityHandler {
 					String.valueOf(opp.CloseDate.year()) + '-' +
 					String.valueOf(opp.CloseDate.month());
 				if (existSalesTargetsMap.containsKey(key)) {
+					existSalesTargetsMap.get(key).OwnerId = opp.OwnerId;
 					stByOppItemList.add(new SalesTargetsByOppItem(
 						oli, existSalesTargetsMap.get(key)
 					));
+					System.debug(existSalesTargetsMap.get(key));
+					setForUpdateStList.add(existSalesTargetsMap.get(key));
 				} else {
 					Sales_Target__c st = new Sales_Target__c(
 						Sales_Person__c = opp.OwnerId,
@@ -169,10 +174,15 @@ public with sharing class OpportunityHandler {
 					);
 					existSalesTargetsMap.put(key, st);
 					stByOppItemList.add(new SalesTargetsByOppItem(oli, st));
-					newStList.add(st);
+//					newStList.add(st);
+					setForUpdateStList.add(st);
+					System.debug(st);
 				}
 			}
 		}
+//		List<Sales_Target__c> listForUpdateStList = new List<Sales_Target__c>(setForUpdateStList);
+		newStList.addAll(setForUpdateStList);
+//		update listForUpdateStList;
 		upsert newStList;
 		return stByOppItemList;
 	}
@@ -180,14 +190,17 @@ public with sharing class OpportunityHandler {
 	private List<PublicationTargetsByOppItem> createPublicationTargetsByOppItems(Map<Id,List<OpportunityLineItem>> oppsIdToOppLine, Map<String, Publication_Target__c> existPublicationTargetsMap, Map<Id, Opportunity> oppNewMap) {
 		List<PublicationTargetsByOppItem> ptByOppItemList = new List<PublicationTargetsByOppItem>();
 		List<Publication_Target__c> newPtList = new List<Publication_Target__c>();
+		Set<Publication_Target__c> setforUpdatePtList = new Set<Publication_Target__c>();
 		for(Id oppId : oppsIdToOppLine.keySet()) {
 			Opportunity opp = oppNewMap.get(oppId);
 			for (OpportunityLineItem oli : oppsIdToOppLine.get(oppId)) {
 				String key = oli.Publication__c + '-' + oli.Product2.Product_Category__c;
 				if (existPublicationTargetsMap.containsKey(key)) {
+					existPublicationTargetsMap.get(key).OwnerId = opp.OwnerId;
 					ptByOppItemList.add(new PublicationTargetsByOppItem(
 						oli, existPublicationTargetsMap.get(key)
 					));
+					setforUpdatePtList.add(existPublicationTargetsMap.get(key));
 				} else {
 					Publication_Target__c pt = new Publication_Target__c(
 						Publication__c = oli.Publication__c,
@@ -195,10 +208,12 @@ public with sharing class OpportunityHandler {
 						Product_Category__c = oli.Product2.Product_Category__c
 					);
 					ptByOppItemList.add(new PublicationTargetsByOppItem(oli, pt));
-					newPtList.add(pt);
+//					newPtList.add(pt);
+					setforUpdatePtList.add(pt);
 				}
 			}
 		}
+		newPtList.addAll(setforUpdatePtList);
 		upsert newPtList;
 		return ptByOppItemList;
 	}

@@ -17,9 +17,14 @@
 
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-
+    <lightning:card
+            variant="Narrow"
+            title="Publication Target."
+            iconName="standard:sales_value"
+    >
+    </lightning:card>
     <div class="slds-color__background_gray-1 slds-is-relative">
-        <b>Publication Target.</b><br/><br/>
+
         <aura:if isTrue="{! !v.loaded }">
             <lightning:spinner variant="brand" alternativeText="Loading"/>
         </aura:if>
@@ -33,10 +38,7 @@
             <div class="slds-col slds-size_1-of-12">
                 <lightning:combobox name="progress" label="Years" value="{!v.selectedYear}"
                                     options="{! v.optionsYears }" onchange="{! c.selectedYearOption }"/>
-<!--                <c:MultiSelect aura:id="jobLocationMS" mslabel="Product Category" msoptions="{!v.optionsProductCategory}"/>-->
-<!--                <div class="slds-p-top&#45;&#45;small">-->
-<!--                <lightning:button variant="brand" label="Add Product category" onclick="{!c.addProductCategoryButton }"/>-->
-<!--                </div>-->
+
             </div>
             <div class="slds-col  slds-p-top--large">
                 <lightning:button variant="brand" label="Show Publication" onclick="{!c.addPublication }"/>
@@ -48,12 +50,6 @@
             <div class="slds-col">
                 <c:MultiSelect aura:id="jobLocationMS" mslabel="Product Category" msoptions="{!v.optionsProductCategory}"/>
             </div>
-<!--            <div class="slds-col slds-p-top&#45;&#45;large ">-->
-<!--                <lightning:button variant="brand" label="Add Product category" onclick="{!c.addProductCategoryButton }"/>-->
-<!--            </div>-->
-<!--            <div class="slds-col slds-p-top&#45;&#45;large">-->
-<!--                <lightning:button variant="destructive" label="Delete" onclick="{!c.delPublication }"/>-->
-<!--            </div>-->
         </div>
         <div class="slds-p-left_medium  slds-p-bottom--small">
         <lightning:button variant="brand" label="Add Product category" onclick="{!c.addProductCategoryButton }"/>
@@ -102,10 +98,6 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-<!--                                <input type="range" aria-label="Name column width"-->
-<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-414"-->
-<!--                                       max="1000"-->
-<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -124,10 +116,6 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-<!--                                <input type="range" aria-label="Account Name column width"-->
-<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-415"-->
-<!--                                       max="1000"-->
-<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -148,10 +136,6 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-<!--                                <input type="range" aria-label="Close Date column width"-->
-<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-416"-->
-<!--                                       max="1000"-->
-<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -171,10 +155,6 @@
                                 </div>
                             </a>
                             <div class="slds-resizable">
-<!--                                <input type="range" aria-label="Stage column width"-->
-<!--                                       class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-417"-->
-<!--                                       max="1000"-->
-<!--                                       min="20" tabindex="0"/>-->
                                 <span class="slds-resizable__handle">
                         <span class="slds-resizable__divider"></span>
                         </span>
@@ -208,19 +188,19 @@
                             <td class="slds-cell-edit " role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationRow.publicationDirectoryAllocatedTarget + publicationRow.publicationInsightsAllocatedTarget}">{!publicationRow.publicationDirectoryAllocatedTarget + publicationRow.publicationInsightsAllocatedTarget }</span>
+                                      title="{!publicationRow.publicationDirectoryAllocatedTarget + publicationRow.publicationInsightsAllocatedTarget}"><ui:outputNumber value="{!publicationRow.publicationDirectoryAllocatedTarget + publicationRow.publicationInsightsAllocatedTarget }"/></span>
                             </span>
                             </td>
                             <td class="slds-cell-edit" role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationRow.publicationDirectoryAllocatedTarget}">{!publicationRow.publicationDirectoryAllocatedTarget}</span>
+                                      title="{!publicationRow.publicationDirectoryAllocatedTarget}"><ui:outputNumber value="{!publicationRow.publicationDirectoryAllocatedTarget}"/></span>
                             </span>
                             </td>
                             <td class="slds-cell-edit" role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationRow.publicationInsightsAllocatedTarget}">{!publicationRow.publicationInsightsAllocatedTarget}</span>
+                                      title="{!publicationRow.publicationInsightsAllocatedTarget}"><ui:outputNumber value="{!publicationRow.publicationInsightsAllocatedTarget}"/></span>
                             </span>
                             </td>
 
@@ -251,13 +231,13 @@
                                         <td class="slds-cell-edit" role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}">{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}</span>
+                                      title="{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}"><ui:outputNumber value="{!publicationTarget.Directory_Allocated_Target__c + publicationTarget.Insights_Allocated_Target__c}"/></span>
                             </span>
                                         </td>
                                         <td class="slds-cell-edit" role="gridcell">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationTarget.Directory_Allocated_Target__c}">{!publicationTarget.Directory_Allocated_Target__c}</span>
+                                      title="{!publicationTarget.Directory_Allocated_Target__c}"><ui:outputNumber value="{!publicationTarget.Directory_Allocated_Target__c}"/></span>
                             <aura:if isTrue="{!publicationTarget.Product_Category__c  != 'Unpublished Report'}">
                                 <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
                                         onclick="{!c.inlineEditDirectoryAllocatedTarget}"
@@ -271,7 +251,7 @@
                                     <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
                                              style="position:  relative; top: 0px">
                                                     <ui:inputNumber class="slds-input inputFieldWidth"
-                                                                    placeholder="{!indexPublication}"
+                                                                    requiredIndicatorClass="{!indexPublication}"
                                                                     labelClass="{!'Directory-' +indexPublication+'-'+indexProdCategary}"
                                                                     blur="{!c.closeDirectoryBox}"
                                                                     aura:id="focusIdDirectory"
@@ -285,7 +265,7 @@
                                         <td class="slds-cell-edit " role="gridcell" aura:id="test">
                             <span class="slds-grid slds-grid_align-spread">
                                 <span class="slds-truncate"
-                                      title="{!publicationTarget.Insights_Allocated_Target__c}">{!publicationTarget.Insights_Allocated_Target__c}
+                                      title="{!publicationTarget.Insights_Allocated_Target__c}"><ui:outputNumber value="{!publicationTarget.Insights_Allocated_Target__c}"/>
                                 </span>
                                 <aura:if isTrue="{!publicationTarget.Product_Category__c  == 'Unpublished Report'}">
                                 <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
@@ -300,7 +280,7 @@
                                         <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
                                                  style="position:  relative; top: 0px">
                                                         <ui:inputNumber class="slds-input inputFieldWidth"
-                                                                        placeholder="{!indexPublication}"
+                                                                        requiredIndicatorClass="{!indexPublication}"
                                                                         labelClass="{!'Insights-' +indexPublication+'-'+indexProdCategary}"
                                                                         blur="{!c.closeInsightsBox}"
                                                                         aura:id="focusIdInsights"
