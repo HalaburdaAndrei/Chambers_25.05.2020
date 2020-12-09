@@ -46,17 +46,29 @@ public with sharing class OpportunityHandler {
 			List<Publication_Target__c> publicationTargets = new List<Publication_Target__c>();
 			for (AggregateResult item : [SELECT SUM(TotalPrice)TotalPrice, Publication_Target__c FROM OpportunityLineItem GROUP BY Publication_Target__c, Publication__c HAVING Publication_Target__c != null AND Publication__c IN: publicationIds]) {
 				publicationTargets.add(new Publication_Target__c(Id = (String)item.get('Publication_Target__c'), Product_Total_Price__c = (Decimal)item.get('TotalPrice')));
+				System.debug(item);
 			}
 			if (!publicationTargets.isEmpty()) {
 				update publicationTargets;
 			}
 
 			List<Sales_Target__c> salesTargets = new List<Sales_Target__c>();
-			for (AggregateResult item : [SELECT SUM(TotalPrice)TotalPrice, Sales_Target__c FROM OpportunityLineItem GROUP BY Sales_Target__c, Publication__c HAVING Sales_Target__c != null AND Publication__c IN: publicationIds]) {
-				salesTargets.add(new Sales_Target__c(Id = (String)item.get('Sales_Target__c'), Product_Total_Price__c = (Decimal)item.get('TotalPrice')));
+			Map<String,Sales_Target__c> mapSalesTarget = new Map<String, Sales_Target__c>();
+			for (AggregateResult item : [SELECT SUM(TotalPrice)TotalPrice, Publication__c, Product2.Product_Category__c, Sales_Target__c  FROM OpportunityLineItem WHERE Sales_Target__c != null AND Publication__c IN: publicationIds GROUP BY Sales_Target__c, Publication__c, Product2.Product_Category__c ]) {
+				if(!mapSalesTarget.containsKey((String)item.get('Sales_Target__c'))){
+					mapSalesTarget.put((String)item.get('Sales_Target__c'), new Sales_Target__c(Id = (String)item.get('Sales_Target__c'), Product_Total_Price__c = 0, Directory_Sales__c = 0, Insights_Sales__c = 0));
+				}
+				mapSalesTarget.get((String)item.get('Sales_Target__c')).Product_Total_Price__c += (Decimal)item.get('TotalPrice');
+				if((String)item.get('Product_Category__c') == 'Unpublished Report'){
+					mapSalesTarget.get((String)item.get('Sales_Target__c')).Insights_Sales__c += (Decimal)item.get('TotalPrice');
+				}else{
+					mapSalesTarget.get((String)item.get('Sales_Target__c')).Directory_Sales__c += (Decimal)item.get('TotalPrice');
+
+				}
 			}
-			if (!salesTargets.isEmpty()) {
-				update salesTargets;
+
+			if (!mapSalesTarget.isEmpty()) {
+				update mapSalesTarget.values();
 			}
 		}
 	}
@@ -162,7 +174,6 @@ public with sharing class OpportunityHandler {
 					stByOppItemList.add(new SalesTargetsByOppItem(
 						oli, existSalesTargetsMap.get(key)
 					));
-					System.debug(existSalesTargetsMap.get(key));
 					setForUpdateStList.add(existSalesTargetsMap.get(key));
 				} else {
 					Sales_Target__c st = new Sales_Target__c(
@@ -176,13 +187,10 @@ public with sharing class OpportunityHandler {
 					stByOppItemList.add(new SalesTargetsByOppItem(oli, st));
 //					newStList.add(st);
 					setForUpdateStList.add(st);
-					System.debug(st);
 				}
 			}
 		}
-//		List<Sales_Target__c> listForUpdateStList = new List<Sales_Target__c>(setForUpdateStList);
 		newStList.addAll(setForUpdateStList);
-//		update listForUpdateStList;
 		upsert newStList;
 		return stByOppItemList;
 	}

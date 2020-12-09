@@ -31,7 +31,7 @@ public with sharing class PublicationAllocatedTarget {
     }
 
     @AuraEnabled
-    public static Map<String, List<PublicationRow>> generateDataTable() {
+    public static Map<String, List<PublicationRow>> generateDataTable(String year) {
 
         Map<String, List<PublicationRow>> resultTable = new Map<String, List<PublicationRow>>();
         List<Publication_Target__c> listPublicationTargets = [
@@ -45,6 +45,7 @@ public with sharing class PublicationAllocatedTarget {
                         Insights_Allocated_Target__c
                 FROM Publication_Target__c
                 WHERE Category_Visible__c = TRUE
+                AND Publication__r.Year_Issue_RE__c =: year
                 ORDER BY Publication__r.Name, Product_Category__c ASC
         ];
 

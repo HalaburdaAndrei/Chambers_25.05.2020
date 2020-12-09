@@ -1,8 +1,9 @@
 ({
     getResultPublicationTarget : function(component, event,helper){
         component.set('v.loaded', !component.get('v.loaded'));
-
+        let currYear = new Date().getFullYear();
         var getresultTable = component.get("c.generateDataTable");
+        getresultTable.setParams({year : currYear.toString()});
         getresultTable.setCallback(this, function (response) {
             var state = response.getState();
             console.log(state);

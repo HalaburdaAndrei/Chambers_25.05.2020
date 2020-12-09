@@ -51,9 +51,9 @@
         </div>
 
         <aura:if isTrue="{!v.showSaveCancelBtn == True}">
-        <div class="slds-m-left_small slds-m-bottom_medium slds-align_absolute-center slds-p-right--medium " style="z-index: 10">
-            <lightning:button variant="neutral" label="Cancel" onclick="{!c.cancelButton }"/>
-            <lightning:button variant="brand" label="Save" onclick="{!c.saveButton }"/>
+        <div class="slds-m-left_small slds-m-bottom_small slds-align_absolute-center slds-p-right--medium " style="z-index: 10">
+            <lightning:button class="slds-size_1-of-12" variant="destructive" label="Cancel" onclick="{!c.cancelButton }"/>
+            <lightning:button class="slds-size_1-of-12" variant="brand" label="Save" onclick="{!c.saveButton }"/>
         </div>
         </aura:if>
 
@@ -64,7 +64,7 @@
 
             <thead class="">
             <tr class="slds-text-title--caps slds-line-height_reset">
-                <th style="width:3.25rem;" rowspan="2" class="slds-text-align--right ">
+                <th style="width:3.25rem; position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" rowspan="2" class="slds-text-align--right ">
                     <div class="slds-form-element">
                         <div class="slds-form-element__control">
                             <label class="slds-checkbox">
@@ -76,24 +76,24 @@
                         </div>
                     </div>
                 </th>
-                <th rowspan="2" class="slds-is-resizable slds-border_right " style="width:150px" >
+                <th rowspan="2" class="slds-is-resizable slds-border_right " style="width:150px; position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" >
                     <div class=" slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-truncate" title="Sales Person" >
                     Sales Person
                     </div></th>
-                <th rowspan="2" class="slds-is-resizable slds-border_right " >
+                <th rowspan="2" class="slds-is-resizable slds-border_right " style="position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" >
                     <div class=" slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-truncate" title="TOTAL">
                     TOTAL
                     </div></th>
                 <aura:iteration items="{!v.tableHead}" var="head" indexVar="rowIndex">
 
-                    <th colspan="2" class="slds-text-align--center" title="{!head}">{!head} </th>
+                    <th colspan="2" class="slds-text-align--center" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" title="{!head}">{!head} </th>
                 </aura:iteration>
 
             </tr>
             <tr>
                 <aura:iteration items="{!v.DirectInsight}" var="di" indexVar="rowIndex">
-                    <th class="slds-text-align--center" title="Direct Target"> Direct<br/> Target</th>
-                    <th class="slds-text-align--center" title="Insight Target"> Insight<br/> Target</th>
+                    <th class="slds-text-align--center" title="Direct Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Direct<br/> Target</th>
+                    <th class="slds-text-align--center" title="Insight Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Insight<br/> Target</th>
                 </aura:iteration>
             </tr>
             </thead>

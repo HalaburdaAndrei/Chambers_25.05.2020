@@ -303,7 +303,8 @@ public with sharing class PersonSalesTargetWithPublController {
             }
         }
         if (updateSalesTarget.size() > 0) {
-            update updateSalesTarget;
+//            update updateSalesTarget;
+            delete updateSalesTarget;
         }
 
         List<SalesPerson> listSalesPerson = showSalesTarget(selectedYear, showSalesTarget);
@@ -323,10 +324,11 @@ public with sharing class PersonSalesTargetWithPublController {
         for (SalesPerson salesper : parsSalesPerson) {
             for (PublicationRow pubRow : salesper.publications) {
                 for (Sales_Target__c st : pubRow.publicTargets1) {
+                    st.Publication_Visible__c = true;
                     updateSalesTarget.add(st);
-                    if (st.Publication_Visible__c != false) {
+//                    if (st.Publication_Visible__c != false) {
                         showSalesTarget.add(st);
-                    }
+//                    }
                 }
             }
         }
