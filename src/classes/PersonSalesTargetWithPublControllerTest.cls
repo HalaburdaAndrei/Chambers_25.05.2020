@@ -62,7 +62,7 @@ public with sharing class PersonSalesTargetWithPublControllerTest {
             users.add(u.Id);
         }
         PersonSalesTargetWithPublController.addPublicationList(listPublic, year, users, jsonOld);
-        System.assertEquals(1512, [SELECT Id FROM Sales_Target__c].size());
+        System.assertEquals(1536, [SELECT Id FROM Sales_Target__c].size());
 
     }
 
@@ -77,7 +77,7 @@ public with sharing class PersonSalesTargetWithPublControllerTest {
             users.add(u.Id);
         }
         PersonSalesTargetWithPublController.deletePublication( year, jsonOld);
-        System.assertEquals(34, [SELECT Id FROM Sales_Target__c].size());
+        System.assertEquals(1, [SELECT Id FROM Sales_Target__c].size());
     }
 
     @IsTest

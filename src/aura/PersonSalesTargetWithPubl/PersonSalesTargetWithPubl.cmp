@@ -92,7 +92,7 @@
             </tr>
             <tr>
                 <aura:iteration items="{!v.DirectInsight}" var="di" indexVar="rowIndex">
-                    <th class="slds-text-align--center" title="Direct Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Direct<br/> Target</th>
+                    <th class="slds-text-align--center" title="Directory Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Directory<br/> Target</th>
                     <th class="slds-text-align--center" title="Insight Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Insight<br/> Target</th>
                 </aura:iteration>
             </tr>

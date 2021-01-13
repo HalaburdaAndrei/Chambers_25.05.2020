@@ -377,6 +377,7 @@ public with sharing class PublicationAllocatedTarget {
     @AuraEnabled
     public static List<PublicationRow> deletePublication(String jsonResultTable) {
         List<PublicationRow> parsePublicationRows = new List<PublicationRow>();
+        List<String> publicationIds = new List<String>();
         List<Publication_Target__c> listnotDelete = new List<Publication_Target__c>();
         if (jsonResultTable != null) {
             parsePublicationRows = (List<PublicationRow>) JSON.deserialize(jsonResultTable, List<PublicationRow>.class);
@@ -388,6 +389,7 @@ public with sharing class PublicationAllocatedTarget {
                     for (Publication_Target__c pbTarget : productCategoryRow.publicationTargets) {
                         if (pbTarget.Category_Visible__c == false) {
                             updatePublicationTargets.add(pbTarget);
+                            publicationIds.add(pbTarget.Publication__c);
                         } else {
                             listnotDelete.add(pbTarget);
                         }
@@ -397,6 +399,13 @@ public with sharing class PublicationAllocatedTarget {
         }
 
         if (updatePublicationTargets.size() > 0) {
+            List<Publication__c> updatePub = new List<Publication__c>();
+            for(Publication__c pub : [SELECT Id, Directory_Allocated_Target__c, Insights_Allocated_Target__c FROM Publication__c WHERE Id IN: publicationIds]){
+                pub.Directory_Allocated_Target__c = 0;
+                pub.Insights_Allocated_Target__c = 0;
+                updatePub.add(pub);
+            }
+            update updatePub;
 //            update updatePublicationTargets;
             delete updatePublicationTargets;
         }
