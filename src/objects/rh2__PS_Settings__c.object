@@ -139,6 +139,7 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <fullName>rh2__Limit_Pre_Processing__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
+        <description>Checking this field removes non-essential processing such as filtering out fields that don&apos;t need to be updated.  Leave this unchecked if you only want rollups to be processed where a change was actually made to the source field. However, enabling this setting does not guarantee the limiting of pre-processing, as other conditions can necessitate that pre-processing occurs. Some examples are if the source object is a knowledge article, or the source object has custom formula fields.</description>
         <externalId>false</externalId>
         <inlineHelpText>Leave this unchecked if you only want rollups / records to be processed where a change was actually made to the source field.  Removes non-essential processing such as filtering out fields that don&apos;t need to be updated (Can help w/ Timeout issues).</inlineHelpText>
         <label>Limit Pre Processing</label>
@@ -362,6 +363,20 @@ The converted leads are identified by the &quot;isConverted&quot; system field.<
         <externalId>false</externalId>
         <inlineHelpText>Determines the percentage of governor limit usage at which Rollup Helper should switch to asynchronous processing.  It is generally not recommended to lower this value below 60%.</inlineHelpText>
         <label>Usage % of Limits</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>rh2__Usage_of_Row_Limits__c</fullName>
+        <defaultValue>100</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines the percentage of query row limit usage Rollup Helper should use when retrieving child records. Lowering this setting may impact rollup accuracy, so it is recommended to keep this setting at or close to 100%. The default value is 100%.</inlineHelpText>
+        <label>Usage % of Row Limits</label>
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>

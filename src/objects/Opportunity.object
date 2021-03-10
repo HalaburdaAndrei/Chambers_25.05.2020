@@ -2118,7 +2118,8 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
     <webLinks>
         <fullName>Conga_Composer_Booking_Form</fullName>
         <availability>online</availability>
-        <description>Created by Conga Solution Manager. Record link: https://chambers--apxtconga4.eu16.visual.force.com/a0I1t00000GBWbVEAX.</description>
+        <description>Originally created by Conga Solution Manager. Date of last use of Update Button from Conga Solution record: https://chambers--partial--apxtconga4.cs108.visual.force.com/a0I1t00000GBWbVEAX
+13-Jan-2021 02:20:28 PM</description>
         <displayType>button</displayType>
         <encodingKey>UTF-8</encodingKey>
         <hasMenubar>false</hasMenubar>
@@ -2139,29 +2140,12 @@ COPY THE URL FROM THIS BUTTON and paste it into your own custom button or link. 
 
 &amp;QueryId=[BookingFormQuery]a0C1t000005jkh1
 
-&amp;TemplateId=a0K1t000005SDbF
-
-&amp;LRTF=1 
+&amp;TemplateId=a0K1t000005SDbF,a0K1t000005SDbZ,a0K1t000005SDch,a0K1t000005SDcr
 
 &amp;DefaultPDF=1
 &amp;AC0=1
 &amp;AC1=Follow+up+{!Opportunity.Name}
-&amp;AC3=3
-
-&amp;LiveEditVisible=0 
-
-&amp;LiveEditEnable=0 
-
-&amp;csvisible=1
-
-&amp;CSRecipient1={!Opportunity.SignerId__c}
-
-&amp;CSEmailSubject=Chambers+{!Opportunity.Publication_RE__c}+Booking+Form+for+signature
-
-&amp;csEmailMessage=Hello, {!Opportunity.Signer__c}, in reference to our conversation a short while ago, please find attached the booking form as detailed. You can you now confirm your inclusion by clicking the Begin Signing button. If you require anything further just let me know and I look forward to hearing back from you.
-
-&amp;csExpiration={!Opportunity.Book_Expiration_Date__c}
-&amp;csExpirationReminder={!Opportunity.Booking_Form_Reminder__c}</url>
+&amp;AC3=3</url>
         <width>900</width>
     </webLinks>
     <webLinks>

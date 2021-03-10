@@ -1,4 +1,3 @@
-
 @isTest
 private class Batch_AutoOppBrazilTest {
 

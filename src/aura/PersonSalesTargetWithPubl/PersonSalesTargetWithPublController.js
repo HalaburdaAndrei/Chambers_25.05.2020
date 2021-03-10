@@ -97,6 +97,14 @@
 
     },
 
+    toggleInActiveUser: function (component, event, helper) {
+        component.set('v.loaded', !component.get('v.loaded'));
+        var items = component.get("v.inActiveUsers");
+        component.set("v.inActiveUsers", !items);
+        component.set('v.loaded', !component.get('v.loaded'));
+
+    },
+
     addPublication: function (component, event, helper) {
 
         var items = component.get("v.tableBody")
@@ -591,5 +599,32 @@
         component.set("v.showSaveCancelBtn", false);
         $A.get('e.force:refreshView').fire();
     },
+
+    calculateWidth : function(component, event, helper) {
+        var childObj = event.target
+        var parObj = childObj.parentNode;
+        var count = 1;
+        while(parObj.tagName != 'TH') {
+            parObj = parObj.parentNode;
+            count++;
+        }
+        console.log('final tag Name'+parObj.tagName);
+        var mouseStart=event.clientX;
+        component.set("v.mouseStart",mouseStart);
+        component.set("v.oldWidth",parObj.offsetWidth);
+    },
+    setNewWidth : function(component, event, helper) {
+        var childObj = event.target
+        var parObj = childObj.parentNode;
+        var count = 1;
+        while(parObj.tagName != 'TH') {
+            parObj = parObj.parentNode;
+            count++;
+        }
+        var mouseStart = component.get("v.mouseStart");
+        var oldWidth = component.get("v.oldWidth");
+        var newWidth = event.clientX- parseFloat(mouseStart)+parseFloat(oldWidth);
+        parObj.style.width = newWidth+'px';
+    }
 
 })

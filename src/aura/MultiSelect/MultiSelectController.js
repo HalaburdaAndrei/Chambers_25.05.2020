@@ -27,41 +27,4 @@
 
     },
 
-    /**
-     * This function will be called when input box value change
-     * @author - Manish Choudhari
-     * */
-    // onInputChange : function(component, event, helper) {
-    //     //get input box's value
-    //     var inputText = event.target.value;
-    //     console.log('inputText >> ' + inputText);
-    //     //Filter options
-    //     helper.filterDropDownValues(component, inputText);
-    // },
-
-    /**
-     * This function will be called when refresh button is clicked
-     * This will clear all selections from picklist and rebuild a fresh picklist
-     * @author - Manish Choudhari
-     * */
-    // onRefreshClick : function(component, event, helper) {
-    //     //clear selected options
-    //     component.set("v.selectedOptions", []);
-    //     //Clear check mark from drop down items
-    //     helper.rebuildPicklist(component);
-    //     //Set picklist name
-    //     helper.setPickListName(component, component.get("v.selectedOptions"));
-    // },
-
-    /**
-     * This function will be called when clear button is clicked
-     * This will clear any current filters in place
-     * @author - Manish Choudhari
-     * */
-    // onClearClick : function(component, event, helper) {
-    //     //clear filter input box
-    //     component.getElement().querySelector('#ms-filter-input').value = '';
-    //     //reset filter
-    //     helper.resetAllFilters(component);
-    // },
 })

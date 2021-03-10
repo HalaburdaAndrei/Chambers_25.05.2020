@@ -47,19 +47,6 @@
                         <!-- Creating unordered list -->
                         <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid ms-dropdown" role="presentation">
 
-<!--                            &lt;!&ndash; showing filter input &ndash;&gt;-->
-<!--                            <aura:if isTrue="{!v.showFilterInput}">-->
-<!--                                <input class="slds-listbox__item ms-filter-input" id="ms-filter-input" aria-controls="ms-dropdown-items"-->
-<!--                                       role="textbox" type="text" placeholder="Filter values.." value="" oninput="{!c.onInputChange}"/>-->
-<!--                            </aura:if>-->
-<!--                            &lt;!&ndash; showing clear button &ndash;&gt;-->
-<!--                            <aura:if isTrue="{!v.showClearButton}">-->
-<!--                                <lightning:buttonIcon iconName="utility:clear" alternativeText="Clear current filters" onclick="{!c.onClearClick}"/>-->
-<!--                            </aura:if>-->
-<!--                            &lt;!&ndash; showing refresh button &ndash;&gt;-->
-<!--                            <aura:if isTrue="{!v.showRefreshButton}">-->
-<!--                                <lightning:buttonIcon iconName="utility:refresh" alternativeText="Clear all selections and rebuild picklist" onclick="{!c.onRefreshClick}"/>-->
-<!--                            </aura:if>-->
 
                             <!-- Generating list item by iterating over options -->
                             <aura:iteration items="{!v.msoptions}" var="item">
@@ -83,5 +70,5 @@
             </div>
         </div>
     </div>
-    <!-- DROPDOWN Component Code Ends HERE-->
+
 </aura:component>

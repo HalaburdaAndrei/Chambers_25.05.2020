@@ -15,12 +15,15 @@
     <aura:attribute name="showErrorClass" type="boolean" default="false"/>
     <aura:attribute name="loaded" type="Boolean" default="true"/>
     <aura:attribute name="sortAsc" type="Boolean"/>
+    <aura:attribute name="inActiveUsers" type="Boolean" default="false"/>
 
+    <aura:attribute name="mouseStart" type="string"/>
+    <aura:attribute name="oldWidth" type="string"/>
 
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-<!--    <div class="slds-color__background_gray-1 slds-is-relative">-->
-<!--    <div class="slds-color__background_gray-1 " style="width: 2700px">-->
+    <!--    <div class="slds-color__background_gray-1 slds-is-relative">-->
+    <!--    <div class="slds-color__background_gray-1 " style="width: 2700px">-->
     <div class="slds-color__background_gray-1 ">
         <lightning:card
                 variant="Narrow"
@@ -51,151 +54,356 @@
         </div>
 
         <aura:if isTrue="{!v.showSaveCancelBtn == True}">
-        <div class="slds-m-left_small slds-m-bottom_small slds-align_absolute-center slds-p-right--medium " style="z-index: 10">
-            <lightning:button class="slds-size_1-of-12" variant="destructive" label="Cancel" onclick="{!c.cancelButton }"/>
-            <lightning:button class="slds-size_1-of-12" variant="brand" label="Save" onclick="{!c.saveButton }"/>
-        </div>
+            <div class="slds-m-left_small slds-m-bottom_small slds-align_absolute-center slds-p-right--medium "
+                 style="z-index: 10">
+                <lightning:button class="slds-size_1-of-12" variant="destructive" label="Cancel"
+                                  onclick="{!c.cancelButton }"/>
+                <lightning:button class="slds-size_1-of-12" variant="brand" label="Save" onclick="{!c.saveButton }"/>
+            </div>
         </aura:if>
 
-    <div class="slds-scrollable" style="width:100%; height:550px">
-        <table aria-multiselectable="true" style="width: 2700px"
-               class="slds-table slds-table_bordered slds-table_col-bordered slds-table_fixed-layout"
-               role="grid">
+        <div class="slds-scrollable" style="width:100%; height:550px">
+            <table aria-multiselectable="true" style="width: 2700px"
+                   class="slds-table slds-table_bordered slds-table_col-bordered slds-table_fixed-layout"
+                   role="grid">
 
-            <thead class="">
-            <tr class="slds-text-title--caps slds-line-height_reset">
-                <th style="width:3.25rem; position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" rowspan="2" class="slds-text-align--right ">
-                    <div class="slds-form-element">
-                        <div class="slds-form-element__control">
-                            <label class="slds-checkbox">
-                                <!--header checkbox for select all-->
-                                <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}"/>
-                                <span class="slds-checkbox--faux"></span>
-                                <span class="slds-form-element__label text"></span>
-                            </label>
-                        </div>
-                    </div>
-                </th>
-                <th rowspan="2" class="slds-is-resizable slds-border_right " style="width:150px; position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" >
-                    <div class=" slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-truncate" title="Sales Person" >
-                    Sales Person
-                    </div></th>
-                <th rowspan="2" class="slds-is-resizable slds-border_right " style="position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" >
-                    <div class=" slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-truncate" title="TOTAL">
-                    TOTAL
-                    </div></th>
-                <aura:iteration items="{!v.tableHead}" var="head" indexVar="rowIndex">
-
-                    <th colspan="2" class="slds-text-align--center" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" title="{!head}">{!head} </th>
-                </aura:iteration>
-
-            </tr>
-            <tr>
-                <aura:iteration items="{!v.DirectInsight}" var="di" indexVar="rowIndex">
-                    <th class="slds-text-align--center" title="Directory Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Directory<br/> Target</th>
-                    <th class="slds-text-align--center" title="Insight Target" style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Insight<br/> Target</th>
-                </aura:iteration>
-            </tr>
-            </thead>
-
-            <tbody >
-            <aura:iteration items="{!v.tableBody}" var="body" indexVar="rowIndex">
-                <tr class="{!body.activeUser ? 'slds-line-height_reset' : 'slds-line-height_reset slds-is-selected'}">
-                    <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
-                        <label class="slds-checkbox">
-                            <ui:inputCheckbox text="{!rowIndex}" aura:id="boxPack" value="" labelClass="{!rowIndex}"
-                                              change="{!c.checkboxSelectUser}"/>
-                            <span class="slds-checkbox--faux"></span>
-                            <span class="slds-form-element__label text"></span>
-                        </label>
-
-                    </td>
-                    <td name="{!rowIndex}" onclick="{!c.toggle}" class="slds-truncate" title="{!body.userName}">
-                        <lightning:icon name="{!rowIndex}" size="xx-small" class="slds-p-right--small"
-                                        iconName="{!body.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
-                        <b>{!body.userName}</b></td>
-                    <td class="slds-truncate" title="{!body.totalUser}"><ui:outputNumber value="{!body.totalUser}" /></td>
-                    <aura:iteration items="{!body.usTargets}" var="userTarget" indexVar="usertargetindex">
-
-                    <td class="slds-truncate" title="{!userTarget.directTarget == 0 ? '': userTarget.directTarget}" ><ui:outputNumber value="{!userTarget.directTarget == 0 ? '': userTarget.directTarget}" /></td>
-                    <td class="slds-truncate" title="{!userTarget.insightTarget == 0 ? '': userTarget.insightTarget}"><ui:outputNumber value="{!userTarget.insightTarget == 0 ? '': userTarget.insightTarget}"/></td>
-                    </aura:iteration>
-                </tr>
-                <aura:if isTrue="{!body.expanded}">
-
-                    <aura:iteration items="{!body.publications}" var="publ" indexVar="indexvar">
-
-                        <tr>
-                            <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
-                                <label class="slds-checkbox" >
-                                    <ui:inputCheckbox text="{!indexvar}" aura:id="boxPub" value="" labelClass="{!rowIndex}"
-                                                      change="{!c.checkboxSelectPublication}"/>
+                <thead class="">
+                <tr class="slds-text-title--caps slds-line-height_reset">
+                    <th style="width:3.25rem; position: -webkit-sticky; position: sticky; z-index: 1; top: 0;"
+                        rowspan="2" class="slds-text-align--right slds-is-resizable">
+                        <div class="slds-form-element slds-resizable">
+                            <div class="slds-form-element__control">
+                                <label class="slds-checkbox">
+                                    <!--header checkbox for select all-->
+                                    <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}"/>
                                     <span class="slds-checkbox--faux"></span>
                                     <span class="slds-form-element__label text"></span>
                                 </label>
+                            </div>
+                        </div>
+                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}"
+                              ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                    </th>
+                    <th rowspan="2" class="slds-is-resizable slds-border_right "
+                        style="width:150px; position: -webkit-sticky; position: sticky; z-index: 1; top: 0;">
+                        <div class="slds-resizable slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-truncate"
+                             title="Sales Person">
+                            Sales Person
+                        </div>
+                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}"
+                              ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                    </th>
+                    <th rowspan="2" class="slds-is-resizable slds-border_right "
+                        style="position: -webkit-sticky; position: sticky; z-index: 1; top: 0;">
+                        <div class="slds-resizable slds-align--absolute-center slds-grid slds-grid_vertical-align-center slds-truncate"
+                             title="TOTAL">
+                            TOTAL
+                        </div>
+                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}"
+                              ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                    </th>
+                    <aura:iteration items="{!v.tableHead}" var="head" indexVar="rowIndex">
+
+                        <th colspan="2" class="slds-text-align--center slds-is-resizable"
+                            style="position: -webkit-sticky; position: sticky; z-index: 1; top: 0;" title="{!head}">
+                            {!head}
+                            <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}"
+                                  ondrag="{!c.setNewWidth}">
+                            <span class="slds-resizable__divider"></span>
+                        </span>
+                        </th>
+                    </aura:iteration>
+
+                </tr>
+                <tr>
+                    <aura:iteration items="{!v.DirectInsight}" var="di" indexVar="rowIndex">
+                        <th class="slds-text-align--center slds-is-resizable" title="Directory Target"
+                            style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Directory<br/>
+                            Target
+                            <!--                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}" ondrag="{!c.setNewWidth}">-->
+                            <!--                            <span class="slds-resizable__divider"></span>-->
+                            <!--                        </span>-->
+                        </th>
+                        <th class="slds-text-align--center slds-is-resizable" title="Insight Target"
+                            style="position: -webkit-sticky; position: sticky; z-index: 1; top: 23px;"> Insight<br/>
+                            Target
+                            <!--                        <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}" ondrag="{!c.setNewWidth}">-->
+                            <!--                            <span class="slds-resizable__divider"></span>-->
+                            <!--                        </span>-->
+                        </th>
+                    </aura:iteration>
+                </tr>
+                </thead>
+
+                <tbody>
+                <aura:iteration items="{!v.tableBody}" var="body" indexVar="rowIndex">
+                    <aura:if isTrue="{!body.activeUser}">
+
+                        <tr class="{!body.activeUser ? 'slds-line-height_reset' : 'slds-line-height_reset slds-is-selected'}">
+                            <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                <label class="slds-checkbox">
+                                    <ui:inputCheckbox text="{!rowIndex}" aura:id="boxPack" value=""
+                                                      labelClass="{!rowIndex}"
+                                                      change="{!c.checkboxSelectUser}"/>
+                                    <span class="slds-checkbox--faux"></span>
+                                    <span class="slds-form-element__label text"></span>
+                                </label>
+
                             </td>
-                            <td class="slds-truncate" title="{!publ.publnName}">{!publ.publnName}</td>
-                            <td class="slds-truncate" title="{!publ.totalpubl}"><ui:outputNumber value="{!publ.totalpubl}"/></td>
+                            <td name="{!rowIndex}" onclick="{!c.toggle}" class="slds-truncate" title="{!body.userName}">
+                                <lightning:icon name="{!rowIndex}" size="xx-small" class="slds-p-right--small"
+                                                iconName="{!body.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
+                                <b>{!body.userName}</b></td>
+                            <td class="slds-truncate" title="{!body.totalUser}">
+                                <ui:outputNumber value="{!body.totalUser}"/>
+                            </td>
+                            <aura:iteration items="{!body.usTargets}" var="userTarget" indexVar="usertargetindex">
 
-                            <aura:iteration items="{!publ.publicTargets1}" var="mapValue" indexVar="key">
+                                <td class="slds-truncate"
+                                    title="{!userTarget.directTarget == 0 ? '': userTarget.directTarget}">
+                                    <ui:outputNumber
+                                            value="{!userTarget.directTarget == 0 ? '': userTarget.directTarget}"/>
+                                </td>
+                                <td class="slds-truncate"
+                                    title="{!userTarget.insightTarget == 0 ? '': userTarget.insightTarget}">
+                                    <ui:outputNumber
+                                            value="{!userTarget.insightTarget == 0 ? '': userTarget.insightTarget}"/>
+                                </td>
+                            </aura:iteration>
+                        </tr>
+                        <aura:if isTrue="{!body.expanded}">
 
-                                <td id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}" title="{!mapValue.Directory_Target__c}"
-                                    class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}" >
+                            <aura:iteration items="{!body.publications}" var="publ" indexVar="indexvar">
+
+                                <tr>
+                                    <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                        <label class="slds-checkbox">
+                                            <ui:inputCheckbox text="{!indexvar}" aura:id="boxPub" value=""
+                                                              labelClass="{!rowIndex}"
+                                                              change="{!c.checkboxSelectPublication}"/>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label text"></span>
+                                        </label>
+                                    </td>
+                                    <td class="slds-truncate" title="{!publ.publnName}">{!publ.publnName}</td>
+                                    <td class="slds-truncate" title="{!publ.totalpubl}">
+                                        <ui:outputNumber value="{!publ.totalpubl}"/>
+                                    </td>
+
+                                    <aura:iteration items="{!publ.publicTargets1}" var="mapValue" indexVar="key">
+
+                                        <td id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                            title="{!mapValue.Directory_Target__c}"
+                                            class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
                                     <span class="slds-grid slds-grid_align-spread">
-                                            <span class="slds-truncate" title="{!mapValue.Directory_Target__c}"><ui:outputNumber value="{!mapValue.Directory_Target__c}" /></span>
-                                            <button onclick="{!c.inlineEditDirectory }" id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
-                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_xxx-small" tabindex="0" data-user ="{!rowIndex}"  data-pub="{!indexvar}" data-datadirectory="{!mapValue.Date__c}"
+                                            <span class="slds-truncate" title="{!mapValue.Directory_Target__c}"><ui:outputNumber
+                                                        value="{!mapValue.Directory_Target__c}"/></span>
+                                            <button onclick="{!c.inlineEditDirectory }"
+                                                    id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_xxx-small"
+                                                    tabindex="0" data-user="{!rowIndex}" data-pub="{!indexvar}"
+                                                    data-datadirectory="{!mapValue.Date__c}"
                                                     title="{!'Edit ' + mapValue.Directory_Target__c}">
-                                              <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                              <lightning:icon iconName="utility:edit" size="xx-small"
+                                                              alternativeText="edit"/>
                                             </button>
-                                        <div style="display: none" id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}">
-                                                <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
+                                        <div style="display: none"
+                                             id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}">
+                                                <section tabindex="0" class="slds-popover slds-popover_edit"
+                                                         role="dialog"
                                                          style="position:  relative; top: 0px">
                                                                 <ui:inputNumber class="slds-input inputFieldWidth"
                                                                                 requiredIndicatorClass="{!rowIndex}"
                                                                                 labelClass="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
-                                                                              aura:id="focusIdDirectory"
-                                                                              blur="{!c.closeDirectoryBox}"
+                                                                                aura:id="focusIdDirectory"
+                                                                                blur="{!c.closeDirectoryBox}"
                                                                                 value="{!mapValue.Directory_Target__c}"/>
                                                     <span id="form-end" tabindex="0"></span>
                                                 </section>
                                             </div>
                                     </span>
-                                </td>
-                                <td id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}" title="{!mapValue.Insights_Target__c}"
-                                    class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+                                        </td>
+                                        <td id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                            title="{!mapValue.Insights_Target__c}"
+                                            class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
                                     <span class="slds-grid slds-grid_align-spread">
-                                            <span class="slds-truncate" title="{!mapValue.Insights_Target__c}"><ui:outputNumber value="{!mapValue.Insights_Target__c}" /></span>
+                                            <span class="slds-truncate" title="{!mapValue.Insights_Target__c}"><ui:outputNumber
+                                                        value="{!mapValue.Insights_Target__c}"/></span>
 
-                                            <button onclick="{!c.inlineEditInsight}" id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
-                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_xxx-small" tabindex="0"
+                                            <button onclick="{!c.inlineEditInsight}"
+                                                    id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_xxx-small"
+                                                    tabindex="0"
                                                     title="{!'Edit ' + mapValue.Insights_Target__c}">
-                                              <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                              <lightning:icon iconName="utility:edit" size="xx-small"
+                                                              alternativeText="edit"/>
                                             </button>
-                                    <div style="display: none" id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}">
+                                    <div style="display: none"
+                                         id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}">
 
                                     <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
-                                                         style="position: relative; top: 0px">
+                                             style="position: relative; top: 0px">
                                                                 <ui:inputNumber class="slds-input inputFieldWidth"
                                                                                 requiredIndicatorClass="{!rowIndex}"
                                                                                 labelClass="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
-                                                                            aura:id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
-                                                                              blur="{!c.closeInsightBox}"
-                                                                              value="{!mapValue.Insights_Target__c}"/>
+                                                                                aura:id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                                                blur="{!c.closeInsightBox}"
+                                                                                value="{!mapValue.Insights_Target__c}"/>
                                                     <span id="form-end" tabindex="0"></span>
                                                 </section>
                                     </div>
                                     </span>
-                                </td>
+                                        </td>
+                                    </aura:iteration>
+                                </tr>
                             </aura:iteration>
-                        </tr>
+                        </aura:if>
+                    </aura:if>
+                </aura:iteration>
+                <p onclick="{!c.toggleInActiveUser}" class="slds-p-left_medium" style="background-color: #cccccc; width: 2700px">
+                    <lightning:icon name="1" size="xx-small" class="slds-p-right--small"
+                                    iconName="{!v.inActiveUsers ? 'utility:chevrondown':'utility:chevronright'}"/>
+                    <b>InActive Users</b>
+                </p>
+                <aura:if isTrue="{!v.inActiveUsers}">
+                    <aura:iteration items="{!v.tableBody}" var="body" indexVar="rowIndex">
+                        <aura:if isTrue="{!!body.activeUser}">
+
+                            <tr class="{!body.activeUser ? 'slds-line-height_reset' : 'slds-line-height_reset slds-is-selected'}">
+                                <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                    <label class="slds-checkbox">
+                                        <ui:inputCheckbox text="{!rowIndex}" aura:id="boxPack" value=""
+                                                          labelClass="{!rowIndex}"
+                                                          change="{!c.checkboxSelectUser}"/>
+                                        <span class="slds-checkbox--faux"></span>
+                                        <span class="slds-form-element__label text"></span>
+                                    </label>
+
+                                </td>
+                                <td name="{!rowIndex}" onclick="{!c.toggle}" class="slds-truncate"
+                                    title="{!body.userName}">
+                                    <lightning:icon name="{!rowIndex}" size="xx-small" class="slds-p-right--small"
+                                                    iconName="{!body.expanded ? 'utility:chevrondown':'utility:chevronright'}"/>
+                                    <b>{!body.userName}</b></td>
+                                <td class="slds-truncate" title="{!body.totalUser}">
+                                    <ui:outputNumber value="{!body.totalUser}"/>
+                                </td>
+                                <aura:iteration items="{!body.usTargets}" var="userTarget" indexVar="usertargetindex">
+
+                                    <td class="slds-truncate"
+                                        title="{!userTarget.directTarget == 0 ? '': userTarget.directTarget}">
+                                        <ui:outputNumber
+                                                value="{!userTarget.directTarget == 0 ? '': userTarget.directTarget}"/>
+                                    </td>
+                                    <td class="slds-truncate"
+                                        title="{!userTarget.insightTarget == 0 ? '': userTarget.insightTarget}">
+                                        <ui:outputNumber
+                                                value="{!userTarget.insightTarget == 0 ? '': userTarget.insightTarget}"/>
+                                    </td>
+                                </aura:iteration>
+                            </tr>
+                            <aura:if isTrue="{!body.expanded}">
+
+                                <aura:iteration items="{!body.publications}" var="publ" indexVar="indexvar">
+
+                                    <tr>
+                                        <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                            <label class="slds-checkbox">
+                                                <ui:inputCheckbox text="{!indexvar}" aura:id="boxPub" value=""
+                                                                  labelClass="{!rowIndex}"
+                                                                  change="{!c.checkboxSelectPublication}"/>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label text"></span>
+                                            </label>
+                                        </td>
+                                        <td class="slds-truncate" title="{!publ.publnName}">{!publ.publnName}</td>
+                                        <td class="slds-truncate" title="{!publ.totalpubl}">
+                                            <ui:outputNumber value="{!publ.totalpubl}"/>
+                                        </td>
+
+                                        <aura:iteration items="{!publ.publicTargets1}" var="mapValue" indexVar="key">
+
+                                            <td id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                title="{!mapValue.Directory_Target__c}"
+                                                class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+                                    <span class="slds-grid slds-grid_align-spread">
+                                            <span class="slds-truncate" title="{!mapValue.Directory_Target__c}"><ui:outputNumber
+                                                        value="{!mapValue.Directory_Target__c}"/></span>
+                                            <button onclick="{!c.inlineEditDirectory }"
+                                                    id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_xxx-small"
+                                                    tabindex="0" data-user="{!rowIndex}" data-pub="{!indexvar}"
+                                                    data-datadirectory="{!mapValue.Date__c}"
+                                                    title="{!'Edit ' + mapValue.Directory_Target__c}">
+                                              <lightning:icon iconName="utility:edit" size="xx-small"
+                                                              alternativeText="edit"/>
+                                            </button>
+                                        <div style="display: none"
+                                             id="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}">
+                                                <section tabindex="0" class="slds-popover slds-popover_edit"
+                                                         role="dialog"
+                                                         style="position:  relative; top: 0px">
+                                                                <ui:inputNumber class="slds-input inputFieldWidth"
+                                                                                requiredIndicatorClass="{!rowIndex}"
+                                                                                labelClass="{!'Directoru-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                                                aura:id="focusIdDirectory"
+                                                                                blur="{!c.closeDirectoryBox}"
+                                                                                value="{!mapValue.Directory_Target__c}"/>
+                                                    <span id="form-end" tabindex="0"></span>
+                                                </section>
+                                            </div>
+                                    </span>
+                                            </td>
+                                            <td id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                title="{!mapValue.Insights_Target__c}"
+                                                class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+                                    <span class="slds-grid slds-grid_align-spread">
+                                            <span class="slds-truncate" title="{!mapValue.Insights_Target__c}"><ui:outputNumber
+                                                        value="{!mapValue.Insights_Target__c}"/></span>
+
+                                            <button onclick="{!c.inlineEditInsight}"
+                                                    id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                    class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_xxx-small"
+                                                    tabindex="0"
+                                                    title="{!'Edit ' + mapValue.Insights_Target__c}">
+                                              <lightning:icon iconName="utility:edit" size="xx-small"
+                                                              alternativeText="edit"/>
+                                            </button>
+                                    <div style="display: none"
+                                         id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}">
+
+                                    <section tabindex="0" class="slds-popover slds-popover_edit" role="dialog"
+                                             style="position: relative; top: 0px">
+                                                                <ui:inputNumber class="slds-input inputFieldWidth"
+                                                                                requiredIndicatorClass="{!rowIndex}"
+                                                                                labelClass="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                                                aura:id="{!'Insight-'+rowIndex +'-'+ indexvar + '-'+ mapValue.Date__c}"
+                                                                                blur="{!c.closeInsightBox}"
+                                                                                value="{!mapValue.Insights_Target__c}"/>
+                                                    <span id="form-end" tabindex="0"></span>
+                                                </section>
+                                    </div>
+                                    </span>
+                                            </td>
+                                        </aura:iteration>
+                                    </tr>
+                                </aura:iteration>
+                            </aura:if>
+                        </aura:if>
                     </aura:iteration>
                 </aura:if>
-            </aura:iteration>
-            </tbody>
 
-        </table>
-    </div>
+
+                </tbody>
+
+            </table>
+        </div>
     </div>
 
 </aura:component>
